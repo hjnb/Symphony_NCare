@@ -45,23 +45,28 @@ Partial Class topform
         Me.btnY = New System.Windows.Forms.Button()
         Me.btnR = New System.Windows.Forms.Button()
         Me.btnW = New System.Windows.Forms.Button()
+        Me.lblName = New System.Windows.Forms.Label()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lstName
         '
+        Me.lstName.Font = New System.Drawing.Font("MS UI Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lstName.FormattingEnabled = True
-        Me.lstName.ItemHeight = 12
-        Me.lstName.Location = New System.Drawing.Point(98, 45)
+        Me.lstName.ItemHeight = 16
+        Me.lstName.Location = New System.Drawing.Point(98, 63)
         Me.lstName.Name = "lstName"
-        Me.lstName.Size = New System.Drawing.Size(140, 220)
+        Me.lstName.Size = New System.Drawing.Size(140, 212)
         Me.lstName.TabIndex = 0
         '
         'btnSukuri
         '
         Me.btnSukuri.BackColor = System.Drawing.Color.Pink
-        Me.btnSukuri.Location = New System.Drawing.Point(299, 42)
+        Me.btnSukuri.Font = New System.Drawing.Font("UD デジタル 教科書体 NP-B", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnSukuri.Location = New System.Drawing.Point(299, 49)
         Me.btnSukuri.Name = "btnSukuri"
-        Me.btnSukuri.Size = New System.Drawing.Size(156, 84)
+        Me.btnSukuri.Size = New System.Drawing.Size(200, 122)
         Me.btnSukuri.TabIndex = 1
         Me.btnSukuri.Text = "スクリーニング書"
         Me.btnSukuri.UseVisualStyleBackColor = False
@@ -69,9 +74,10 @@ Partial Class topform
         'btnKeikakusyo
         '
         Me.btnKeikakusyo.BackColor = System.Drawing.Color.PaleVioletRed
-        Me.btnKeikakusyo.Location = New System.Drawing.Point(299, 132)
+        Me.btnKeikakusyo.Font = New System.Drawing.Font("UD デジタル 教科書体 NP-B", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnKeikakusyo.Location = New System.Drawing.Point(299, 178)
         Me.btnKeikakusyo.Name = "btnKeikakusyo"
-        Me.btnKeikakusyo.Size = New System.Drawing.Size(156, 84)
+        Me.btnKeikakusyo.Size = New System.Drawing.Size(200, 122)
         Me.btnKeikakusyo.TabIndex = 2
         Me.btnKeikakusyo.Text = "計画書"
         Me.btnKeikakusyo.UseVisualStyleBackColor = False
@@ -79,9 +85,10 @@ Partial Class topform
         'btnKannfarennsu
         '
         Me.btnKannfarennsu.BackColor = System.Drawing.Color.LimeGreen
-        Me.btnKannfarennsu.Location = New System.Drawing.Point(461, 132)
+        Me.btnKannfarennsu.Font = New System.Drawing.Font("UD デジタル 教科書体 NP-B", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnKannfarennsu.Location = New System.Drawing.Point(505, 178)
         Me.btnKannfarennsu.Name = "btnKannfarennsu"
-        Me.btnKannfarennsu.Size = New System.Drawing.Size(156, 84)
+        Me.btnKannfarennsu.Size = New System.Drawing.Size(200, 122)
         Me.btnKannfarennsu.TabIndex = 3
         Me.btnKannfarennsu.Text = "カンファレンス"
         Me.btnKannfarennsu.UseVisualStyleBackColor = False
@@ -89,9 +96,10 @@ Partial Class topform
         'btnNyuukyosya
         '
         Me.btnNyuukyosya.BackColor = System.Drawing.Color.Khaki
-        Me.btnNyuukyosya.Location = New System.Drawing.Point(299, 222)
+        Me.btnNyuukyosya.Font = New System.Drawing.Font("UD デジタル 教科書体 NP-B", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnNyuukyosya.Location = New System.Drawing.Point(299, 306)
         Me.btnNyuukyosya.Name = "btnNyuukyosya"
-        Me.btnNyuukyosya.Size = New System.Drawing.Size(75, 58)
+        Me.btnNyuukyosya.Size = New System.Drawing.Size(97, 58)
         Me.btnNyuukyosya.TabIndex = 4
         Me.btnNyuukyosya.Text = "入居者"
         Me.btnNyuukyosya.UseVisualStyleBackColor = False
@@ -99,9 +107,10 @@ Partial Class topform
         'btnSyokusatu
         '
         Me.btnSyokusatu.BackColor = System.Drawing.Color.Pink
-        Me.btnSyokusatu.Location = New System.Drawing.Point(380, 222)
+        Me.btnSyokusatu.Font = New System.Drawing.Font("UD デジタル 教科書体 NP-B", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnSyokusatu.Location = New System.Drawing.Point(401, 306)
         Me.btnSyokusatu.Name = "btnSyokusatu"
-        Me.btnSyokusatu.Size = New System.Drawing.Size(75, 58)
+        Me.btnSyokusatu.Size = New System.Drawing.Size(97, 58)
         Me.btnSyokusatu.TabIndex = 5
         Me.btnSyokusatu.Text = "食札"
         Me.btnSyokusatu.UseVisualStyleBackColor = False
@@ -109,9 +118,10 @@ Partial Class topform
         'btnSeibijoukyou
         '
         Me.btnSeibijoukyou.BackColor = System.Drawing.Color.PaleVioletRed
-        Me.btnSeibijoukyou.Location = New System.Drawing.Point(461, 222)
+        Me.btnSeibijoukyou.Font = New System.Drawing.Font("UD デジタル 教科書体 NP-B", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnSeibijoukyou.Location = New System.Drawing.Point(505, 306)
         Me.btnSeibijoukyou.Name = "btnSeibijoukyou"
-        Me.btnSeibijoukyou.Size = New System.Drawing.Size(75, 58)
+        Me.btnSeibijoukyou.Size = New System.Drawing.Size(97, 58)
         Me.btnSeibijoukyou.TabIndex = 6
         Me.btnSeibijoukyou.Text = "整備状況"
         Me.btnSeibijoukyou.UseVisualStyleBackColor = False
@@ -119,9 +129,10 @@ Partial Class topform
         'btnAsemoni
         '
         Me.btnAsemoni.BackColor = System.Drawing.Color.Pink
-        Me.btnAsemoni.Location = New System.Drawing.Point(542, 222)
+        Me.btnAsemoni.Font = New System.Drawing.Font("UD デジタル 教科書体 NP-B", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnAsemoni.Location = New System.Drawing.Point(608, 306)
         Me.btnAsemoni.Name = "btnAsemoni"
-        Me.btnAsemoni.Size = New System.Drawing.Size(75, 58)
+        Me.btnAsemoni.Size = New System.Drawing.Size(97, 58)
         Me.btnAsemoni.TabIndex = 7
         Me.btnAsemoni.Text = "アセモニ"
         Me.btnAsemoni.UseVisualStyleBackColor = False
@@ -129,9 +140,10 @@ Partial Class topform
         'btnDouisyo
         '
         Me.btnDouisyo.BackColor = System.Drawing.Color.Coral
-        Me.btnDouisyo.Location = New System.Drawing.Point(299, 286)
+        Me.btnDouisyo.Font = New System.Drawing.Font("UD デジタル 教科書体 NP-B", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnDouisyo.Location = New System.Drawing.Point(299, 370)
         Me.btnDouisyo.Name = "btnDouisyo"
-        Me.btnDouisyo.Size = New System.Drawing.Size(75, 58)
+        Me.btnDouisyo.Size = New System.Drawing.Size(97, 58)
         Me.btnDouisyo.TabIndex = 8
         Me.btnDouisyo.Text = "同意書"
         Me.btnDouisyo.UseVisualStyleBackColor = False
@@ -139,9 +151,10 @@ Partial Class topform
         'btnSyokuinn
         '
         Me.btnSyokuinn.BackColor = System.Drawing.Color.LimeGreen
-        Me.btnSyokuinn.Location = New System.Drawing.Point(380, 286)
+        Me.btnSyokuinn.Font = New System.Drawing.Font("UD デジタル 教科書体 NP-B", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnSyokuinn.Location = New System.Drawing.Point(402, 370)
         Me.btnSyokuinn.Name = "btnSyokuinn"
-        Me.btnSyokuinn.Size = New System.Drawing.Size(75, 58)
+        Me.btnSyokuinn.Size = New System.Drawing.Size(97, 58)
         Me.btnSyokuinn.TabIndex = 9
         Me.btnSyokuinn.Text = "職員"
         Me.btnSyokuinn.UseVisualStyleBackColor = False
@@ -149,9 +162,10 @@ Partial Class topform
         'btnSinntyouTaijuu
         '
         Me.btnSinntyouTaijuu.BackColor = System.Drawing.Color.CornflowerBlue
-        Me.btnSinntyouTaijuu.Location = New System.Drawing.Point(461, 286)
+        Me.btnSinntyouTaijuu.Font = New System.Drawing.Font("UD デジタル 教科書体 NP-B", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnSinntyouTaijuu.Location = New System.Drawing.Point(505, 370)
         Me.btnSinntyouTaijuu.Name = "btnSinntyouTaijuu"
-        Me.btnSinntyouTaijuu.Size = New System.Drawing.Size(75, 58)
+        Me.btnSinntyouTaijuu.Size = New System.Drawing.Size(97, 58)
         Me.btnSinntyouTaijuu.TabIndex = 10
         Me.btnSinntyouTaijuu.Text = "身長/体重"
         Me.btnSinntyouTaijuu.UseVisualStyleBackColor = False
@@ -159,26 +173,28 @@ Partial Class topform
         'btnSyokusuu
         '
         Me.btnSyokusuu.BackColor = System.Drawing.Color.Magenta
-        Me.btnSyokusuu.Location = New System.Drawing.Point(299, 350)
+        Me.btnSyokusuu.Font = New System.Drawing.Font("UD デジタル 教科書体 NP-B", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnSyokusuu.Location = New System.Drawing.Point(299, 434)
         Me.btnSyokusuu.Name = "btnSyokusuu"
-        Me.btnSyokusuu.Size = New System.Drawing.Size(75, 58)
+        Me.btnSyokusuu.Size = New System.Drawing.Size(97, 58)
         Me.btnSyokusuu.TabIndex = 11
-        Me.btnSyokusuu.Text = "ＳＳ職数"
+        Me.btnSyokusuu.Text = "ＳＳ食数"
         Me.btnSyokusuu.UseVisualStyleBackColor = False
         '
         'btnSyokuinnsyoku
         '
         Me.btnSyokuinnsyoku.BackColor = System.Drawing.Color.LightSkyBlue
-        Me.btnSyokuinnsyoku.Location = New System.Drawing.Point(380, 350)
+        Me.btnSyokuinnsyoku.Font = New System.Drawing.Font("UD デジタル 教科書体 NP-B", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnSyokuinnsyoku.Location = New System.Drawing.Point(402, 434)
         Me.btnSyokuinnsyoku.Name = "btnSyokuinnsyoku"
-        Me.btnSyokuinnsyoku.Size = New System.Drawing.Size(75, 58)
+        Me.btnSyokuinnsyoku.Size = New System.Drawing.Size(97, 58)
         Me.btnSyokuinnsyoku.TabIndex = 12
         Me.btnSyokuinnsyoku.Text = "職員食"
         Me.btnSyokuinnsyoku.UseVisualStyleBackColor = False
         '
         'btnA
         '
-        Me.btnA.Location = New System.Drawing.Point(69, 45)
+        Me.btnA.Location = New System.Drawing.Point(69, 59)
         Me.btnA.Name = "btnA"
         Me.btnA.Size = New System.Drawing.Size(23, 23)
         Me.btnA.TabIndex = 13
@@ -187,7 +203,7 @@ Partial Class topform
         '
         'btnK
         '
-        Me.btnK.Location = New System.Drawing.Point(69, 67)
+        Me.btnK.Location = New System.Drawing.Point(69, 81)
         Me.btnK.Name = "btnK"
         Me.btnK.Size = New System.Drawing.Size(23, 23)
         Me.btnK.TabIndex = 14
@@ -196,7 +212,7 @@ Partial Class topform
         '
         'btnS
         '
-        Me.btnS.Location = New System.Drawing.Point(69, 89)
+        Me.btnS.Location = New System.Drawing.Point(69, 103)
         Me.btnS.Name = "btnS"
         Me.btnS.Size = New System.Drawing.Size(23, 23)
         Me.btnS.TabIndex = 15
@@ -205,7 +221,7 @@ Partial Class topform
         '
         'btbT
         '
-        Me.btbT.Location = New System.Drawing.Point(69, 111)
+        Me.btbT.Location = New System.Drawing.Point(69, 125)
         Me.btbT.Name = "btbT"
         Me.btbT.Size = New System.Drawing.Size(23, 23)
         Me.btbT.TabIndex = 16
@@ -214,7 +230,7 @@ Partial Class topform
         '
         'btnN
         '
-        Me.btnN.Location = New System.Drawing.Point(69, 133)
+        Me.btnN.Location = New System.Drawing.Point(69, 147)
         Me.btnN.Name = "btnN"
         Me.btnN.Size = New System.Drawing.Size(23, 23)
         Me.btnN.TabIndex = 17
@@ -223,7 +239,7 @@ Partial Class topform
         '
         'btnH
         '
-        Me.btnH.Location = New System.Drawing.Point(69, 155)
+        Me.btnH.Location = New System.Drawing.Point(69, 169)
         Me.btnH.Name = "btnH"
         Me.btnH.Size = New System.Drawing.Size(23, 23)
         Me.btnH.TabIndex = 18
@@ -232,7 +248,7 @@ Partial Class topform
         '
         'btnM
         '
-        Me.btnM.Location = New System.Drawing.Point(69, 177)
+        Me.btnM.Location = New System.Drawing.Point(69, 191)
         Me.btnM.Name = "btnM"
         Me.btnM.Size = New System.Drawing.Size(23, 23)
         Me.btnM.TabIndex = 19
@@ -241,7 +257,7 @@ Partial Class topform
         '
         'btnY
         '
-        Me.btnY.Location = New System.Drawing.Point(69, 199)
+        Me.btnY.Location = New System.Drawing.Point(69, 213)
         Me.btnY.Name = "btnY"
         Me.btnY.Size = New System.Drawing.Size(23, 23)
         Me.btnY.TabIndex = 20
@@ -250,7 +266,7 @@ Partial Class topform
         '
         'btnR
         '
-        Me.btnR.Location = New System.Drawing.Point(69, 221)
+        Me.btnR.Location = New System.Drawing.Point(69, 235)
         Me.btnR.Name = "btnR"
         Me.btnR.Size = New System.Drawing.Size(23, 23)
         Me.btnR.TabIndex = 21
@@ -259,18 +275,39 @@ Partial Class topform
         '
         'btnW
         '
-        Me.btnW.Location = New System.Drawing.Point(69, 243)
+        Me.btnW.Location = New System.Drawing.Point(69, 257)
         Me.btnW.Name = "btnW"
         Me.btnW.Size = New System.Drawing.Size(23, 23)
         Me.btnW.TabIndex = 22
         Me.btnW.Text = "わ"
         Me.btnW.UseVisualStyleBackColor = True
         '
+        'lblName
+        '
+        Me.lblName.AutoSize = True
+        Me.lblName.Font = New System.Drawing.Font("MS UI Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblName.ForeColor = System.Drawing.Color.Blue
+        Me.lblName.Location = New System.Drawing.Point(105, 19)
+        Me.lblName.Name = "lblName"
+        Me.lblName.Size = New System.Drawing.Size(47, 19)
+        Me.lblName.TabIndex = 23
+        Me.lblName.Text = "氏名"
+        '
+        'DataGridView1
+        '
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Location = New System.Drawing.Point(781, 202)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.Size = New System.Drawing.Size(167, 134)
+        Me.DataGridView1.TabIndex = 24
+        '
         'topform
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1215, 674)
+        Me.Controls.Add(Me.DataGridView1)
+        Me.Controls.Add(Me.lblName)
         Me.Controls.Add(Me.btnW)
         Me.Controls.Add(Me.btnR)
         Me.Controls.Add(Me.btnY)
@@ -296,7 +333,9 @@ Partial Class topform
         Me.Controls.Add(Me.lstName)
         Me.Name = "topform"
         Me.Text = "NCare"
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents lstName As System.Windows.Forms.ListBox
@@ -322,5 +361,7 @@ Partial Class topform
     Friend WithEvents btnY As System.Windows.Forms.Button
     Friend WithEvents btnR As System.Windows.Forms.Button
     Friend WithEvents btnW As System.Windows.Forms.Button
+    Friend WithEvents lblName As System.Windows.Forms.Label
+    Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
 
 End Class

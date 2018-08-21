@@ -94,6 +94,79 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Util.vb" />
+    <Compile Include="アセモニ.Designer.vb">
+      <DependentUpon>アセモニ.vb</DependentUpon>
+    </Compile>
+    <Compile Include="アセモニ.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="カンファレンス.Designer.vb">
+      <DependentUpon>カンファレンス.vb</DependentUpon>
+    </Compile>
+    <Compile Include="カンファレンス.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="スクリーニング書.Designer.vb">
+      <DependentUpon>スクリーニング書.vb</DependentUpon>
+    </Compile>
+    <Compile Include="スクリーニング書.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="入居者.Designer.vb">
+      <DependentUpon>入居者.vb</DependentUpon>
+    </Compile>
+    <Compile Include="入居者.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="同意書.Designer.vb">
+      <DependentUpon>同意書.vb</DependentUpon>
+    </Compile>
+    <Compile Include="同意書.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="整備状況.Designer.vb">
+      <DependentUpon>整備状況.vb</DependentUpon>
+    </Compile>
+    <Compile Include="整備状況.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="職員.Designer.vb">
+      <DependentUpon>職員.vb</DependentUpon>
+    </Compile>
+    <Compile Include="職員.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="職員食.Designer.vb">
+      <DependentUpon>職員食.vb</DependentUpon>
+    </Compile>
+    <Compile Include="職員食.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="計画書.Designer.vb">
+      <DependentUpon>計画書.vb</DependentUpon>
+    </Compile>
+    <Compile Include="計画書.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="身長体重.Designer.vb">
+      <DependentUpon>身長体重.vb</DependentUpon>
+    </Compile>
+    <Compile Include="身長体重.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="食札.Designer.vb">
+      <DependentUpon>食札.vb</DependentUpon>
+    </Compile>
+    <Compile Include="食札.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ＳＳ食数.Designer.vb">
+      <DependentUpon>ＳＳ食数.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ＳＳ食数.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="topform.resx">
