@@ -11,6 +11,10 @@ Public Class topform
 
     '.iniファイルのパス
     Public iniFilePath As String = My.Application.Info.DirectoryPath & "\NCare.ini"
+
+    '画像パス
+    Public imageFilePath As String = My.Application.Info.DirectoryPath & "\NCare.bmp"
+
     'フォーム
     Private frmAsemoni As アセモニ
     Private frmKannfarennsu As カンファレンス
@@ -45,24 +49,33 @@ Public Class topform
             Exit Sub
         End If
 
+        If Not System.IO.File.Exists(imageFilePath) Then
+            MsgBox("画像ファイルが存在しません。ファイルを配置して下さい。")
+            Me.Close()
+            Exit Sub
+        End If
+
         Me.WindowState = FormWindowState.Maximized
 
-        Dim reader As System.Data.OleDb.OleDbDataReader
         Dim Cn As New OleDbConnection(DB_NCare)
         Dim SQLCm As OleDbCommand = Cn.CreateCommand
-        SQLCm.CommandText = "select Nam from UsrM WHERE Unit <> '海' and Hyo = '1' order by Kana"
-        Cn.Open()
-        reader = SQLCm.ExecuteReader()
-        While reader.Read() = True
-            lstName.Items.Add(reader("Nam"))
-        End While
-        reader.Close()
+        Dim Adapter As New OleDbDataAdapter(SQLCm)
+        Dim Table As New DataTable
 
+        Util.EnableDoubleBuffering(DataGridView1)
 
-
-        Cn.Close()
+        SQLCm.CommandText = "select Nam, Kana from UsrM WHERE Unit <> '海' and Hyo = '1' order by Kana"
+        Adapter.Fill(Table)
+        With DataGridView1
+            .DataSource = Table
+            .Columns(0).Width = 120
+            .Columns(1).Visible = False
+        End With
 
         lblName.Text = ""
+
+        '画像表示
+        PictureBox1.ImageLocation = imageFilePath
 
     End Sub
 
@@ -163,46 +176,143 @@ Public Class topform
     End Sub
 
     Private Sub btnA_Click(sender As System.Object, e As System.EventArgs) Handles btnA.Click
-
+        Dim DB1rowcount As Integer = DataGridView1.Rows.Count
+        For i = 0 To DB1rowcount - 1
+            If System.Text.RegularExpressions.Regex.IsMatch(DataGridView1(1, i).Value.ToString, "^あ") = True Then
+                '見つかった場合は、その行に移動します。
+                DataGridView1.Rows(i).Selected = True
+                DataGridView1.FirstDisplayedScrollingRowIndex = i
+                '見つかった時点で繰り返し処理を中止します。
+                Exit For
+            End If
+        Next
     End Sub
 
     Private Sub btnK_Click(sender As System.Object, e As System.EventArgs) Handles btnK.Click
-
+        Dim DB1rowcount As Integer = DataGridView1.Rows.Count
+        For i = 0 To DB1rowcount - 1
+            If System.Text.RegularExpressions.Regex.IsMatch(DataGridView1(1, i).Value.ToString, "^か") = True Then
+                '見つかった場合は、その行に移動します。
+                DataGridView1.Rows(i).Selected = True
+                DataGridView1.FirstDisplayedScrollingRowIndex = i
+                '見つかった時点で繰り返し処理を中止します。
+                Exit For
+            End If
+        Next
     End Sub
 
     Private Sub btnS_Click(sender As System.Object, e As System.EventArgs) Handles btnS.Click
-
+        Dim DB1rowcount As Integer = DataGridView1.Rows.Count
+        For i = 0 To DB1rowcount - 1
+            If System.Text.RegularExpressions.Regex.IsMatch(DataGridView1(1, i).Value.ToString, "^さ") = True Then
+                '見つかった場合は、その行に移動します。
+                DataGridView1.Rows(i).Selected = True
+                DataGridView1.FirstDisplayedScrollingRowIndex = i
+                '見つかった時点で繰り返し処理を中止します。
+                Exit For
+            End If
+        Next
     End Sub
 
     Private Sub btbT_Click(sender As System.Object, e As System.EventArgs) Handles btbT.Click
-
+        Dim DB1rowcount As Integer = DataGridView1.Rows.Count
+        For i = 0 To DB1rowcount - 1
+            If System.Text.RegularExpressions.Regex.IsMatch(DataGridView1(1, i).Value.ToString, "^た") = True Then
+                '見つかった場合は、その行に移動します。
+                DataGridView1.Rows(i).Selected = True
+                DataGridView1.FirstDisplayedScrollingRowIndex = i
+                '見つかった時点で繰り返し処理を中止します。
+                Exit For
+            End If
+        Next
     End Sub
 
     Private Sub btnN_Click(sender As System.Object, e As System.EventArgs) Handles btnN.Click
-
+        Dim DB1rowcount As Integer = DataGridView1.Rows.Count
+        For i = 0 To DB1rowcount - 1
+            If System.Text.RegularExpressions.Regex.IsMatch(DataGridView1(1, i).Value.ToString, "^な") = True Then
+                '見つかった場合は、その行に移動します。
+                DataGridView1.Rows(i).Selected = True
+                DataGridView1.FirstDisplayedScrollingRowIndex = i
+                '見つかった時点で繰り返し処理を中止します。
+                Exit For
+            End If
+        Next
     End Sub
 
     Private Sub btnH_Click(sender As System.Object, e As System.EventArgs) Handles btnH.Click
-
+        Dim DB1rowcount As Integer = DataGridView1.Rows.Count
+        For i = 0 To DB1rowcount - 1
+            If System.Text.RegularExpressions.Regex.IsMatch(DataGridView1(1, i).Value.ToString, "^は") = True Then
+                '見つかった場合は、その行に移動します。
+                DataGridView1.Rows(i).Selected = True
+                DataGridView1.FirstDisplayedScrollingRowIndex = i
+                '見つかった時点で繰り返し処理を中止します。
+                Exit For
+            End If
+        Next
     End Sub
 
     Private Sub btnM_Click(sender As System.Object, e As System.EventArgs) Handles btnM.Click
-
+        Dim DB1rowcount As Integer = DataGridView1.Rows.Count
+        For i = 0 To DB1rowcount - 1
+            If System.Text.RegularExpressions.Regex.IsMatch(DataGridView1(1, i).Value.ToString, "^ま") = True Then
+                '見つかった場合は、その行に移動します。
+                DataGridView1.Rows(i).Selected = True
+                DataGridView1.FirstDisplayedScrollingRowIndex = i
+                '見つかった時点で繰り返し処理を中止します。
+                Exit For
+            End If
+        Next
     End Sub
 
     Private Sub btnY_Click(sender As System.Object, e As System.EventArgs) Handles btnY.Click
-
+        Dim DB1rowcount As Integer = DataGridView1.Rows.Count
+        For i = 0 To DB1rowcount - 1
+            If System.Text.RegularExpressions.Regex.IsMatch(DataGridView1(1, i).Value.ToString, "^や") = True Then
+                '見つかった場合は、その行に移動します。
+                DataGridView1.Rows(i).Selected = True
+                DataGridView1.FirstDisplayedScrollingRowIndex = i
+                '見つかった時点で繰り返し処理を中止します。
+                Exit For
+            End If
+        Next
     End Sub
 
     Private Sub btnR_Click(sender As System.Object, e As System.EventArgs) Handles btnR.Click
-
+        Dim DB1rowcount As Integer = DataGridView1.Rows.Count
+        For i = 0 To DB1rowcount - 1
+            If System.Text.RegularExpressions.Regex.IsMatch(DataGridView1(1, i).Value.ToString, "^ら") = True Or System.Text.RegularExpressions.Regex.IsMatch(DataGridView1(1, i).Value.ToString, "^り") = True Or System.Text.RegularExpressions.Regex.IsMatch(DataGridView1(1, i).Value.ToString, "^る") = True Or System.Text.RegularExpressions.Regex.IsMatch(DataGridView1(1, i).Value.ToString, "^れ") = True Or System.Text.RegularExpressions.Regex.IsMatch(DataGridView1(1, i).Value.ToString, "^ろ") = True Then
+                '見つかった場合は、その行に移動します。
+                DataGridView1.Rows(i).Selected = True
+                DataGridView1.FirstDisplayedScrollingRowIndex = i
+                '見つかった時点で繰り返し処理を中止します。
+                Exit For
+            End If
+        Next
     End Sub
 
     Private Sub btnW_Click(sender As System.Object, e As System.EventArgs) Handles btnW.Click
-
+        Dim DB1rowcount As Integer = DataGridView1.Rows.Count
+        For i = 0 To DB1rowcount - 1
+            If System.Text.RegularExpressions.Regex.IsMatch(DataGridView1(1, i).Value.ToString, "^わ") = True Then
+                '見つかった場合は、その行に移動します。
+                DataGridView1.Rows(i).Selected = True
+                DataGridView1.FirstDisplayedScrollingRowIndex = i
+                '見つかった時点で繰り返し処理を中止します。
+                Exit For
+            End If
+        Next
     End Sub
 
-    Private Sub lstName_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lstName.SelectedIndexChanged
-        lblName.Text = lstName.Text
+    Private Sub DataGridView1_CellMouseClick(sender As Object, e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles DataGridView1.CellMouseClick
+        Dim selectedrow As Integer = DataGridView1.CurrentRow.Index
+        lblName.Text = DataGridView1(0, selectedrow).Value
     End Sub
+    
+    Private Sub PictureBox1_Click(sender As System.Object, e As System.EventArgs) Handles PictureBox1.Click
+        Me.Close()
+    End Sub
+
+
 End Class

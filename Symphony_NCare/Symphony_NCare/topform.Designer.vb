@@ -22,7 +22,7 @@ Partial Class topform
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.lstName = New System.Windows.Forms.ListBox()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnSukuri = New System.Windows.Forms.Button()
         Me.btnKeikakusyo = New System.Windows.Forms.Button()
         Me.btnKannfarennsu = New System.Windows.Forms.Button()
@@ -47,18 +47,10 @@ Partial Class topform
         Me.btnW = New System.Windows.Forms.Button()
         Me.lblName = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'lstName
-        '
-        Me.lstName.Font = New System.Drawing.Font("MS UI Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lstName.FormattingEnabled = True
-        Me.lstName.ItemHeight = 16
-        Me.lstName.Location = New System.Drawing.Point(98, 63)
-        Me.lstName.Name = "lstName"
-        Me.lstName.Size = New System.Drawing.Size(140, 212)
-        Me.lstName.TabIndex = 0
         '
         'btnSukuri
         '
@@ -295,17 +287,39 @@ Partial Class topform
         '
         'DataGridView1
         '
+        Me.DataGridView1.AllowUserToAddRows = False
+        Me.DataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(781, 202)
+        Me.DataGridView1.ColumnHeadersVisible = False
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("MS UI Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle1
+        Me.DataGridView1.Location = New System.Drawing.Point(100, 63)
+        Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(167, 134)
+        Me.DataGridView1.RowHeadersVisible = False
+        Me.DataGridView1.Size = New System.Drawing.Size(140, 212)
         Me.DataGridView1.TabIndex = 24
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Location = New System.Drawing.Point(720, 49)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(197, 187)
+        Me.PictureBox1.TabIndex = 25
+        Me.PictureBox1.TabStop = False
         '
         'topform
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1215, 674)
+        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.lblName)
         Me.Controls.Add(Me.btnW)
@@ -330,15 +344,14 @@ Partial Class topform
         Me.Controls.Add(Me.btnKannfarennsu)
         Me.Controls.Add(Me.btnKeikakusyo)
         Me.Controls.Add(Me.btnSukuri)
-        Me.Controls.Add(Me.lstName)
         Me.Name = "topform"
         Me.Text = "NCare"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents lstName As System.Windows.Forms.ListBox
     Friend WithEvents btnSukuri As System.Windows.Forms.Button
     Friend WithEvents btnKeikakusyo As System.Windows.Forms.Button
     Friend WithEvents btnKannfarennsu As System.Windows.Forms.Button
@@ -363,5 +376,6 @@ Partial Class topform
     Friend WithEvents btnW As System.Windows.Forms.Button
     Friend WithEvents lblName As System.Windows.Forms.Label
     Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 
 End Class
