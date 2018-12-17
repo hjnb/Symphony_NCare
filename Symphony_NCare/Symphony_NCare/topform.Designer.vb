@@ -48,6 +48,8 @@ Partial Class topform
         Me.lblName = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.rbnPreview = New System.Windows.Forms.RadioButton()
+        Me.rbnPrintout = New System.Windows.Forms.RadioButton()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -314,11 +316,35 @@ Partial Class topform
         Me.PictureBox1.TabIndex = 25
         Me.PictureBox1.TabStop = False
         '
+        'rbnPreview
+        '
+        Me.rbnPreview.AutoSize = True
+        Me.rbnPreview.Checked = True
+        Me.rbnPreview.Location = New System.Drawing.Point(741, 306)
+        Me.rbnPreview.Name = "rbnPreview"
+        Me.rbnPreview.Size = New System.Drawing.Size(63, 16)
+        Me.rbnPreview.TabIndex = 26
+        Me.rbnPreview.TabStop = True
+        Me.rbnPreview.Text = "ﾌﾟﾚﾋﾞｭｰ"
+        Me.rbnPreview.UseVisualStyleBackColor = True
+        '
+        'rbnPrintout
+        '
+        Me.rbnPrintout.AutoSize = True
+        Me.rbnPrintout.Location = New System.Drawing.Point(741, 329)
+        Me.rbnPrintout.Name = "rbnPrintout"
+        Me.rbnPrintout.Size = New System.Drawing.Size(47, 16)
+        Me.rbnPrintout.TabIndex = 27
+        Me.rbnPrintout.Text = "印刷"
+        Me.rbnPrintout.UseVisualStyleBackColor = True
+        '
         'topform
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1215, 674)
+        Me.Controls.Add(Me.rbnPrintout)
+        Me.Controls.Add(Me.rbnPreview)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.lblName)
@@ -377,5 +403,7 @@ Partial Class topform
     Friend WithEvents lblName As System.Windows.Forms.Label
     Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents rbnPreview As System.Windows.Forms.RadioButton
+    Friend WithEvents rbnPrintout As System.Windows.Forms.RadioButton
 
 End Class
