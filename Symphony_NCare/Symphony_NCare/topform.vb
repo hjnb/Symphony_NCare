@@ -28,6 +28,8 @@ Public Class topform
     Private frmDouisyo As 同意書
     Private frmSyokusuu As ＳＳ食数
     Private frmNyuukyosya As 入居者
+    Private Birth As String
+    Private Jyuusyo As String
 
     Private Sub topform_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         'データベース、エクセル、構成ファイルの存在チェック
@@ -64,12 +66,14 @@ Public Class topform
 
         Util.EnableDoubleBuffering(DataGridView1)
 
-        SQLCm.CommandText = "select Nam, Kana from UsrM WHERE Unit <> '海' and Hyo = '1' order by Kana"
+        SQLCm.CommandText = "select Nam, Kana, Birth, Jyu from UsrM WHERE Unit <> '海' and Hyo = '1' order by Kana"
         Adapter.Fill(Table)
         With DataGridView1
             .DataSource = Table
             .Columns(0).Width = 120
             .Columns(1).Visible = False
+            .Columns(2).Visible = False
+            .Columns(3).Visible = False
         End With
 
         lblName.Text = ""
@@ -77,6 +81,7 @@ Public Class topform
         '画像表示
         PictureBox1.ImageLocation = imageFilePath
 
+        DataGridView1(0, 0).Selected = False
     End Sub
 
     Private Sub btnSukuri_Click(sender As System.Object, e As System.EventArgs) Handles btnSukuri.Click
@@ -88,10 +93,14 @@ Public Class topform
     End Sub
 
     Private Sub btnKeikakusyo_Click(sender As System.Object, e As System.EventArgs) Handles btnKeikakusyo.Click
-        If IsNothing(frmKeikakusyo) OrElse frmKeikakusyo.IsDisposed Then
-            frmKeikakusyo = New 計画書()
-            frmKeikakusyo.Owner = Me
-            frmKeikakusyo.Show()
+        If lblName.Text = "" Then
+            MsgBox("利用者を選択してください。")
+        Else
+            If IsNothing(frmKeikakusyo) OrElse frmKeikakusyo.IsDisposed Then
+                frmKeikakusyo = New 計画書(lblName.Text, Birth, Jyuusyo)
+                frmKeikakusyo.Owner = Me
+                frmKeikakusyo.Show()
+            End If
         End If
     End Sub
 
@@ -308,6 +317,8 @@ Public Class topform
     Private Sub DataGridView1_CellMouseClick(sender As Object, e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles DataGridView1.CellMouseClick
         Dim selectedrow As Integer = DataGridView1.CurrentRow.Index
         lblName.Text = DataGridView1(0, selectedrow).Value
+        Birth = DataGridView1(2, selectedrow).Value
+        Jyuusyo = DataGridView1(3, selectedrow).Value
     End Sub
     
     Private Sub PictureBox1_Click(sender As System.Object, e As System.EventArgs) Handles PictureBox1.Click

@@ -22,8 +22,16 @@ Partial Class 職員食
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container
+        Me.SuspendLayout()
+        '
+        '職員食
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.ClientSize = New System.Drawing.Size(1239, 693)
+        Me.Name = "職員食"
         Me.Text = "職員食"
+        Me.ResumeLayout(False)
+
     End Sub
 End Class
