@@ -8,6 +8,10 @@ Public Class 食札
     Private Sub 食札_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Util.EnableDoubleBuffering(DataGridView1)
 
+        lblUnit.Text = ""
+        lblName.Text = ""
+        lblHurigana.Text = ""
+
         DataGridView1.RowTemplate.Height = 18
 
         Dim Cn As New OleDbConnection(topform.DB_NCare)
@@ -23,11 +27,11 @@ Public Class 食札
         TextColumn.Name = "Print"
         TextColumn.HeaderText = "印刷対象"
 
-        DataGridView1.Columns(0).Visible = False
-        DataGridView1.Columns(1).Visible = False
-        DataGridView1.Columns(2).Width = 85
-        DataGridView1.Columns(3).Visible = False
-        DataGridView1.Columns(4).Width = 18
+        DataGridView1.Columns(0).Visible = False    'Unit
+        DataGridView1.Columns(1).Visible = False    'Kana
+        DataGridView1.Columns(2).Width = 85         'Nam
+        DataGridView1.Columns(3).Visible = False    'Hyo
+        DataGridView1.Columns(4).Width = 18         'Print
 
         DataGridView2.RowTemplate.Height = 18
 
@@ -105,6 +109,14 @@ Public Class 食札
                 End If
             Next
         Next
+
+        Dim SQLCm7 As OleDbCommand = Cn.CreateCommand
+        Dim Adapter7 As New OleDbDataAdapter(SQLCm7)
+        Dim Table7 As New DataTable
+        SQLCm7.CommandText = "select * from Dat15Unt"
+        Adapter7.Fill(Table7)
+        DataGridView7.DataSource = Table7
+
 
         DataGridView1.Focus()
         DataGridView1.CurrentCell = DataGridView1(2, 0)
@@ -310,6 +322,12 @@ Public Class 食札
     End Sub
 
     Private Sub chkInsatutaisyou_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkInsatutaisyou.CheckedChanged
+        If lblName.Text = "" Then
+            Return
+        End If
+
+        Dat15unit()
+
         Dim cnn As New ADODB.Connection
         cnn.Open(topform.DB_NCare)
         Dim SQL As String = ""
@@ -318,8 +336,9 @@ Public Class 食札
         Dim DGV2selectedrow As Integer = DataGridView2.CurrentRow.Index
         Dim DGV2rowscount As Integer = DataGridView2.Rows.Count
         Dim DGV5rowscount As Integer = DataGridView5.Rows.Count
+        Dim DGV7rowscount As Integer = DataGridView7.Rows.Count
 
-        For DGV5index As Integer = 0 To DGV5rowscount - 1
+        For DGV5index As Integer = 0 To DGV5rowscount - 1   'Dat15prntにデータがあるか
             'その人のデータがあるかないか
             If lblName.Text = DataGridView5(0, DGV5index).Value AndAlso lblHurigana.Text = DataGridView5(2, DGV5index).Value Then
                 'ある場合
@@ -339,6 +358,7 @@ Public Class 食札
                             Exit Sub
                         End If
                     Next
+
                 ElseIf chkInsatutaisyou.Checked = False Then
                     SQL = "UPDATE Dat15Prnt SET Prnt = 0 WHERE Nam = '" & lblName.Text & "' AND Kana = '" & lblHurigana.Text & "'"
                     cnn.Execute(SQL)
@@ -403,6 +423,73 @@ Public Class 食札
         End If
     End Sub
 
+    Private Sub Dat15unit()
+        Dim cnn As New ADODB.Connection
+        cnn.Open(topform.DB_NCare)
+        Dim SQL As String = ""
+        Dim DGV5rowscount As Integer = DataGridView5.Rows.Count
+        Dim DGV7rowscount As Integer = DataGridView7.Rows.Count
+
+        For DGV7index As Integer = 0 To DGV7rowscount - 1   'Dat15Untにデータがあるか
+            'その人のデータがあるかないか
+            If lblName.Text = DataGridView7(0, DGV7index).Value AndAlso lblHurigana.Text = DataGridView7(1, DGV7index).Value Then
+                'ある場合
+                If chkInsatutaisyou.Checked = True Then
+                    'SQL = "UPDATE Dat15Prnt SET Prnt = 1 WHERE Nam = '" & lblName.Text & "' AND Kana = '" & lblHurigana.Text & "'"
+                    'cnn.Execute(SQL)
+                    'cnn.Close()
+                    Exit Sub
+                ElseIf chkInsatutaisyou.Checked = False Then
+                    SQL = "DELETE FROM Dat15Unt WHERE Nam = '" & lblName.Text & "' AND Kana = '" & lblHurigana.Text & "' AND Unit = '" & lblUnit.Text & "'"
+                    cnn.Execute(SQL)
+                    cnn.Close()
+                    Exit Sub
+                End If
+            End If
+        Next
+
+
+        Dim nam As String = lblName.Text
+        Dim prnt As Integer
+        Dim kana As String = lblHurigana.Text
+        Dim unit As String = lblUnit.Text
+        Dim syu As String = ""
+
+        If chkInsatutaisyou.Checked = True Then
+            prnt = 1
+        ElseIf chkInsatutaisyou.Checked = False Then
+            prnt = 0
+        End If
+
+        If unit = "星" Then
+            syu = "1"
+        ElseIf unit = "森" Then
+            syu = "2"
+        ElseIf unit = "空" Then
+            syu = "3"
+        ElseIf unit = "花" Then
+            syu = "4"
+        ElseIf unit = "月" Then
+            syu = "5"
+        ElseIf unit = "海" Then
+            syu = "6"
+        ElseIf unit = "虹" Then
+            syu = "7"
+        ElseIf unit = "光" Then
+            syu = "8"
+        ElseIf unit = "丘" Then
+            syu = "9"
+        ElseIf unit = "風" Then
+            syu = "A"
+        ElseIf unit = "雪" Then
+            syu = "B"
+        End If
+
+        SQL = "INSERT INTO Dat15Unt VALUES ('" & nam & "', '" & kana & "', '" & unit & "', '" & syu & "')"
+        cnn.Execute(SQL)
+        cnn.Close()
+    End Sub
+
     Private Sub DataGridView4_CellFormatting(sender As Object, e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles DataGridView4.CellFormatting
         If e.RowIndex >= 0 AndAlso e.ColumnIndex = 0 Then
             e.Value = Util.convADStrToWarekiStr(e.Value)
@@ -430,25 +517,25 @@ Public Class 食札
             End If
         Next
         cmbSyokusyu.Text = DataGridView6(15, 0).Value
-        If DataGridView6(5, 0).Value = 1 Then
+        If DataGridView6(5, 0).Value = "1" Then
             rbnTyousyoku1.Checked = True
-        ElseIf DataGridView6(5, 0).Value = 2 Then
+        ElseIf DataGridView6(5, 0).Value = "2" Then
             rbnTyousyoku2.Checked = True
-        ElseIf DataGridView6(5, 0).Value = 3 Then
+        ElseIf DataGridView6(5, 0).Value = "3" Then
             rbnTyousyoku3.Checked = True
-        ElseIf DataGridView6(5, 0).Value = 0 Then
+        ElseIf DataGridView6(5, 0).Value = "0" Then
             rbnTyousyoku0.Checked = True
         End If
-        If DataGridView6(14, 0).Value = 1 Then
+        If DataGridView6(14, 0).Value = "1" Then
             rbnSiru1.Checked = True
             chkSiru3.Checked = False
-        ElseIf DataGridView6(14, 0).Value = 2 Then
+        ElseIf DataGridView6(14, 0).Value = "2" Then
             rbnSiru2.Checked = True
             chkSiru3.Checked = False
-        ElseIf DataGridView6(14, 0).Value = 3 Then
+        ElseIf DataGridView6(14, 0).Value = "3" Then
             chkSiru3.Checked = True
             txtSiruName.Text = DataGridView6(16, 0).Value
-        ElseIf DataGridView6(14, 0).Value = 0 Then
+        ElseIf DataGridView6(14, 0).Value = "0" Then
             rbnSiru0.Checked = True
             chkSiru3.Checked = False
         End If

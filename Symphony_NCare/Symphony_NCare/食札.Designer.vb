@@ -85,6 +85,7 @@ Partial Class 食札
         Me.Label14 = New System.Windows.Forms.Label()
         Me.DataGridView5 = New System.Windows.Forms.DataGridView()
         Me.DataGridView6 = New System.Windows.Forms.DataGridView()
+        Me.DataGridView7 = New System.Windows.Forms.DataGridView()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -94,6 +95,7 @@ Partial Class 食札
         CType(Me.DataGridView4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DataGridView7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DataGridView1
@@ -729,11 +731,21 @@ Partial Class 食札
         Me.DataGridView6.Size = New System.Drawing.Size(246, 305)
         Me.DataGridView6.TabIndex = 51
         '
+        'DataGridView7
+        '
+        Me.DataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView7.Location = New System.Drawing.Point(575, 61)
+        Me.DataGridView7.Name = "DataGridView7"
+        Me.DataGridView7.RowTemplate.Height = 21
+        Me.DataGridView7.Size = New System.Drawing.Size(10, 10)
+        Me.DataGridView7.TabIndex = 52
+        '
         '食札
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1274, 812)
+        Me.Controls.Add(Me.DataGridView7)
         Me.Controls.Add(Me.DataGridView6)
         Me.Controls.Add(Me.DataGridView5)
         Me.Controls.Add(Me.Label14)
@@ -799,6 +811,7 @@ Partial Class 食札
         CType(Me.DataGridView4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataGridView5, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataGridView6, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DataGridView7, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -866,4 +879,5 @@ Partial Class 食札
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents DataGridView5 As System.Windows.Forms.DataGridView
     Friend WithEvents DataGridView6 As System.Windows.Forms.DataGridView
+    Friend WithEvents DataGridView7 As System.Windows.Forms.DataGridView
 End Class
