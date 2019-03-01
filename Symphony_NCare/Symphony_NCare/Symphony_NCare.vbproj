@@ -82,6 +82,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssesDataGridView.Designer.vb">
+      <DependentUpon>AssesDataGridView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AssesDataGridView.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="topform.vb">
       <SubType>Form</SubType>
     </Compile>
