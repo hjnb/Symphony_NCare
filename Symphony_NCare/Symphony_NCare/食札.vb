@@ -6,6 +6,8 @@ Public Class 食札
     Private DGV3Table As DataTable
     Private frmPrint As 食札印刷
     Private Sub 食札_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Me.WindowState = FormWindowState.Maximized
+
         Util.EnableDoubleBuffering(DataGridView1)
 
         lblUnit.Text = ""
@@ -171,6 +173,7 @@ Public Class 食札
         If DataGridView4.Rows.Count > 0 Then
             DataGridView4(0, 0).Selected = False
         End If
+
     End Sub
 
     Private Sub DataGridView3_CellEnter(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView3.CellEnter
@@ -328,6 +331,14 @@ Public Class 食札
 
         Dat15unit()
 
+        Dim Cn As New OleDbConnection(topform.DB_NCare)
+        Dim SQLCm7 As OleDbCommand = Cn.CreateCommand
+        Dim Adapter7 As New OleDbDataAdapter(SQLCm7)
+        Dim Table7 As New DataTable
+        SQLCm7.CommandText = "select * from Dat15Unt"
+        Adapter7.Fill(Table7)
+        DataGridView7.DataSource = Table7
+
         Dim cnn As New ADODB.Connection
         cnn.Open(topform.DB_NCare)
         Dim SQL As String = ""
@@ -427,7 +438,6 @@ Public Class 食札
         Dim cnn As New ADODB.Connection
         cnn.Open(topform.DB_NCare)
         Dim SQL As String = ""
-        Dim DGV5rowscount As Integer = DataGridView5.Rows.Count
         Dim DGV7rowscount As Integer = DataGridView7.Rows.Count
 
         For DGV7index As Integer = 0 To DGV7rowscount - 1   'Dat15Untにデータがあるか
@@ -448,46 +458,41 @@ Public Class 食札
             End If
         Next
 
-
-        Dim nam As String = lblName.Text
-        Dim prnt As Integer
-        Dim kana As String = lblHurigana.Text
-        Dim unit As String = lblUnit.Text
-        Dim syu As String = ""
-
         If chkInsatutaisyou.Checked = True Then
-            prnt = 1
-        ElseIf chkInsatutaisyou.Checked = False Then
-            prnt = 0
+            Dim nam As String = lblName.Text
+            Dim kana As String = lblHurigana.Text
+            Dim unit As String = lblUnit.Text
+            Dim syu As String = ""
+
+            If unit = "星" Then
+                syu = "1"
+            ElseIf unit = "森" Then
+                syu = "2"
+            ElseIf unit = "空" Then
+                syu = "3"
+            ElseIf unit = "花" Then
+                syu = "4"
+            ElseIf unit = "月" Then
+                syu = "5"
+            ElseIf unit = "海" Then
+                syu = "6"
+            ElseIf unit = "虹" Then
+                syu = "7"
+            ElseIf unit = "光" Then
+                syu = "8"
+            ElseIf unit = "丘" Then
+                syu = "9"
+            ElseIf unit = "風" Then
+                syu = "A"
+            ElseIf unit = "雪" Then
+                syu = "B"
+            End If
+
+            SQL = "INSERT INTO Dat15Unt VALUES ('" & nam & "', '" & kana & "', '" & unit & "', '" & syu & "')"
+            cnn.Execute(SQL)
+            cnn.Close()
         End If
 
-        If unit = "星" Then
-            syu = "1"
-        ElseIf unit = "森" Then
-            syu = "2"
-        ElseIf unit = "空" Then
-            syu = "3"
-        ElseIf unit = "花" Then
-            syu = "4"
-        ElseIf unit = "月" Then
-            syu = "5"
-        ElseIf unit = "海" Then
-            syu = "6"
-        ElseIf unit = "虹" Then
-            syu = "7"
-        ElseIf unit = "光" Then
-            syu = "8"
-        ElseIf unit = "丘" Then
-            syu = "9"
-        ElseIf unit = "風" Then
-            syu = "A"
-        ElseIf unit = "雪" Then
-            syu = "B"
-        End If
-
-        SQL = "INSERT INTO Dat15Unt VALUES ('" & nam & "', '" & kana & "', '" & unit & "', '" & syu & "')"
-        cnn.Execute(SQL)
-        cnn.Close()
     End Sub
 
     Private Sub DataGridView4_CellFormatting(sender As Object, e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles DataGridView4.CellFormatting

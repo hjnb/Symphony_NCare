@@ -46,7 +46,7 @@ Partial Class 食札印刷
         Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
         Me.ShapeContainer1.Name = "ShapeContainer1"
         Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.LineShape4, Me.LineShape3, Me.LineShape2, Me.LineShape1})
-        Me.ShapeContainer1.Size = New System.Drawing.Size(1775, 665)
+        Me.ShapeContainer1.Size = New System.Drawing.Size(465, 141)
         Me.ShapeContainer1.TabIndex = 0
         Me.ShapeContainer1.TabStop = False
         '
@@ -159,35 +159,37 @@ Partial Class 食札印刷
         '
         Me.DataGridView1.AllowUserToAddRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(153, 130)
+        Me.DataGridView1.Location = New System.Drawing.Point(176, 105)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1552, 486)
+        Me.DataGridView1.Size = New System.Drawing.Size(10, 10)
         Me.DataGridView1.TabIndex = 8
         '
         'DataGridView2
         '
         Me.DataGridView2.AllowUserToAddRows = False
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView2.Location = New System.Drawing.Point(60, 170)
+        Me.DataGridView2.Location = New System.Drawing.Point(145, 105)
         Me.DataGridView2.Name = "DataGridView2"
-        Me.DataGridView2.Size = New System.Drawing.Size(71, 401)
+        Me.DataGridView2.Size = New System.Drawing.Size(10, 10)
         Me.DataGridView2.TabIndex = 9
         '
         '食札印刷
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1775, 665)
+        Me.ClientSize = New System.Drawing.Size(465, 141)
+        Me.Controls.Add(Me.btnJikkou)
         Me.Controls.Add(Me.DataGridView2)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.btnKyannseru)
-        Me.Controls.Add(Me.btnJikkou)
         Me.Controls.Add(Me.rbnTokki)
         Me.Controls.Add(Me.rbnItirann)
         Me.Controls.Add(Me.rbnAll)
         Me.Controls.Add(Me.chkHukusuu)
         Me.Controls.Add(Me.rbnKojinn)
         Me.Controls.Add(Me.ShapeContainer1)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "食札印刷"
         Me.Text = "食札印刷"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()

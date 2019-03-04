@@ -371,9 +371,13 @@ Public Class 食札印刷
             Dim D5 As String
             Dim D6 As String
             Dim D7 As String
-            '左列
+
             Dim DGVfindname As DataGridView = CType(Me.Owner, 食札).DataGridView1
             Dim DGVfindnamerowcount As Integer = DGVfindname.Rows.Count
+            Dim DGVfindname2 As DataGridView = CType(Me.Owner, 食札).DataGridView2
+            Dim DGVfindnamerowcount2 As Integer = DGVfindname2.Rows.Count
+            '左列
+            
             For c As Integer = 0 To DGV1rowscount - 1
 
                 If (c \ 60) Mod 2 = 0 Then  '左列
@@ -416,21 +420,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("B" & a * 14 + 15).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("B" & a * 14 + 4).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line1
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("B" & a * 14 + 15).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("B" & a * 14 + 4).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line1:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(Util.checkDBNullValue(DataGridView1(8, c).Value))  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -464,7 +476,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -507,21 +519,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("B" & a * 14 - 52).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("B" & a * 14 - 63).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line2
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("B" & a * 14 - 52).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("B" & a * 14 - 63).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line2:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -555,7 +575,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -598,22 +618,30 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("B" & a * 14 - 119).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("B" & a * 14 - 130).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line3
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("B" & a * 14 - 119).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("B" & a * 14 - 130).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line3:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
 
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.convADStrToWarekiStr(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.convADStrToWarekiStr(DataGridView1(12, c).Value) & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.convADStrToWarekiStr(Util.checkDBNullValue(DataGridView1(11, c).Value)) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.convADStrToWarekiStr(Util.checkDBNullValue(DataGridView1(12, c).Value)) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.convADStrToWarekiStr(DataGridView1(11, c).Value) & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.convADStrToWarekiStr(Util.checkDBNullValue(DataGridView1(11, c).Value)) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -647,7 +675,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -689,21 +717,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("B" & a * 14 - 186).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("B" & a * 14 - 197).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line4
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("B" & a * 14 - 186).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("B" & a * 14 - 197).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line4:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -737,7 +773,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -779,21 +815,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("B" & a * 14 - 253).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("B" & a * 14 - 264).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line5
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("B" & a * 14 - 253).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("B" & a * 14 - 264).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line5:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -827,7 +871,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -869,21 +913,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("B" & a * 14 - 320).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("B" & a * 14 - 331).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line6
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("B" & a * 14 - 320).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("B" & a * 14 - 331).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line6:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -917,7 +969,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -959,21 +1011,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("B" & a * 14 - 387).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("B" & a * 14 - 398).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line7
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("B" & a * 14 - 387).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("B" & a * 14 - 398).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line7:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -1007,7 +1067,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -1049,21 +1109,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("B" & a * 14 - 454).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("B" & a * 14 - 465).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line8
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("B" & a * 14 - 454).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("B" & a * 14 - 465).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line8:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -1097,7 +1165,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -1139,21 +1207,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("B" & a * 14 - 521).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("B" & a * 14 - 532).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line9
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("B" & a * 14 - 521).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("B" & a * 14 - 532).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line9:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -1187,7 +1263,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -1229,21 +1305,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("B" & a * 14 - 588).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("B" & a * 14 - 599).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line10
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("B" & a * 14 - 588).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("B" & a * 14 - 599).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line10:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -1277,7 +1361,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -1319,21 +1403,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("B" & a * 14 - 655).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("B" & a * 14 - 666).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line11
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("B" & a * 14 - 655).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("B" & a * 14 - 666).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line11:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -1367,7 +1459,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -1422,21 +1514,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("M" & a * 14 + 15).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("M" & a * 14 + 4).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line12
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("M" & a * 14 + 15).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("M" & a * 14 + 4).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line12:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -1470,7 +1570,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -1512,21 +1612,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("M" & a * 14 - 52).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("M" & a * 14 - 63).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line13
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("M" & a * 14 - 52).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("M" & a * 14 - 63).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line13:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -1560,7 +1668,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -1602,21 +1710,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("M" & a * 14 - 119).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("M" & a * 14 - 130).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line14
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("M" & a * 14 - 119).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("M" & a * 14 - 130).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line14:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -1650,7 +1766,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -1692,21 +1808,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("M" & a * 14 - 186).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("M" & a * 14 - 197).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line15
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("M" & a * 14 - 186).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("M" & a * 14 - 197).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line15:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -1740,7 +1864,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -1782,21 +1906,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("M" & a * 14 - 253).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("M" & a * 14 - 264).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line16
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("M" & a * 14 - 253).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("M" & a * 14 - 264).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line16:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -1830,7 +1962,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -1872,21 +2004,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("M" & a * 14 - 320).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("M" & a * 14 - 331).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line17
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("M" & a * 14 - 320).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("M" & a * 14 - 331).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line17:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -1920,7 +2060,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -1962,21 +2102,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("M" & a * 14 - 387).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("M" & a * 14 - 398).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line18
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("M" & a * 14 - 387).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("M" & a * 14 - 398).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line18:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -2010,7 +2158,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -2052,21 +2200,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("M" & a * 14 - 454).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("M" & a * 14 - 465).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line19
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("M" & a * 14 - 454).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("M" & a * 14 - 465).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line19:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -2100,7 +2256,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -2142,21 +2298,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("M" & a * 14 - 521).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("M" & a * 14 - 532).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line20
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("M" & a * 14 - 521).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("M" & a * 14 - 532).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line20:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -2190,7 +2354,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -2232,21 +2396,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("M" & a * 14 - 588).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("M" & a * 14 - 599).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line21
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("M" & a * 14 - 588).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("M" & a * 14 - 599).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line21:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -2280,7 +2452,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -2322,21 +2494,29 @@ Public Class 食札印刷
                                 If DataGridView1(0, c).Value = DGVfindname(2, unit).Value Then
                                     oSheet.Range("M" & a * 14 - 655).Value = DGVfindname(0, unit).Value
                                     oSheet.Range("M" & a * 14 - 666).Interior.Color = getCellBackgroundColor(DGVfindname(0, unit).Value)
+                                    GoTo line22
+                                End If
+                            Next
+                            For unit As Integer = 0 To DGVfindnamerowcount2 - 1
+                                If DataGridView1(0, c).Value = DGVfindname2(2, unit).Value Then
+                                    oSheet.Range("M" & a * 14 - 655).Value = DGVfindname2(0, unit).Value
+                                    oSheet.Range("M" & a * 14 - 666).Interior.Color = getCellBackgroundColor(DGVfindname2(0, unit).Value)
                                     Exit For
                                 End If
                             Next
+line22:
                             cell(0, 0) = D5  '禁1～4
                             cell(1, 0) = D6  '禁5～8
                             cell(2, 0) = D7  '禁9～12
                             cell(5, 1) = DataGridView1(0, c).Value  '名前
                             If Util.checkDBNullValue(DataGridView1(9, c).Value) = "1" Then
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & DataGridView1(12, c).Value & " まで"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " ～ " & Util.convADStrToWarekiStr(DataGridView1(10, c).Value) & " " & Util.checkDBNullValue(DataGridView1(12, c).Value) & " まで"
                             Else
-                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & DataGridView1(11, c).Value & " より"
+                                cell(7, 2) = Util.convADStrToWarekiStr(DataGridView1(2, c).Value) & " " & Util.checkDBNullValue(DataGridView1(11, c).Value) & " より"
                             End If
-                            cell(8, 0) = DataGridView1(8, c).Value  '形態3
-                            cell(9, 0) = DataGridView1(7, c).Value  '形態2
-                            cell(10, 0) = DataGridView1(6, c).Value  '形態1
+                            cell(8, 0) = Util.checkDBNullValue(DataGridView1(8, c).Value)  '形態3
+                            cell(9, 0) = Util.checkDBNullValue(DataGridView1(7, c).Value)  '形態2
+                            cell(10, 0) = Util.checkDBNullValue(DataGridView1(6, c).Value)  '形態1
                             Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim asaPicture As Excel.Picture
                             Dim asapath As String = ""
@@ -2370,7 +2550,7 @@ Public Class 食札印刷
                             Dim tomoPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                             Dim tomoPicture As Excel.Picture
                             Dim tomopath As String = ""
-                            If DataGridView1(18, c).Value = "1" Then
+                            If Util.checkDBNullValue(DataGridView1(18, c).Value) = "1" Then
                                 tomopath = My.Application.Info.DirectoryPath & "\img_asa" & "\tomo.gif"
                             End If
                             If System.IO.File.Exists(tomopath) Then
@@ -2436,16 +2616,342 @@ Public Class 食札印刷
             Dim DGV1rowscount As Integer = DataGridView1.Rows.Count
             Dim Personcount As Integer = DGV1rowscount \ 12
 
-            'For i As Integer = 0 To Personcount \ 10
-            '    If i <> 0 Then
-            '        Dim xlPasteRange As Excel.Range = oSheet.Range("B" & i * 31 - 26) 'ペースト先
-            '        oSheet.rows("1:31").copy(xlPasteRange)
-            '    End If
-            'Next
+            For i As Integer = 0 To Personcount \ 25
+                If i <> 0 Then
+                    Dim xlPasteRange As Excel.Range = oSheet.Range("A" & i * 31 + 1) 'ペースト先
+                    oSheet.rows("1:31").copy(xlPasteRange)
+                End If
+            Next
 
             Dim cell(24, 9) As String   '貼り付け用配列
 
+            Dim K5 As String
+            Dim floor As String = ""
+            Dim nowfloor As String = ""
+            For c As Integer = 0 To DGV1rowscount - 1
+                Dim a As Integer = c \ 12   '何番目の人のデータか
+                Dim b As Integer = c Mod 12
+                If b = 0 Then
+                    K5 = ""
+                    If a < 25 Then
+                        For i As Integer = 0 To 11
+                            If Util.checkDBNullValue(DataGridView1(4, c + i).Value) <> "" Then
+                                If K5 = "" Then
+                                    K5 = Util.checkDBNullValue(DataGridView1(4, c + i).Value)
+                                Else
+                                    K5 = K5 & "/" & Util.checkDBNullValue(DataGridView1(4, c + i).Value)
+                                End If
+                            End If
+                        Next
 
+                        If DataGridView1(25, c).Value = "1" OrElse DataGridView1(25, c).Value = "2" OrElse DataGridView1(25, c).Value = "3" OrElse DataGridView1(25, c).Value = "7" OrElse DataGridView1(25, c).Value = "8" OrElse DataGridView1(25, c).Value = "9" OrElse DataGridView1(25, c).Value = "10" Then
+                            nowfloor = "2階"
+                            If floor = nowfloor Then
+                                cell(a, 0) = ""
+                            ElseIf floor <> nowfloor Then
+                                cell(a, 0) = nowfloor
+                                floor = nowfloor
+                            End If
+                        ElseIf DataGridView1(25, c).Value = "4" OrElse DataGridView1(25, c).Value = "5" OrElse DataGridView1(25, c).Value = "6" OrElse DataGridView1(25, c).Value = "A" OrElse DataGridView1(25, c).Value = "B" Then
+                            nowfloor = "3階"
+                            If floor = nowfloor Then
+                                cell(a, 0) = ""
+                            ElseIf floor <> nowfloor Then
+                                cell(a, 0) = nowfloor
+                                floor = nowfloor
+                            End If
+                        End If
+                        cell(a, 1) = Util.checkDBNullValue(DataGridView1(24, c).Value)
+                        cell(a, 2) = Util.checkDBNullValue(DataGridView1(0, c).Value)
+                        cell(a, 3) = Util.checkDBNullValue(DataGridView1(15, c).Value)
+                        cell(a, 4) = Util.checkDBNullValue(DataGridView1(6, c).Value)
+                        cell(a, 5) = Util.checkDBNullValue(DataGridView1(7, c).Value)
+                        cell(a, 6) = Util.checkDBNullValue(DataGridView1(8, c).Value)
+                        If Util.checkDBNullValue(DataGridView1(14, c).Value) = "1" Then
+                            cell(a, 7) = "１/２"
+                        ElseIf Util.checkDBNullValue(DataGridView1(14, c).Value) = "2" Then
+                            cell(a, 7) = "なし"
+                        ElseIf Util.checkDBNullValue(DataGridView1(14, c).Value) = "3" Then
+                            cell(a, 7) = DataGridView1(16, c).Value
+                        ElseIf Util.checkDBNullValue(DataGridView1(14, c).Value) = "0" Then
+                            cell(a, 7) = ""
+                        End If
+                        If Util.checkDBNullValue(DataGridView1(5, c).Value) = "1" Then
+                            cell(a, 8) = "牛乳"
+                        ElseIf Util.checkDBNullValue(DataGridView1(5, c).Value) = "2" Then
+                            cell(a, 8) = "ヨーグルト"
+                        ElseIf Util.checkDBNullValue(DataGridView1(5, c).Value) = "3" Then
+                            cell(a, 8) = "エリー"
+                        ElseIf Util.checkDBNullValue(DataGridView1(5, c).Value) = "0" Then
+                            cell(a, 8) = ""
+                        End If
+                        cell(a, 9) = K5
+
+                        If a = Personcount - 1 OrElse a = 24 Then
+                            oSheet.Range("B5", "K29").Value = cell
+                            For row As Integer = 0 To 24
+                                For col As Integer = 0 To 9
+                                    cell(row, col) = ""
+                                Next
+                            Next
+                        End If
+                        oSheet.Range("K30").Value = "1"
+                    ElseIf a < 50 Then
+                        For i As Integer = 0 To 11
+                            If Util.checkDBNullValue(DataGridView1(4, c + i).Value) <> "" Then
+                                If K5 = "" Then
+                                    K5 = Util.checkDBNullValue(DataGridView1(4, c + i).Value)
+                                Else
+                                    K5 = K5 & "/" & Util.checkDBNullValue(DataGridView1(4, c + i).Value)
+                                End If
+                            End If
+                        Next
+
+                        If DataGridView1(25, c).Value = "1" OrElse DataGridView1(25, c).Value = "2" OrElse DataGridView1(25, c).Value = "3" OrElse DataGridView1(25, c).Value = "7" OrElse DataGridView1(25, c).Value = "8" OrElse DataGridView1(25, c).Value = "9" OrElse DataGridView1(25, c).Value = "10" Then
+                            nowfloor = "2階"
+                            If floor = nowfloor Then
+                                cell(a - 25, 0) = ""
+                            ElseIf floor <> nowfloor Then
+                                cell(a - 25, 0) = nowfloor
+                                floor = nowfloor
+                            End If
+                        ElseIf DataGridView1(25, c).Value = "4" OrElse DataGridView1(25, c).Value = "5" OrElse DataGridView1(25, c).Value = "6" OrElse DataGridView1(25, c).Value = "A" OrElse DataGridView1(25, c).Value = "B" Then
+                            nowfloor = "3階"
+                            If floor = nowfloor Then
+                                cell(a - 25, 0) = ""
+                            ElseIf floor <> nowfloor Then
+                                cell(a - 25, 0) = nowfloor
+                                floor = nowfloor
+                            End If
+                        End If
+                        cell(a - 25, 1) = Util.checkDBNullValue(DataGridView1(24, c).Value)
+                        cell(a - 25, 2) = Util.checkDBNullValue(DataGridView1(0, c).Value)
+                        cell(a - 25, 3) = Util.checkDBNullValue(DataGridView1(15, c).Value)
+                        cell(a - 25, 4) = Util.checkDBNullValue(DataGridView1(6, c).Value)
+                        cell(a - 25, 5) = Util.checkDBNullValue(DataGridView1(7, c).Value)
+                        cell(a - 25, 6) = Util.checkDBNullValue(DataGridView1(8, c).Value)
+                        If Util.checkDBNullValue(DataGridView1(14, c).Value) = "1" Then
+                            cell(a - 25, 7) = "１/２"
+                        ElseIf Util.checkDBNullValue(DataGridView1(14, c).Value) = "2" Then
+                            cell(a - 25, 7) = "なし"
+                        ElseIf Util.checkDBNullValue(DataGridView1(14, c).Value) = "3" Then
+                            cell(a - 25, 7) = DataGridView1(16, c).Value
+                        ElseIf Util.checkDBNullValue(DataGridView1(14, c).Value) = "0" Then
+                            cell(a - 25, 7) = ""
+                        End If
+                        If Util.checkDBNullValue(DataGridView1(5, c).Value) = "1" Then
+                            cell(a - 25, 8) = "牛乳"
+                        ElseIf Util.checkDBNullValue(DataGridView1(5, c).Value) = "2" Then
+                            cell(a - 25, 8) = "ヨーグルト"
+                        ElseIf Util.checkDBNullValue(DataGridView1(5, c).Value) = "3" Then
+                            cell(a - 25, 8) = "エリー"
+                        ElseIf Util.checkDBNullValue(DataGridView1(5, c).Value) = "0" Then
+                            cell(a - 25, 8) = ""
+                        End If
+                        cell(a - 25, 9) = K5
+
+                        If a = Personcount - 1 OrElse a = 49 Then
+                            oSheet.Range("B36", "K60").Value = cell
+                            For row As Integer = 0 To 24
+                                For col As Integer = 0 To 9
+                                    cell(row, col) = ""
+                                Next
+                            Next
+                        End If
+                        oSheet.Range("K61").Value = "2"
+                    ElseIf a < 75 Then
+                       For i As Integer = 0 To 11
+                            If Util.checkDBNullValue(DataGridView1(4, c + i).Value) <> "" Then
+                                If K5 = "" Then
+                                    K5 = Util.checkDBNullValue(DataGridView1(4, c + i).Value)
+                                Else
+                                    K5 = K5 & "/" & Util.checkDBNullValue(DataGridView1(4, c + i).Value)
+                                End If
+                            End If
+                        Next
+
+                        If DataGridView1(25, c).Value = "1" OrElse DataGridView1(25, c).Value = "2" OrElse DataGridView1(25, c).Value = "3" OrElse DataGridView1(25, c).Value = "7" OrElse DataGridView1(25, c).Value = "8" OrElse DataGridView1(25, c).Value = "9" OrElse DataGridView1(25, c).Value = "10" Then
+                            nowfloor = "2階"
+                            If floor = nowfloor Then
+                                cell(a - 50, 0) = ""
+                            ElseIf floor <> nowfloor Then
+                                cell(a - 50, 0) = nowfloor
+                                floor = nowfloor
+                            End If
+                        ElseIf DataGridView1(25, c).Value = "4" OrElse DataGridView1(25, c).Value = "5" OrElse DataGridView1(25, c).Value = "6" OrElse DataGridView1(25, c).Value = "A" OrElse DataGridView1(25, c).Value = "B" Then
+                            nowfloor = "3階"
+                            If floor = nowfloor Then
+                                cell(a - 50, 0) = ""
+                            ElseIf floor <> nowfloor Then
+                                cell(a - 50, 0) = nowfloor
+                                floor = nowfloor
+                            End If
+                        End If
+                        cell(a - 50, 1) = Util.checkDBNullValue(DataGridView1(24, c).Value)
+                        cell(a - 50, 2) = Util.checkDBNullValue(DataGridView1(0, c).Value)
+                        cell(a - 50, 3) = Util.checkDBNullValue(DataGridView1(15, c).Value)
+                        cell(a - 50, 4) = Util.checkDBNullValue(DataGridView1(6, c).Value)
+                        cell(a - 50, 5) = Util.checkDBNullValue(DataGridView1(7, c).Value)
+                        cell(a - 50, 6) = Util.checkDBNullValue(DataGridView1(8, c).Value)
+                        If Util.checkDBNullValue(DataGridView1(14, c).Value) = "1" Then
+                            cell(a - 50, 7) = "１/２"
+                        ElseIf Util.checkDBNullValue(DataGridView1(14, c).Value) = "2" Then
+                            cell(a - 50, 7) = "なし"
+                        ElseIf Util.checkDBNullValue(DataGridView1(14, c).Value) = "3" Then
+                            cell(a - 50, 7) = DataGridView1(16, c).Value
+                        ElseIf Util.checkDBNullValue(DataGridView1(14, c).Value) = "0" Then
+                            cell(a - 50, 7) = ""
+                        End If
+                        If Util.checkDBNullValue(DataGridView1(5, c).Value) = "1" Then
+                            cell(a - 50, 8) = "牛乳"
+                        ElseIf Util.checkDBNullValue(DataGridView1(5, c).Value) = "2" Then
+                            cell(a - 50, 8) = "ヨーグルト"
+                        ElseIf Util.checkDBNullValue(DataGridView1(5, c).Value) = "3" Then
+                            cell(a - 50, 8) = "エリー"
+                        ElseIf Util.checkDBNullValue(DataGridView1(5, c).Value) = "0" Then
+                            cell(a - 50, 8) = ""
+                        End If
+                        cell(a - 50, 9) = K5
+
+                        If a = Personcount - 1 OrElse a = 74 Then
+                            oSheet.Range("B67", "K91").Value = cell
+                            For row As Integer = 0 To 24
+                                For col As Integer = 0 To 9
+                                    cell(row, col) = ""
+                                Next
+                            Next
+                        End If
+                        oSheet.Range("K92").Value = "3"
+                    ElseIf a < 100 Then
+                       For i As Integer = 0 To 11
+                            If Util.checkDBNullValue(DataGridView1(4, c + i).Value) <> "" Then
+                                If K5 = "" Then
+                                    K5 = Util.checkDBNullValue(DataGridView1(4, c + i).Value)
+                                Else
+                                    K5 = K5 & "/" & Util.checkDBNullValue(DataGridView1(4, c + i).Value)
+                                End If
+                            End If
+                        Next
+
+                        If DataGridView1(25, c).Value = "1" OrElse DataGridView1(25, c).Value = "2" OrElse DataGridView1(25, c).Value = "3" OrElse DataGridView1(25, c).Value = "7" OrElse DataGridView1(25, c).Value = "8" OrElse DataGridView1(25, c).Value = "9" OrElse DataGridView1(25, c).Value = "10" Then
+                            nowfloor = "2階"
+                            If floor = nowfloor Then
+                                cell(a - 75, 0) = ""
+                            ElseIf floor <> nowfloor Then
+                                cell(a - 75, 0) = nowfloor
+                                floor = nowfloor
+                            End If
+                        ElseIf DataGridView1(25, c).Value = "4" OrElse DataGridView1(25, c).Value = "5" OrElse DataGridView1(25, c).Value = "6" OrElse DataGridView1(25, c).Value = "A" OrElse DataGridView1(25, c).Value = "B" Then
+                            nowfloor = "3階"
+                            If floor = nowfloor Then
+                                cell(a - 75, 0) = ""
+                            ElseIf floor <> nowfloor Then
+                                cell(a - 75, 0) = nowfloor
+                                floor = nowfloor
+                            End If
+                        End If
+                        cell(a - 75, 1) = Util.checkDBNullValue(DataGridView1(24, c).Value)
+                        cell(a - 75, 2) = Util.checkDBNullValue(DataGridView1(0, c).Value)
+                        cell(a - 75, 3) = Util.checkDBNullValue(DataGridView1(15, c).Value)
+                        cell(a - 75, 4) = Util.checkDBNullValue(DataGridView1(6, c).Value)
+                        cell(a - 75, 5) = Util.checkDBNullValue(DataGridView1(7, c).Value)
+                        cell(a - 75, 6) = Util.checkDBNullValue(DataGridView1(8, c).Value)
+                        If Util.checkDBNullValue(DataGridView1(14, c).Value) = "1" Then
+                            cell(a - 75, 7) = "１/２"
+                        ElseIf Util.checkDBNullValue(DataGridView1(14, c).Value) = "2" Then
+                            cell(a - 75, 7) = "なし"
+                        ElseIf Util.checkDBNullValue(DataGridView1(14, c).Value) = "3" Then
+                            cell(a - 75, 7) = DataGridView1(16, c).Value
+                        ElseIf Util.checkDBNullValue(DataGridView1(14, c).Value) = "0" Then
+                            cell(a - 75, 7) = ""
+                        End If
+                        If Util.checkDBNullValue(DataGridView1(5, c).Value) = "1" Then
+                            cell(a - 75, 8) = "牛乳"
+                        ElseIf Util.checkDBNullValue(DataGridView1(5, c).Value) = "2" Then
+                            cell(a - 75, 8) = "ヨーグルト"
+                        ElseIf Util.checkDBNullValue(DataGridView1(5, c).Value) = "3" Then
+                            cell(a - 75, 8) = "エリー"
+                        ElseIf Util.checkDBNullValue(DataGridView1(5, c).Value) = "0" Then
+                            cell(a - 75, 8) = ""
+                        End If
+                        cell(a - 75, 9) = K5
+
+                        If a = Personcount - 1 OrElse a = 99 Then
+                            oSheet.Range("B98", "K122").Value = cell
+                            For row As Integer = 0 To 24
+                                For col As Integer = 0 To 9
+                                    cell(row, col) = ""
+                                Next
+                            Next
+                        End If
+                        oSheet.Range("K123").Value = "4"
+                    ElseIf a < 125 Then
+                        For i As Integer = 0 To 11
+                            If Util.checkDBNullValue(DataGridView1(4, c + i).Value) <> "" Then
+                                If K5 = "" Then
+                                    K5 = Util.checkDBNullValue(DataGridView1(4, c + i).Value)
+                                Else
+                                    K5 = K5 & "/" & Util.checkDBNullValue(DataGridView1(4, c + i).Value)
+                                End If
+                            End If
+                        Next
+
+                        If DataGridView1(25, c).Value = "1" OrElse DataGridView1(25, c).Value = "2" OrElse DataGridView1(25, c).Value = "3" OrElse DataGridView1(25, c).Value = "7" OrElse DataGridView1(25, c).Value = "8" OrElse DataGridView1(25, c).Value = "9" OrElse DataGridView1(25, c).Value = "10" Then
+                            nowfloor = "2階"
+                            If floor = nowfloor Then
+                                cell(a - 100, 0) = ""
+                            ElseIf floor <> nowfloor Then
+                                cell(a - 100, 0) = nowfloor
+                                floor = nowfloor
+                            End If
+                        ElseIf DataGridView1(25, c).Value = "4" OrElse DataGridView1(25, c).Value = "5" OrElse DataGridView1(25, c).Value = "6" OrElse DataGridView1(25, c).Value = "A" OrElse DataGridView1(25, c).Value = "B" Then
+                            nowfloor = "3階"
+                            If floor = nowfloor Then
+                                cell(a - 100, 0) = ""
+                            ElseIf floor <> nowfloor Then
+                                cell(a - 100, 0) = nowfloor
+                                floor = nowfloor
+                            End If
+                        End If
+                        cell(a - 100, 1) = Util.checkDBNullValue(DataGridView1(24, c).Value)
+                        cell(a - 100, 2) = Util.checkDBNullValue(DataGridView1(0, c).Value)
+                        cell(a - 100, 3) = Util.checkDBNullValue(DataGridView1(15, c).Value)
+                        cell(a - 100, 4) = Util.checkDBNullValue(DataGridView1(6, c).Value)
+                        cell(a - 100, 5) = Util.checkDBNullValue(DataGridView1(7, c).Value)
+                        cell(a - 100, 6) = Util.checkDBNullValue(DataGridView1(8, c).Value)
+                        If Util.checkDBNullValue(DataGridView1(14, c).Value) = "1" Then
+                            cell(a - 100, 7) = "１/２"
+                        ElseIf Util.checkDBNullValue(DataGridView1(14, c).Value) = "2" Then
+                            cell(a - 100, 7) = "なし"
+                        ElseIf Util.checkDBNullValue(DataGridView1(14, c).Value) = "3" Then
+                            cell(a - 100, 7) = DataGridView1(16, c).Value
+                        ElseIf Util.checkDBNullValue(DataGridView1(14, c).Value) = "0" Then
+                            cell(a - 100, 7) = ""
+                        End If
+                        If Util.checkDBNullValue(DataGridView1(5, c).Value) = "1" Then
+                            cell(a - 100, 8) = "牛乳"
+                        ElseIf Util.checkDBNullValue(DataGridView1(5, c).Value) = "2" Then
+                            cell(a - 100, 8) = "ヨーグルト"
+                        ElseIf Util.checkDBNullValue(DataGridView1(5, c).Value) = "3" Then
+                            cell(a - 100, 8) = "エリー"
+                        ElseIf Util.checkDBNullValue(DataGridView1(5, c).Value) = "0" Then
+                            cell(a - 100, 8) = ""
+                        End If
+                        cell(a - 100, 9) = K5
+
+                        If a = Personcount - 1 OrElse a = 124 Then
+                            oSheet.Range("B129", "K153").Value = cell
+                            For row As Integer = 0 To 24
+                                For col As Integer = 0 To 9
+                                    cell(row, col) = ""
+                                Next
+                            Next
+                        End If
+                        oSheet.Range("K154").Value = "5"
+                    End If
+                End If
+
+            Next
 
 
 

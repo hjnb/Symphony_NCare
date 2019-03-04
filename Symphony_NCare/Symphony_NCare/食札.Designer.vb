@@ -579,7 +579,7 @@ Partial Class 食札
         Me.YmdBoxStart.EraLabelText = "H31"
         Me.YmdBoxStart.EraText = ""
         Me.YmdBoxStart.Location = New System.Drawing.Point(245, 449)
-        Me.YmdBoxStart.MonthLabelText = "02"
+        Me.YmdBoxStart.MonthLabelText = "03"
         Me.YmdBoxStart.MonthText = ""
         Me.YmdBoxStart.Name = "YmdBoxStart"
         Me.YmdBoxStart.Size = New System.Drawing.Size(110, 34)
@@ -612,7 +612,7 @@ Partial Class 食札
         Me.YmdBoxEND.EraLabelText = "H31"
         Me.YmdBoxEND.EraText = ""
         Me.YmdBoxEND.Location = New System.Drawing.Point(523, 449)
-        Me.YmdBoxEND.MonthLabelText = "02"
+        Me.YmdBoxEND.MonthLabelText = "03"
         Me.YmdBoxEND.MonthText = ""
         Me.YmdBoxEND.Name = "YmdBoxEND"
         Me.YmdBoxEND.Size = New System.Drawing.Size(110, 34)
@@ -726,9 +726,9 @@ Partial Class 食札
         Me.DataGridView6.AllowUserToResizeColumns = False
         Me.DataGridView6.AllowUserToResizeRows = False
         Me.DataGridView6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView6.Location = New System.Drawing.Point(987, 73)
+        Me.DataGridView6.Location = New System.Drawing.Point(623, 45)
         Me.DataGridView6.Name = "DataGridView6"
-        Me.DataGridView6.Size = New System.Drawing.Size(246, 305)
+        Me.DataGridView6.Size = New System.Drawing.Size(10, 10)
         Me.DataGridView6.TabIndex = 51
         '
         'DataGridView7
@@ -745,6 +745,7 @@ Partial Class 食札
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1274, 812)
+        Me.Controls.Add(Me.btnTouroku)
         Me.Controls.Add(Me.DataGridView7)
         Me.Controls.Add(Me.DataGridView6)
         Me.Controls.Add(Me.DataGridView5)
@@ -797,7 +798,6 @@ Partial Class 食札
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.DataGridView2)
         Me.Controls.Add(Me.DataGridView1)
-        Me.Controls.Add(Me.btnTouroku)
         Me.Name = "食札"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
