@@ -21,6 +21,15 @@
     '入力セルスタイル
     Private inputCellStyle As DataGridViewCellStyle
 
+    'dateYmdBoxエンターイベント制御用
+    Private canYmdBoxEnter As Boolean = False
+
+    '選択列index保持用
+    Private selectedColumnIndex As Integer = -1
+
+    'コピーデータ保持用
+    Private copyData(47) As String
+
     ''' <summary>
     ''' コンストラクタ
     ''' </summary>
@@ -76,6 +85,7 @@
             .BackColor = Color.FromKnownColor(KnownColor.Control)
             .SelectionBackColor = Color.FromKnownColor(KnownColor.Control)
             .SelectionForeColor = Color.Black
+            .Alignment = DataGridViewContentAlignment.MiddleLeft
         End With
 
         '単位列
@@ -185,7 +195,8 @@
             .AllowUserToDeleteRows = False '行削除禁止
             .BorderStyle = BorderStyle.FixedSingle
             .MultiSelect = False
-            .SelectionMode = DataGridViewSelectionMode.CellSelect 'クリック時に行選択
+            .SelectionMode = DataGridViewSelectionMode.CellSelect
+            .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
             .RowHeadersVisible = False
             .RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing
             .ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing
@@ -345,6 +356,8 @@
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub displayDgvAsses(selectedYmd As String)
+        canYmdBoxEnter = False
+
         'クリア
         clearInput()
 
@@ -367,13 +380,95 @@
                 'Sub
                 dgvSub(0, 0).Value = Util.checkDBNullValue(rs.Fields("Sub").Value)
             End If
-            '
+            '意欲
+            dgvAsses(gyo - 1 + 2, 0).Value = Util.checkDBNullValue(rs.Fields("Iyoku1").Value)
+            dgvAsses(gyo - 1 + 2, 1).Value = Util.checkDBNullValue(rs.Fields("Iyoku2").Value)
+            '体重
+            dgvAsses(gyo - 1 + 2, 2).Value = convDecimalStr(Util.checkDBNullValue(rs.Fields("Tai").Value))
+            'BMI
+            dgvAsses(gyo - 1 + 2, 3).Value = convDecimalStr(Util.checkDBNullValue(rs.Fields("Bmi").Value))
+            '体重減少
+            dgvAsses(gyo - 1 + 2, 4).Value = Util.checkDBNullValue(rs.Fields("Gen1").Value)
+            dgvAsses(gyo - 1 + 2, 5).Value = convDecimalStr(Util.checkDBNullValue(rs.Fields("Gen2").Value))
+            dgvAsses(gyo - 1 + 2, 6).Value = convZeroToEmpty(Util.checkDBNullValue(rs.Fields("Gen3").Value))
+            'ｱﾙﾌﾞﾐﾝ
+            dgvAsses(gyo - 1 + 2, 7).Value = convDecimalStr(Util.checkDBNullValue(rs.Fields("ALB").Value))
+            'その他
+            dgvAsses(gyo - 1 + 2, 8).Value = Util.checkDBNullValue(rs.Fields("Hok1").Value)
+            '満足度
+            dgvAsses(gyo - 1 + 2, 9).Value = Util.checkDBNullValue(rs.Fields("Man").Value)
+            '摂取量
+            dgvAsses(gyo - 1 + 2, 10).Value = convZeroToEmpty(Util.checkDBNullValue(rs.Fields("Ryo1").Value))
+            dgvAsses(gyo - 1 + 2, 11).Value = convZeroToEmpty(Util.checkDBNullValue(rs.Fields("Ryo2").Value))
+            dgvAsses(gyo - 1 + 2, 12).Value = convZeroToEmpty(Util.checkDBNullValue(rs.Fields("Ryo3").Value))
+            dgvAsses(gyo - 1 + 2, 13).Value = Util.checkDBNullValue(rs.Fields("Hok21").Value)
+            dgvAsses(gyo - 1 + 2, 14).Value = Util.checkDBNullValue(rs.Fields("Hok22").Value)
+            '栄養量
+            dgvAsses(gyo - 1 + 2, 15).Value = convZeroToEmpty(Util.checkDBNullValue(rs.Fields("Engy1").Value))
+            dgvAsses(gyo - 1 + 2, 16).Value = convDecimalStr(Util.checkDBNullValue(rs.Fields("Engy2").Value))
+            dgvAsses(gyo - 1 + 2, 17).Value = Util.checkDBNullValue(rs.Fields("Engy3").Value)
+            dgvAsses(gyo - 1 + 2, 18).Value = Util.checkDBNullValue(rs.Fields("Engy4").Value)
+            '留意事項
+            dgvAsses(gyo - 1 + 2, 19).Value = Util.checkDBNullValue(rs.Fields("Ryui1").Value)
+            dgvAsses(gyo - 1 + 2, 20).Value = Util.checkDBNullValue(rs.Fields("Ryui2").Value)
+            dgvAsses(gyo - 1 + 2, 21).Value = Util.checkDBNullValue(rs.Fields("Ryui3").Value)
+            dgvAsses(gyo - 1 + 2, 22).Value = Util.checkDBNullValue(rs.Fields("Ryui4").Value)
+            'その他(食習慣、・・・)
+            dgvAsses(gyo - 1 + 2, 23).Value = Util.checkDBNullValue(rs.Fields("Hok31").Value)
+            dgvAsses(gyo - 1 + 2, 24).Value = Util.checkDBNullValue(rs.Fields("Hok32").Value)
+            dgvAsses(gyo - 1 + 2, 25).Value = Util.checkDBNullValue(rs.Fields("Hok33").Value)
+            dgvAsses(gyo - 1 + 2, 26).Value = Util.checkDBNullValue(rs.Fields("Hok34").Value)
+            '栄養ケア
+            dgvAsses(gyo - 1 + 2, 27).Value = Util.checkDBNullValue(rs.Fields("Care1").Value)
+            dgvAsses(gyo - 1 + 2, 28).Value = Util.checkDBNullValue(rs.Fields("Care2").Value)
+            dgvAsses(gyo - 1 + 2, 29).Value = Util.checkDBNullValue(rs.Fields("Care3").Value)
+            dgvAsses(gyo - 1 + 2, 30).Value = Util.checkDBNullValue(rs.Fields("Care4").Value)
+            dgvAsses(gyo - 1 + 2, 31).Value = Util.checkDBNullValue(rs.Fields("Care5").Value)
+            dgvAsses(gyo - 1 + 2, 32).Value = Util.checkDBNullValue(rs.Fields("Care6").Value)
+            dgvAsses(gyo - 1 + 2, 33).Value = Util.checkDBNullValue(rs.Fields("Care7").Value)
+            dgvAsses(gyo - 1 + 2, 34).Value = Util.checkDBNullValue(rs.Fields("Tokki").Value)
+            '問題点
+            dgvAsses(gyo - 1 + 2, 35).Value = Util.checkDBNullValue(rs.Fields("Mon1").Value)
+            dgvAsses(gyo - 1 + 2, 36).Value = Util.checkDBNullValue(rs.Fields("Mon2").Value)
+            dgvAsses(gyo - 1 + 2, 37).Value = Util.checkDBNullValue(rs.Fields("Mon3").Value)
+            dgvAsses(gyo - 1 + 2, 38).Value = Util.checkDBNullValue(rs.Fields("Mon4").Value)
+            dgvAsses(gyo - 1 + 2, 39).Value = Util.checkDBNullValue(rs.Fields("Mon5").Value)
+            dgvAsses(gyo - 1 + 2, 40).Value = Util.checkDBNullValue(rs.Fields("Mon6").Value)
+            dgvAsses(gyo - 1 + 2, 41).Value = Util.checkDBNullValue(rs.Fields("Mon7").Value)
+            dgvAsses(gyo - 1 + 2, 42).Value = Util.checkDBNullValue(rs.Fields("Mon8").Value)
+            dgvAsses(gyo - 1 + 2, 43).Value = Util.checkDBNullValue(rs.Fields("Mon9").Value)
+            dgvAsses(gyo - 1 + 2, 44).Value = Util.checkDBNullValue(rs.Fields("Mon10").Value)
+            dgvAsses(gyo - 1 + 2, 45).Value = Util.checkDBNullValue(rs.Fields("Mon11").Value)
+            '総合評価
+            dgvAsses(gyo - 1 + 2, 46).Value = Util.checkDBNullValue(rs.Fields("Result").Value)
 
             rs.MoveNext()
         End While
         rs.Close()
         cn.Close()
+
+        canYmdBoxEnter = True
     End Sub
+
+    Private Function convDecimalStr(numStr As String) As String
+        If numStr.IndexOf(".") >= 0 Then
+            Return numStr
+        Else
+            If numStr = "" OrElse numStr = "0" Then
+                Return ""
+            Else
+                Return numStr & ".0"
+            End If
+        End If
+    End Function
+
+    Private Function convZeroToEmpty(numStr As String) As String
+        If numStr = "0" Then
+            Return ""
+        Else
+            Return numStr
+        End If
+    End Function
 
     ''' <summary>
     ''' 履歴リストセット
@@ -411,20 +506,609 @@
     End Sub
 
     ''' <summary>
+    ''' 列データクリア
+    ''' </summary>
+    ''' <param name="columnNum">クリア対象列index</param>
+    ''' <remarks></remarks>
+    Private Sub clearColumnData(columnNum As Integer)
+        DirectCast(datePanel.Controls("date" & columnNum & "YmdBox"), ymdBox.ymdBox).clearText()
+        For Each row As DataGridViewRow In dgvAsses.Rows
+            row.Cells("Date" & columnNum).Value = ""
+        Next
+    End Sub
+
+    ''' <summary>
     ''' クリアボタンクリックイベント
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub btnClear_Click(sender As System.Object, e As System.EventArgs) Handles btnClear.Click
+        dgvAsses.CurrentCell = dgvAsses(0, 0)
         Dim targetNum As String = clearComboBox.Text
         If "1" <= targetNum AndAlso targetNum <= "4" Then
-            DirectCast(datePanel.Controls("date" & targetNum & "YmdBox"), ymdBox.ymdBox).clearText()
-            For Each row As DataGridViewRow In dgvAsses.Rows
-                row.Cells("Date" & targetNum).Value = ""
-            Next
+            clearColumnData(targetNum)
         Else
             Return
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' コピーボタンクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnCopy_Click(sender As System.Object, e As System.EventArgs) Handles btnCopy.Click
+        dgvAsses.CurrentCell = dgvAsses(0, 0)
+        If selectedColumnIndex < 2 Then
+            Return
+        End If
+
+        'コピー配列内容クリア
+        Array.Clear(copyData, 0, copyData.Length)
+
+        '選択列のデータ内容コピー
+        copyData(0) = DirectCast(datePanel.Controls("date" & (selectedColumnIndex - 1) & "YmdBox"), ymdBox.ymdBox).getADStr()
+        For i As Integer = 0 To 46
+            copyData(i + 1) = Util.checkDBNullValue(dgvAsses(selectedColumnIndex, i).Value)
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' 貼り付けボタンクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnPaste_Click(sender As System.Object, e As System.EventArgs) Handles btnPaste.Click
+        dgvAsses.CurrentCell = dgvAsses(0, 0)
+        If selectedColumnIndex < 2 Then
+            Return
+        End If
+
+        'データクリア
+        clearColumnData(selectedColumnIndex - 1)
+
+        'データ貼り付け
+        DirectCast(datePanel.Controls("date" & (selectedColumnIndex - 1) & "YmdBox"), ymdBox.ymdBox).setADStr(copyData(0))
+        For i As Integer = 0 To 46
+            dgvAsses(selectedColumnIndex, i).Value = copyData(i + 1)
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' 実施日ボックスエンターイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub dateYmdBox_Enter(sender As Object, e As System.EventArgs) Handles date1YmdBox.Enter, date2YmdBox.Enter, date3YmdBox.Enter, date4YmdBox.Enter
+        If canYmdBoxEnter Then
+            Dim yb As ymdBox.ymdBox = DirectCast(sender, ymdBox.ymdBox)
+            Dim num As Integer = CInt(yb.Name.Substring(4, 1)) + 1
+            selectedColumnIndex = num
+        End If
+    End Sub
+
+    Private Sub dgvAsses_CellBeginEdit(sender As Object, e As System.Windows.Forms.DataGridViewCellCancelEventArgs) Handles dgvAsses.CellBeginEdit
+        If e.ColumnIndex >= 2 AndAlso (e.RowIndex = 2 OrElse e.RowIndex = 3 OrElse e.RowIndex = 5 OrElse e.RowIndex = 6 OrElse e.RowIndex = 7 OrElse e.RowIndex = 10 OrElse e.RowIndex = 11 OrElse e.RowIndex = 12 OrElse e.RowIndex = 15 OrElse e.RowIndex = 16) Then
+            dgvAsses(e.ColumnIndex, e.RowIndex).Style.Alignment = DataGridViewContentAlignment.MiddleRight
+        End If
+    End Sub
+
+    Private Sub dgvAsses_CellLeave(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvAsses.CellLeave
+        If e.ColumnIndex >= 2 AndAlso (e.RowIndex = 2 OrElse e.RowIndex = 3 OrElse e.RowIndex = 5 OrElse e.RowIndex = 6 OrElse e.RowIndex = 7 OrElse e.RowIndex = 10 OrElse e.RowIndex = 11 OrElse e.RowIndex = 12 OrElse e.RowIndex = 15 OrElse e.RowIndex = 16) Then
+            dgvAsses(e.ColumnIndex, e.RowIndex).Style.Alignment = DataGridViewContentAlignment.MiddleCenter
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' dgvアセモニセルマウスクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub dgvAsses_CellMouseClick(sender As Object, e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgvAsses.CellMouseClick
+        selectedColumnIndex = e.ColumnIndex
+    End Sub
+
+    Private Sub dgvAsses_EditingControlShowing(sender As Object, e As System.Windows.Forms.DataGridViewEditingControlShowingEventArgs) Handles dgvAsses.EditingControlShowing
+        If TypeOf e.Control Is DataGridViewTextBoxEditingControl Then
+            Dim dgv As DataGridView = DirectCast(sender, DataGridView)
+
+            '選択行index
+            Dim selectedRowIndex As Integer = dgv.CurrentCell.RowIndex
+
+            '編集のために表示されているテキストボックス取得、設定
+            Dim tb As DataGridViewTextBoxEditingControl = DirectCast(e.Control, DataGridViewTextBoxEditingControl)
+
+            If selectedRowIndex = 2 OrElse selectedRowIndex = 3 OrElse selectedRowIndex = 5 OrElse selectedRowIndex = 7 OrElse selectedRowIndex = 16 Then
+                'kg等のテキストボックス用
+                tb.ImeMode = Windows.Forms.ImeMode.Disable
+                tb.ContextMenu = New ContextMenu()
+                If tb.Text = "" Then
+                    tb.Text = "0.0"
+                End If
+            ElseIf selectedRowIndex = 6 Then
+                'ヶ月テキストボックス用
+                tb.ImeMode = Windows.Forms.ImeMode.Disable
+                tb.ContextMenu = New ContextMenu()
+                If tb.Text = "" Then
+                    tb.Text = "0"
+                End If
+            ElseIf selectedRowIndex = 10 OrElse selectedRowIndex = 11 OrElse selectedRowIndex = 12 Then
+                '%テキストボックス用
+                tb.ImeMode = Windows.Forms.ImeMode.Disable
+                tb.ContextMenu = New ContextMenu()
+                If tb.Text = "" Then
+                    tb.Text = "0"
+                End If
+            ElseIf selectedRowIndex = 15 Then
+                'Kcalテキストボックス用
+                tb.ImeMode = Windows.Forms.ImeMode.Disable
+                tb.ContextMenu = New ContextMenu()
+                If tb.Text = "" Then
+                    tb.Text = "0"
+                End If
+            End If
+            
+            'イベントハンドラを削除
+            RemoveHandler tb.KeyDown, AddressOf decimalTextBox_KeyDown
+            RemoveHandler tb.KeyDown, AddressOf monthTextBox_KeyDown
+            RemoveHandler tb.KeyDown, AddressOf percentTextBox_KeyDown
+            RemoveHandler tb.KeyDown, AddressOf kcalTextBox_KeyDown
+
+            '該当行
+            If selectedRowIndex = 2 OrElse selectedRowIndex = 3 OrElse selectedRowIndex = 5 OrElse selectedRowIndex = 7 OrElse selectedRowIndex = 16 Then
+                'kg等のテキストボックス用
+                AddHandler tb.KeyDown, AddressOf decimalTextBox_KeyDown
+            ElseIf selectedRowIndex = 6 Then
+                'ヶ月テキストボックス用
+                AddHandler tb.KeyDown, AddressOf monthTextBox_KeyDown
+            ElseIf selectedRowIndex = 10 OrElse selectedRowIndex = 11 OrElse selectedRowIndex = 12 Then
+                'パーセントテキストボックス用
+                AddHandler tb.KeyDown, AddressOf percentTextBox_KeyDown
+            ElseIf selectedRowIndex = 15 Then
+                'カロリーテキストボックス用
+                AddHandler tb.KeyDown, AddressOf kcalTextBox_KeyDown
+            End If
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' kg等のテキストボックス用keyDownイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub decimalTextBox_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs)
+        Dim tb As TextBox = CType(sender, TextBox)
+        Dim inputIntStr As String = tb.Text.Split(".")(0) '整数部
+        Dim inputDecimalStr As String = tb.Text.Split(".")(1) '小数部
+        Dim maxSelectionStart As Integer = tb.Text.Length '最大値
+        Dim currentSelectionStart As Integer = tb.SelectionStart '現在選択位置
+        Dim decimalPointSelectionStart As Integer = maxSelectionStart - 2 ' 小数点の位置
+
+        If e.KeyCode = Windows.Forms.Keys.Left Then
+            'カーソルを左に動かす
+            If currentSelectionStart <> 0 Then
+                tb.SelectionStart -= 1
+                If currentSelectionStart = maxSelectionStart - 1 OrElse currentSelectionStart = maxSelectionStart Then
+                    tb.SelectionStart = maxSelectionStart - 2
+                    tb.SelectionLength = 0
+                Else
+                    tb.SelectionLength = 0
+                End If
+            Else
+                If tb.SelectionLength > 0 Then
+                    tb.SelectionStart = decimalPointSelectionStart - 1
+                    tb.SelectionLength = 0
+                End If
+            End If
+            e.SuppressKeyPress = True
+        ElseIf e.KeyCode = Windows.Forms.Keys.Right Then
+            'カーソルを右に動かす
+            If tb.SelectionLength > 0 Then
+                tb.SelectionStart = decimalPointSelectionStart + 1
+                tb.Select(tb.SelectionStart, 1)
+            ElseIf currentSelectionStart <> maxSelectionStart Then
+                tb.SelectionStart += 1
+                If currentSelectionStart = decimalPointSelectionStart Then
+                    tb.Select(tb.SelectionStart, 1)
+                ElseIf currentSelectionStart = maxSelectionStart - 2 OrElse currentSelectionStart = maxSelectionStart - 1 Then
+                    tb.Select(maxSelectionStart - 1, 1)
+                End If
+            End If
+            e.SuppressKeyPress = True
+        ElseIf (Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9) OrElse (Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) Then
+            Dim keyDownChar As String = If(Keys.NumPad0 <= e.KeyCode, Chr(e.KeyCode - 48), Chr(e.KeyCode))
+            '数字の入力
+
+            If tb.SelectionLength = tb.Text.Length Then
+                '全選択の場合
+                tb.Text = keyDownChar & ".0"
+                tb.SelectionLength = 0
+                tb.SelectionStart = 1
+            Else
+                If currentSelectionStart > decimalPointSelectionStart Then
+                    '小数部の入力
+                    If currentSelectionStart = maxSelectionStart - 1 OrElse currentSelectionStart = maxSelectionStart Then
+                        '小数第一位
+                        tb.Text = inputIntStr & "." & keyDownChar
+                        tb.SelectionStart = maxSelectionStart - 1
+                        tb.Select(tb.SelectionStart, 1)
+                    End If
+                Else
+                    '整数部の入力
+                    If inputIntStr.Length < 3 Then
+                        If inputIntStr = "0" Then
+                            tb.Text = keyDownChar & "." & inputDecimalStr
+                            tb.SelectionStart = 1
+                        Else
+                            If Not (currentSelectionStart = 0 AndAlso keyDownChar = "0") Then
+                                tb.Text = inputIntStr.Insert(currentSelectionStart, keyDownChar) & "." & inputDecimalStr
+                                tb.SelectionStart = currentSelectionStart + 1
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+            e.SuppressKeyPress = True
+        ElseIf e.KeyCode = Keys.Decimal OrElse e.KeyCode = Keys.OemPeriod Then
+            '小数点の入力
+            If currentSelectionStart = decimalPointSelectionStart Then
+                tb.SelectionStart += 1
+                tb.Select(tb.SelectionStart, 1)
+            End If
+            e.SuppressKeyPress = True
+        ElseIf e.KeyCode = Keys.Back Then
+            Dim selectionLength As Integer = tb.SelectionLength
+            Dim selectionEnd As Integer = currentSelectionStart + selectionLength
+
+            If selectionLength = tb.Text.Length Then
+                '全選択の場合
+                tb.Text = "0.0"
+                tb.SelectionStart = 1
+                tb.SelectionLength = 0
+            ElseIf selectionEnd > decimalPointSelectionStart + 1 Then
+                '小数部分も選択している状態
+                tb.Text = inputIntStr & "." & "0"
+                tb.SelectionStart = decimalPointSelectionStart
+                tb.SelectionLength = 0
+            Else
+                '小数部分が選ばれていない場合
+                If selectionLength = 0 Then
+                    '選択部分がない場合
+                    If currentSelectionStart <> 0 Then
+                        If inputIntStr.Length = 1 AndAlso currentSelectionStart = decimalPointSelectionStart Then
+                            tb.Text = "0." & inputDecimalStr
+                            tb.SelectionStart = currentSelectionStart
+                        ElseIf currentSelectionStart = decimalPointSelectionStart + 1 Then
+                            tb.SelectionStart = currentSelectionStart - 1
+                            tb.SelectionLength = 0
+                        Else
+                            tb.Text = inputIntStr.Remove(currentSelectionStart - 1, 1) & "." & inputDecimalStr
+                            tb.SelectionStart = currentSelectionStart - 1
+                        End If
+                    End If
+                Else
+                    '選択されている場合
+
+                    '小数点も選択されている場合
+                    If selectionEnd > decimalPointSelectionStart Then
+                        selectionLength -= 1
+                    End If
+
+                    If selectionLength = inputIntStr.Length Then
+                        '整数部が全選択の場合
+                        tb.Text = "0." & inputDecimalStr
+                        tb.SelectionStart = 1
+                    Else
+                        tb.Text = inputIntStr.Remove(currentSelectionStart, selectionLength) & "." & inputDecimalStr
+                        tb.SelectionStart = currentSelectionStart
+                    End If
+                End If
+            End If
+            e.SuppressKeyPress = True
+        Else
+            e.SuppressKeyPress = True
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' ヶ月テキストボックス用keyDownイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub monthTextBox_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs)
+        Dim tb As TextBox = CType(sender, TextBox)
+        Dim maxSelectionStart As Integer = tb.Text.Length '最大値
+        Dim currentSelectionStart As Integer = tb.SelectionStart '現在選択位置
+        Dim firstStr As String = tb.Text.Substring(0, 1)
+        Dim secondStr As String = ""
+        If maxSelectionStart = 2 Then
+            secondStr = tb.Text.Substring(1, 1)
+        End If
+
+        If e.KeyCode = Windows.Forms.Keys.Left Then
+            'カーソルを左に動かす
+            If tb.SelectionStart <> 0 Then
+                tb.SelectionStart -= 1
+            End If
+            e.SuppressKeyPress = True
+        ElseIf e.KeyCode = Windows.Forms.Keys.Right Then
+            'カーソルを右に動かす
+            If tb.SelectionStart <> maxSelectionStart Then
+                tb.SelectionStart += 1
+            End If
+            e.SuppressKeyPress = True
+        ElseIf (Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9) OrElse (Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) Then
+            Dim keyDownChar As String = If(Keys.NumPad0 <= e.KeyCode, Chr(e.KeyCode - 48), Chr(e.KeyCode))
+            If tb.SelectionLength > 0 Then
+                '選択有りの場合
+                If tb.SelectionLength = maxSelectionStart Then
+                    '全選択の場合
+                    tb.Text = keyDownChar
+                    tb.SelectionStart = 1
+                    tb.SelectionLength = 0
+                Else
+                    '１文字選択の場合
+                    If tb.SelectionStart = 0 Then
+                        '１文字目選択時
+                        If keyDownChar = "0" Then
+                            tb.Text = secondStr
+                            tb.SelectionStart = 0
+                            tb.SelectionLength = 0
+                        ElseIf keyDownChar = "1" Then
+                            If secondStr <= 2 Then
+                                tb.Text = "1" & secondStr
+                                tb.SelectionStart = 1
+                                tb.SelectionLength = 0
+                            End If
+                        End If
+                    Else
+                        '２文字目選択時
+                        If keyDownChar <= 2 Then
+                            tb.Text = firstStr & keyDownChar
+                            tb.SelectionStart = 2
+                            tb.SelectionLength = 0
+                        End If
+                    End If
+                End If
+            Else
+                '選択無しの場合
+                If maxSelectionStart = 1 Then
+                    '１文字入力されている
+                    If tb.SelectionStart = 0 Then
+                        If keyDownChar = "1" AndAlso firstStr <= 2 Then
+                            tb.Text = keyDownChar & firstStr
+                            tb.SelectionStart = 1
+                        End If
+                    Else
+                        If firstStr = "1" AndAlso keyDownChar <= 2 Then
+                            tb.Text = firstStr & keyDownChar
+                            tb.SelectionStart = 2
+                        ElseIf firstStr = "0" Then
+                            tb.Text = keyDownChar
+                            tb.SelectionStart = 1
+                        End If
+                    End If
+                End If
+            End If
+            e.SuppressKeyPress = True
+        ElseIf e.KeyCode = Keys.Back Then
+            If tb.SelectionLength = maxSelectionStart Then
+                '全選択の場合
+                tb.Text = "0"
+                tb.SelectionStart = 1
+                tb.SelectionLength = 0
+            Else
+                If maxSelectionStart = 1 Then
+                    '入力文字が１文字
+                    If currentSelectionStart = 1 Then
+                        tb.Text = "0"
+                        tb.SelectionStart = 1
+                        tb.SelectionLength = 0
+                    End If
+                Else
+                    '入力されている文字が２文字
+                    If currentSelectionStart = 1 Then
+                        tb.Text = tb.Text.Remove(0, 1)
+                        tb.SelectionStart = 0
+                        tb.SelectionLength = 0
+                    ElseIf currentSelectionStart = 2 Then
+                        tb.Text = tb.Text.Substring(0, 1)
+                        tb.SelectionStart = 1
+                        tb.SelectionLength = 0
+                    End If
+                End If
+            End If
+
+            e.SuppressKeyPress = True
+        Else
+            e.SuppressKeyPress = True
+            End If
+    End Sub
+
+    ''' <summary>
+    ''' パーセントテキストボックス用keyDownイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub percentTextBox_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs)
+        Dim tb As TextBox = CType(sender, TextBox)
+        Dim maxSelectionStart As Integer = tb.Text.Length '最大値
+        Dim currentSelectionStart As Integer = tb.SelectionStart '現在選択位置
+        Dim firstStr As String = tb.Text.Substring(0, 1)
+        Dim secondStr As String = ""
+        Dim thirdStr As String = ""
+        If maxSelectionStart = 2 Then
+            secondStr = tb.Text.Substring(1, 1)
+        ElseIf maxSelectionStart = 3 Then
+            secondStr = tb.Text.Substring(1, 1)
+            thirdStr = tb.Text.Substring(2, 1)
+        End If
+
+        If e.KeyCode = Windows.Forms.Keys.Left Then
+            'カーソルを左に動かす
+            If tb.SelectionStart <> 0 Then
+                tb.SelectionStart -= 1
+            End If
+            tb.SelectionLength = 0
+            e.SuppressKeyPress = True
+        ElseIf e.KeyCode = Windows.Forms.Keys.Right Then
+            'カーソルを右に動かす
+            If tb.SelectionStart <> maxSelectionStart Then
+                tb.SelectionStart += 1
+            End If
+            tb.SelectionLength = 0
+            e.SuppressKeyPress = True
+        ElseIf (Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9) OrElse (Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) Then
+            Dim keyDownChar As String = If(Keys.NumPad0 <= e.KeyCode, Chr(e.KeyCode - 48), Chr(e.KeyCode))
+            If tb.SelectionLength > 0 Then
+                '選択されている場合
+                If tb.SelectionLength = maxSelectionStart Then
+                    '全選択
+                    tb.Text = keyDownChar
+                    tb.SelectionStart = 1
+                    tb.SelectionLength = 0
+                End If
+            Else
+                '選択されていない場合
+                If currentSelectionStart = 0 Then
+                    If maxSelectionStart = 1 Then
+                        If keyDownChar <> "0" Then
+                            tb.Text = keyDownChar & firstStr
+                            tb.SelectionStart = 1
+                        End If
+                    ElseIf maxSelectionStart = 2 Then
+                        If firstStr & secondStr = "00" AndAlso keyDownChar = "1" Then
+                            tb.Text = "100"
+                            tb.SelectionStart = 1
+                        End If
+                    End If
+                ElseIf currentSelectionStart = 1 Then
+                    If maxSelectionStart = 1 Then
+                        If firstStr = "0" Then
+                            tb.Text = keyDownChar
+                            tb.SelectionStart = 1
+                        Else
+                            tb.Text = firstStr & keyDownChar
+                            tb.SelectionStart = 2
+                        End If
+                    ElseIf maxSelectionStart = 2 Then
+                        If firstStr & secondStr = "10" AndAlso keyDownChar = "0" Then
+                            tb.Text = "100"
+                            tb.SelectionStart = 2
+                        End If
+                    End If
+                ElseIf currentSelectionStart = 2 Then
+                    If maxSelectionStart = 2 Then
+                        If firstStr & secondStr = "10" AndAlso keyDownChar = "0" Then
+                            tb.Text = "100"
+                            tb.SelectionStart = 3
+                        End If
+                    End If
+                End If
+            End If
+            e.SuppressKeyPress = True
+        ElseIf e.KeyCode = Keys.Back Then
+            If tb.SelectionLength > 0 Then
+                '選択されている場合
+                If tb.SelectionLength = maxSelectionStart Then
+                    '全選択
+                    tb.Text = "0"
+                    tb.SelectionStart = 1
+                    tb.SelectionLength = 0
+                End If
+            Else
+                '選択されていない場合
+                If currentSelectionStart = 1 Then
+                    If maxSelectionStart = 1 Then
+                        tb.Text = "0"
+                        tb.SelectionStart = 1
+                    ElseIf maxSelectionStart = 2 Then
+                        tb.Text = secondStr
+                        tb.SelectionStart = 0
+                    ElseIf maxSelectionStart = 3 Then
+                        tb.Text = "0"
+                        tb.SelectionStart = 0
+                    End If
+                ElseIf currentSelectionStart = 2 Then
+                    If maxSelectionStart = 2 Then
+                        tb.Text = firstStr
+                        tb.SelectionStart = 1
+                    ElseIf maxSelectionStart = 3 Then
+                        tb.Text = firstStr & thirdStr
+                        tb.SelectionStart = 1
+                    End If
+                ElseIf currentSelectionStart = 3 Then
+                    If maxSelectionStart = 3 Then
+                        tb.Text = firstStr & secondStr
+                        tb.SelectionStart = 2
+                    End If
+                End If
+            End If
+            e.SuppressKeyPress = True
+        Else
+            e.SuppressKeyPress = True
+            End If
+    End Sub
+
+    ''' <summary>
+    ''' カロリーテキストボックス用keyDownイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub kcalTextBox_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs)
+        Dim tb As TextBox = CType(sender, TextBox)
+        Dim maxSelectionStart As Integer = tb.Text.Length '最大値
+        Dim currentSelectionStart As Integer = tb.SelectionStart '現在選択位置
+
+        If e.KeyCode = Windows.Forms.Keys.Left Then
+            'カーソルを左に動かす
+            If tb.SelectionStart <> 0 Then
+                tb.SelectionStart -= 1
+            End If
+            tb.SelectionLength = 0
+            e.SuppressKeyPress = True
+        ElseIf e.KeyCode = Windows.Forms.Keys.Right Then
+            'カーソルを右に動かす
+            If tb.SelectionStart <> maxSelectionStart Then
+                tb.SelectionStart += 1
+            End If
+            tb.SelectionLength = 0
+            e.SuppressKeyPress = True
+        ElseIf (Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9) OrElse (Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) Then
+            Dim keyDownChar As String = If(Keys.NumPad0 <= e.KeyCode, Chr(e.KeyCode - 48), Chr(e.KeyCode))
+            If maxSelectionStart = 8 OrElse (keyDownChar = "0" AndAlso currentSelectionStart = 0) Then
+                e.SuppressKeyPress = True
+            ElseIf tb.Text = "0" AndAlso tb.SelectionStart = 1 Then
+                tb.Text = keyDownChar
+                tb.SelectionStart = 1
+                e.SuppressKeyPress = True
+            End If
+        ElseIf e.KeyCode = Keys.Back Then
+            If tb.SelectionLength = maxSelectionStart Then
+                '全選択
+                tb.Text = "0"
+                tb.SelectionStart = 1
+                e.SuppressKeyPress = True
+            ElseIf tb.Text.Length = 1 AndAlso tb.SelectionStart = 1 Then
+                tb.Text = "0"
+                tb.SelectionStart = 1
+                e.SuppressKeyPress = True
+            ElseIf tb.Text.Length >= 2 AndAlso tb.SelectionStart = 1 Then
+                tb.Text = CInt(tb.Text.Substring(1, tb.TextLength - 1))
+                tb.SelectionStart = 0
+                e.SuppressKeyPress = True
+            End If
+        Else
+            e.SuppressKeyPress = True
         End If
     End Sub
 End Class

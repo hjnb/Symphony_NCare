@@ -73,6 +73,8 @@ Partial Class アセモニ
         '
         'clearComboBox
         '
+        Me.clearComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.clearComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.clearComboBox.FormattingEnabled = True
         Me.clearComboBox.Location = New System.Drawing.Point(90, 162)
         Me.clearComboBox.Name = "clearComboBox"
