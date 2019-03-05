@@ -149,6 +149,20 @@ Symphony_NCare
 	<param name="sender"></param>
 	<param name="e"></param>
 	<remarks></remarks>
+</member><member name="M:Symphony_NCare.アセモニ.dgvSub_EditingControlShowing(System.Object,System.Windows.Forms.DataGridViewEditingControlShowingEventArgs)">
+	<summary>
+ dgvSubのセル編集の時のイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.アセモニ.dgvAsses_EditingControlShowing(System.Object,System.Windows.Forms.DataGridViewEditingControlShowingEventArgs)">
+	<summary>
+ dgvアセモニのセル編集の時のイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
 </member><member name="M:Symphony_NCare.アセモニ.decimalTextBox_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
 	<summary>
  kg等のテキストボックス用keyDownイベント
@@ -173,6 +187,41 @@ Symphony_NCare
 </member><member name="M:Symphony_NCare.アセモニ.kcalTextBox_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
 	<summary>
  カロリーテキストボックス用keyDownイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.アセモニ.dgvAssesTextBox_KeyPress(System.Object,System.Windows.Forms.KeyPressEventArgs)">
+	<summary>
+ 通常文章入力テキストボックス用KeyPressイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.アセモニ.dgvSubTextBox_KeyPress(System.Object,System.Windows.Forms.KeyPressEventArgs)">
+	<summary>
+ dgvSub用テキストボックスKeyPress
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.アセモニ.btnRegist_Click(System.Object,System.EventArgs)">
+	<summary>
+ 登録ボタンクリックイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.アセモニ.btnDelete_Click(System.Object,System.EventArgs)">
+	<summary>
+ 削除ボタンクリックイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.アセモニ.btnPrint_Click(System.Object,System.EventArgs)">
+	<summary>
+ 印刷ボタンクリックイベント
  </summary>
 	<param name="sender"></param>
 	<param name="e"></param>

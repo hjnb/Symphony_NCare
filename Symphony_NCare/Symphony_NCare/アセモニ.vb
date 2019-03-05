@@ -1,4 +1,8 @@
-﻿Public Class アセモニ
+﻿Imports System.Text
+Imports System.Runtime.InteropServices
+Imports Microsoft.Office.Interop
+
+Public Class アセモニ
 
     '選択されている入居者名
     Private selectedResidentName As String
@@ -9,6 +13,10 @@
     '記入者氏名
     Private tantoArray() As String = {"澤田　美佳"}
 
+    '文字数制限用
+    Private Const ASSES_LIMIT_LENGTH_BYTE As Integer = 26
+    Private Const SUB_LIMIT_LENGTH_BYTE As Integer = 72
+
     '履歴リスト値変更制御用フラグ
     Private canSelectChage As Boolean = False
 
@@ -18,8 +26,8 @@
     '単位列セルスタイル
     Private unitColumnCellStyle As DataGridViewCellStyle
 
-    '入力セルスタイル
-    Private inputCellStyle As DataGridViewCellStyle
+    '左よせ入力セルスタイル
+    Private leftInputCellStyle As DataGridViewCellStyle
 
     'dateYmdBoxエンターイベント制御用
     Private canYmdBoxEnter As Boolean = False
@@ -96,7 +104,12 @@
             .SelectionForeColor = Color.Black
             .Alignment = DataGridViewContentAlignment.MiddleCenter
         End With
-        'inputCellStyle = New DataGridViewCellStyle()
+
+        '左よせ文章入力セル
+        leftInputCellStyle = New DataGridViewCellStyle()
+        With leftInputCellStyle
+            .Alignment = DataGridViewContentAlignment.MiddleLeft
+        End With
     End Sub
 
     ''' <summary>
@@ -153,6 +166,7 @@
             .EnableHeadersVisualStyles = False
             .ImeMode = Windows.Forms.ImeMode.Hiragana
             .EditMode = DataGridViewEditMode.EditOnEnter
+            .Font = New Font("ＭＳ Ｐゴシック", 9)
         End With
 
         '空行追加等
@@ -207,6 +221,7 @@
             .ShowCellToolTips = False
             .EnableHeadersVisualStyles = False
             .EditMode = DataGridViewEditMode.EditOnEnter
+            .Font = New Font("ＭＳ Ｐゴシック", 9)
         End With
 
         '空行追加等
@@ -331,21 +346,34 @@
         '幅設定等
         With dgvAsses
             With .Columns("Item")
-                .Width = 180
+                .Width = 188
                 .ReadOnly = True
                 .DefaultCellStyle = itemColumnCellStyle
                 .SortMode = DataGridViewColumnSortMode.NotSortable
             End With
             With .Columns("Unit")
-                .Width = 61
+                .Width = 53
                 .ReadOnly = True
                 .DefaultCellStyle = unitColumnCellStyle
                 .SortMode = DataGridViewColumnSortMode.NotSortable
             End With
             For i As Integer = 1 To 4
                 With .Columns("Date" & i)
-                    .Width = 172
+                    .Width = 168
                     .SortMode = DataGridViewColumnSortMode.NotSortable
+                End With
+            Next
+
+            '個別にセルスタイル設定
+            For i As Integer = 20 To 45
+                If i = 27 OrElse i = 35 OrElse i = 36 Then
+                    Continue For
+                End If
+                With .Rows(i)
+                    .Cells("Date1").Style = leftInputCellStyle
+                    .Cells("Date2").Style = leftInputCellStyle
+                    .Cells("Date3").Style = leftInputCellStyle
+                    .Cells("Date4").Style = leftInputCellStyle
                 End With
             Next
         End With
@@ -358,11 +386,14 @@
     Private Sub displayDgvAsses(selectedYmd As String)
         canYmdBoxEnter = False
 
+        dgvAsses.CurrentCell = dgvAsses(0, 0)
+
         'クリア
         clearInput()
 
         'データ取得、表示
         Dim ymd As String = Util.convWarekiStrToADStr(selectedYmd) '西暦ymd
+        createYmdBox.setADStr(ymd) '作成日セット
         Dim cn As New ADODB.Connection()
         cn.Open(topform.DB_NCare)
         Dim sql As String = "select * from Asses where Nam='" & selectedResidentName & "' and Ymd='" & ymd & "' order by Gyo"
@@ -467,6 +498,14 @@
             Return ""
         Else
             Return numStr
+        End If
+    End Function
+
+    Private Function convEmptyToZero(str As String) As String
+        If str = "" Then
+            Return "0"
+        Else
+            Return str
         End If
     End Function
 
@@ -613,6 +652,26 @@
         selectedColumnIndex = e.ColumnIndex
     End Sub
 
+    ''' <summary>
+    ''' dgvSubのセル編集の時のイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub dgvSub_EditingControlShowing(sender As Object, e As System.Windows.Forms.DataGridViewEditingControlShowingEventArgs) Handles dgvSub.EditingControlShowing
+        Dim editTextBox As DataGridViewTextBoxEditingControl = CType(e.Control, DataGridViewTextBoxEditingControl)
+
+        'イベントハンドラを削除、追加
+        RemoveHandler editTextBox.KeyPress, AddressOf dgvSubTextBox_KeyPress
+        AddHandler editTextBox.KeyPress, AddressOf dgvSubTextBox_KeyPress
+    End Sub
+
+    ''' <summary>
+    ''' dgvアセモニのセル編集の時のイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub dgvAsses_EditingControlShowing(sender As Object, e As System.Windows.Forms.DataGridViewEditingControlShowingEventArgs) Handles dgvAsses.EditingControlShowing
         If TypeOf e.Control Is DataGridViewTextBoxEditingControl Then
             Dim dgv As DataGridView = DirectCast(sender, DataGridView)
@@ -622,7 +681,7 @@
 
             '編集のために表示されているテキストボックス取得、設定
             Dim tb As DataGridViewTextBoxEditingControl = DirectCast(e.Control, DataGridViewTextBoxEditingControl)
-
+            tb.ImeMode = Windows.Forms.ImeMode.Hiragana
             If selectedRowIndex = 2 OrElse selectedRowIndex = 3 OrElse selectedRowIndex = 5 OrElse selectedRowIndex = 7 OrElse selectedRowIndex = 16 Then
                 'kg等のテキストボックス用
                 tb.ImeMode = Windows.Forms.ImeMode.Disable
@@ -651,13 +710,16 @@
                 If tb.Text = "" Then
                     tb.Text = "0"
                 End If
+            ElseIf selectedRowIndex = 0 OrElse selectedRowIndex = 4 OrElse selectedRowIndex = 19 OrElse selectedRowIndex = 27 OrElse selectedRowIndex = 35 OrElse selectedRowIndex = 9 OrElse selectedRowIndex = 36 OrElse selectedRowIndex = 46 Then
+                tb.ImeMode = Windows.Forms.ImeMode.Alpha
             End If
-            
+
             'イベントハンドラを削除
             RemoveHandler tb.KeyDown, AddressOf decimalTextBox_KeyDown
             RemoveHandler tb.KeyDown, AddressOf monthTextBox_KeyDown
             RemoveHandler tb.KeyDown, AddressOf percentTextBox_KeyDown
             RemoveHandler tb.KeyDown, AddressOf kcalTextBox_KeyDown
+            RemoveHandler tb.KeyPress, AddressOf dgvAssesTextBox_KeyPress
 
             '該当行
             If selectedRowIndex = 2 OrElse selectedRowIndex = 3 OrElse selectedRowIndex = 5 OrElse selectedRowIndex = 7 OrElse selectedRowIndex = 16 Then
@@ -672,6 +734,9 @@
             ElseIf selectedRowIndex = 15 Then
                 'カロリーテキストボックス用
                 AddHandler tb.KeyDown, AddressOf kcalTextBox_KeyDown
+            Else
+                '通常文章入力テキストボックス用
+                AddHandler tb.KeyPress, AddressOf dgvAssesTextBox_KeyPress
             End If
         End If
     End Sub
@@ -929,7 +994,7 @@
             e.SuppressKeyPress = True
         Else
             e.SuppressKeyPress = True
-            End If
+        End If
     End Sub
 
     ''' <summary>
@@ -1055,7 +1120,7 @@
             e.SuppressKeyPress = True
         Else
             e.SuppressKeyPress = True
-            End If
+        End If
     End Sub
 
     ''' <summary>
@@ -1110,5 +1175,341 @@
         Else
             e.SuppressKeyPress = True
         End If
+    End Sub
+
+    ''' <summary>
+    ''' 通常文章入力テキストボックス用KeyPressイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub dgvAssesTextBox_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
+        Dim text As String = CType(sender, DataGridViewTextBoxEditingControl).Text
+        Dim lengthByte As Integer = Encoding.GetEncoding("Shift_JIS").GetByteCount(text)
+
+        If lengthByte >= ASSES_LIMIT_LENGTH_BYTE Then '設定されているバイト数以上の時
+            If e.KeyChar = ChrW(Keys.Back) Then
+                'Backspaceは入力可能
+                e.Handled = False
+            Else
+                '入力できなくする
+                e.Handled = True
+            End If
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' dgvSub用テキストボックスKeyPress
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub dgvSubTextBox_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
+        Dim text As String = CType(sender, DataGridViewTextBoxEditingControl).Text
+        Dim lengthByte As Integer = Encoding.GetEncoding("Shift_JIS").GetByteCount(text)
+
+        If lengthByte >= SUB_LIMIT_LENGTH_BYTE Then '設定されているバイト数以上の時
+            If e.KeyChar = ChrW(Keys.Back) Then
+                'Backspaceは入力可能
+                e.Handled = False
+            Else
+                '入力できなくする
+                e.Handled = True
+            End If
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' 登録ボタンクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnRegist_Click(sender As System.Object, e As System.EventArgs) Handles btnRegist.Click
+        '実施日1
+        Dim jYmd1 As String = date1YmdBox.getADStr()
+
+        If jYmd1 = "" Then
+            MsgBox("実施日１ がありません。", MsgBoxStyle.Exclamation)
+            Return
+        End If
+
+        '作成日
+        Dim ymd As String = createYmdBox.getADStr()
+        '記入者
+        Dim tanto As String = tantoComboBox.Text
+        'Sub
+        Dim subText As String = Util.checkDBNullValue(dgvSub(0, 0).Value)
+
+        Dim cn As New ADODB.Connection()
+        cn.Open(topform.DB_NCare)
+        Dim sql As String = "select * from Asses where Nam='" & selectedResidentName & "' and Ymd='" & ymd & "' order by Gyo"
+        Dim rs As New ADODB.Recordset
+        rs.Open(sql, cn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
+        If rs.RecordCount > 0 Then
+            '変更登録
+            Dim result As DialogResult = MessageBox.Show("該当日にデータが存在します。上書き保存しますか？", "登録", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            If result = Windows.Forms.DialogResult.Yes Then
+                While Not rs.EOF
+                    Dim gyo As Integer = rs.Fields("Gyo").Value
+                    If gyo = 1 Then
+                        rs.Fields("Tanto").Value = tanto
+                        rs.Fields("Sub").Value = subText
+                        rs.Fields("Fa").Value = ""
+                    End If
+                    rs.Fields("JYmd").Value = DirectCast(datePanel.Controls("date" & gyo & "YmdBox"), ymdBox.ymdBox).getADStr()
+                    rs.Fields("Iyoku1").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 0).Value)
+                    rs.Fields("Iyoku2").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 1).Value)
+                    rs.Fields("Tai").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 2).Value))
+                    rs.Fields("Bmi").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 3).Value))
+                    rs.Fields("Gen1").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 4).Value)
+                    rs.Fields("Gen2").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 5).Value))
+                    rs.Fields("Gen3").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 6).Value))
+                    rs.Fields("ALB").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 7).Value))
+                    rs.Fields("Hok1").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 8).Value)
+                    rs.Fields("Man").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 9).Value)
+                    rs.Fields("Ryo1").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 10).Value))
+                    rs.Fields("Ryo2").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 11).Value))
+                    rs.Fields("Ryo3").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 12).Value))
+                    rs.Fields("Hok21").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 13).Value)
+                    rs.Fields("Hok22").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 14).Value)
+                    rs.Fields("Engy1").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 15).Value))
+                    rs.Fields("Engy2").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 16).Value))
+                    rs.Fields("Engy3").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 17).Value)
+                    rs.Fields("Engy4").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 18).Value)
+                    rs.Fields("Ryui1").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 19).Value)
+                    rs.Fields("Ryui2").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 20).Value)
+                    rs.Fields("Ryui3").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 21).Value)
+                    rs.Fields("Ryui4").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 22).Value)
+                    rs.Fields("Hok31").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 23).Value)
+                    rs.Fields("Hok32").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 24).Value)
+                    rs.Fields("Hok33").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 25).Value)
+                    rs.Fields("Hok34").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 26).Value)
+                    rs.Fields("Care1").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 27).Value)
+                    rs.Fields("Care2").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 28).Value)
+                    rs.Fields("Care3").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 29).Value)
+                    rs.Fields("Care4").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 30).Value)
+                    rs.Fields("Care5").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 31).Value)
+                    rs.Fields("Care6").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 32).Value)
+                    rs.Fields("Care7").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 33).Value)
+                    rs.Fields("Tokki").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 34).Value)
+                    rs.Fields("Mon1").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 35).Value)
+                    rs.Fields("Mon2").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 36).Value)
+                    rs.Fields("Mon3").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 37).Value)
+                    rs.Fields("Mon4").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 38).Value)
+                    rs.Fields("Mon5").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 39).Value)
+                    rs.Fields("Mon6").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 40).Value)
+                    rs.Fields("Mon7").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 41).Value)
+                    rs.Fields("Mon8").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 42).Value)
+                    rs.Fields("Mon9").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 43).Value)
+                    rs.Fields("Mon10").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 44).Value)
+                    rs.Fields("Mon11").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 45).Value)
+                    rs.Fields("Result").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 46).Value)
+
+                    rs.MoveNext()
+                End While
+                rs.MovePrevious()
+
+                rs.Update()
+                rs.Close()
+                cn.Close()
+
+                '表示クリア
+                clearInput()
+                setHistoryList()
+
+            Else
+                rs.Close()
+                cn.Close()
+            End If
+        Else
+            '新規登録
+            For gyo As Integer = 1 To 4
+                rs.AddNew()
+                rs.Fields("Nam").Value = selectedResidentName
+                rs.Fields("Ymd").Value = ymd
+                rs.Fields("Gyo").Value = gyo
+                If gyo = 1 Then
+                    rs.Fields("Tanto").Value = tanto
+                    rs.Fields("Sub").Value = subText
+                    rs.Fields("Fa").Value = ""
+                End If
+                rs.Fields("JYmd").Value = DirectCast(datePanel.Controls("date" & gyo & "YmdBox"), ymdBox.ymdBox).getADStr()
+                rs.Fields("Iyoku1").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 0).Value)
+                rs.Fields("Iyoku2").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 1).Value)
+                rs.Fields("Tai").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 2).Value))
+                rs.Fields("Bmi").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 3).Value))
+                rs.Fields("Gen1").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 4).Value)
+                rs.Fields("Gen2").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 5).Value))
+                rs.Fields("Gen3").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 6).Value))
+                rs.Fields("ALB").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 7).Value))
+                rs.Fields("Hok1").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 8).Value)
+                rs.Fields("Man").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 9).Value)
+                rs.Fields("Ryo1").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 10).Value))
+                rs.Fields("Ryo2").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 11).Value))
+                rs.Fields("Ryo3").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 12).Value))
+                rs.Fields("Hok21").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 13).Value)
+                rs.Fields("Hok22").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 14).Value)
+                rs.Fields("Engy1").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 15).Value))
+                rs.Fields("Engy2").Value = convEmptyToZero(Util.checkDBNullValue(dgvAsses(gyo + 1, 16).Value))
+                rs.Fields("Engy3").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 17).Value)
+                rs.Fields("Engy4").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 18).Value)
+                rs.Fields("Ryui1").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 19).Value)
+                rs.Fields("Ryui2").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 20).Value)
+                rs.Fields("Ryui3").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 21).Value)
+                rs.Fields("Ryui4").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 22).Value)
+                rs.Fields("Hok31").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 23).Value)
+                rs.Fields("Hok32").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 24).Value)
+                rs.Fields("Hok33").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 25).Value)
+                rs.Fields("Hok34").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 26).Value)
+                rs.Fields("Care1").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 27).Value)
+                rs.Fields("Care2").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 28).Value)
+                rs.Fields("Care3").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 29).Value)
+                rs.Fields("Care4").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 30).Value)
+                rs.Fields("Care5").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 31).Value)
+                rs.Fields("Care6").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 32).Value)
+                rs.Fields("Care7").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 33).Value)
+                rs.Fields("Tokki").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 34).Value)
+                rs.Fields("Mon1").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 35).Value)
+                rs.Fields("Mon2").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 36).Value)
+                rs.Fields("Mon3").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 37).Value)
+                rs.Fields("Mon4").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 38).Value)
+                rs.Fields("Mon5").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 39).Value)
+                rs.Fields("Mon6").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 40).Value)
+                rs.Fields("Mon7").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 41).Value)
+                rs.Fields("Mon8").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 42).Value)
+                rs.Fields("Mon9").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 43).Value)
+                rs.Fields("Mon10").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 44).Value)
+                rs.Fields("Mon11").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 45).Value)
+                rs.Fields("Result").Value = Util.checkDBNullValue(dgvAsses(gyo + 1, 46).Value)
+            Next
+            rs.Update()
+            rs.Close()
+            cn.Close()
+
+            '表示クリア
+            clearInput()
+            setHistoryList()
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' 削除ボタンクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnDelete_Click(sender As System.Object, e As System.EventArgs) Handles btnDelete.Click
+        '作成日
+        Dim ymd As String = createYmdBox.getADStr()
+
+        Dim cn As New ADODB.Connection()
+        cn.Open(topform.DB_NCare)
+        Dim sql As String = "select * from Asses where Nam='" & selectedResidentName & "' and Ymd='" & ymd & "'"
+        Dim rs As New ADODB.Recordset
+        rs.Open(sql, cn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
+        If rs.RecordCount <= 0 Then
+            '該当なし
+            MsgBox("該当がありません。", MsgBoxStyle.Exclamation)
+            rs.Close()
+            cn.Close()
+            Return
+        Else
+            'データが存在している場合
+            Dim result As DialogResult = MessageBox.Show("削除してよろしいですか？", "削除", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            If result = Windows.Forms.DialogResult.Yes Then
+                Dim cmd As New ADODB.Command()
+                cmd.ActiveConnection = cn
+                cmd.CommandText = "delete from Asses where Nam='" & selectedResidentName & "' and Ymd='" & ymd & "'"
+                cmd.Execute()
+                rs.Close()
+                cn.Close()
+
+                '表示クリア
+                clearInput()
+                setHistoryList()
+            Else
+                rs.Close()
+                cn.Close()
+            End If
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' 印刷ボタンクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnPrint_Click(sender As System.Object, e As System.EventArgs) Handles btnPrint.Click
+        '日付
+        Dim ymd As String = createYmdBox.getADStr()
+
+        'データ取得
+        Dim cn As New ADODB.Connection()
+        cn.Open(topform.DB_NCare)
+        Dim sql As String = "select * from Asses where Nam='" & selectedResidentName & "' and Ymd='" & ymd & "' order by Gyo"
+        Dim rs As New ADODB.Recordset
+        rs.Open(sql, cn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
+        If rs.RecordCount <= 0 Then
+            MsgBox("対象データが存在しません。", MsgBoxStyle.Exclamation)
+            rs.Close()
+            cn.Close()
+            Return
+        End If
+
+        '書き込みデータ作成
+        Dim dataArray(44, 55) As String
+        Dim tanto As String = ""
+        Dim subText As String = ""
+        While Not rs.EOF
+            Dim gyo As Integer = rs.Fields("Gyo").Value
+            If gyo = 1 Then
+                tanto = Util.checkDBNullValue(rs.Fields("Tanto").Value)
+                subText = Util.checkDBNullValue(rs.Fields("Sub").Value)
+            End If
+
+
+            rs.MoveNext()
+        End While
+
+        'エクセル準備
+        Dim objExcel As Excel.Application = CreateObject("Excel.Application")
+        Dim objWorkBooks As Excel.Workbooks = objExcel.Workbooks
+        Dim objWorkBook As Excel.Workbook = objWorkBooks.Open(topform.excelFilePass)
+        Dim oSheet As Excel.Worksheet = objWorkBook.Worksheets("アセモニ")
+        objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
+        objExcel.ScreenUpdating = False
+
+        '作成年月日
+        oSheet.Range("AW2").Value = createYmdBox.getWarekiStr()
+        '利用者名
+        oSheet.Range("E6").Value = selectedResidentName
+        '記入者
+        oSheet.Range("AV6").Value = tanto
+        'Sub
+        oSheet.Range("E7").Value = subText
+
+        objExcel.Calculation = Excel.XlCalculation.xlCalculationAutomatic
+        objExcel.ScreenUpdating = True
+
+        '変更保存確認ダイアログ非表示
+        objExcel.DisplayAlerts = False
+
+        '印刷
+        If topform.rbnPrintout.Checked = True Then
+            oSheet.PrintOut()
+        ElseIf topform.rbnPreview.Checked = True Then
+            objExcel.Visible = True
+            oSheet.PrintPreview(1)
+        End If
+
+        ' EXCEL解放
+        objExcel.Quit()
+        Marshal.ReleaseComObject(objWorkBook)
+        Marshal.ReleaseComObject(objExcel)
+        oSheet = Nothing
+        objWorkBook = Nothing
+        objExcel = Nothing
     End Sub
 End Class

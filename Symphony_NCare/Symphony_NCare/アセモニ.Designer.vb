@@ -155,7 +155,7 @@ Partial Class アセモニ
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(401, 20)
+        Me.Label2.Location = New System.Drawing.Point(405, 20)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(65, 12)
         Me.Label2.TabIndex = 3
@@ -164,7 +164,7 @@ Partial Class アセモニ
         'tantoComboBox
         '
         Me.tantoComboBox.FormattingEnabled = True
-        Me.tantoComboBox.Location = New System.Drawing.Point(473, 16)
+        Me.tantoComboBox.Location = New System.Drawing.Point(477, 16)
         Me.tantoComboBox.Name = "tantoComboBox"
         Me.tantoComboBox.Size = New System.Drawing.Size(100, 20)
         Me.tantoComboBox.TabIndex = 4
@@ -172,7 +172,7 @@ Partial Class アセモニ
         'dgvSub
         '
         Me.dgvSub.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvSub.Location = New System.Drawing.Point(588, 16)
+        Me.dgvSub.Location = New System.Drawing.Point(594, 16)
         Me.dgvSub.Name = "dgvSub"
         Me.dgvSub.RowTemplate.Height = 21
         Me.dgvSub.Size = New System.Drawing.Size(515, 40)
@@ -210,7 +210,7 @@ Partial Class アセモニ
         Me.datePanel.Controls.Add(Me.Label3)
         Me.datePanel.Location = New System.Drawing.Point(177, 89)
         Me.datePanel.Name = "datePanel"
-        Me.datePanel.Size = New System.Drawing.Size(949, 26)
+        Me.datePanel.Size = New System.Drawing.Size(933, 26)
         Me.datePanel.TabIndex = 9
         '
         'Label7
@@ -228,7 +228,7 @@ Partial Class アセモニ
         Me.Label6.BackColor = System.Drawing.SystemColors.Control
         Me.Label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label6.ForeColor = System.Drawing.SystemColors.Control
-        Me.Label6.Location = New System.Drawing.Point(757, 0)
+        Me.Label6.Location = New System.Drawing.Point(745, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(1, 24)
         Me.Label6.TabIndex = 11
@@ -238,7 +238,7 @@ Partial Class アセモニ
         Me.Label5.BackColor = System.Drawing.SystemColors.Control
         Me.Label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label5.ForeColor = System.Drawing.SystemColors.Control
-        Me.Label5.Location = New System.Drawing.Point(585, 0)
+        Me.Label5.Location = New System.Drawing.Point(577, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(1, 24)
         Me.Label5.TabIndex = 11
@@ -248,7 +248,7 @@ Partial Class アセモニ
         Me.Label4.BackColor = System.Drawing.SystemColors.Control
         Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label4.ForeColor = System.Drawing.SystemColors.Control
-        Me.Label4.Location = New System.Drawing.Point(413, 0)
+        Me.Label4.Location = New System.Drawing.Point(409, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(1, 24)
         Me.Label4.TabIndex = 10
@@ -259,7 +259,7 @@ Partial Class アセモニ
         Me.date4YmdBox.DateText = ""
         Me.date4YmdBox.EraLabelText = "H31"
         Me.date4YmdBox.EraText = ""
-        Me.date4YmdBox.Location = New System.Drawing.Point(801, 2)
+        Me.date4YmdBox.Location = New System.Drawing.Point(786, 2)
         Me.date4YmdBox.MonthLabelText = "03"
         Me.date4YmdBox.MonthText = ""
         Me.date4YmdBox.Name = "date4YmdBox"
@@ -272,7 +272,7 @@ Partial Class アセモニ
         Me.date3YmdBox.DateText = ""
         Me.date3YmdBox.EraLabelText = "H31"
         Me.date3YmdBox.EraText = ""
-        Me.date3YmdBox.Location = New System.Drawing.Point(629, 2)
+        Me.date3YmdBox.Location = New System.Drawing.Point(618, 2)
         Me.date3YmdBox.MonthLabelText = "03"
         Me.date3YmdBox.MonthText = ""
         Me.date3YmdBox.Name = "date3YmdBox"
@@ -285,7 +285,7 @@ Partial Class アセモニ
         Me.date2YmdBox.DateText = ""
         Me.date2YmdBox.EraLabelText = "H31"
         Me.date2YmdBox.EraText = ""
-        Me.date2YmdBox.Location = New System.Drawing.Point(457, 2)
+        Me.date2YmdBox.Location = New System.Drawing.Point(450, 2)
         Me.date2YmdBox.MonthLabelText = "03"
         Me.date2YmdBox.MonthText = ""
         Me.date2YmdBox.Name = "date2YmdBox"
@@ -298,7 +298,7 @@ Partial Class アセモニ
         Me.date1YmdBox.DateText = ""
         Me.date1YmdBox.EraLabelText = "H31"
         Me.date1YmdBox.EraText = ""
-        Me.date1YmdBox.Location = New System.Drawing.Point(285, 2)
+        Me.date1YmdBox.Location = New System.Drawing.Point(282, 2)
         Me.date1YmdBox.MonthLabelText = "03"
         Me.date1YmdBox.MonthText = ""
         Me.date1YmdBox.Name = "date1YmdBox"
@@ -320,7 +320,7 @@ Partial Class アセモニ
         Me.dgvAsses.Location = New System.Drawing.Point(177, 115)
         Me.dgvAsses.Name = "dgvAsses"
         Me.dgvAsses.RowTemplate.Height = 21
-        Me.dgvAsses.Size = New System.Drawing.Size(949, 528)
+        Me.dgvAsses.Size = New System.Drawing.Size(933, 528)
         Me.dgvAsses.TabIndex = 8
         '
         'アセモニ
