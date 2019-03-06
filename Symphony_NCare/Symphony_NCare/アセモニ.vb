@@ -377,6 +377,12 @@ Public Class アセモニ
                 End With
             Next
         End With
+
+        '対象設定
+        dgvAsses.targetYmdBox1 = date1YmdBox
+        dgvAsses.targetYmdBox2 = date2YmdBox
+        dgvAsses.targetYmdBox3 = date3YmdBox
+        dgvAsses.targetYmdBox4 = date4YmdBox
     End Sub
 
     ''' <summary>
@@ -1220,12 +1226,32 @@ Public Class アセモニ
     End Sub
 
     ''' <summary>
+    ''' 実施日用和暦変換
+    ''' </summary>
+    ''' <param name="adStr">西暦</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function formatWarekiStr(adStr As String) As String
+        If adStr = "" Then
+            Return ""
+        End If
+
+        Dim wareki As String = Util.convADStrToWarekiStr(adStr)
+        Dim era As String = wareki.Substring(0, 3)
+        Dim month As String = CInt(wareki.Substring(4, 2)).ToString()
+        Dim day As String = CInt(wareki.Substring(7, 2)).ToString()
+
+        Return era & " 年 " & month & " 月 " & day & " 日"
+    End Function
+
+    ''' <summary>
     ''' 登録ボタンクリックイベント
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub btnRegist_Click(sender As System.Object, e As System.EventArgs) Handles btnRegist.Click
+        dgvAsses.CurrentCell = dgvAsses(0, 0)
         '実施日1
         Dim jYmd1 As String = date1YmdBox.getADStr()
 
@@ -1400,6 +1426,7 @@ Public Class アセモニ
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub btnDelete_Click(sender As System.Object, e As System.EventArgs) Handles btnDelete.Click
+        dgvAsses.CurrentCell = dgvAsses(0, 0)
         '作成日
         Dim ymd As String = createYmdBox.getADStr()
 
@@ -1442,6 +1469,7 @@ Public Class アセモニ
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub btnPrint_Click(sender As System.Object, e As System.EventArgs) Handles btnPrint.Click
+        dgvAsses.CurrentCell = dgvAsses(0, 0)
         '日付
         Dim ymd As String = createYmdBox.getADStr()
 
@@ -1462,6 +1490,7 @@ Public Class アセモニ
         Dim dataArray(44, 55) As String
         Dim tanto As String = ""
         Dim subText As String = ""
+        Dim plusBaseNum As Integer = 14
         While Not rs.EOF
             Dim gyo As Integer = rs.Fields("Gyo").Value
             If gyo = 1 Then
@@ -1469,7 +1498,104 @@ Public Class アセモニ
                 subText = Util.checkDBNullValue(rs.Fields("Sub").Value)
             End If
 
-
+            '配列へ代入
+            dataArray(0, 0 + ((gyo - 1) * plusBaseNum)) = formatWarekiStr(Util.checkDBNullValue(rs.Fields("JYmd").Value)) '実施日
+            dataArray(1, 1 + ((gyo - 1) * plusBaseNum)) = "["
+            dataArray(1, 2 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Iyoku1").Value) '本人の意欲(1)
+            dataArray(1, 12 + ((gyo - 1) * plusBaseNum)) = "]"
+            dataArray(2, 1 + ((gyo - 1) * plusBaseNum)) = "("
+            dataArray(2, 2 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Iyoku2").Value) '(健康感、生活機能、身体機能等)
+            dataArray(2, 12 + ((gyo - 1) * plusBaseNum)) = ")"
+            dataArray(3, 4 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Tai").Value) '体重
+            dataArray(3, 10 + ((gyo - 1) * plusBaseNum)) = "(kg)"
+            dataArray(4, 4 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Bmi").Value) 'BMI
+            dataArray(4, 10 + ((gyo - 1) * plusBaseNum)) = "(kg/㎡)"
+            dataArray(5, 1 + ((gyo - 1) * plusBaseNum)) = If(Util.checkDBNullValue(rs.Fields("Gen1").Value) = "無", "■", "□")
+            dataArray(5, 2 + ((gyo - 1) * plusBaseNum)) = "無"
+            dataArray(5, 4 + ((gyo - 1) * plusBaseNum)) = If(Util.checkDBNullValue(rs.Fields("Gen1").Value) = "有", "■", "□")
+            dataArray(5, 5 + ((gyo - 1) * plusBaseNum)) = "有"
+            dataArray(5, 7 + ((gyo - 1) * plusBaseNum)) = "("
+            dataArray(5, 10 + ((gyo - 1) * plusBaseNum)) = "kg/"
+            dataArray(5, 12 + ((gyo - 1) * plusBaseNum)) = "ヶ月"
+            dataArray(5, 13 + ((gyo - 1) * plusBaseNum)) = ")"
+            If Util.checkDBNullValue(rs.Fields("Gen1").Value) = "有" Then
+                dataArray(5, 8 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Gen2").Value)
+                dataArray(5, 11 + ((gyo - 1) * plusBaseNum)) = convZeroToEmpty(Util.checkDBNullValue(rs.Fields("Gen3").Value))
+            End If
+            dataArray(6, 1 + ((gyo - 1) * plusBaseNum)) = If(Util.checkDBNullValue(rs.Fields("ALB").Value) <> 0, "□", "■")
+            dataArray(6, 2 + ((gyo - 1) * plusBaseNum)) = "無"
+            dataArray(6, 4 + ((gyo - 1) * plusBaseNum)) = If(Util.checkDBNullValue(rs.Fields("ALB").Value) <> 0, "■", "□")
+            dataArray(6, 5 + ((gyo - 1) * plusBaseNum)) = "有"
+            dataArray(6, 7 + ((gyo - 1) * plusBaseNum)) = "("
+            If Util.checkDBNullValue(rs.Fields("ALB").Value) <> 0 Then
+                dataArray(6, 8 + ((gyo - 1) * plusBaseNum)) = convDecimalStr(Util.checkDBNullValue(rs.Fields("ALB").Value))
+            End If
+            dataArray(6, 11 + ((gyo - 1) * plusBaseNum)) = "(g/dl)"
+            dataArray(6, 13 + ((gyo - 1) * plusBaseNum)) = ")"
+            dataArray(7, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Hok1").Value)
+            dataArray(8, 1 + ((gyo - 1) * plusBaseNum)) = "["
+            dataArray(8, 2 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Man").Value)
+            dataArray(8, 12 + ((gyo - 1) * plusBaseNum)) = "]"
+            dataArray(9, 5 + ((gyo - 1) * plusBaseNum)) = convZeroToEmpty(Util.checkDBNullValue(rs.Fields("Ryo1").Value))
+            dataArray(9, 10 + ((gyo - 1) * plusBaseNum)) = "%"
+            dataArray(10, 5 + ((gyo - 1) * plusBaseNum)) = convZeroToEmpty(Util.checkDBNullValue(rs.Fields("Ryo2").Value))
+            dataArray(10, 10 + ((gyo - 1) * plusBaseNum)) = "%"
+            dataArray(11, 5 + ((gyo - 1) * plusBaseNum)) = convZeroToEmpty(Util.checkDBNullValue(rs.Fields("Ryo3").Value))
+            dataArray(11, 10 + ((gyo - 1) * plusBaseNum)) = "%"
+            dataArray(12, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Hok21").Value)
+            dataArray(13, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Hok22").Value)
+            dataArray(14, 2 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Engy1").Value)
+            dataArray(14, 6 + ((gyo - 1) * plusBaseNum)) = "kcal"
+            dataArray(14, 10 + ((gyo - 1) * plusBaseNum)) = convDecimalStr(Util.checkDBNullValue(rs.Fields("Engy2").Value))
+            dataArray(14, 12 + ((gyo - 1) * plusBaseNum)) = "g"
+            dataArray(15, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Engy3").Value)
+            dataArray(16, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Engy4").Value)
+            dataArray(17, 1 + ((gyo - 1) * plusBaseNum)) = If(Util.checkDBNullValue(rs.Fields("Ryui1").Value) = "無", "■", "□")
+            dataArray(17, 2 + ((gyo - 1) * plusBaseNum)) = "無"
+            dataArray(17, 4 + ((gyo - 1) * plusBaseNum)) = If(Util.checkDBNullValue(rs.Fields("Ryui1").Value) = "有", "■", "□")
+            dataArray(17, 5 + ((gyo - 1) * plusBaseNum)) = "有"
+            If Util.checkDBNullValue(rs.Fields("Ryui1").Value) = "有" Then
+                dataArray(18, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Ryui2").Value)
+                dataArray(19, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Ryui3").Value)
+                dataArray(20, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Ryui4").Value)
+            End If
+            dataArray(21, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Hok31").Value)
+            dataArray(22, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Hok32").Value)
+            dataArray(23, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Hok33").Value)
+            dataArray(24, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Hok34").Value)
+            dataArray(26, 1 + ((gyo - 1) * plusBaseNum)) = If(Util.checkDBNullValue(rs.Fields("Care1").Value) = "無", "■", "□")
+            dataArray(26, 2 + ((gyo - 1) * plusBaseNum)) = "無"
+            dataArray(26, 4 + ((gyo - 1) * plusBaseNum)) = If(Util.checkDBNullValue(rs.Fields("Care1").Value) = "有", "■", "□")
+            dataArray(26, 5 + ((gyo - 1) * plusBaseNum)) = "有"
+            If Util.checkDBNullValue(rs.Fields("Care1").Value) = "有" Then
+                dataArray(27, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Care2").Value)
+                dataArray(28, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Care3").Value)
+                dataArray(29, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Care4").Value)
+                dataArray(30, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Care5").Value)
+                dataArray(31, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Care6").Value)
+                dataArray(32, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Care7").Value)
+                dataArray(33, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Tokki").Value)
+            End If
+            dataArray(34, 1 + ((gyo - 1) * plusBaseNum)) = If(Util.checkDBNullValue(rs.Fields("Mon1").Value) = "無", "■", "□")
+            dataArray(34, 2 + ((gyo - 1) * plusBaseNum)) = "無"
+            dataArray(34, 4 + ((gyo - 1) * plusBaseNum)) = If(Util.checkDBNullValue(rs.Fields("Mon1").Value) = "有", "■", "□")
+            dataArray(34, 5 + ((gyo - 1) * plusBaseNum)) = "有"
+            dataArray(34, 8 + ((gyo - 1) * plusBaseNum)) = "["
+            dataArray(34, 12 + ((gyo - 1) * plusBaseNum)) = "]"
+            If Util.checkDBNullValue(rs.Fields("Mon1").Value) = "有" Then
+                dataArray(34, 9 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Mon2").Value)
+                dataArray(35, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Mon3").Value)
+                dataArray(36, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Mon4").Value)
+                dataArray(37, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Mon5").Value)
+                dataArray(38, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Mon6").Value)
+                dataArray(39, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Mon7").Value)
+                dataArray(40, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Mon8").Value)
+                dataArray(41, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Mon9").Value)
+                dataArray(42, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Mon10").Value)
+                dataArray(43, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Mon11").Value)
+            End If
+            dataArray(44, 0 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Result").Value)
+            
             rs.MoveNext()
         End While
 
@@ -1477,7 +1603,7 @@ Public Class アセモニ
         Dim objExcel As Excel.Application = CreateObject("Excel.Application")
         Dim objWorkBooks As Excel.Workbooks = objExcel.Workbooks
         Dim objWorkBook As Excel.Workbook = objWorkBooks.Open(topform.excelFilePass)
-        Dim oSheet As Excel.Worksheet = objWorkBook.Worksheets("アセモニ")
+        Dim oSheet As Excel.Worksheet = objWorkBook.Worksheets("アセモニ改")
         objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
         objExcel.ScreenUpdating = False
 
@@ -1489,6 +1615,8 @@ Public Class アセモニ
         oSheet.Range("AV6").Value = tanto
         'Sub
         oSheet.Range("E7").Value = subText
+        'アセモニデータ
+        oSheet.Range("F10", "BI54").Value = dataArray
 
         objExcel.Calculation = Excel.XlCalculation.xlCalculationAutomatic
         objExcel.ScreenUpdating = True
@@ -1511,5 +1639,11 @@ Public Class アセモニ
         oSheet = Nothing
         objWorkBook = Nothing
         objExcel = Nothing
+    End Sub
+
+    Private Sub dateYmdBox_keyDownEnterOrDown(sender As Object, e As System.EventArgs) Handles date1YmdBox.keyDownEnterOrDown, date2YmdBox.keyDownEnterOrDown, date3YmdBox.keyDownEnterOrDown, date4YmdBox.keyDownEnterOrDown
+        Dim number As Integer = CInt(CType(sender, ymdBox.ymdBox).Name.Substring(4, 1))
+        dgvAsses.CurrentCell = dgvAsses(number + 1, 0)
+        dgvAsses.BeginEdit(True)
     End Sub
 End Class

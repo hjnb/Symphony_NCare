@@ -205,6 +205,13 @@ Symphony_NCare
 	<param name="sender"></param>
 	<param name="e"></param>
 	<remarks></remarks>
+</member><member name="M:Symphony_NCare.アセモニ.formatWarekiStr(System.String)">
+	<summary>
+ 実施日用和暦変換
+ </summary>
+	<param name="adStr">西暦</param>
+	<returns></returns>
+	<remarks></remarks>
 </member><member name="M:Symphony_NCare.アセモニ.btnRegist_Click(System.Object,System.EventArgs)">
 	<summary>
  登録ボタンクリックイベント
