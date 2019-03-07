@@ -88,6 +88,12 @@
     <Compile Include="AssesDataGridView.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="screeningDataGridView.Designer.vb">
+      <DependentUpon>screeningDataGridView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="screeningDataGridView.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="topform.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="アセモニ.resx">
       <DependentUpon>アセモニ.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="スクリーニング書.resx">
+      <DependentUpon>スクリーニング書.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="入居者.resx">
       <DependentUpon>入居者.vb</DependentUpon>
