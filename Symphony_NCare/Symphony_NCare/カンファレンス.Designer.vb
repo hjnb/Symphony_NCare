@@ -22,8 +22,16 @@ Partial Class カンファレンス
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container
+        Me.SuspendLayout()
+        '
+        'カンファレンス
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.ClientSize = New System.Drawing.Size(1496, 778)
+        Me.Name = "カンファレンス"
         Me.Text = "カンファレンス"
+        Me.ResumeLayout(False)
+
     End Sub
 End Class

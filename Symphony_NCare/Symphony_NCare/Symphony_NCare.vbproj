@@ -53,6 +53,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Symphony_NCare, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <ExecutableExtension>.exe</ExecutableExtension>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -153,6 +156,15 @@
     <Compile Include="職員食.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="職員食Class.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="職員食印刷.Designer.vb">
+      <DependentUpon>職員食印刷.vb</DependentUpon>
+    </Compile>
+    <Compile Include="職員食印刷.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="計画書.Designer.vb">
       <DependentUpon>計画書.vb</DependentUpon>
     </Compile>
@@ -197,6 +209,9 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="カンファレンス.resx">
+      <DependentUpon>カンファレンス.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="入居者.resx">
       <DependentUpon>入居者.vb</DependentUpon>
     </EmbeddedResource>
@@ -208,6 +223,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="職員食.resx">
       <DependentUpon>職員食.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="職員食印刷.resx">
+      <DependentUpon>職員食印刷.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="計画書.resx">
       <DependentUpon>計画書.vb</DependentUpon>

@@ -651,7 +651,7 @@ Partial Class 食札
         Me.DataGridView3.MultiSelect = False
         Me.DataGridView3.Name = "DataGridView3"
         Me.DataGridView3.RowTemplate.Height = 21
-        Me.DataGridView3.Size = New System.Drawing.Size(306, 167)
+        Me.DataGridView3.Size = New System.Drawing.Size(303, 163)
         Me.DataGridView3.TabIndex = 44
         '
         'btnTouroku

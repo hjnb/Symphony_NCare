@@ -3146,4 +3146,8 @@ line22:
             e.Value = Util.convADStrToWarekiStr(e.Value)
         End If
     End Sub
+
+    Private Sub 食札印刷_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class

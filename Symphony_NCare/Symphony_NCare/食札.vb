@@ -130,6 +130,7 @@ Public Class 食札
 
         YmdBoxStart.setADStr(Today.ToString("yyyy/MM/dd"))
 
+        KeyPreview = True
     End Sub
 
     Private Sub FormUpdate()
@@ -174,6 +175,14 @@ Public Class 食札
             DataGridView4(0, 0).Selected = False
         End If
 
+    End Sub
+
+    Private Sub 食札_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            Dim forward As Boolean = e.Modifiers <> Keys.Shift
+            Me.SelectNextControl(Me.ActiveControl, forward, True, True, True)
+            e.Handled = True
+        End If
     End Sub
 
     Private Sub DataGridView3_CellEnter(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView3.CellEnter
