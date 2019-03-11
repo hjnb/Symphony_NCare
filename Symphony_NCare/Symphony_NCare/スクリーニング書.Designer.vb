@@ -59,7 +59,7 @@ Partial Class スクリーニング書
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
-        Me.heigthLabel = New System.Windows.Forms.Label()
+        Me.heightLabel = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.weightLabel = New System.Windows.Forms.Label()
@@ -144,7 +144,6 @@ Partial Class スクリーニング書
         Me.Label59 = New System.Windows.Forms.Label()
         Me.Label60 = New System.Windows.Forms.Label()
         Me.workedOutPercent1TextBox = New System.Windows.Forms.TextBox()
-        Me.ScreeningDataGridView = New Symphony_NCare.screeningDataGridView(Me.components)
         Me.workedOutPercent2TextBox = New System.Windows.Forms.TextBox()
         Me.Label61 = New System.Windows.Forms.Label()
         Me.Label62 = New System.Windows.Forms.Label()
@@ -172,13 +171,32 @@ Partial Class スクリーニング書
         Me.Label82 = New System.Windows.Forms.Label()
         Me.Label83 = New System.Windows.Forms.Label()
         Me.Label84 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.TextBox6 = New System.Windows.Forms.TextBox()
+        Me.Label85 = New System.Windows.Forms.Label()
+        Me.JPanel = New System.Windows.Forms.Panel()
+        Me.Label90 = New System.Windows.Forms.Label()
+        Me.Label89 = New System.Windows.Forms.Label()
+        Me.Label88 = New System.Windows.Forms.Label()
+        Me.Label87 = New System.Windows.Forms.Label()
+        Me.Label86 = New System.Windows.Forms.Label()
+        Me.J4YmdBox = New ymdBox.ymdBox()
+        Me.J3YmdBox = New ymdBox.ymdBox()
+        Me.J2YmdBox = New ymdBox.ymdBox()
+        Me.J1YmdBox = New ymdBox.ymdBox()
+        Me.dgvScreening = New Symphony_NCare.screeningDataGridView(Me.components)
         Me.namArea.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.dgvWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvTokki, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvWeightChange, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
-        CType(Me.ScreeningDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.JPanel.SuspendLayout()
+        CType(Me.dgvScreening, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'namArea
@@ -200,8 +218,6 @@ Partial Class スクリーニング書
         '
         'clearComboBox
         '
-        Me.clearComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.clearComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.clearComboBox.FormattingEnabled = True
         Me.clearComboBox.Location = New System.Drawing.Point(90, 155)
         Me.clearComboBox.Name = "clearComboBox"
@@ -254,7 +270,7 @@ Partial Class スクリーニング書
         Me.historyListBox.FormattingEnabled = True
         Me.historyListBox.Location = New System.Drawing.Point(17, 27)
         Me.historyListBox.Name = "historyListBox"
-        Me.historyListBox.Size = New System.Drawing.Size(97, 82)
+        Me.historyListBox.Size = New System.Drawing.Size(102, 82)
         Me.historyListBox.TabIndex = 0
         '
         'GroupBox1
@@ -265,7 +281,7 @@ Partial Class スクリーニング書
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 310)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(141, 166)
+        Me.GroupBox1.Size = New System.Drawing.Size(141, 178)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "W/Hﾏｽﾀ"
@@ -275,17 +291,16 @@ Partial Class スクリーニング書
         Me.heightMLabel.AutoSize = True
         Me.heightMLabel.Location = New System.Drawing.Point(62, 24)
         Me.heightMLabel.Name = "heightMLabel"
-        Me.heightMLabel.Size = New System.Drawing.Size(23, 12)
+        Me.heightMLabel.Size = New System.Drawing.Size(0, 12)
         Me.heightMLabel.TabIndex = 3
-        Me.heightMLabel.Text = "140"
         '
         'dgvWeight
         '
         Me.dgvWeight.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvWeight.Location = New System.Drawing.Point(25, 46)
+        Me.dgvWeight.Location = New System.Drawing.Point(21, 46)
         Me.dgvWeight.Name = "dgvWeight"
         Me.dgvWeight.RowTemplate.Height = 21
-        Me.dgvWeight.Size = New System.Drawing.Size(94, 104)
+        Me.dgvWeight.Size = New System.Drawing.Size(98, 114)
         Me.dgvWeight.TabIndex = 3
         '
         'Label2
@@ -359,7 +374,7 @@ Partial Class スクリーニング書
         Me.kaiComboBox.FormattingEnabled = True
         Me.kaiComboBox.Location = New System.Drawing.Point(247, 85)
         Me.kaiComboBox.Name = "kaiComboBox"
-        Me.kaiComboBox.Size = New System.Drawing.Size(59, 20)
+        Me.kaiComboBox.Size = New System.Drawing.Size(47, 20)
         Me.kaiComboBox.TabIndex = 8
         '
         'Label6
@@ -377,7 +392,7 @@ Partial Class スクリーニング書
         Me.dgvTokki.Location = New System.Drawing.Point(377, 35)
         Me.dgvTokki.Name = "dgvTokki"
         Me.dgvTokki.RowTemplate.Height = 21
-        Me.dgvTokki.Size = New System.Drawing.Size(373, 50)
+        Me.dgvTokki.Size = New System.Drawing.Size(373, 51)
         Me.dgvTokki.TabIndex = 10
         '
         'dgvWeightChange
@@ -386,7 +401,7 @@ Partial Class スクリーニング書
         Me.dgvWeightChange.Location = New System.Drawing.Point(860, 585)
         Me.dgvWeightChange.Name = "dgvWeightChange"
         Me.dgvWeightChange.RowTemplate.Height = 21
-        Me.dgvWeightChange.Size = New System.Drawing.Size(391, 80)
+        Me.dgvWeightChange.Size = New System.Drawing.Size(419, 84)
         Me.dgvWeightChange.TabIndex = 12
         '
         'Label7
@@ -528,15 +543,15 @@ Partial Class スクリーニング書
         Me.Label21.TabIndex = 27
         Me.Label21.Text = "脛骨長"
         '
-        'heigthLabel
+        'heightLabel
         '
-        Me.heigthLabel.ForeColor = System.Drawing.Color.Red
-        Me.heigthLabel.Location = New System.Drawing.Point(61, 23)
-        Me.heigthLabel.Name = "heigthLabel"
-        Me.heigthLabel.Size = New System.Drawing.Size(52, 12)
-        Me.heigthLabel.TabIndex = 28
-        Me.heigthLabel.Text = "0"
-        Me.heigthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.heightLabel.ForeColor = System.Drawing.Color.Red
+        Me.heightLabel.Location = New System.Drawing.Point(61, 23)
+        Me.heightLabel.Name = "heightLabel"
+        Me.heightLabel.Size = New System.Drawing.Size(52, 12)
+        Me.heightLabel.TabIndex = 28
+        Me.heightLabel.Text = "0"
+        Me.heightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label23
         '
@@ -551,7 +566,7 @@ Partial Class スクリーニング書
         '
         Me.GroupBox2.Controls.Add(Me.weightLabel)
         Me.GroupBox2.Controls.Add(Me.JYmdBox)
-        Me.GroupBox2.Controls.Add(Me.heigthLabel)
+        Me.GroupBox2.Controls.Add(Me.heightLabel)
         Me.GroupBox2.Controls.Add(Me.Label11)
         Me.GroupBox2.Controls.Add(Me.Label10)
         Me.GroupBox2.Controls.Add(Me.Label23)
@@ -679,8 +694,6 @@ Partial Class スクリーニング書
         '
         'insertNumComboBox
         '
-        Me.insertNumComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.insertNumComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.insertNumComboBox.FormattingEnabled = True
         Me.insertNumComboBox.Location = New System.Drawing.Point(1297, 51)
         Me.insertNumComboBox.Name = "insertNumComboBox"
@@ -1050,6 +1063,7 @@ Partial Class スクリーニング書
         Me.keikotuTextBox.Name = "keikotuTextBox"
         Me.keikotuTextBox.Size = New System.Drawing.Size(53, 19)
         Me.keikotuTextBox.TabIndex = 76
+        Me.keikotuTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'hizatakaTextBox
         '
@@ -1057,6 +1071,7 @@ Partial Class スクリーニング書
         Me.hizatakaTextBox.Name = "hizatakaTextBox"
         Me.hizatakaTextBox.Size = New System.Drawing.Size(53, 19)
         Me.hizatakaTextBox.TabIndex = 77
+        Me.hizatakaTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'goalBmiTextBox
         '
@@ -1064,6 +1079,7 @@ Partial Class スクリーニング書
         Me.goalBmiTextBox.Name = "goalBmiTextBox"
         Me.goalBmiTextBox.Size = New System.Drawing.Size(53, 19)
         Me.goalBmiTextBox.TabIndex = 78
+        Me.goalBmiTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'katudo1TextBox
         '
@@ -1071,6 +1087,7 @@ Partial Class スクリーニング書
         Me.katudo1TextBox.Name = "katudo1TextBox"
         Me.katudo1TextBox.Size = New System.Drawing.Size(48, 19)
         Me.katudo1TextBox.TabIndex = 79
+        Me.katudo1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'stress1TextBox
         '
@@ -1078,6 +1095,7 @@ Partial Class スクリーニング書
         Me.stress1TextBox.Name = "stress1TextBox"
         Me.stress1TextBox.Size = New System.Drawing.Size(48, 19)
         Me.stress1TextBox.TabIndex = 80
+        Me.stress1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'kaizen1TextBox
         '
@@ -1085,6 +1103,7 @@ Partial Class スクリーニング書
         Me.kaizen1TextBox.Name = "kaizen1TextBox"
         Me.kaizen1TextBox.Size = New System.Drawing.Size(48, 19)
         Me.kaizen1TextBox.TabIndex = 81
+        Me.kaizen1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'katudo2TextBox
         '
@@ -1092,6 +1111,7 @@ Partial Class スクリーニング書
         Me.katudo2TextBox.Name = "katudo2TextBox"
         Me.katudo2TextBox.Size = New System.Drawing.Size(48, 19)
         Me.katudo2TextBox.TabIndex = 82
+        Me.katudo2TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'stress2TextBox
         '
@@ -1099,6 +1119,7 @@ Partial Class スクリーニング書
         Me.stress2TextBox.Name = "stress2TextBox"
         Me.stress2TextBox.Size = New System.Drawing.Size(48, 19)
         Me.stress2TextBox.TabIndex = 83
+        Me.stress2TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'kaizen2TextBox
         '
@@ -1106,6 +1127,7 @@ Partial Class スクリーニング書
         Me.kaizen2TextBox.Name = "kaizen2TextBox"
         Me.kaizen2TextBox.Size = New System.Drawing.Size(48, 19)
         Me.kaizen2TextBox.TabIndex = 84
+        Me.kaizen2TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'albTextBox
         '
@@ -1113,6 +1135,7 @@ Partial Class スクリーニング書
         Me.albTextBox.Name = "albTextBox"
         Me.albTextBox.Size = New System.Drawing.Size(41, 19)
         Me.albTextBox.TabIndex = 85
+        Me.albTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'nutritionTextBox
         '
@@ -1120,6 +1143,7 @@ Partial Class スクリーニング書
         Me.nutritionTextBox.Name = "nutritionTextBox"
         Me.nutritionTextBox.Size = New System.Drawing.Size(41, 19)
         Me.nutritionTextBox.TabIndex = 86
+        Me.nutritionTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'intakeTextBox
         '
@@ -1127,6 +1151,7 @@ Partial Class スクリーニング書
         Me.intakeTextBox.Name = "intakeTextBox"
         Me.intakeTextBox.Size = New System.Drawing.Size(41, 19)
         Me.intakeTextBox.TabIndex = 87
+        Me.intakeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'decubitusTextBox
         '
@@ -1134,6 +1159,7 @@ Partial Class スクリーニング書
         Me.decubitusTextBox.Name = "decubitusTextBox"
         Me.decubitusTextBox.Size = New System.Drawing.Size(41, 19)
         Me.decubitusTextBox.TabIndex = 88
+        Me.decubitusTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label48
         '
@@ -1307,15 +1333,7 @@ Partial Class スクリーニング書
         Me.workedOutPercent1TextBox.Name = "workedOutPercent1TextBox"
         Me.workedOutPercent1TextBox.Size = New System.Drawing.Size(32, 19)
         Me.workedOutPercent1TextBox.TabIndex = 106
-        '
-        'ScreeningDataGridView
-        '
-        Me.ScreeningDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.ScreeningDataGridView.Location = New System.Drawing.Point(178, 113)
-        Me.ScreeningDataGridView.Name = "ScreeningDataGridView"
-        Me.ScreeningDataGridView.RowTemplate.Height = 21
-        Me.ScreeningDataGridView.Size = New System.Drawing.Size(658, 377)
-        Me.ScreeningDataGridView.TabIndex = 11
+        Me.workedOutPercent1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'workedOutPercent2TextBox
         '
@@ -1324,6 +1342,7 @@ Partial Class スクリーニング書
         Me.workedOutPercent2TextBox.Name = "workedOutPercent2TextBox"
         Me.workedOutPercent2TextBox.Size = New System.Drawing.Size(32, 19)
         Me.workedOutPercent2TextBox.TabIndex = 107
+        Me.workedOutPercent2TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label61
         '
@@ -1598,11 +1617,222 @@ Partial Class スクリーニング書
         Me.Label84.TabIndex = 133
         Me.Label84.Text = "現状ｴﾈﾙｷﾞｰ量 * 0.65/4"
         '
+        'TextBox1
+        '
+        Me.TextBox1.BackColor = System.Drawing.SystemColors.Control
+        Me.TextBox1.Location = New System.Drawing.Point(163, 117)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ReadOnly = True
+        Me.TextBox1.Size = New System.Drawing.Size(82, 19)
+        Me.TextBox1.TabIndex = 134
+        Me.TextBox1.Text = "項目"
+        Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox2
+        '
+        Me.TextBox2.BackColor = System.Drawing.SystemColors.Control
+        Me.TextBox2.Location = New System.Drawing.Point(244, 117)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.ReadOnly = True
+        Me.TextBox2.Size = New System.Drawing.Size(81, 19)
+        Me.TextBox2.TabIndex = 135
+        Me.TextBox2.Text = "単位等"
+        Me.TextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox3
+        '
+        Me.TextBox3.BackColor = System.Drawing.SystemColors.Control
+        Me.TextBox3.Location = New System.Drawing.Point(324, 117)
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.ReadOnly = True
+        Me.TextBox3.Size = New System.Drawing.Size(128, 19)
+        Me.TextBox3.TabIndex = 136
+        Me.TextBox3.Text = "Ⅰ"
+        Me.TextBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox4
+        '
+        Me.TextBox4.BackColor = System.Drawing.SystemColors.Control
+        Me.TextBox4.Location = New System.Drawing.Point(451, 117)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.ReadOnly = True
+        Me.TextBox4.Size = New System.Drawing.Size(128, 19)
+        Me.TextBox4.TabIndex = 137
+        Me.TextBox4.Text = "Ⅱ"
+        Me.TextBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox5
+        '
+        Me.TextBox5.BackColor = System.Drawing.SystemColors.Control
+        Me.TextBox5.Location = New System.Drawing.Point(578, 117)
+        Me.TextBox5.Name = "TextBox5"
+        Me.TextBox5.ReadOnly = True
+        Me.TextBox5.Size = New System.Drawing.Size(128, 19)
+        Me.TextBox5.TabIndex = 138
+        Me.TextBox5.Text = "Ⅲ"
+        Me.TextBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox6
+        '
+        Me.TextBox6.BackColor = System.Drawing.SystemColors.Control
+        Me.TextBox6.Location = New System.Drawing.Point(705, 117)
+        Me.TextBox6.Name = "TextBox6"
+        Me.TextBox6.ReadOnly = True
+        Me.TextBox6.Size = New System.Drawing.Size(129, 19)
+        Me.TextBox6.TabIndex = 139
+        Me.TextBox6.Text = "Ⅳ"
+        Me.TextBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label85
+        '
+        Me.Label85.AutoSize = True
+        Me.Label85.Location = New System.Drawing.Point(1, 6)
+        Me.Label85.Name = "Label85"
+        Me.Label85.Size = New System.Drawing.Size(41, 12)
+        Me.Label85.TabIndex = 140
+        Me.Label85.Text = "実施日"
+        '
+        'JPanel
+        '
+        Me.JPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.JPanel.Controls.Add(Me.Label90)
+        Me.JPanel.Controls.Add(Me.Label89)
+        Me.JPanel.Controls.Add(Me.Label88)
+        Me.JPanel.Controls.Add(Me.Label87)
+        Me.JPanel.Controls.Add(Me.Label86)
+        Me.JPanel.Controls.Add(Me.J4YmdBox)
+        Me.JPanel.Controls.Add(Me.J3YmdBox)
+        Me.JPanel.Controls.Add(Me.J2YmdBox)
+        Me.JPanel.Controls.Add(Me.J1YmdBox)
+        Me.JPanel.Controls.Add(Me.Label85)
+        Me.JPanel.Location = New System.Drawing.Point(163, 136)
+        Me.JPanel.Name = "JPanel"
+        Me.JPanel.Size = New System.Drawing.Size(671, 25)
+        Me.JPanel.TabIndex = 141
+        '
+        'Label90
+        '
+        Me.Label90.BackColor = System.Drawing.SystemColors.Control
+        Me.Label90.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label90.ForeColor = System.Drawing.SystemColors.Control
+        Me.Label90.Location = New System.Drawing.Point(541, 0)
+        Me.Label90.Name = "Label90"
+        Me.Label90.Size = New System.Drawing.Size(1, 25)
+        Me.Label90.TabIndex = 148
+        '
+        'Label89
+        '
+        Me.Label89.BackColor = System.Drawing.SystemColors.Control
+        Me.Label89.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label89.ForeColor = System.Drawing.SystemColors.Control
+        Me.Label89.Location = New System.Drawing.Point(414, 0)
+        Me.Label89.Name = "Label89"
+        Me.Label89.Size = New System.Drawing.Size(1, 25)
+        Me.Label89.TabIndex = 147
+        '
+        'Label88
+        '
+        Me.Label88.BackColor = System.Drawing.SystemColors.Control
+        Me.Label88.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label88.ForeColor = System.Drawing.SystemColors.Control
+        Me.Label88.Location = New System.Drawing.Point(287, 0)
+        Me.Label88.Name = "Label88"
+        Me.Label88.Size = New System.Drawing.Size(1, 25)
+        Me.Label88.TabIndex = 146
+        '
+        'Label87
+        '
+        Me.Label87.BackColor = System.Drawing.SystemColors.Control
+        Me.Label87.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label87.ForeColor = System.Drawing.SystemColors.Control
+        Me.Label87.Location = New System.Drawing.Point(160, 0)
+        Me.Label87.Name = "Label87"
+        Me.Label87.Size = New System.Drawing.Size(1, 25)
+        Me.Label87.TabIndex = 143
+        '
+        'Label86
+        '
+        Me.Label86.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Label86.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label86.ForeColor = System.Drawing.SystemColors.Control
+        Me.Label86.Location = New System.Drawing.Point(80, 0)
+        Me.Label86.Name = "Label86"
+        Me.Label86.Size = New System.Drawing.Size(1, 25)
+        Me.Label86.TabIndex = 142
+        '
+        'J4YmdBox
+        '
+        Me.J4YmdBox.boxType = 9
+        Me.J4YmdBox.DateText = ""
+        Me.J4YmdBox.EraLabelText = "H31"
+        Me.J4YmdBox.EraText = ""
+        Me.J4YmdBox.Location = New System.Drawing.Point(561, 1)
+        Me.J4YmdBox.MonthLabelText = "03"
+        Me.J4YmdBox.MonthText = ""
+        Me.J4YmdBox.Name = "J4YmdBox"
+        Me.J4YmdBox.Size = New System.Drawing.Size(86, 20)
+        Me.J4YmdBox.TabIndex = 145
+        '
+        'J3YmdBox
+        '
+        Me.J3YmdBox.boxType = 9
+        Me.J3YmdBox.DateText = ""
+        Me.J3YmdBox.EraLabelText = "H31"
+        Me.J3YmdBox.EraText = ""
+        Me.J3YmdBox.Location = New System.Drawing.Point(435, 1)
+        Me.J3YmdBox.MonthLabelText = "03"
+        Me.J3YmdBox.MonthText = ""
+        Me.J3YmdBox.Name = "J3YmdBox"
+        Me.J3YmdBox.Size = New System.Drawing.Size(86, 20)
+        Me.J3YmdBox.TabIndex = 144
+        '
+        'J2YmdBox
+        '
+        Me.J2YmdBox.boxType = 9
+        Me.J2YmdBox.DateText = ""
+        Me.J2YmdBox.EraLabelText = "H31"
+        Me.J2YmdBox.EraText = ""
+        Me.J2YmdBox.Location = New System.Drawing.Point(307, 1)
+        Me.J2YmdBox.MonthLabelText = "03"
+        Me.J2YmdBox.MonthText = ""
+        Me.J2YmdBox.Name = "J2YmdBox"
+        Me.J2YmdBox.Size = New System.Drawing.Size(86, 20)
+        Me.J2YmdBox.TabIndex = 143
+        '
+        'J1YmdBox
+        '
+        Me.J1YmdBox.boxType = 9
+        Me.J1YmdBox.DateText = ""
+        Me.J1YmdBox.EraLabelText = "H31"
+        Me.J1YmdBox.EraText = ""
+        Me.J1YmdBox.Location = New System.Drawing.Point(180, 1)
+        Me.J1YmdBox.MonthLabelText = "03"
+        Me.J1YmdBox.MonthText = ""
+        Me.J1YmdBox.Name = "J1YmdBox"
+        Me.J1YmdBox.Size = New System.Drawing.Size(86, 20)
+        Me.J1YmdBox.TabIndex = 142
+        '
+        'dgvScreening
+        '
+        Me.dgvScreening.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvScreening.Location = New System.Drawing.Point(163, 160)
+        Me.dgvScreening.Name = "dgvScreening"
+        Me.dgvScreening.RowTemplate.Height = 21
+        Me.dgvScreening.Size = New System.Drawing.Size(671, 345)
+        Me.dgvScreening.TabIndex = 11
+        '
         'スクリーニング書
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1645, 684)
+        Me.Controls.Add(Me.JPanel)
+        Me.Controls.Add(Me.TextBox6)
+        Me.Controls.Add(Me.TextBox5)
+        Me.Controls.Add(Me.TextBox4)
+        Me.Controls.Add(Me.TextBox3)
+        Me.Controls.Add(Me.TextBox2)
+        Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Label84)
         Me.Controls.Add(Me.Label83)
         Me.Controls.Add(Me.Label81)
@@ -1723,7 +1953,7 @@ Partial Class スクリーニング書
         Me.Controls.Add(Me.unitLabel)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.dgvWeightChange)
-        Me.Controls.Add(Me.ScreeningDataGridView)
+        Me.Controls.Add(Me.dgvScreening)
         Me.Controls.Add(Me.dgvTokki)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.kaiComboBox)
@@ -1744,7 +1974,9 @@ Partial Class スクリーニング書
         CType(Me.dgvWeightChange, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        CType(Me.ScreeningDataGridView, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.JPanel.ResumeLayout(False)
+        Me.JPanel.PerformLayout()
+        CType(Me.dgvScreening, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1769,7 +2001,6 @@ Partial Class スクリーニング書
     Friend WithEvents kaiComboBox As System.Windows.Forms.ComboBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents dgvTokki As System.Windows.Forms.DataGridView
-    Friend WithEvents ScreeningDataGridView As Symphony_NCare.screeningDataGridView
     Friend WithEvents dgvWeightChange As System.Windows.Forms.DataGridView
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents unitLabel As System.Windows.Forms.Label
@@ -1786,7 +2017,7 @@ Partial Class スクリーニング書
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents Label21 As System.Windows.Forms.Label
-    Friend WithEvents heigthLabel As System.Windows.Forms.Label
+    Friend WithEvents heightLabel As System.Windows.Forms.Label
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents JYmdBox As ymdBox.ymdBox
@@ -1898,4 +2129,22 @@ Partial Class スクリーニング書
     Friend WithEvents Label82 As System.Windows.Forms.Label
     Friend WithEvents Label83 As System.Windows.Forms.Label
     Friend WithEvents Label84 As System.Windows.Forms.Label
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox4 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox5 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox6 As System.Windows.Forms.TextBox
+    Friend WithEvents Label85 As System.Windows.Forms.Label
+    Friend WithEvents JPanel As System.Windows.Forms.Panel
+    Friend WithEvents J1YmdBox As ymdBox.ymdBox
+    Friend WithEvents J4YmdBox As ymdBox.ymdBox
+    Friend WithEvents J3YmdBox As ymdBox.ymdBox
+    Friend WithEvents J2YmdBox As ymdBox.ymdBox
+    Friend WithEvents dgvScreening As Symphony_NCare.screeningDataGridView
+    Friend WithEvents Label86 As System.Windows.Forms.Label
+    Friend WithEvents Label87 As System.Windows.Forms.Label
+    Friend WithEvents Label88 As System.Windows.Forms.Label
+    Friend WithEvents Label89 As System.Windows.Forms.Label
+    Friend WithEvents Label90 As System.Windows.Forms.Label
 End Class

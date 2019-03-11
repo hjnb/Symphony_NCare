@@ -85,10 +85,14 @@ Public Class topform
     End Sub
 
     Private Sub btnSukuri_Click(sender As System.Object, e As System.EventArgs) Handles btnSukuri.Click
-        If IsNothing(frmSukuri) OrElse frmSukuri.IsDisposed Then
-            frmSukuri = New スクリーニング書()
-            frmSukuri.Owner = Me
-            frmSukuri.Show()
+        If lblName.Text = "" Then
+            MsgBox("利用者を選択してください。")
+        Else
+            If IsNothing(frmSukuri) OrElse frmSukuri.IsDisposed Then
+                frmSukuri = New スクリーニング書(lblName.Text)
+                frmSukuri.Owner = Me
+                frmSukuri.Show()
+            End If
         End If
     End Sub
 

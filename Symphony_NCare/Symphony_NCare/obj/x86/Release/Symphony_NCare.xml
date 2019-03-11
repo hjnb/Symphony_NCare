@@ -6,7 +6,112 @@ Symphony_NCare
 </name>
 </assembly>
 <members>
-<member name="M:Symphony_NCare.Util.EnableDoubleBuffering(System.Windows.Forms.Control)">
+<member name="M:Symphony_NCare.スクリーニング書.#ctor(System.String)">
+	<summary>
+ コンストラクタ
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.スクリーニング書_Load(System.Object,System.EventArgs)">
+	<summary>
+ loadイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.createCellStyle">
+	<summary>
+ セルスタイル作成
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.initDgvWeightChange">
+	<summary>
+ dgv体重推移初期設定
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.initDgvWeight">
+	<summary>
+ dgv体重身長マスタ初期設定
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.initDgvTokki">
+	<summary>
+ dgv特記事項初期設定
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.initDgvScreening">
+	<summary>
+ dgvスクリーニング初期設定
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.clearScreening">
+	<summary>
+ スクリーニング部分のクリア
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.displayWHMaster">
+	<summary>
+ W/Hマスタ表示
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.displayResidentInfo">
+	<summary>
+ 入居者情報表示(ユニット、名前、性別、生年月日、年齢)
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.displayScreening(System.String)">
+	<summary>
+ スクリーニングデータ表示
+ </summary>
+	<param name="ymd"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.calcAge(System.String)">
+	<summary>
+ 現在年齢算出
+ </summary>
+	<param name="birthYmd"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.loadHistoryList">
+	<summary>
+ 履歴リスト表示
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.dgvWeightChange_CellPainting(System.Object,System.Windows.Forms.DataGridViewCellPaintingEventArgs)">
+	<summary>
+ dgv体重推移CellPaintingイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.btnClearRight_Click(System.Object,System.EventArgs)">
+	<summary>
+ クリアボタン（右）クリックイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.historyListBox_SelectedValueChanged(System.Object,System.EventArgs)">
+	<summary>
+ 履歴リスト値変更イベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.btnClear_Click(System.Object,System.EventArgs)">
+	<summary>
+ クリアボタン（左）クリックイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.btnCall_Click(System.Object,System.EventArgs)">
+	<summary>
+ 呼び出しボタンクリックイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.Util.EnableDoubleBuffering(System.Windows.Forms.Control)">
 	<summary>
  コントロールのDoubleBufferedプロパティをTrueにする
  </summary>
