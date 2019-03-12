@@ -5,6 +5,12 @@ Public Class スクリーニング書
     '選択されている入居者名
     Private selectedResidentName As String
 
+    '選択入居者の生年月日
+    Private selectedResidentBirth As String
+
+    '選択入居者の性別(男："1",女："2")
+    Private selectedResidentSex As String
+
     'コンボボックス用配列
     Private tantoArray() As String = {"澤田　美佳"} '記入者
     Private kaiArray() As String = {"１", "２", "３", "４", "５"} '介護度
@@ -441,7 +447,7 @@ Public Class スクリーニング書
     End Sub
 
     ''' <summary>
-    ''' 入居者情報表示(ユニット、名前、性別、生年月日、年齢)
+    ''' 入居者情報表示(ユニット、名前、性別、生年月日)
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub displayResidentInfo()
@@ -454,16 +460,16 @@ Public Class スクリーニング書
         If rs.RecordCount > 0 Then
             Dim unit As String = Util.checkDBNullValue(rs.Fields("Unit").Value)
             Dim kana As String = Util.checkDBNullValue(rs.Fields("Kana").Value)
+            selectedResidentBirth = Util.checkDBNullValue(rs.Fields("Birth").Value)
             Dim birthWareki As String = Util.convADStrToWarekiStr(Util.checkDBNullValue(rs.Fields("Birth").Value))
             Dim sex As String = Util.checkDBNullValue(rs.Fields("Sex").Value)
-            Dim age As String = calcAge(Util.checkDBNullValue(rs.Fields("Birth").Value))
+            selectedResidentSex = sex
 
             '値セット
             unitLabel.Text = unit & "の家"
             namLabel.Text = selectedResidentName
             kanaLabel.Text = kana
             birthLabel.Text = birthWareki
-            ageLabel.Text = age
             sexLabel.Text = If(sex = "1", "♂", If(sex = "2", "♀", ""))
         End If
         rs.Close()
@@ -548,9 +554,8 @@ Public Class スクリーニング書
     ''' <param name="birthYmd"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function calcAge(birthYmd As String) As Integer
-        Dim todayYmd As String = Today.ToString("yyyy/MM/dd")
-        Dim doDate As DateTime = New DateTime(CInt(todayYmd.Split("/")(0)), CInt(todayYmd.Split("/")(1)), CInt(todayYmd.Split("/")(2)))
+    Private Function calcAge(birthYmd As String, nowYmd As String) As Integer
+        Dim doDate As DateTime = New DateTime(CInt(nowYmd.Split("/")(0)), CInt(nowYmd.Split("/")(1)), CInt(nowYmd.Split("/")(2)))
         Dim birthDate As DateTime = New DateTime(CInt(birthYmd.Split("/")(0)), CInt(birthYmd.Split("/")(1)), CInt(birthYmd.Split("/")(2)))
         Dim age As Integer = doDate.Year - birthDate.Year
         '誕生日がまだ来ていなければ、1引く
@@ -752,6 +757,8 @@ Public Class スクリーニング書
             Dim ymd As String = Util.checkDBNullValue(rs.Fields("Ymd").Value)
             ymd = ymd.Substring(0, 10)
             JYmdBox.setADStr(ymd)
+
+            'ラベル部分
             '年齢
             ageLabel.Text = Util.checkDBNullValue(rs.Fields("Age").Value)
             '身長
@@ -791,9 +798,363 @@ Public Class スクリーニング書
             'BMI（漢字）
             bmiKanjiLabel.Text = Util.checkDBNullValue(rs.Fields("Lbl18").Value)
 
+            'テキストボックス部分
+            '脛骨長
+            keikotuTextBox.Text = Util.checkDBNullValue(rs.Fields("Txt0").Value)
+            '膝高
+            hizatakaTextBox.Text = Util.checkDBNullValue(rs.Fields("Txt1").Value)
+            '理想体重(目標BMI)
+            goalBmiTextBox.Text = Util.checkDBNullValue(rs.Fields("Txt2").Value)
+            '活動係数（理想）
+            katudo1TextBox.Text = Util.checkDBNullValue(rs.Fields("Txt3").Value)
+            'ｽﾄﾚｽ係数（理想）
+            stress1TextBox.Text = Util.checkDBNullValue(rs.Fields("Txt4").Value)
+            '改善係数（理想）
+            kaizen1TextBox.Text = Util.checkDBNullValue(rs.Fields("Txt5").Value)
+            '活動係数（必要）
+            katudo2TextBox.Text = Util.checkDBNullValue(rs.Fields("Txt6").Value)
+            'ｽﾄﾚｽ係数（必要）
+            stress2TextBox.Text = Util.checkDBNullValue(rs.Fields("Txt7").Value)
+            '改善係数（必要）
+            kaizen2TextBox.Text = Util.checkDBNullValue(rs.Fields("Txt8").Value)
+            '算出率1
+            workedOutPercent1TextBox.Text = Util.checkDBNullValue(rs.Fields("Txt9").Value)
+            '算出率2
+            workedOutPercent2TextBox.Text = Util.checkDBNullValue(rs.Fields("Txt10").Value)
+            '血清Alb
+            albTextBox.Text = Util.checkDBNullValue(rs.Fields("Txt11").Value)
+            '食事摂取量
+            intakeTextBox.Text = Util.checkDBNullValue(rs.Fields("Txt12").Value)
+            '栄養補給法
+            nutritionTextBox.Text = Util.checkDBNullValue(rs.Fields("Txt13").Value)
+            '褥瘡
+            decubitusTextBox.Text = Util.checkDBNullValue(rs.Fields("Txt14").Value)
 
+            '体重推移部分
+            '過去の体重
+            dgvWeightChange(0, 0).Value = Util.checkDBNullValue(rs.Fields("Tai1").Value)
+            dgvWeightChange(1, 0).Value = Util.checkDBNullValue(rs.Fields("Tai2").Value)
+            dgvWeightChange(2, 0).Value = Util.checkDBNullValue(rs.Fields("Tai3").Value)
+            dgvWeightChange(3, 0).Value = Util.checkDBNullValue(rs.Fields("Tai4").Value)
+            dgvWeightChange(4, 0).Value = Util.checkDBNullValue(rs.Fields("Tai5").Value)
+            dgvWeightChange(5, 0).Value = Util.checkDBNullValue(rs.Fields("Tai6").Value)
+            '体重差
+            dgvWeightChange(0, 1).Value = Util.checkDBNullValue(rs.Fields("Tai7").Value)
+            dgvWeightChange(1, 1).Value = Util.checkDBNullValue(rs.Fields("Tai8").Value)
+            dgvWeightChange(2, 1).Value = Util.checkDBNullValue(rs.Fields("Tai9").Value)
+            dgvWeightChange(3, 1).Value = Util.checkDBNullValue(rs.Fields("Tai10").Value)
+            dgvWeightChange(4, 1).Value = Util.checkDBNullValue(rs.Fields("Tai11").Value)
+            dgvWeightChange(5, 1).Value = Util.checkDBNullValue(rs.Fields("Tai12").Value)
+            '体重減少率
+            dgvWeightChange(0, 2).Value = Util.checkDBNullValue(rs.Fields("Tai13").Value)
+            dgvWeightChange(1, 2).Value = Util.checkDBNullValue(rs.Fields("Tai14").Value)
+            dgvWeightChange(2, 2).Value = Util.checkDBNullValue(rs.Fields("Tai15").Value)
+            dgvWeightChange(3, 2).Value = Util.checkDBNullValue(rs.Fields("Tai16").Value)
+            dgvWeightChange(4, 2).Value = Util.checkDBNullValue(rs.Fields("Tai17").Value)
+            dgvWeightChange(5, 2).Value = Util.checkDBNullValue(rs.Fields("Tai18").Value)
+            '測定日
+            dgvWeightChange(0, 3).Value = Util.checkDBNullValue(rs.Fields("Tai19").Value)
+            dgvWeightChange(1, 3).Value = Util.checkDBNullValue(rs.Fields("Tai20").Value)
+            dgvWeightChange(2, 3).Value = Util.checkDBNullValue(rs.Fields("Tai21").Value)
+            dgvWeightChange(3, 3).Value = Util.checkDBNullValue(rs.Fields("Tai22").Value)
+            dgvWeightChange(4, 3).Value = Util.checkDBNullValue(rs.Fields("Tai23").Value)
+            dgvWeightChange(5, 3).Value = Util.checkDBNullValue(rs.Fields("Tai24").Value)
+
+        Else
+            MsgBox("保存情報がありません。", MsgBoxStyle.Information)
         End If
         rs.Close()
         cn.Close()
     End Sub
+
+    ''' <summary>
+    ''' dgv体重CellFormattingイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub dgvWeight_CellFormatting(sender As Object, e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles dgvWeight.CellFormatting
+        If e.RowIndex >= 0 AndAlso e.ColumnIndex = 0 Then
+            Dim ymd As String = e.Value & "/01"
+            Dim wareki As String = Util.convADStrToWarekiStr(ymd)
+            e.Value = wareki.Substring(0, 6)
+            e.FormattingApplied = True
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' dgv体重セルマウスクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub dgvWeight_CellMouseClick(sender As Object, e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgvWeight.CellMouseClick
+        If e.RowIndex >= 0 Then
+            Dim ym As String = Util.checkDBNullValue(dgvWeight("Ym", e.RowIndex).FormattedValue) '年月
+            Dim weight As String = Util.checkDBNullValue(dgvWeight("Weight", e.RowIndex).Value) '体重
+            If weight = "" Then
+                MsgBox("体重が選択されていません。", MsgBoxStyle.Exclamation)
+            End If
+
+            'ラベルにセット
+            heightLabel.Text = heightMLabel.Text '身長
+            weightLabel.Text = weight '体重
+            baseValueGroupBox.Text = "基準値　" & ym
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' 保存ボタンクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnSave_Click(sender As System.Object, e As System.EventArgs) Handles btnSave.Click
+        Dim height As String = heightLabel.Text '身長
+        Dim weight As String = weightLabel.Text '体重
+
+        '身長、体重入力チェック
+        If height = "0" OrElse height = "" OrElse weight = "0" OrElse weight = "" Then
+            MsgBox("基準値：身長＆体重を選択して下さい。", MsgBoxStyle.Exclamation)
+            Return
+        End If
+
+        '登録処理
+        Dim cn As New ADODB.Connection()
+        cn.Open(topform.DB_NCare)
+        Dim sql As String = "select * from Dat11 where Nam='" & selectedResidentName & "'"
+        Dim rs As New ADODB.Recordset
+        rs.Open(sql, cn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
+        If rs.RecordCount <= 0 Then
+            rs.AddNew()
+        Else
+            Dim result As DialogResult = MessageBox.Show("上書き保存して宜しいですか？", "保存", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            If result <> Windows.Forms.DialogResult.Yes Then
+                rs.Close()
+                cn.Close()
+                Return
+            End If
+        End If
+        '名前
+        rs.Fields("Nam").Value = selectedResidentName
+        '実施日
+        rs.Fields("Ymd").Value = JYmdBox.getADStr()
+        '年齢
+        rs.Fields("Age").Value = ageLabel.Text
+
+        'ラベル部分
+        '身長
+        rs.Fields("Lbl0").Value = heightLabel.Text
+        '体重
+        rs.Fields("Lbl1").Value = weightLabel.Text
+        'BMI
+        rs.Fields("Lbl2").Value = bmiLabel.Text
+        '脛骨長
+        rs.Fields("Lbl3").Value = keikotutyoLabel.Text
+        '膝高
+        rs.Fields("Lbl4").Value = hizatakaLabel.Text
+        '理想体重
+        rs.Fields("Lbl5").Value = idealWeightLabel.Text
+        'エネルギー量（理想）
+        rs.Fields("Lbl6").Value = idealKcalLabel.Text
+        'BEE（理想）
+        rs.Fields("Lbl7").Value = bee1Label.Text
+        'たん白質（理想）
+        rs.Fields("Lbl8").Value = idealProtein1Label.Text
+        rs.Fields("Lbl9").Value = idealProtein2Label.Text
+        'エネルギー量（必要）
+        rs.Fields("Lbl10").Value = necessaryKcalLabel.Text
+        'BEE（必要）
+        rs.Fields("Lbl11").Value = bee2Label.Text
+        'たん白質（必要）
+        rs.Fields("Lbl12").Value = necessaryProtein1Label.Text
+        rs.Fields("Lbl13").Value = necessaryProtein2Label.Text
+        '脂質
+        rs.Fields("Lbl14").Value = sisituLabel.Text
+        '糖質
+        rs.Fields("Lbl15").Value = tosituLabel.Text
+        '食物繊維
+        rs.Fields("Lbl16").Value = seniLabel.Text
+        '水分
+        rs.Fields("Lbl17").Value = waterLabel.Text
+        'BMI（漢字）
+        rs.Fields("Lbl18").Value = bmiKanjiLabel.Text
+
+        'テキスト部分
+        '脛骨長
+        rs.Fields("Txt0").Value = keikotuTextBox.Text
+        '膝高
+        rs.Fields("Txt1").Value = hizatakaTextBox.Text
+        '理想体重(目標BMI)
+        rs.Fields("Txt2").Value = goalBmiTextBox.Text
+        '活動係数（理想）
+        rs.Fields("Txt3").Value = katudo1TextBox.Text
+        'ｽﾄﾚｽ係数（理想）
+        rs.Fields("Txt4").Value = stress1TextBox.Text
+        '改善係数（理想）
+        rs.Fields("Txt5").Value = kaizen1TextBox.Text
+        '活動係数（必要）
+        rs.Fields("Txt6").Value = katudo2TextBox.Text
+        'ｽﾄﾚｽ係数（必要）
+        rs.Fields("Txt7").Value = stress2TextBox.Text
+        '改善係数（必要）
+        rs.Fields("Txt8").Value = kaizen2TextBox.Text
+        '算出率1
+        rs.Fields("Txt9").Value = workedOutPercent1TextBox.Text
+        '算出率2
+        rs.Fields("Txt10").Value = workedOutPercent2TextBox.Text
+        '血清Alb
+        rs.Fields("Txt11").Value = albTextBox.Text
+        '食事摂取量
+        rs.Fields("Txt12").Value = intakeTextBox.Text
+        '栄養補給法
+        rs.Fields("Txt13").Value = nutritionTextBox.Text
+        '褥瘡
+        rs.Fields("Txt14").Value = decubitusTextBox.Text
+
+        '体重推移部分
+        '過去の体重
+        rs.Fields("Tai1").Value = dgvWeightChange(0, 0).Value
+        rs.Fields("Tai2").Value = dgvWeightChange(1, 0).Value
+        rs.Fields("Tai3").Value = dgvWeightChange(2, 0).Value
+        rs.Fields("Tai4").Value = dgvWeightChange(3, 0).Value
+        rs.Fields("Tai5").Value = dgvWeightChange(4, 0).Value
+        rs.Fields("Tai6").Value = dgvWeightChange(5, 0).Value
+        '体重差
+        rs.Fields("Tai7").Value = dgvWeightChange(0, 1).Value
+        rs.Fields("Tai8").Value = dgvWeightChange(1, 1).Value
+        rs.Fields("Tai9").Value = dgvWeightChange(2, 1).Value
+        rs.Fields("Tai10").Value = dgvWeightChange(3, 1).Value
+        rs.Fields("Tai11").Value = dgvWeightChange(4, 1).Value
+        rs.Fields("Tai12").Value = dgvWeightChange(5, 1).Value
+        '体重減少率
+        rs.Fields("Tai13").Value = dgvWeightChange(0, 2).Value
+        rs.Fields("Tai14").Value = dgvWeightChange(1, 2).Value
+        rs.Fields("Tai15").Value = dgvWeightChange(2, 2).Value
+        rs.Fields("Tai16").Value = dgvWeightChange(3, 2).Value
+        rs.Fields("Tai17").Value = dgvWeightChange(4, 2).Value
+        rs.Fields("Tai18").Value = dgvWeightChange(5, 2).Value
+        '測定日
+        rs.Fields("Tai19").Value = dgvWeightChange(0, 3).Value
+        rs.Fields("Tai20").Value = dgvWeightChange(1, 3).Value
+        rs.Fields("Tai21").Value = dgvWeightChange(2, 3).Value
+        rs.Fields("Tai22").Value = dgvWeightChange(3, 3).Value
+        rs.Fields("Tai23").Value = dgvWeightChange(4, 3).Value
+        rs.Fields("Tai24").Value = dgvWeightChange(5, 3).Value
+
+        rs.Update()
+        rs.Close()
+        cn.Close()
+
+    End Sub
+
+    ''' <summary>
+    ''' 算出ボタンクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnCalc_Click(sender As System.Object, e As System.EventArgs) Handles btnCalc.Click
+        '身長、体重入力チェック
+        If heightLabel.Text = "0" OrElse heightLabel.Text = "" OrElse weightLabel.Text = "0" OrElse weightLabel.Text = "" Then
+            MsgBox("基準値：身長＆体重を選択して下さい。", MsgBoxStyle.Exclamation)
+            Return
+        End If
+
+        '各テキストボックスチェック
+        For Each tb As TextBox In {keikotuTextBox, hizatakaTextBox, goalBmiTextBox, katudo1TextBox, stress1TextBox, kaizen1TextBox, katudo2TextBox, stress2TextBox, kaizen2TextBox, albTextBox, intakeTextBox}
+            If Not checkTextBoxInputNum(tb) Then
+                tb.Focus()
+                MsgBox("数値を入力して下さい", MsgBoxStyle.Exclamation)
+                Return
+            End If
+        Next
+
+        '身長(cm),身長(m),体重(kg)
+        Dim heightCm As Double = heightLabel.Text
+        Dim height As Double = heightLabel.Text / 100
+        Dim weight As Double = weightLabel.Text
+
+        '年齢
+        Dim age As Double = calcAge(selectedResidentBirth, JYmdBox.getADStr())
+        ageLabel.Text = age
+
+        'BMI kg /(m * m)
+        bmiLabel.Text = Math.Round(weight / (Height * Height), 1)
+
+        '脛骨長 3.23 * 入力数値 + 49.6
+        keikotutyoLabel.Text = Math.Round(3.23 * keikotuTextBox.Text + 49.6, 1)
+
+        '膝高
+        If selectedResidentSex = "1" Then
+            '男 64.02 + (入力数値 * 2.12) - (年齢 * 0.07)
+            hizatakaLabel.Text = Math.Round(64.02 + (hizatakaTextBox.Text * 2.12) - (age * 0.07), 1)
+        ElseIf selectedResidentSex = "2" Then
+            '女 77.88 + (入力数値 * 1.77) - (年齢 * 0.1)
+            hizatakaLabel.Text = Math.Round(77.88 + (hizatakaTextBox.Text * 1.77) - (age * 0.1), 1)
+        End If
+
+        '理想体重
+        idealWeightLabel.Text = Math.Round(goalBmiTextBox.Text * (height * height), 1)
+
+        '標準体重当たり(理想)
+        'BEE
+        If selectedResidentSex = "1" Then
+            '男 66.5 + (13.75 * 理想体重) + (5 * 身長) - (6.75 * 年齢)
+            bee1Label.Text = Math.Round(66.5 + (13.75 * idealWeightLabel.Text) + (5 * heightCm) - (6.75 * age), 0)
+        ElseIf selectedResidentSex = "2" Then
+            '女 665.14 + (9.56 * 理想体重) + (1.85 * 身長) - (4.68 * 年齢)
+            bee1Label.Text = Math.Round(665.14 + (9.56 * idealWeightLabel.Text) + (1.85 * heightCm) - (4.68 * age), 0)
+        End If
+        'エネルギー量
+        idealKcalLabel.Text = Math.Round(bee1Label.Text * katudo1TextBox.Text * stress1TextBox.Text * kaizen1TextBox.Text, 0)
+        'たん白質
+        idealProtein1Label.Text = Math.Round(idealWeightLabel.Text * 1.3, 1)
+        idealProtein2Label.Text = Math.Round(idealWeightLabel.Text * 1.13, 1)
+
+        '現状体重当たり（必要）
+        'BEE
+        If selectedResidentSex = "1" Then
+            '男 66.5 + (13.75 * 基準体重) + (5 * 身長) - (6.75 * 年齢)
+            bee2Label.Text = Math.Round(66.5 + (13.75 * weightLabel.Text) + (5 * heightCm) - (6.75 * age), 0)
+        ElseIf selectedResidentSex = "2" Then
+            '女 665.14 + (9.56 * 基準体重) + (1.85 * 身長) - (4.68 * 年齢)
+            bee2Label.Text = Math.Round(665.14 + (9.56 * weightLabel.Text) + (1.85 * heightCm) - (4.68 * age), 0)
+        End If
+        'エネルギー量
+        necessaryKcalLabel.Text = Math.Round(bee2Label.Text * katudo2TextBox.Text * stress2TextBox.Text * kaizen2TextBox.Text, 0)
+        'たん白質
+        necessaryProtein1Label.Text = Math.Round(weight * 1.3, 1)
+        necessaryProtein2Label.Text = Math.Round(weight * 1.13, 1)
+        '脂質
+        sisituLabel.Text = Math.Round(necessaryKcalLabel.Text * 0.2 / 9, 1)
+        '糖質
+        tosituLabel.Text = Math.Round(necessaryKcalLabel.Text * 0.65 / 4, 1)
+        '食物繊維
+        seniLabel.Text = Math.Round(necessaryKcalLabel.Text / 100, 1)
+        '水分
+        If age >= 66 Then
+            waterLabel.Text = Math.Round(weight * 30, 1)
+        ElseIf age >= 56 Then
+            waterLabel.Text = Math.Round(weight * 30, 1)
+        Else
+            waterLabel.Text = Math.Round(weight * 35, 1)
+        End If
+
+    End Sub
+
+    ''' <summary>
+    ''' テキストが数値であるか判定
+    ''' </summary>
+    ''' <param name="tb"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function checkTextBoxInputNum(tb As TextBox) As Boolean
+        If tb.Text = "" Then
+            tb.Text = "0"
+        End If
+        'まだ途中
+        'とりあえず
+        Return True
+    End Function
 End Class

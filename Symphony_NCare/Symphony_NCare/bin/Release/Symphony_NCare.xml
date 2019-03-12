@@ -55,7 +55,7 @@ Symphony_NCare
 	<remarks></remarks>
 </member><member name="M:Symphony_NCare.スクリーニング書.displayResidentInfo">
 	<summary>
- 入居者情報表示(ユニット、名前、性別、生年月日、年齢)
+ 入居者情報表示(ユニット、名前、性別、生年月日)
  </summary>
 	<remarks></remarks>
 </member><member name="M:Symphony_NCare.スクリーニング書.displayScreening(System.String)">
@@ -64,7 +64,7 @@ Symphony_NCare
  </summary>
 	<param name="ymd"></param>
 	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.calcAge(System.String)">
+</member><member name="M:Symphony_NCare.スクリーニング書.calcAge(System.String,System.String)">
 	<summary>
  現在年齢算出
  </summary>
@@ -110,6 +110,41 @@ Symphony_NCare
  </summary>
 	<param name="sender"></param>
 	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.dgvWeight_CellFormatting(System.Object,System.Windows.Forms.DataGridViewCellFormattingEventArgs)">
+	<summary>
+ dgv体重CellFormattingイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.dgvWeight_CellMouseClick(System.Object,System.Windows.Forms.DataGridViewCellMouseEventArgs)">
+	<summary>
+ dgv体重セルマウスクリックイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.btnSave_Click(System.Object,System.EventArgs)">
+	<summary>
+ 保存ボタンクリックイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.btnCalc_Click(System.Object,System.EventArgs)">
+	<summary>
+ 算出ボタンクリックイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.checkTextBoxInputNum(System.Windows.Forms.TextBox)">
+	<summary>
+ テキストが数値であるか判定
+ </summary>
+	<param name="tb"></param>
+	<returns></returns>
 	<remarks></remarks>
 </member><member name="M:Symphony_NCare.Util.EnableDoubleBuffering(System.Windows.Forms.Control)">
 	<summary>

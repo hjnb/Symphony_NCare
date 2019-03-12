@@ -61,7 +61,7 @@ Partial Class スクリーニング書
         Me.Label21 = New System.Windows.Forms.Label()
         Me.heightLabel = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.baseValueGroupBox = New System.Windows.Forms.GroupBox()
         Me.weightLabel = New System.Windows.Forms.Label()
         Me.JYmdBox = New ymdBox.ymdBox()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -194,7 +194,7 @@ Partial Class スクリーニング書
         CType(Me.dgvWeight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvTokki, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvWeightChange, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox2.SuspendLayout()
+        Me.baseValueGroupBox.SuspendLayout()
         Me.JPanel.SuspendLayout()
         CType(Me.dgvScreening, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -562,22 +562,22 @@ Partial Class スクリーニング書
         Me.Label23.TabIndex = 29
         Me.Label23.Text = "cm"
         '
-        'GroupBox2
+        'baseValueGroupBox
         '
-        Me.GroupBox2.Controls.Add(Me.weightLabel)
-        Me.GroupBox2.Controls.Add(Me.JYmdBox)
-        Me.GroupBox2.Controls.Add(Me.heightLabel)
-        Me.GroupBox2.Controls.Add(Me.Label11)
-        Me.GroupBox2.Controls.Add(Me.Label10)
-        Me.GroupBox2.Controls.Add(Me.Label23)
-        Me.GroupBox2.Controls.Add(Me.Label9)
-        Me.GroupBox2.Controls.Add(Me.Label8)
-        Me.GroupBox2.Location = New System.Drawing.Point(1002, 16)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(165, 96)
-        Me.GroupBox2.TabIndex = 30
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "基準値"
+        Me.baseValueGroupBox.Controls.Add(Me.weightLabel)
+        Me.baseValueGroupBox.Controls.Add(Me.JYmdBox)
+        Me.baseValueGroupBox.Controls.Add(Me.heightLabel)
+        Me.baseValueGroupBox.Controls.Add(Me.Label11)
+        Me.baseValueGroupBox.Controls.Add(Me.Label10)
+        Me.baseValueGroupBox.Controls.Add(Me.Label23)
+        Me.baseValueGroupBox.Controls.Add(Me.Label9)
+        Me.baseValueGroupBox.Controls.Add(Me.Label8)
+        Me.baseValueGroupBox.Location = New System.Drawing.Point(1002, 16)
+        Me.baseValueGroupBox.Name = "baseValueGroupBox"
+        Me.baseValueGroupBox.Size = New System.Drawing.Size(165, 96)
+        Me.baseValueGroupBox.TabIndex = 30
+        Me.baseValueGroupBox.TabStop = False
+        Me.baseValueGroupBox.Text = "基準値"
         '
         'weightLabel
         '
@@ -1936,7 +1936,7 @@ Partial Class スクリーニング書
         Me.Controls.Add(Me.btnInsert)
         Me.Controls.Add(Me.btnPrintRight)
         Me.Controls.Add(Me.btnCalc)
-        Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.baseValueGroupBox)
         Me.Controls.Add(Me.Label21)
         Me.Controls.Add(Me.Label20)
         Me.Controls.Add(Me.Label19)
@@ -1972,8 +1972,8 @@ Partial Class スクリーニング書
         CType(Me.dgvWeight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvTokki, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvWeightChange, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        Me.baseValueGroupBox.ResumeLayout(False)
+        Me.baseValueGroupBox.PerformLayout()
         Me.JPanel.ResumeLayout(False)
         Me.JPanel.PerformLayout()
         CType(Me.dgvScreening, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2019,7 +2019,7 @@ Partial Class スクリーニング書
     Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents heightLabel As System.Windows.Forms.Label
     Friend WithEvents Label23 As System.Windows.Forms.Label
-    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents baseValueGroupBox As System.Windows.Forms.GroupBox
     Friend WithEvents JYmdBox As ymdBox.ymdBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
