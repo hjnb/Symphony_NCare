@@ -45,6 +45,7 @@ Partial Class 職員食印刷
         'rbnSyokuinn
         '
         Me.rbnSyokuinn.AutoSize = True
+        Me.rbnSyokuinn.Checked = True
         Me.rbnSyokuinn.Location = New System.Drawing.Point(24, 26)
         Me.rbnSyokuinn.Name = "rbnSyokuinn"
         Me.rbnSyokuinn.Size = New System.Drawing.Size(95, 16)
@@ -60,7 +61,6 @@ Partial Class 職員食印刷
         Me.rbnSyuukann.Name = "rbnSyuukann"
         Me.rbnSyuukann.Size = New System.Drawing.Size(83, 16)
         Me.rbnSyuukann.TabIndex = 1
-        Me.rbnSyuukann.TabStop = True
         Me.rbnSyuukann.Text = "週間集計表"
         Me.rbnSyuukann.UseVisualStyleBackColor = True
         '
@@ -71,7 +71,6 @@ Partial Class 職員食印刷
         Me.rbnSeikyuu.Name = "rbnSeikyuu"
         Me.rbnSeikyuu.Size = New System.Drawing.Size(71, 16)
         Me.rbnSeikyuu.TabIndex = 2
-        Me.rbnSeikyuu.TabStop = True
         Me.rbnSeikyuu.Text = "請求一覧"
         Me.rbnSeikyuu.UseVisualStyleBackColor = True
         '

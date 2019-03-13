@@ -35,19 +35,6 @@ Public Class 職員食印刷
     End Sub
 
     Private Sub btnOK_Click(sender As System.Object, e As System.EventArgs) Handles btnOK.Click
-        'Dim Ymd As Date = Util.convWarekiStrToADStr(Strings.Left(CType(Me.Owner, 職員食).lblYmd.Text, 9))
-        'Dim YmdAdd7 As Date = Ymd.AddDays(6)
-        'Dim Cn As New OleDbConnection(topform.DB_NCare)
-        'Dim SQLCm As OleDbCommand = Cn.CreateCommand
-        'Dim Adapter As New OleDbDataAdapter(SQLCm)
-        'Dim Table As New DataTable
-        'SQLCm.CommandText = "select * from Dat13 WHERE #" & Ymd & "# <= Ymd and Ymd <= #" & YmdAdd7 & "# order by Gyo, SyuN, YakN, Kana, Ymd"
-        'Adapter.Fill(Table)
-        'DataGridView1.DataSource = Table
-
-        
-
-
         If rbnSyokuinn.Checked = True Then
             Dim objExcel As Object
             Dim objWorkBooks As Object
@@ -502,4 +489,5 @@ line1:
             End If
         End If
     End Sub
+
 End Class

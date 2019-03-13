@@ -218,6 +218,9 @@
     <EmbeddedResource Include="同意書.resx">
       <DependentUpon>同意書.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="整備状況.resx">
+      <DependentUpon>整備状況.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="職員.resx">
       <DependentUpon>職員.vb</DependentUpon>
     </EmbeddedResource>

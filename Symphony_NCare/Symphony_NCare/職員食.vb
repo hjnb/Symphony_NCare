@@ -529,57 +529,11 @@ Public Class 職員食
 
         Dim DGV5rowcount As Integer = DataGridView5.Rows.Count
 
-        If lstSyuN.Text = "管理系" Then
-            lstName.Items.Clear()
-            For i As Integer = 0 To DGV5rowcount - 1
-                lstName.Items.Add(DataGridView5(5, i).Value)
-            Next
-        ElseIf lstSyuN.Text = "事務" Then
-            lstName.Items.Clear()
-            For i As Integer = 0 To DGV5rowcount - 1
-                lstName.Items.Add(DataGridView5(5, i).Value)
-            Next
-        ElseIf lstSyuN.Text = "特別養護老人ホーム" Then
-            lstName.Items.Clear()
-            For i As Integer = 0 To DGV5rowcount - 1
-                lstName.Items.Add(DataGridView5(5, i).Value)
-            Next
-        ElseIf lstSyuN.Text = "栄養課" Then
-            lstName.Items.Clear()
-            For i As Integer = 0 To DGV5rowcount - 1
-                lstName.Items.Add(DataGridView5(5, i).Value)
-            Next
-        ElseIf lstSyuN.Text = "居宅介護支援事業所" Then
-            lstName.Items.Clear()
-            For i As Integer = 0 To DGV5rowcount - 1
-                lstName.Items.Add(DataGridView5(5, i).Value)
-            Next
-        ElseIf lstSyuN.Text = "ヘルパーステーション" Then
-            lstName.Items.Clear()
-            For i As Integer = 0 To DGV5rowcount - 1
-                lstName.Items.Add(DataGridView5(5, i).Value)
-            Next
-        ElseIf lstSyuN.Text = "デイサービス" Then
-            lstName.Items.Clear()
-            For i As Integer = 0 To DGV5rowcount - 1
-                lstName.Items.Add(DataGridView5(5, i).Value)
-            Next
-        ElseIf lstSyuN.Text = "生活支援ハウス" Then
-            lstName.Items.Clear()
-            For i As Integer = 0 To DGV5rowcount - 1
-                lstName.Items.Add(DataGridView5(5, i).Value)
-            Next
-        ElseIf lstSyuN.Text = "宿直" Then
-            lstName.Items.Clear()
-            For i As Integer = 0 To DGV5rowcount - 1
-                lstName.Items.Add(DataGridView5(5, i).Value)
-            Next
-        ElseIf lstSyuN.Text = "その他" Then
-            lstName.Items.Clear()
-            For i As Integer = 0 To DGV5rowcount - 1
-                lstName.Items.Add(DataGridView5(5, i).Value)
-            Next
-        End If
+        lstName.Items.Clear()
+        For i As Integer = 0 To DGV5rowcount - 1
+            lstName.Items.Add(DataGridView5(5, i).Value)
+        Next
+
     End Sub
 
     Private Sub btnTuika_Click(sender As System.Object, e As System.EventArgs) Handles btnTuika.Click

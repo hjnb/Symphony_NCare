@@ -189,6 +189,7 @@ Partial Class 計画書
         Me.DataGridView1.AllowUserToDeleteRows = False
         Me.DataGridView1.AllowUserToResizeColumns = False
         Me.DataGridView1.AllowUserToResizeRows = False
+        Me.DataGridView1.BackgroundColor = System.Drawing.SystemColors.Window
         Me.DataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.ColumnHeadersVisible = False
@@ -206,7 +207,7 @@ Partial Class 計画書
         Me.YmdBox1.EraLabelText = "H31"
         Me.YmdBox1.EraText = ""
         Me.YmdBox1.Location = New System.Drawing.Point(39, 143)
-        Me.YmdBox1.MonthLabelText = "01"
+        Me.YmdBox1.MonthLabelText = "03"
         Me.YmdBox1.MonthText = ""
         Me.YmdBox1.Name = "YmdBox1"
         Me.YmdBox1.Size = New System.Drawing.Size(110, 34)
@@ -329,7 +330,7 @@ Partial Class 計画書
         Me.ymdboxNyuymd.EraLabelText = "H31"
         Me.ymdboxNyuymd.EraText = ""
         Me.ymdboxNyuymd.Location = New System.Drawing.Point(273, 81)
-        Me.ymdboxNyuymd.MonthLabelText = "01"
+        Me.ymdboxNyuymd.MonthLabelText = "03"
         Me.ymdboxNyuymd.MonthText = ""
         Me.ymdboxNyuymd.Name = "ymdboxNyuymd"
         Me.ymdboxNyuymd.Size = New System.Drawing.Size(86, 20)
@@ -342,7 +343,7 @@ Partial Class 計画書
         Me.ymdboxFstymd.EraLabelText = "H31"
         Me.ymdboxFstymd.EraText = ""
         Me.ymdboxFstymd.Location = New System.Drawing.Point(273, 108)
-        Me.ymdboxFstymd.MonthLabelText = "01"
+        Me.ymdboxFstymd.MonthLabelText = "03"
         Me.ymdboxFstymd.MonthText = ""
         Me.ymdboxFstymd.Name = "ymdboxFstymd"
         Me.ymdboxFstymd.Size = New System.Drawing.Size(86, 20)

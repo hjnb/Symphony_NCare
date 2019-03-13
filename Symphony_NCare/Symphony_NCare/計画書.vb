@@ -34,14 +34,20 @@ Public Class 計画書
         Adapter.Fill(Table)
         DataGridView1.DataSource = Table
 
-        For i As Integer = 0 To 109
+        For i As Integer = 0 To 110
             If i <> 1 Then
                 DataGridView1.Columns(i).Visible = False
             End If
         Next
-        DataGridView1.Columns(1).Width = 95
+        DataGridView1.Columns(1).Width = 70
 
         YmdBox1.setADStr(Today.ToString("yyyy/MM/dd"))
+    End Sub
+
+    Private Sub DataGridView1_CellFormatting(sender As Object, e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles DataGridView1.CellFormatting
+        If e.ColumnIndex = 1 Then
+            e.Value = Util.convADStrToWarekiStr(e.Value)
+        End If
     End Sub
 
     Private Sub 計画書_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
@@ -631,12 +637,12 @@ Public Class 計画書
         Adapter.Fill(Table)
         DataGridView1.DataSource = Table
 
-        For i As Integer = 0 To 109
+        For i As Integer = 0 To 110
             If i <> 1 Then
                 DataGridView1.Columns(i).Visible = False
             End If
         Next
-        DataGridView1.Columns(1).Width = 95
+        DataGridView1.Columns(1).Width = 70
 
         YmdBox1.setADStr(Today.ToString("yyyy/MM/dd"))
     End Sub

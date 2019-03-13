@@ -105,10 +105,14 @@ Public Class topform
     End Sub
 
     Private Sub btnKannfarennsu_Click(sender As System.Object, e As System.EventArgs) Handles btnKannfarennsu.Click
-        If IsNothing(frmKannfarennsu) OrElse frmKannfarennsu.IsDisposed Then
-            frmKannfarennsu = New カンファレンス()
-            frmKannfarennsu.Owner = Me
-            frmKannfarennsu.Show()
+        If lblName.Text = "" Then
+            MsgBox("利用者を選択してください。")
+        Else
+            If IsNothing(frmKannfarennsu) OrElse frmKannfarennsu.IsDisposed Then
+                frmKannfarennsu = New カンファレンス(lblName.Text)
+                frmKannfarennsu.Owner = Me
+                frmKannfarennsu.Show()
+            End If
         End If
     End Sub
 
