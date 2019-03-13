@@ -1,9 +1,14 @@
 ﻿Imports System.Data.OleDb
+Imports Microsoft.Office.Interop
+Imports System.Runtime.InteropServices
 
 Public Class スクリーニング書
 
     '選択されている入居者名
     Private selectedResidentName As String
+
+    '選択入居者名かな
+    Private selectedResidentKana As String
 
     '選択入居者の生年月日
     Private selectedResidentBirth As String
@@ -13,6 +18,7 @@ Public Class スクリーニング書
 
     'W/Hマスタ選択年月
     Private selectedYm As String
+    Private selectedYmWareki As String
 
     'コンボボックス用配列
     Private tantoArray() As String = {"澤田　美佳"} '記入者
@@ -463,6 +469,7 @@ Public Class スクリーニング書
         If rs.RecordCount > 0 Then
             Dim unit As String = Util.checkDBNullValue(rs.Fields("Unit").Value)
             Dim kana As String = Util.checkDBNullValue(rs.Fields("Kana").Value)
+            selectedResidentKana = kana
             selectedResidentBirth = Util.checkDBNullValue(rs.Fields("Birth").Value)
             Dim birthWareki As String = Util.convADStrToWarekiStr(Util.checkDBNullValue(rs.Fields("Birth").Value))
             Dim sex As String = Util.checkDBNullValue(rs.Fields("Sex").Value)
@@ -900,6 +907,7 @@ Public Class スクリーニング書
             End If
 
             selectedYm = Util.checkDBNullValue(dgvWeight("Ym", e.RowIndex).Value)
+            selectedYmWareki = Util.checkDBNullValue(dgvWeight("Ym", e.RowIndex).FormattedValue)
 
             'ラベルにセット
             heightLabel.Text = heightMLabel.Text '身長
@@ -1216,4 +1224,315 @@ Public Class スクリーニング書
             Return False
         End If
     End Function
+
+    ''' <summary>
+    ''' 和暦表記にフォーマット
+    ''' </summary>
+    ''' <param name="adStr"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function formatDateStr(adStr As String) As String
+        If adStr = "" Then
+            Return ""
+        End If
+
+        Dim warekiStr As String = Util.convADStrToWarekiStr(adStr)
+        Dim kanji As String = Util.getKanji(warekiStr)
+        Dim eraNum As String = CInt(warekiStr.Substring(1, 2))
+        Dim monthNum As String = CInt(warekiStr.Substring(4, 2))
+        Dim dateNum As String = CInt(warekiStr.Substring(7, 2))
+        Return kanji & " " & eraNum & " 年 " & monthNum & " 月 " & dateNum & " 日"
+    End Function
+
+    ''' <summary>
+    ''' 印刷ボタン（右）クリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnPrintRight_Click(sender As System.Object, e As System.EventArgs) Handles btnPrintRight.Click
+        '身長、体重入力チェック
+        If heightLabel.Text = "0" OrElse heightLabel.Text = "" OrElse weightLabel.Text = "0" OrElse weightLabel.Text = "" Then
+            MsgBox("基準値：身長＆体重を選択して下さい。", MsgBoxStyle.Exclamation)
+            Return
+        End If
+
+        'データ作成
+        Dim dataArray(44, 18) As String
+        '入居者名 漢字、かな
+        dataArray(0, 0) = selectedResidentName
+        dataArray(0, 3) = "(" & selectedResidentKana & ")"
+        '生年月日、年齢
+        dataArray(1, 0) = formatDateStr(selectedResidentBirth)
+        dataArray(1, 5) = "("
+        dataArray(1, 6) = ageLabel.Text
+        dataArray(1, 8) = "歳）"
+        '性別
+        dataArray(2, 0) = If(selectedResidentSex = "1", "男", If(selectedResidentSex = "2", "女", ""))
+        'ユニット
+        dataArray(3, 0) = unitLabel.Text
+        '実施日
+        dataArray(5, 0) = formatDateStr(JYmdBox.getADStr())
+        '身長
+        dataArray(6, 0) = heightLabel.Text
+        dataArray(6, 2) = "cm"
+        dataArray(6, 3) = "(" & selectedYmWareki & ")"
+        '体重
+        dataArray(7, 0) = weightLabel.Text
+        dataArray(7, 2) = "kg"
+        dataArray(7, 3) = "(" & selectedYmWareki & ")"
+        '総合判定
+        dataArray(10, 5) = "□"
+        dataArray(10, 7) = "低リスク"
+        dataArray(10, 11) = "□"
+        dataArray(10, 13) = "中リスク"
+        dataArray(10, 16) = "□"
+        dataArray(10, 18) = "高リスク"
+        'BMI
+        Dim bmi As Double = bmiLabel.Text
+        dataArray(11, 0) = bmiLabel.Text
+        dataArray(11, 2) = "kg/㎡"
+        dataArray(11, 5) = If(bmi >= 18.5, "■", "□")
+        dataArray(11, 7) = "18.5-29.9"
+        dataArray(11, 11) = If(bmi < 18.5, "■", "□")
+        dataArray(11, 13) = "18.5未満"
+        '体重減少率
+        '1ヶ月
+        Dim gen1 As Double = If(Util.checkDBNullValue(dgvWeightChange(0, 2).Value) = "", -1000, dgvWeightChange(0, 2).Value)
+        dataArray(12, 0) = Util.checkDBNullValue(dgvWeightChange(0, 2).Value)
+        dataArray(12, 2) = "% 1ヶ月"
+        dataArray(12, 7) = "1ヶ月に3%未満"
+        dataArray(12, 13) = "1ヶ月に3-5%未満"
+        dataArray(12, 18) = "1ヶ月に5%以上"
+        If gen1 = -1000 Then
+            dataArray(12, 5) = "□"
+            dataArray(12, 11) = "□"
+            dataArray(12, 16) = "□"
+        Else
+            dataArray(12, 5) = If(gen1 < 3, "■", "□")
+            dataArray(12, 11) = If((3 <= gen1 AndAlso gen1 < 5), "■", "□")
+            dataArray(12, 16) = If(gen1 >= 5, "■", "□")
+        End If
+        '3ヶ月
+        Dim gen3 As Double = If(Util.checkDBNullValue(dgvWeightChange(2, 2).Value) = "", -1000, dgvWeightChange(2, 2).Value)
+        dataArray(13, 0) = Util.checkDBNullValue(dgvWeightChange(2, 2).Value)
+        dataArray(13, 2) = "% 3ヶ月"
+        dataArray(13, 7) = "3ヶ月に3%未満"
+        dataArray(13, 13) = "3ヶ月に3-7.5%未満"
+        dataArray(13, 18) = "3ヶ月に7.5%以上"
+        If gen3 = -1000 Then
+            dataArray(13, 5) = "□"
+            dataArray(13, 11) = "□"
+            dataArray(13, 16) = "□"
+        Else
+            dataArray(13, 5) = If(gen3 < 3, "■", "□")
+            dataArray(13, 11) = If((3 <= gen3 AndAlso gen3 < 7.5), "■", "□")
+            dataArray(13, 16) = If(gen3 >= 7.5, "■", "□")
+        End If
+        '6ヶ月
+        Dim gen6 As Double = If(Util.checkDBNullValue(dgvWeightChange(5, 2).Value) = "", -1000, dgvWeightChange(5, 2).Value)
+        dataArray(14, 0) = Util.checkDBNullValue(dgvWeightChange(5, 2).Value)
+        dataArray(14, 2) = "% 6ヶ月"
+        dataArray(14, 7) = "6ヶ月に3%未満"
+        dataArray(14, 13) = "6ヶ月に3-10%未満"
+        dataArray(14, 18) = "6ヶ月に10%以上"
+        If gen6 = -1000 Then
+            dataArray(14, 5) = "□"
+            dataArray(14, 11) = "□"
+            dataArray(14, 16) = "□"
+        Else
+            dataArray(14, 5) = If(gen6 < 3, "■", "□")
+            dataArray(14, 11) = If((3 <= gen6 AndAlso gen6 < 10), "■", "□")
+            dataArray(14, 16) = If(gen6 >= 10, "■", "□")
+        End If
+        '血清ALB値
+        Dim alb As Double = If(albTextBox.Text = "", -1000, albTextBox.Text)
+        dataArray(15, 0) = albTextBox.Text
+        dataArray(15, 2) = "g/dl"
+        dataArray(15, 7) = "3.6g/dl以上"
+        dataArray(15, 13) = "3.0-3.5g/dl"
+        dataArray(15, 18) = "3.0g/dl未満"
+        If alb = -1000 OrElse alb = 0 Then
+            dataArray(15, 5) = "□"
+            dataArray(15, 11) = "□"
+            dataArray(15, 16) = "□"
+        Else
+            dataArray(15, 5) = If(alb >= 3.6, "■", "□")
+            dataArray(15, 11) = If((3.0 <= alb AndAlso alb <= 3.5), "■", "□")
+            dataArray(15, 16) = If(alb < 3, "■", "□")
+        End If
+        '食事摂取量
+        Dim intake As Double = If(intakeTextBox.Text = "", -1000, intakeTextBox.Text)
+        dataArray(16, 0) = intakeTextBox.Text
+        dataArray(16, 2) = "%"
+        dataArray(16, 7) = "良好　76-100%"
+        dataArray(16, 13) = "不良　75%以下"
+        If intake = -1000 OrElse intake = 0 Then
+            dataArray(16, 5) = "□"
+            dataArray(16, 11) = "□"
+        Else
+            dataArray(16, 5) = If((76 <= intake AndAlso intake <= 100), "■", "□")
+            dataArray(16, 11) = If(75 >= intake, "■", "□")
+        End If
+        '栄養補給法
+        dataArray(17, 13) = "経腸栄養法"
+        dataArray(18, 13) = "静脈栄養法"
+        Dim nutrition As Double = If(nutritionTextBox.Text = "", -1000, nutritionTextBox.Text)
+        If nutrition = 1 Then
+            dataArray(17, 11) = "■"
+            dataArray(18, 11) = "□"
+        ElseIf nutrition = 2 Then
+            dataArray(17, 11) = "□"
+            dataArray(18, 11) = "■"
+        Else
+            dataArray(17, 11) = "□"
+            dataArray(18, 11) = "□"
+        End If
+        '褥瘡
+        dataArray(19, 18) = "褥瘡"
+        Dim decubitus As Double = If(decubitusTextBox.Text = "", -1000, decubitusTextBox.Text)
+        If decubitus = 1 Then
+            dataArray(19, 16) = "■"
+        Else
+            dataArray(19, 16) = "□"
+        End If
+        '脛骨長
+        dataArray(21, 0) = keikotutyoLabel.Text
+        dataArray(21, 2) = "cm"
+        '膝高
+        dataArray(22, 0) = hizatakaLabel.Text
+        dataArray(22, 2) = "cm"
+        '理想体重
+        dataArray(23, 0) = idealWeightLabel.Text
+        dataArray(23, 2) = "kg"
+        '目標BMI
+        dataArray(24, 0) = goalBmiTextBox.Text
+        dataArray(24, 2) = "kg/㎡"
+        '標準体重あたり（理想）
+        dataArray(26, 3) = "BEE"
+        dataArray(26, 7) = "活動係数"
+        dataArray(26, 13) = "ｽﾄﾚｽ係数"
+        dataArray(26, 18) = "改善係数"
+        'エネルギー量
+        dataArray(27, 0) = idealKcalLabel.Text
+        dataArray(27, 2) = "Kcal"
+        dataArray(27, 3) = bee1Label.Text
+        dataArray(27, 5) = "×"
+        dataArray(27, 7) = katudo1TextBox.Text
+        dataArray(27, 11) = "×"
+        dataArray(27, 13) = stress1TextBox.Text
+        dataArray(27, 16) = "×"
+        dataArray(27, 18) = kaizen1TextBox.Text
+        'たん白質
+        dataArray(28, 0) = idealProtein1Label.Text
+        dataArray(28, 2) = "g"
+        dataArray(29, 0) = idealProtein2Label.Text
+        dataArray(29, 2) = "g"
+        '現状体重当たり（必要）
+        dataArray(31, 3) = "BEE"
+        dataArray(31, 7) = "活動係数"
+        dataArray(31, 13) = "ｽﾄﾚｽ係数"
+        dataArray(31, 18) = "改善係数"
+        'エネルギー量
+        dataArray(32, 0) = necessaryKcalLabel.Text
+        dataArray(32, 2) = "Kcal"
+        dataArray(32, 3) = bee2Label.Text
+        dataArray(32, 5) = "×"
+        dataArray(32, 7) = katudo2TextBox.Text
+        dataArray(32, 11) = "×"
+        dataArray(32, 13) = stress2TextBox.Text
+        dataArray(32, 16) = "×"
+        dataArray(32, 18) = kaizen2TextBox.Text
+        'たん白質
+        dataArray(33, 0) = necessaryProtein1Label.Text
+        dataArray(33, 2) = "g"
+        dataArray(34, 0) = necessaryProtein2Label.Text
+        dataArray(34, 2) = "g"
+        '脂質
+        dataArray(35, 0) = sisituLabel.Text
+        dataArray(35, 2) = "g"
+        dataArray(35, 3) = "算出率"
+        dataArray(35, 4) = workedOutPercent1TextBox.Text
+        dataArray(35, 8) = "%"
+        '糖質
+        dataArray(36, 0) = tosituLabel.Text
+        dataArray(36, 2) = "g"
+        dataArray(36, 3) = "算出率"
+        dataArray(36, 4) = workedOutPercent2TextBox.Text
+        dataArray(36, 8) = "%"
+        '食物繊維
+        dataArray(37, 0) = seniLabel.Text
+        dataArray(37, 2) = "g"
+        '水分
+        dataArray(38, 0) = waterLabel.Text
+        dataArray(38, 2) = "ml"
+        '体重推移
+        dataArray(40, 3) = "前月"
+        dataArray(40, 4) = "2ヶ月前"
+        dataArray(40, 8) = "3ヶ月前"
+        dataArray(40, 9) = "4ヶ月前"
+        dataArray(40, 13) = "5ヶ月前"
+        dataArray(40, 14) = "6ヶ月前"
+        dataArray(41, 0) = "過去の体重 ："
+        dataArray(41, 3) = Util.checkDBNullValue(dgvWeightChange(0, 0).Value)
+        dataArray(41, 4) = Util.checkDBNullValue(dgvWeightChange(1, 0).Value)
+        dataArray(41, 8) = Util.checkDBNullValue(dgvWeightChange(2, 0).Value)
+        dataArray(41, 9) = Util.checkDBNullValue(dgvWeightChange(3, 0).Value)
+        dataArray(41, 13) = Util.checkDBNullValue(dgvWeightChange(4, 0).Value)
+        dataArray(41, 14) = Util.checkDBNullValue(dgvWeightChange(5, 0).Value)
+        dataArray(42, 0) = "本月比較 ："
+        dataArray(42, 3) = Util.checkDBNullValue(dgvWeightChange(0, 1).Value)
+        dataArray(42, 4) = Util.checkDBNullValue(dgvWeightChange(1, 1).Value)
+        dataArray(42, 8) = Util.checkDBNullValue(dgvWeightChange(2, 1).Value)
+        dataArray(42, 9) = Util.checkDBNullValue(dgvWeightChange(3, 1).Value)
+        dataArray(42, 13) = Util.checkDBNullValue(dgvWeightChange(4, 1).Value)
+        dataArray(42, 14) = Util.checkDBNullValue(dgvWeightChange(5, 1).Value)
+        dataArray(43, 0) = "体重減少率 ："
+        dataArray(43, 3) = Util.checkDBNullValue(dgvWeightChange(0, 2).Value)
+        dataArray(43, 4) = Util.checkDBNullValue(dgvWeightChange(1, 2).Value)
+        dataArray(43, 8) = Util.checkDBNullValue(dgvWeightChange(2, 2).Value)
+        dataArray(43, 9) = Util.checkDBNullValue(dgvWeightChange(3, 2).Value)
+        dataArray(43, 13) = Util.checkDBNullValue(dgvWeightChange(4, 2).Value)
+        dataArray(43, 14) = Util.checkDBNullValue(dgvWeightChange(5, 2).Value)
+        dataArray(44, 0) = "測定日 ："
+        dataArray(44, 3) = Util.checkDBNullValue(dgvWeightChange(0, 3).Value)
+        dataArray(44, 4) = Util.checkDBNullValue(dgvWeightChange(1, 3).Value)
+        dataArray(44, 8) = Util.checkDBNullValue(dgvWeightChange(2, 3).Value)
+        dataArray(44, 9) = Util.checkDBNullValue(dgvWeightChange(3, 3).Value)
+        dataArray(44, 13) = Util.checkDBNullValue(dgvWeightChange(4, 3).Value)
+        dataArray(44, 14) = Util.checkDBNullValue(dgvWeightChange(5, 3).Value)
+
+        'エクセル準備
+        Dim objExcel As Excel.Application = CreateObject("Excel.Application")
+        Dim objWorkBooks As Excel.Workbooks = objExcel.Workbooks
+        Dim objWorkBook As Excel.Workbook = objWorkBooks.Open(topform.excelFilePass)
+        Dim oSheet As Excel.Worksheet = objWorkBook.Worksheets("PreScr改")
+        objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
+        objExcel.ScreenUpdating = False
+
+        'データ書き込み
+        oSheet.Range("D4", "V48").Value = dataArray
+
+        objExcel.Calculation = Excel.XlCalculation.xlCalculationAutomatic
+        objExcel.ScreenUpdating = True
+
+        '変更保存確認ダイアログ非表示
+        objExcel.DisplayAlerts = False
+
+        '印刷
+        If topform.rbnPrintout.Checked = True Then
+            oSheet.PrintOut()
+        ElseIf topform.rbnPreview.Checked = True Then
+            objExcel.Visible = True
+            oSheet.PrintPreview(1)
+        End If
+
+        ' EXCEL解放
+        objExcel.Quit()
+        Marshal.ReleaseComObject(objWorkBook)
+        Marshal.ReleaseComObject(objExcel)
+        oSheet = Nothing
+        objWorkBook = Nothing
+        objExcel = Nothing
+    End Sub
 End Class

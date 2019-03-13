@@ -1686,7 +1686,7 @@ Partial Class スクリーニング書
         'Label85
         '
         Me.Label85.AutoSize = True
-        Me.Label85.Location = New System.Drawing.Point(1, 6)
+        Me.Label85.Location = New System.Drawing.Point(1, 5)
         Me.Label85.Name = "Label85"
         Me.Label85.Size = New System.Drawing.Size(41, 12)
         Me.Label85.TabIndex = 140
@@ -1707,7 +1707,7 @@ Partial Class スクリーニング書
         Me.JPanel.Controls.Add(Me.Label85)
         Me.JPanel.Location = New System.Drawing.Point(163, 136)
         Me.JPanel.Name = "JPanel"
-        Me.JPanel.Size = New System.Drawing.Size(671, 25)
+        Me.JPanel.Size = New System.Drawing.Size(671, 23)
         Me.JPanel.TabIndex = 141
         '
         'Label90
@@ -1766,7 +1766,7 @@ Partial Class スクリーニング書
         Me.J4YmdBox.DateText = ""
         Me.J4YmdBox.EraLabelText = "H31"
         Me.J4YmdBox.EraText = ""
-        Me.J4YmdBox.Location = New System.Drawing.Point(561, 1)
+        Me.J4YmdBox.Location = New System.Drawing.Point(561, 0)
         Me.J4YmdBox.MonthLabelText = "03"
         Me.J4YmdBox.MonthText = ""
         Me.J4YmdBox.Name = "J4YmdBox"
@@ -1779,7 +1779,7 @@ Partial Class スクリーニング書
         Me.J3YmdBox.DateText = ""
         Me.J3YmdBox.EraLabelText = "H31"
         Me.J3YmdBox.EraText = ""
-        Me.J3YmdBox.Location = New System.Drawing.Point(435, 1)
+        Me.J3YmdBox.Location = New System.Drawing.Point(435, 0)
         Me.J3YmdBox.MonthLabelText = "03"
         Me.J3YmdBox.MonthText = ""
         Me.J3YmdBox.Name = "J3YmdBox"
@@ -1792,7 +1792,7 @@ Partial Class スクリーニング書
         Me.J2YmdBox.DateText = ""
         Me.J2YmdBox.EraLabelText = "H31"
         Me.J2YmdBox.EraText = ""
-        Me.J2YmdBox.Location = New System.Drawing.Point(307, 1)
+        Me.J2YmdBox.Location = New System.Drawing.Point(307, 0)
         Me.J2YmdBox.MonthLabelText = "03"
         Me.J2YmdBox.MonthText = ""
         Me.J2YmdBox.Name = "J2YmdBox"
@@ -1805,7 +1805,7 @@ Partial Class スクリーニング書
         Me.J1YmdBox.DateText = ""
         Me.J1YmdBox.EraLabelText = "H31"
         Me.J1YmdBox.EraText = ""
-        Me.J1YmdBox.Location = New System.Drawing.Point(180, 1)
+        Me.J1YmdBox.Location = New System.Drawing.Point(180, 0)
         Me.J1YmdBox.MonthLabelText = "03"
         Me.J1YmdBox.MonthText = ""
         Me.J1YmdBox.Name = "J1YmdBox"
@@ -1815,7 +1815,7 @@ Partial Class スクリーニング書
         'dgvScreening
         '
         Me.dgvScreening.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvScreening.Location = New System.Drawing.Point(163, 160)
+        Me.dgvScreening.Location = New System.Drawing.Point(163, 158)
         Me.dgvScreening.Name = "dgvScreening"
         Me.dgvScreening.RowTemplate.Height = 21
         Me.dgvScreening.Size = New System.Drawing.Size(671, 345)
