@@ -1,4 +1,4 @@
-﻿Public Class screeningDataGridView
+﻿Public Class screeningDataGridViewUp
     Inherits DataGridView
 
     Public targetYmdBox1 As ymdBox.ymdBox
@@ -9,7 +9,7 @@
     Protected Overrides Function ProcessDataGridViewKey(e As System.Windows.Forms.KeyEventArgs) As Boolean
         Dim tb As DataGridViewTextBoxEditingControl = CType(Me.EditingControl, DataGridViewTextBoxEditingControl)
 
-        If Me.CurrentCell.RowIndex = 0 AndAlso e.KeyCode = Keys.Up Then
+        If Me.CurrentCell.ColumnIndex >= 2 AndAlso Me.CurrentCell.RowIndex = 0 AndAlso e.KeyCode = Keys.Up Then
             If Me.CurrentCell.ColumnIndex = 2 Then
                 targetYmdBox1.Focus()
             ElseIf Me.CurrentCell.ColumnIndex = 3 Then

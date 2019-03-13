@@ -188,7 +188,7 @@ Partial Class スクリーニング書
         Me.J3YmdBox = New ymdBox.ymdBox()
         Me.J2YmdBox = New ymdBox.ymdBox()
         Me.J1YmdBox = New ymdBox.ymdBox()
-        Me.dgvScreening = New Symphony_NCare.screeningDataGridView(Me.components)
+        Me.dgvScreeningUp = New Symphony_NCare.screeningDataGridViewUp(Me.components)
         Me.namArea.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.dgvWeight, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -196,7 +196,7 @@ Partial Class スクリーニング書
         CType(Me.dgvWeightChange, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.baseValueGroupBox.SuspendLayout()
         Me.JPanel.SuspendLayout()
-        CType(Me.dgvScreening, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvScreeningUp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'namArea
@@ -1762,64 +1762,64 @@ Partial Class スクリーニング書
         '
         'J4YmdBox
         '
-        Me.J4YmdBox.boxType = 9
+        Me.J4YmdBox.boxType = 10
         Me.J4YmdBox.DateText = ""
         Me.J4YmdBox.EraLabelText = "H31"
         Me.J4YmdBox.EraText = ""
-        Me.J4YmdBox.Location = New System.Drawing.Point(561, 0)
+        Me.J4YmdBox.Location = New System.Drawing.Point(554, -1)
         Me.J4YmdBox.MonthLabelText = "03"
         Me.J4YmdBox.MonthText = ""
         Me.J4YmdBox.Name = "J4YmdBox"
-        Me.J4YmdBox.Size = New System.Drawing.Size(86, 20)
+        Me.J4YmdBox.Size = New System.Drawing.Size(106, 24)
         Me.J4YmdBox.TabIndex = 145
         '
         'J3YmdBox
         '
-        Me.J3YmdBox.boxType = 9
+        Me.J3YmdBox.boxType = 10
         Me.J3YmdBox.DateText = ""
         Me.J3YmdBox.EraLabelText = "H31"
         Me.J3YmdBox.EraText = ""
-        Me.J3YmdBox.Location = New System.Drawing.Point(435, 0)
+        Me.J3YmdBox.Location = New System.Drawing.Point(427, -1)
         Me.J3YmdBox.MonthLabelText = "03"
         Me.J3YmdBox.MonthText = ""
         Me.J3YmdBox.Name = "J3YmdBox"
-        Me.J3YmdBox.Size = New System.Drawing.Size(86, 20)
+        Me.J3YmdBox.Size = New System.Drawing.Size(106, 24)
         Me.J3YmdBox.TabIndex = 144
         '
         'J2YmdBox
         '
-        Me.J2YmdBox.boxType = 9
+        Me.J2YmdBox.boxType = 10
         Me.J2YmdBox.DateText = ""
         Me.J2YmdBox.EraLabelText = "H31"
         Me.J2YmdBox.EraText = ""
-        Me.J2YmdBox.Location = New System.Drawing.Point(307, 0)
+        Me.J2YmdBox.Location = New System.Drawing.Point(300, -1)
         Me.J2YmdBox.MonthLabelText = "03"
         Me.J2YmdBox.MonthText = ""
         Me.J2YmdBox.Name = "J2YmdBox"
-        Me.J2YmdBox.Size = New System.Drawing.Size(86, 20)
+        Me.J2YmdBox.Size = New System.Drawing.Size(106, 24)
         Me.J2YmdBox.TabIndex = 143
         '
         'J1YmdBox
         '
-        Me.J1YmdBox.boxType = 9
+        Me.J1YmdBox.boxType = 10
         Me.J1YmdBox.DateText = ""
         Me.J1YmdBox.EraLabelText = "H31"
         Me.J1YmdBox.EraText = ""
-        Me.J1YmdBox.Location = New System.Drawing.Point(180, 0)
+        Me.J1YmdBox.Location = New System.Drawing.Point(173, -1)
         Me.J1YmdBox.MonthLabelText = "03"
         Me.J1YmdBox.MonthText = ""
         Me.J1YmdBox.Name = "J1YmdBox"
-        Me.J1YmdBox.Size = New System.Drawing.Size(86, 20)
+        Me.J1YmdBox.Size = New System.Drawing.Size(106, 24)
         Me.J1YmdBox.TabIndex = 142
         '
-        'dgvScreening
+        'dgvScreeningUp
         '
-        Me.dgvScreening.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvScreening.Location = New System.Drawing.Point(163, 158)
-        Me.dgvScreening.Name = "dgvScreening"
-        Me.dgvScreening.RowTemplate.Height = 21
-        Me.dgvScreening.Size = New System.Drawing.Size(671, 345)
-        Me.dgvScreening.TabIndex = 11
+        Me.dgvScreeningUp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvScreeningUp.Location = New System.Drawing.Point(163, 158)
+        Me.dgvScreeningUp.Name = "dgvScreeningUp"
+        Me.dgvScreeningUp.RowTemplate.Height = 21
+        Me.dgvScreeningUp.Size = New System.Drawing.Size(671, 345)
+        Me.dgvScreeningUp.TabIndex = 11
         '
         'スクリーニング書
         '
@@ -1953,7 +1953,7 @@ Partial Class スクリーニング書
         Me.Controls.Add(Me.unitLabel)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.dgvWeightChange)
-        Me.Controls.Add(Me.dgvScreening)
+        Me.Controls.Add(Me.dgvScreeningUp)
         Me.Controls.Add(Me.dgvTokki)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.kaiComboBox)
@@ -1976,7 +1976,7 @@ Partial Class スクリーニング書
         Me.baseValueGroupBox.PerformLayout()
         Me.JPanel.ResumeLayout(False)
         Me.JPanel.PerformLayout()
-        CType(Me.dgvScreening, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvScreeningUp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2141,7 +2141,7 @@ Partial Class スクリーニング書
     Friend WithEvents J4YmdBox As ymdBox.ymdBox
     Friend WithEvents J3YmdBox As ymdBox.ymdBox
     Friend WithEvents J2YmdBox As ymdBox.ymdBox
-    Friend WithEvents dgvScreening As Symphony_NCare.screeningDataGridView
+    Friend WithEvents dgvScreeningUp As Symphony_NCare.screeningDataGridViewUp
     Friend WithEvents Label86 As System.Windows.Forms.Label
     Friend WithEvents Label87 As System.Windows.Forms.Label
     Friend WithEvents Label88 As System.Windows.Forms.Label

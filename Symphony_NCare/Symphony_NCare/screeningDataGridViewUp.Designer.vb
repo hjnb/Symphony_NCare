@@ -1,4 +1,4 @@
-﻿Partial Class screeningDataGridView
+﻿Partial Class screeningDataGridViewUp
     Inherits System.Windows.Forms.DataGridView
 
     <System.Diagnostics.DebuggerNonUserCode()> _

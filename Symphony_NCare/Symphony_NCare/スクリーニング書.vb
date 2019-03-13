@@ -285,9 +285,9 @@ Public Class スクリーニング書
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub initDgvScreening()
-        Util.EnableDoubleBuffering(dgvScreening)
+        Util.EnableDoubleBuffering(dgvScreeningUp)
 
-        With dgvScreening
+        With dgvScreeningUp
             .AllowUserToAddRows = False '行追加禁止
             .AllowUserToResizeColumns = False '列の幅をユーザーが変更できないようにする
             .AllowUserToResizeRows = False '行の高さをユーザーが変更できないようにする
@@ -329,10 +329,10 @@ Public Class スクリーニング書
         Next
 
         '表示
-        dgvScreening.DataSource = dt
+        dgvScreeningUp.DataSource = dt
 
         '幅設定等
-        With dgvScreening
+        With dgvScreeningUp
             With .Columns("Item")
                 .DefaultCellStyle = itemUnitColumnCellStyle
                 .Width = 80
@@ -368,16 +368,16 @@ Public Class スクリーニング書
 
             '個別にセルスタイル設定
             For i As Integer = 1 To 4
-                dgvScreening("J" & i, 3).Style = inputGrayCellStyle
-                dgvScreening("J" & i, 13).Style = inputGrayCellStyle
+                dgvScreeningUp("J" & i, 3).Style = inputGrayCellStyle
+                dgvScreeningUp("J" & i, 13).Style = inputGrayCellStyle
             Next
         End With
 
         '対象設定
-        dgvScreening.targetYmdBox1 = J1YmdBox
-        dgvScreening.targetYmdBox2 = J2YmdBox
-        dgvScreening.targetYmdBox3 = J3YmdBox
-        dgvScreening.targetYmdBox4 = J4YmdBox
+        dgvScreeningUp.targetYmdBox1 = J1YmdBox
+        dgvScreeningUp.targetYmdBox2 = J2YmdBox
+        dgvScreeningUp.targetYmdBox3 = J3YmdBox
+        dgvScreeningUp.targetYmdBox4 = J4YmdBox
 
         '
         clearScreening()
@@ -401,7 +401,7 @@ Public Class スクリーニング書
         J2YmdBox.clearText()
         J3YmdBox.clearText()
         J4YmdBox.clearText()
-        For Each row As DataGridViewRow In dgvScreening.Rows
+        For Each row As DataGridViewRow In dgvScreeningUp.Rows
             row.Cells("J1").Value = ""
             row.Cells("J2").Value = ""
             row.Cells("J3").Value = ""
@@ -525,32 +525,32 @@ Public Class スクリーニング書
                 DirectCast(JPanel.Controls("J" & gyo & "YmdBox"), ymdBox.ymdBox).setWarekiStr(ymdJ)
             End If
             'リスク
-            dgvScreening(gyo + 1, 0).Value = Util.checkDBNullValue(rs.Fields("Risk").Value)
+            dgvScreeningUp(gyo + 1, 0).Value = Util.checkDBNullValue(rs.Fields("Risk").Value)
             '身長
-            dgvScreening(gyo + 1, 1).Value = Util.checkDBNullValue(rs.Fields("Hei").Value)
+            dgvScreeningUp(gyo + 1, 1).Value = Util.checkDBNullValue(rs.Fields("Hei").Value)
             '体重
-            dgvScreening(gyo + 1, 2).Value = Util.checkDBNullValue(rs.Fields("Wei").Value)
+            dgvScreeningUp(gyo + 1, 2).Value = Util.checkDBNullValue(rs.Fields("Wei").Value)
             'BMI
-            dgvScreening(gyo + 1, 3).Value = Util.checkDBNullValue(rs.Fields("Bmi1").Value)
-            dgvScreening(gyo + 1, 4).Value = Util.checkDBNullValue(rs.Fields("Bmi2").Value)
+            dgvScreeningUp(gyo + 1, 3).Value = Util.checkDBNullValue(rs.Fields("Bmi1").Value)
+            dgvScreeningUp(gyo + 1, 4).Value = Util.checkDBNullValue(rs.Fields("Bmi2").Value)
             '体重減少率
-            dgvScreening(gyo + 1, 5).Value = Util.checkDBNullValue(rs.Fields("Gen1").Value)
-            dgvScreening(gyo + 1, 6).Value = Util.checkDBNullValue(rs.Fields("Gen2").Value)
-            dgvScreening(gyo + 1, 7).Value = Util.checkDBNullValue(rs.Fields("Gen3").Value)
-            dgvScreening(gyo + 1, 8).Value = Util.checkDBNullValue(rs.Fields("Gen4").Value)
+            dgvScreeningUp(gyo + 1, 5).Value = Util.checkDBNullValue(rs.Fields("Gen1").Value)
+            dgvScreeningUp(gyo + 1, 6).Value = Util.checkDBNullValue(rs.Fields("Gen2").Value)
+            dgvScreeningUp(gyo + 1, 7).Value = Util.checkDBNullValue(rs.Fields("Gen3").Value)
+            dgvScreeningUp(gyo + 1, 8).Value = Util.checkDBNullValue(rs.Fields("Gen4").Value)
             '血清ｱﾙﾌﾞﾐﾝ値
-            dgvScreening(gyo + 1, 9).Value = Util.checkDBNullValue(rs.Fields("Alb1").Value)
-            dgvScreening(gyo + 1, 10).Value = Util.checkDBNullValue(rs.Fields("Alb2").Value)
-            dgvScreening(gyo + 1, 11).Value = Util.checkDBNullValue(rs.Fields("Alb3").Value)
+            dgvScreeningUp(gyo + 1, 9).Value = Util.checkDBNullValue(rs.Fields("Alb1").Value)
+            dgvScreeningUp(gyo + 1, 10).Value = Util.checkDBNullValue(rs.Fields("Alb2").Value)
+            dgvScreeningUp(gyo + 1, 11).Value = Util.checkDBNullValue(rs.Fields("Alb3").Value)
             '食事摂取量
-            dgvScreening(gyo + 1, 12).Value = Util.checkDBNullValue(rs.Fields("Syoku1").Value)
-            dgvScreening(gyo + 1, 13).Value = Util.checkDBNullValue(rs.Fields("Syoku2").Value)
-            dgvScreening(gyo + 1, 14).Value = Util.checkDBNullValue(rs.Fields("Syoku3").Value)
-            dgvScreening(gyo + 1, 15).Value = Util.checkDBNullValue(rs.Fields("Syoku4").Value)
+            dgvScreeningUp(gyo + 1, 12).Value = Util.checkDBNullValue(rs.Fields("Syoku1").Value)
+            dgvScreeningUp(gyo + 1, 13).Value = Util.checkDBNullValue(rs.Fields("Syoku2").Value)
+            dgvScreeningUp(gyo + 1, 14).Value = Util.checkDBNullValue(rs.Fields("Syoku3").Value)
+            dgvScreeningUp(gyo + 1, 15).Value = Util.checkDBNullValue(rs.Fields("Syoku4").Value)
             '栄養補給法
-            dgvScreening(gyo + 1, 16).Value = Util.checkDBNullValue(rs.Fields("Eiyo").Value)
+            dgvScreeningUp(gyo + 1, 16).Value = Util.checkDBNullValue(rs.Fields("Eiyo").Value)
             '褥瘡
-            dgvScreening(gyo + 1, 17).Value = Util.checkDBNullValue(rs.Fields("Joku").Value)
+            dgvScreeningUp(gyo + 1, 17).Value = Util.checkDBNullValue(rs.Fields("Joku").Value)
 
             rs.MoveNext()
         End While
@@ -687,7 +687,7 @@ Public Class スクリーニング書
         displayScreening(ymd)
     End Sub
 
-    Private Sub dgvScreening_CellPainting(sender As Object, e As System.Windows.Forms.DataGridViewCellPaintingEventArgs) Handles dgvScreening.CellPainting
+    Private Sub dgvScreening_CellPainting(sender As Object, e As System.Windows.Forms.DataGridViewCellPaintingEventArgs) Handles dgvScreeningUp.CellPainting
         '選択したセルに枠を付ける
         If e.ColumnIndex >= 0 AndAlso e.RowIndex >= 0 AndAlso (e.PaintParts And DataGridViewPaintParts.Background) = DataGridViewPaintParts.Background Then
             e.Graphics.FillRectangle(New SolidBrush(e.CellStyle.BackColor), e.CellBounds)
@@ -704,10 +704,20 @@ Public Class スクリーニング書
 
     Private Sub JYmdBox_keyDownEnterOrDown(sender As Object, e As System.EventArgs) Handles J1YmdBox.keyDownEnterOrDown, J2YmdBox.keyDownEnterOrDown, J3YmdBox.keyDownEnterOrDown, J4YmdBox.keyDownEnterOrDown
         Dim number As Integer = CInt(CType(sender, ymdBox.ymdBox).Name.Substring(1, 1))
-        dgvScreening.CurrentCell = dgvScreening(number + 1, 0)
-        dgvScreening.BeginEdit(True)
-        dgvScreening.EndEdit()
-        dgvScreening.CurrentCell.Selected = True
+        dgvScreeningUp.CurrentCell = dgvScreeningUp(number + 1, 0)
+        dgvScreeningUp.BeginEdit(True)
+        dgvScreeningUp.EndEdit()
+        dgvScreeningUp.CurrentCell.Selected = True
+    End Sub
+
+    Private Sub JYmdBox_keyDownLeft(sender As Object, e As System.EventArgs) Handles J2YmdBox.keyDownLeft, J3YmdBox.keyDownLeft, J4YmdBox.keyDownLeft
+        Dim num As Integer = CInt(DirectCast(sender, ymdBox.ymdBox).Name.Substring(1, 1)) - 1
+        DirectCast(JPanel.Controls("J" & num & "YmdBox"), ymdBox.ymdBox).Focus()
+    End Sub
+
+    Private Sub JYmdBox_keyDownRight(sender As Object, e As System.EventArgs) Handles J1YmdBox.keyDownRight, J2YmdBox.keyDownRight, J3YmdBox.keyDownRight
+        Dim num As Integer = CInt(DirectCast(sender, ymdBox.ymdBox).Name.Substring(1, 1)) + 1
+        DirectCast(JPanel.Controls("J" & num & "YmdBox"), ymdBox.ymdBox).Focus()
     End Sub
 
     Private Sub dgvTokki_CellEnter(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvTokki.CellEnter
@@ -743,7 +753,7 @@ Public Class スクリーニング書
         Else
             '対象の列のみクリア
             DirectCast(JPanel.Controls("J" & (targetColumnIndex - 1) & "YmdBox"), ymdBox.ymdBox).clearText()
-            For Each row As DataGridViewRow In dgvScreening.Rows
+            For Each row As DataGridViewRow In dgvScreeningUp.Rows
                 row.Cells(targetColumnIndex).Value = ""
             Next
         End If
