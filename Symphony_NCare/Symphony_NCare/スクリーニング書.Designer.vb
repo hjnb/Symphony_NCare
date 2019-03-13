@@ -398,16 +398,16 @@ Partial Class スクリーニング書
         'dgvWeightChange
         '
         Me.dgvWeightChange.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvWeightChange.Location = New System.Drawing.Point(860, 585)
+        Me.dgvWeightChange.Location = New System.Drawing.Point(860, 577)
         Me.dgvWeightChange.Name = "dgvWeightChange"
         Me.dgvWeightChange.RowTemplate.Height = 21
-        Me.dgvWeightChange.Size = New System.Drawing.Size(419, 84)
+        Me.dgvWeightChange.Size = New System.Drawing.Size(419, 80)
         Me.dgvWeightChange.TabIndex = 12
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(858, 568)
+        Me.Label7.Location = New System.Drawing.Point(858, 560)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(53, 12)
         Me.Label7.TabIndex = 13
@@ -766,7 +766,7 @@ Partial Class スクリーニング書
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(858, 523)
+        Me.Label28.Location = New System.Drawing.Point(858, 520)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(46, 12)
         Me.Label28.TabIndex = 45
@@ -775,7 +775,7 @@ Partial Class スクリーニング書
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(858, 547)
+        Me.Label29.Location = New System.Drawing.Point(858, 542)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(65, 12)
         Me.Label29.TabIndex = 46
@@ -1131,7 +1131,7 @@ Partial Class スクリーニング書
         '
         'albTextBox
         '
-        Me.albTextBox.Location = New System.Drawing.Point(929, 519)
+        Me.albTextBox.Location = New System.Drawing.Point(929, 516)
         Me.albTextBox.Name = "albTextBox"
         Me.albTextBox.Size = New System.Drawing.Size(41, 19)
         Me.albTextBox.TabIndex = 85
@@ -1139,7 +1139,7 @@ Partial Class スクリーニング書
         '
         'nutritionTextBox
         '
-        Me.nutritionTextBox.Location = New System.Drawing.Point(1092, 519)
+        Me.nutritionTextBox.Location = New System.Drawing.Point(1092, 516)
         Me.nutritionTextBox.Name = "nutritionTextBox"
         Me.nutritionTextBox.Size = New System.Drawing.Size(41, 19)
         Me.nutritionTextBox.TabIndex = 86
@@ -1147,7 +1147,7 @@ Partial Class スクリーニング書
         '
         'intakeTextBox
         '
-        Me.intakeTextBox.Location = New System.Drawing.Point(929, 543)
+        Me.intakeTextBox.Location = New System.Drawing.Point(929, 538)
         Me.intakeTextBox.Name = "intakeTextBox"
         Me.intakeTextBox.Size = New System.Drawing.Size(41, 19)
         Me.intakeTextBox.TabIndex = 87
@@ -1155,7 +1155,7 @@ Partial Class スクリーニング書
         '
         'decubitusTextBox
         '
-        Me.decubitusTextBox.Location = New System.Drawing.Point(1092, 543)
+        Me.decubitusTextBox.Location = New System.Drawing.Point(1092, 538)
         Me.decubitusTextBox.Name = "decubitusTextBox"
         Me.decubitusTextBox.Size = New System.Drawing.Size(41, 19)
         Me.decubitusTextBox.TabIndex = 88
@@ -1164,7 +1164,7 @@ Partial Class スクリーニング書
         'Label48
         '
         Me.Label48.AutoSize = True
-        Me.Label48.Location = New System.Drawing.Point(972, 523)
+        Me.Label48.Location = New System.Drawing.Point(972, 520)
         Me.Label48.Name = "Label48"
         Me.Label48.Size = New System.Drawing.Size(26, 12)
         Me.Label48.TabIndex = 89
@@ -1173,7 +1173,7 @@ Partial Class スクリーニング書
         'Label49
         '
         Me.Label49.AutoSize = True
-        Me.Label49.Location = New System.Drawing.Point(972, 546)
+        Me.Label49.Location = New System.Drawing.Point(972, 541)
         Me.Label49.Name = "Label49"
         Me.Label49.Size = New System.Drawing.Size(11, 12)
         Me.Label49.TabIndex = 90
@@ -1182,7 +1182,7 @@ Partial Class スクリーニング書
         'Label50
         '
         Me.Label50.AutoSize = True
-        Me.Label50.Location = New System.Drawing.Point(1021, 523)
+        Me.Label50.Location = New System.Drawing.Point(1021, 520)
         Me.Label50.Name = "Label50"
         Me.Label50.Size = New System.Drawing.Size(65, 12)
         Me.Label50.TabIndex = 91
@@ -1192,7 +1192,7 @@ Partial Class スクリーニング書
         '
         Me.Label51.AutoSize = True
         Me.Label51.Font = New System.Drawing.Font("MS UI Gothic", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label51.Location = New System.Drawing.Point(1136, 523)
+        Me.Label51.Location = New System.Drawing.Point(1136, 520)
         Me.Label51.Name = "Label51"
         Me.Label51.Size = New System.Drawing.Size(104, 11)
         Me.Label51.TabIndex = 92
@@ -1201,7 +1201,7 @@ Partial Class スクリーニング書
         'Label52
         '
         Me.Label52.AutoSize = True
-        Me.Label52.Location = New System.Drawing.Point(1021, 547)
+        Me.Label52.Location = New System.Drawing.Point(1021, 542)
         Me.Label52.Name = "Label52"
         Me.Label52.Size = New System.Drawing.Size(29, 12)
         Me.Label52.TabIndex = 93
@@ -1211,7 +1211,7 @@ Partial Class スクリーニング書
         '
         Me.Label53.AutoSize = True
         Me.Label53.Font = New System.Drawing.Font("MS UI Gothic", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label53.Location = New System.Drawing.Point(1136, 547)
+        Me.Label53.Location = New System.Drawing.Point(1136, 542)
         Me.Label53.Name = "Label53"
         Me.Label53.Size = New System.Drawing.Size(56, 11)
         Me.Label53.TabIndex = 94

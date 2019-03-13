@@ -139,6 +139,14 @@ Symphony_NCare
 	<param name="sender"></param>
 	<param name="e"></param>
 	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.roundFormat(System.Double,System.Int32)">
+	<summary>
+ 数値フォーマット
+ </summary>
+	<param name="calcVal"></param>
+	<param name="digits"></param>
+	<returns></returns>
+	<remarks></remarks>
 </member><member name="M:Symphony_NCare.スクリーニング書.checkTextBoxInputNum(System.Windows.Forms.TextBox)">
 	<summary>
  テキストが数値であるか判定

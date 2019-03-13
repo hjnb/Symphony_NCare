@@ -11,6 +11,9 @@ Public Class スクリーニング書
     '選択入居者の性別(男："1",女："2")
     Private selectedResidentSex As String
 
+    'W/Hマスタ選択年月
+    Private selectedYm As String
+
     'コンボボックス用配列
     Private tantoArray() As String = {"澤田　美佳"} '記入者
     Private kaiArray() As String = {"１", "２", "３", "４", "５"} '介護度
@@ -141,7 +144,7 @@ Public Class スクリーニング書
             .ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
             .ColumnHeadersHeight = 18
             .RowHeadersWidth = 75
-            .RowTemplate.Height = 16
+            .RowTemplate.Height = 15
             .BackgroundColor = Color.FromKnownColor(KnownColor.Control)
             .DefaultCellStyle.SelectionBackColor = Color.White
             .DefaultCellStyle.SelectionForeColor = Color.Black
@@ -604,7 +607,7 @@ Public Class スクリーニング書
             '行番号を描画する
             TextRenderer.DrawText(e.Graphics, _
                 weightChangeRowHeaderText(e.RowIndex), _
-                e.CellStyle.Font, _
+                New Font("ＭＳ Ｐゴシック", 8), _
                 indexRect, _
                 e.CellStyle.ForeColor, _
                 TextFormatFlags.HorizontalCenter Or TextFormatFlags.VerticalCenter)
@@ -896,10 +899,15 @@ Public Class スクリーニング書
                 MsgBox("体重が選択されていません。", MsgBoxStyle.Exclamation)
             End If
 
+            selectedYm = Util.checkDBNullValue(dgvWeight("Ym", e.RowIndex).Value)
+
             'ラベルにセット
             heightLabel.Text = heightMLabel.Text '身長
             weightLabel.Text = weight '体重
             baseValueGroupBox.Text = "基準値　" & ym
+
+            '実施日ボックスにフォーカス
+            JYmdBox.Focus()
         End If
     End Sub
 
@@ -1080,22 +1088,27 @@ Public Class スクリーニング書
         ageLabel.Text = age
 
         'BMI kg /(m * m)
-        bmiLabel.Text = Math.Round(weight / (Height * Height), 1)
+        bmiLabel.Text = roundFormat(weight / (height * height), 1)
+        If bmiLabel.Text < 18.5 Then
+            bmiKanjiLabel.Text = "中"
+        Else
+            bmiKanjiLabel.Text = "低"
+        End If
 
         '脛骨長 3.23 * 入力数値 + 49.6
-        keikotutyoLabel.Text = Math.Round(3.23 * keikotuTextBox.Text + 49.6, 1)
+        keikotutyoLabel.Text = roundFormat(3.23 * keikotuTextBox.Text + 49.6, 1)
 
         '膝高
         If selectedResidentSex = "1" Then
             '男 64.02 + (入力数値 * 2.12) - (年齢 * 0.07)
-            hizatakaLabel.Text = Math.Round(64.02 + (hizatakaTextBox.Text * 2.12) - (age * 0.07), 1)
+            hizatakaLabel.Text = roundFormat(64.02 + (hizatakaTextBox.Text * 2.12) - (age * 0.07), 1)
         ElseIf selectedResidentSex = "2" Then
             '女 77.88 + (入力数値 * 1.77) - (年齢 * 0.1)
-            hizatakaLabel.Text = Math.Round(77.88 + (hizatakaTextBox.Text * 1.77) - (age * 0.1), 1)
+            hizatakaLabel.Text = roundFormat(77.88 + (hizatakaTextBox.Text * 1.77) - (age * 0.1), 1)
         End If
 
         '理想体重
-        idealWeightLabel.Text = Math.Round(goalBmiTextBox.Text * (height * height), 1)
+        idealWeightLabel.Text = roundFormat(goalBmiTextBox.Text * (height * height), 1)
 
         '標準体重当たり(理想)
         'BEE
@@ -1109,8 +1122,8 @@ Public Class スクリーニング書
         'エネルギー量
         idealKcalLabel.Text = Math.Round(bee1Label.Text * katudo1TextBox.Text * stress1TextBox.Text * kaizen1TextBox.Text, 0)
         'たん白質
-        idealProtein1Label.Text = Math.Round(idealWeightLabel.Text * 1.3, 1)
-        idealProtein2Label.Text = Math.Round(idealWeightLabel.Text * 1.13, 1)
+        idealProtein1Label.Text = roundFormat(idealWeightLabel.Text * 1.3, 1)
+        idealProtein2Label.Text = roundFormat(idealWeightLabel.Text * 1.13, 1)
 
         '現状体重当たり（必要）
         'BEE
@@ -1124,14 +1137,14 @@ Public Class スクリーニング書
         'エネルギー量
         necessaryKcalLabel.Text = Math.Round(bee2Label.Text * katudo2TextBox.Text * stress2TextBox.Text * kaizen2TextBox.Text, 0)
         'たん白質
-        necessaryProtein1Label.Text = Math.Round(weight * 1.3, 1)
-        necessaryProtein2Label.Text = Math.Round(weight * 1.13, 1)
+        necessaryProtein1Label.Text = roundFormat(weight * 1.3, 1)
+        necessaryProtein2Label.Text = roundFormat(weight * 1.13, 1)
         '脂質
-        sisituLabel.Text = Math.Round(necessaryKcalLabel.Text * 0.2 / 9, 1)
+        sisituLabel.Text = roundFormat(necessaryKcalLabel.Text * 0.2 / 9, 1)
         '糖質
-        tosituLabel.Text = Math.Round(necessaryKcalLabel.Text * 0.65 / 4, 1)
+        tosituLabel.Text = roundFormat(necessaryKcalLabel.Text * 0.65 / 4, 1)
         '食物繊維
-        seniLabel.Text = Math.Round(necessaryKcalLabel.Text / 100, 1)
+        seniLabel.Text = roundFormat(necessaryKcalLabel.Text / 100, 1)
         '水分
         If age >= 66 Then
             waterLabel.Text = Math.Round(weight * 30, 1)
@@ -1141,7 +1154,49 @@ Public Class スクリーニング書
             waterLabel.Text = Math.Round(weight * 35, 1)
         End If
 
+        '体重推移部分
+        For Each row As DataGridViewRow In dgvWeightChange.Rows '内容クリア
+            For i As Integer = 0 To row.Cells.Count - 1
+                row.Cells(i).Value = ""
+            Next
+        Next
+        If selectedYm <> "" Then
+            Dim y As Integer = CInt(selectedYm.Split("/")(0))
+            Dim m As Integer = CInt(selectedYm.Split("/")(1))
+            Dim d As Integer = 1
+            Dim dt As New DateTime(y, m, 1)
+            For i As Integer = 1 To 6
+                Dim ymStr As String = dt.AddMonths(-i).ToString("yyyy/MM")
+                For Each row As DataGridViewRow In dgvWeight.Rows
+                    If Util.checkDBNullValue(row.Cells("Ym").Value) = ymStr Then
+                        Dim prevWeight As Double = If(Util.checkDBNullValue(row.Cells("Weight").Value) = "", -1, Util.checkDBNullValue(row.Cells("Weight").Value))
+                        If prevWeight <> -1 Then
+                            dgvWeightChange(i - 1, 0).Value = roundFormat(prevWeight, 1) '過去の体重
+                            dgvWeightChange(i - 1, 1).Value = roundFormat(prevWeight - weight, 1) '体重差
+                            dgvWeightChange(i - 1, 2).Value = roundFormat((1 - (weight / prevWeight)) * 100, 1) '体重減少率
+                            dgvWeightChange(i - 1, 3).Value = Util.checkDBNullValue(row.Cells("Ym").FormattedValue) '測定日
+                        End If
+                        Exit For
+                    End If
+                Next
+            Next
+        End If
     End Sub
+
+    ''' <summary>
+    ''' 数値フォーマット
+    ''' </summary>
+    ''' <param name="calcVal"></param>
+    ''' <param name="digits"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function roundFormat(calcVal As Double, digits As Integer) As String
+        Dim result As String = Math.Round(calcVal, digits, MidpointRounding.AwayFromZero).ToString()
+        If result.IndexOf(".") = -1 Then
+            result = result & ".0"
+        End If
+        Return result
+    End Function
 
     ''' <summary>
     ''' テキストが数値であるか判定
@@ -1153,8 +1208,12 @@ Public Class スクリーニング書
         If tb.Text = "" Then
             tb.Text = "0"
         End If
-        'まだ途中
-        'とりあえず
-        Return True
+
+        '整数または小数の場合はtrue
+        If System.Text.RegularExpressions.Regex.IsMatch(tb.Text, "^\d+$") OrElse System.Text.RegularExpressions.Regex.IsMatch(tb.Text, "^\d+(\.\d+)?$") Then
+            Return True
+        Else
+            Return False
+        End If
     End Function
 End Class
