@@ -233,6 +233,9 @@
     <EmbeddedResource Include="計画書.resx">
       <DependentUpon>計画書.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="身長体重.resx">
+      <DependentUpon>身長体重.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="食札.resx">
       <DependentUpon>食札.vb</DependentUpon>
     </EmbeddedResource>

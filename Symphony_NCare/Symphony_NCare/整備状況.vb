@@ -389,7 +389,7 @@ Public Class 整備状況
             End If
         Next
 
-        For i As Integer = 0 To PersonCount - 1
+        For i As Integer = 0 To personcount - 1
             rs.AddNew()
             rs.Fields("Nam").Value = Util.checkDBNullValue(DataGridView1(1, i).Value)
             If Util.checkDBNullValue(DataGridView1(7, i).Value) = "○" Then
@@ -563,6 +563,33 @@ Public Class 整備状況
 
         
 
+    End Sub
+
+    Private Sub datagridview1_CellValidated(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellValidated
+        Dim dgv As DataGridView = DirectCast(sender, DataGridView)
+        If dgv.Columns(e.ColumnIndex).Name = "a7" OrElse dgv.Columns(e.ColumnIndex).Name = "a9" Then
+            If Util.checkDBNullValue(dgv(e.ColumnIndex, e.RowIndex).Value) = "1" Then
+                dgv(e.ColumnIndex, e.RowIndex).Value = "○"
+            End If
+        End If
+    End Sub
+
+    Private Sub datagridview1_CellValidating(sender As Object, e As System.Windows.Forms.DataGridViewCellValidatingEventArgs) Handles DataGridView1.CellValidating
+        Dim dgv As DataGridView = DirectCast(sender, DataGridView)
+
+        '新しい行のセルでなく、セルの内容が変更されている時だけ検証する 
+        If e.RowIndex = dgv.NewRowIndex OrElse Not dgv.IsCurrentCellDirty Then
+            Exit Sub
+        End If
+
+        If dgv.Columns(e.ColumnIndex).Name = "a7" OrElse dgv.Columns(e.ColumnIndex).Name = "a9" Then
+            If e.FormattedValue.ToString() <> "" AndAlso e.FormattedValue.ToString() <> "1" Then
+                MsgBox("正しく入力してください")
+                e.Cancel = True
+                DataGridView1.EndEdit()
+                dgv(e.ColumnIndex, e.RowIndex).Value = ""
+            End If
+        End If
     End Sub
 
 End Class
