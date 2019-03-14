@@ -188,6 +188,18 @@ Partial Class スクリーニング書
         Me.J3YmdBox = New ymdBox.ymdBox()
         Me.J2YmdBox = New ymdBox.ymdBox()
         Me.J1YmdBox = New ymdBox.ymdBox()
+        Me.KPanel = New System.Windows.Forms.Panel()
+        Me.Label91 = New System.Windows.Forms.Label()
+        Me.Label92 = New System.Windows.Forms.Label()
+        Me.Label93 = New System.Windows.Forms.Label()
+        Me.Label94 = New System.Windows.Forms.Label()
+        Me.Label95 = New System.Windows.Forms.Label()
+        Me.K4YmdBox = New ymdBox.ymdBox()
+        Me.K3YmdBox = New ymdBox.ymdBox()
+        Me.K2YmdBox = New ymdBox.ymdBox()
+        Me.K1YmdBox = New ymdBox.ymdBox()
+        Me.Label96 = New System.Windows.Forms.Label()
+        Me.dgvScreeningDown = New Symphony_NCare.screeningDataGridViewDown(Me.components)
         Me.dgvScreeningUp = New Symphony_NCare.screeningDataGridViewUp(Me.components)
         Me.namArea.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -196,6 +208,8 @@ Partial Class スクリーニング書
         CType(Me.dgvWeightChange, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.baseValueGroupBox.SuspendLayout()
         Me.JPanel.SuspendLayout()
+        Me.KPanel.SuspendLayout()
+        CType(Me.dgvScreeningDown, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvScreeningUp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -1812,13 +1826,151 @@ Partial Class スクリーニング書
         Me.J1YmdBox.Size = New System.Drawing.Size(106, 24)
         Me.J1YmdBox.TabIndex = 142
         '
+        'KPanel
+        '
+        Me.KPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.KPanel.Controls.Add(Me.Label91)
+        Me.KPanel.Controls.Add(Me.Label92)
+        Me.KPanel.Controls.Add(Me.Label93)
+        Me.KPanel.Controls.Add(Me.Label94)
+        Me.KPanel.Controls.Add(Me.Label95)
+        Me.KPanel.Controls.Add(Me.K4YmdBox)
+        Me.KPanel.Controls.Add(Me.K3YmdBox)
+        Me.KPanel.Controls.Add(Me.K2YmdBox)
+        Me.KPanel.Controls.Add(Me.K1YmdBox)
+        Me.KPanel.Controls.Add(Me.Label96)
+        Me.KPanel.Location = New System.Drawing.Point(163, 369)
+        Me.KPanel.Name = "KPanel"
+        Me.KPanel.Size = New System.Drawing.Size(671, 23)
+        Me.KPanel.TabIndex = 143
+        '
+        'Label91
+        '
+        Me.Label91.BackColor = System.Drawing.SystemColors.Control
+        Me.Label91.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label91.ForeColor = System.Drawing.SystemColors.Control
+        Me.Label91.Location = New System.Drawing.Point(541, 0)
+        Me.Label91.Name = "Label91"
+        Me.Label91.Size = New System.Drawing.Size(1, 25)
+        Me.Label91.TabIndex = 148
+        '
+        'Label92
+        '
+        Me.Label92.BackColor = System.Drawing.SystemColors.Control
+        Me.Label92.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label92.ForeColor = System.Drawing.SystemColors.Control
+        Me.Label92.Location = New System.Drawing.Point(414, 0)
+        Me.Label92.Name = "Label92"
+        Me.Label92.Size = New System.Drawing.Size(1, 25)
+        Me.Label92.TabIndex = 147
+        '
+        'Label93
+        '
+        Me.Label93.BackColor = System.Drawing.SystemColors.Control
+        Me.Label93.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label93.ForeColor = System.Drawing.SystemColors.Control
+        Me.Label93.Location = New System.Drawing.Point(287, 0)
+        Me.Label93.Name = "Label93"
+        Me.Label93.Size = New System.Drawing.Size(1, 25)
+        Me.Label93.TabIndex = 146
+        '
+        'Label94
+        '
+        Me.Label94.BackColor = System.Drawing.SystemColors.Control
+        Me.Label94.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label94.ForeColor = System.Drawing.SystemColors.Control
+        Me.Label94.Location = New System.Drawing.Point(160, 0)
+        Me.Label94.Name = "Label94"
+        Me.Label94.Size = New System.Drawing.Size(1, 25)
+        Me.Label94.TabIndex = 143
+        '
+        'Label95
+        '
+        Me.Label95.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Label95.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label95.ForeColor = System.Drawing.SystemColors.Control
+        Me.Label95.Location = New System.Drawing.Point(80, 0)
+        Me.Label95.Name = "Label95"
+        Me.Label95.Size = New System.Drawing.Size(1, 25)
+        Me.Label95.TabIndex = 142
+        '
+        'K4YmdBox
+        '
+        Me.K4YmdBox.boxType = 10
+        Me.K4YmdBox.DateText = ""
+        Me.K4YmdBox.EraLabelText = "H31"
+        Me.K4YmdBox.EraText = ""
+        Me.K4YmdBox.Location = New System.Drawing.Point(554, -1)
+        Me.K4YmdBox.MonthLabelText = "03"
+        Me.K4YmdBox.MonthText = ""
+        Me.K4YmdBox.Name = "K4YmdBox"
+        Me.K4YmdBox.Size = New System.Drawing.Size(106, 24)
+        Me.K4YmdBox.TabIndex = 145
+        '
+        'K3YmdBox
+        '
+        Me.K3YmdBox.boxType = 10
+        Me.K3YmdBox.DateText = ""
+        Me.K3YmdBox.EraLabelText = "H31"
+        Me.K3YmdBox.EraText = ""
+        Me.K3YmdBox.Location = New System.Drawing.Point(427, -1)
+        Me.K3YmdBox.MonthLabelText = "03"
+        Me.K3YmdBox.MonthText = ""
+        Me.K3YmdBox.Name = "K3YmdBox"
+        Me.K3YmdBox.Size = New System.Drawing.Size(106, 24)
+        Me.K3YmdBox.TabIndex = 144
+        '
+        'K2YmdBox
+        '
+        Me.K2YmdBox.boxType = 10
+        Me.K2YmdBox.DateText = ""
+        Me.K2YmdBox.EraLabelText = "H31"
+        Me.K2YmdBox.EraText = ""
+        Me.K2YmdBox.Location = New System.Drawing.Point(300, -1)
+        Me.K2YmdBox.MonthLabelText = "03"
+        Me.K2YmdBox.MonthText = ""
+        Me.K2YmdBox.Name = "K2YmdBox"
+        Me.K2YmdBox.Size = New System.Drawing.Size(106, 24)
+        Me.K2YmdBox.TabIndex = 143
+        '
+        'K1YmdBox
+        '
+        Me.K1YmdBox.boxType = 10
+        Me.K1YmdBox.DateText = ""
+        Me.K1YmdBox.EraLabelText = "H31"
+        Me.K1YmdBox.EraText = ""
+        Me.K1YmdBox.Location = New System.Drawing.Point(173, -1)
+        Me.K1YmdBox.MonthLabelText = "03"
+        Me.K1YmdBox.MonthText = ""
+        Me.K1YmdBox.Name = "K1YmdBox"
+        Me.K1YmdBox.Size = New System.Drawing.Size(106, 24)
+        Me.K1YmdBox.TabIndex = 142
+        '
+        'Label96
+        '
+        Me.Label96.AutoSize = True
+        Me.Label96.Location = New System.Drawing.Point(28, 5)
+        Me.Label96.Name = "Label96"
+        Me.Label96.Size = New System.Drawing.Size(49, 12)
+        Me.Label96.TabIndex = 140
+        Me.Label96.Text = "(検査日)"
+        '
+        'dgvScreeningDown
+        '
+        Me.dgvScreeningDown.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvScreeningDown.Location = New System.Drawing.Point(163, 391)
+        Me.dgvScreeningDown.Name = "dgvScreeningDown"
+        Me.dgvScreeningDown.RowTemplate.Height = 21
+        Me.dgvScreeningDown.Size = New System.Drawing.Size(671, 117)
+        Me.dgvScreeningDown.TabIndex = 142
+        '
         'dgvScreeningUp
         '
         Me.dgvScreeningUp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvScreeningUp.Location = New System.Drawing.Point(163, 158)
         Me.dgvScreeningUp.Name = "dgvScreeningUp"
         Me.dgvScreeningUp.RowTemplate.Height = 21
-        Me.dgvScreeningUp.Size = New System.Drawing.Size(671, 345)
+        Me.dgvScreeningUp.Size = New System.Drawing.Size(671, 212)
         Me.dgvScreeningUp.TabIndex = 11
         '
         'スクリーニング書
@@ -1826,6 +1978,8 @@ Partial Class スクリーニング書
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1645, 684)
+        Me.Controls.Add(Me.KPanel)
+        Me.Controls.Add(Me.dgvScreeningDown)
         Me.Controls.Add(Me.JPanel)
         Me.Controls.Add(Me.TextBox6)
         Me.Controls.Add(Me.TextBox5)
@@ -1976,6 +2130,9 @@ Partial Class スクリーニング書
         Me.baseValueGroupBox.PerformLayout()
         Me.JPanel.ResumeLayout(False)
         Me.JPanel.PerformLayout()
+        Me.KPanel.ResumeLayout(False)
+        Me.KPanel.PerformLayout()
+        CType(Me.dgvScreeningDown, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvScreeningUp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -2147,4 +2304,16 @@ Partial Class スクリーニング書
     Friend WithEvents Label88 As System.Windows.Forms.Label
     Friend WithEvents Label89 As System.Windows.Forms.Label
     Friend WithEvents Label90 As System.Windows.Forms.Label
+    Friend WithEvents dgvScreeningDown As Symphony_NCare.screeningDataGridViewDown
+    Friend WithEvents KPanel As System.Windows.Forms.Panel
+    Friend WithEvents Label91 As System.Windows.Forms.Label
+    Friend WithEvents Label92 As System.Windows.Forms.Label
+    Friend WithEvents Label93 As System.Windows.Forms.Label
+    Friend WithEvents Label94 As System.Windows.Forms.Label
+    Friend WithEvents Label95 As System.Windows.Forms.Label
+    Friend WithEvents K4YmdBox As ymdBox.ymdBox
+    Friend WithEvents K3YmdBox As ymdBox.ymdBox
+    Friend WithEvents K2YmdBox As ymdBox.ymdBox
+    Friend WithEvents K1YmdBox As ymdBox.ymdBox
+    Friend WithEvents Label96 As System.Windows.Forms.Label
 End Class

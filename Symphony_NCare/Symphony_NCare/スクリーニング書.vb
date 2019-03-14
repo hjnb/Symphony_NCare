@@ -84,7 +84,8 @@ Public Class スクリーニング書
         initDgvTokki()
 
         'dgvスクリーニング初期設定
-        initDgvScreening()
+        initDgvScreeningUp()
+        initDgvScreeningDown()
 
         '入居者情報表示(ユニット、名前、性別、生年月日、年齢)
         displayResidentInfo()
@@ -281,10 +282,10 @@ Public Class スクリーニング書
     End Sub
 
     ''' <summary>
-    ''' dgvスクリーニング初期設定
+    ''' dgvスクリーニング（上）初期設定
     ''' </summary>
     ''' <remarks></remarks>
-    Private Sub initDgvScreening()
+    Private Sub initDgvScreeningUp()
         Util.EnableDoubleBuffering(dgvScreeningUp)
 
         With dgvScreeningUp
@@ -308,8 +309,8 @@ Public Class スクリーニング書
         End With
 
         '空行追加等
-        Dim itemArray() As String = {"リスク", "身長", "体重", "ＢＭＩ", "", "体重減少率", "", "", "", "血清ｱﾙﾌﾞﾐﾝ値", "", "　　　 (検査日)", "食事摂取量", "", "", "　　　 (内　容)", "栄養補給法", "褥瘡"}
-        Dim unitArray() As String = {"低/中/高", "cm", "kg", "kg/㎡", "低/中", "ヶ月", "％", "増/減", "低/中/高", "g/dl", "低/中/高", "", "摂食割合(％)", "", "低/中", "", "経腸/静脈/無", "褥瘡/無"}
+        Dim itemArray() As String = {"リスク", "身長", "体重", "ＢＭＩ", "", "体重減少率", "", "", "", "血清ｱﾙﾌﾞﾐﾝ値", ""}
+        Dim unitArray() As String = {"低/中/高", "cm", "kg", "kg/㎡", "低/中", "ヶ月", "％", "増/減", "低/中/高", "g/dl", "低/中/高"}
         Dim dt As New DataTable()
         dt.Columns.Add("Item", Type.GetType("System.String"))
         dt.Columns.Add("Unit", Type.GetType("System.String"))
@@ -317,7 +318,7 @@ Public Class スクリーニング書
         dt.Columns.Add("J2", Type.GetType("System.String"))
         dt.Columns.Add("J3", Type.GetType("System.String"))
         dt.Columns.Add("J4", Type.GetType("System.String"))
-        For i As Integer = 0 To 17
+        For i As Integer = 0 To 10
             Dim row As DataRow = dt.NewRow()
             row(0) = itemArray(i)
             row(1) = unitArray(i)
@@ -369,15 +370,123 @@ Public Class スクリーニング書
             '個別にセルスタイル設定
             For i As Integer = 1 To 4
                 dgvScreeningUp("J" & i, 3).Style = inputGrayCellStyle
-                dgvScreeningUp("J" & i, 13).Style = inputGrayCellStyle
             Next
         End With
 
         '対象設定
-        dgvScreeningUp.targetYmdBox1 = J1YmdBox
-        dgvScreeningUp.targetYmdBox2 = J2YmdBox
-        dgvScreeningUp.targetYmdBox3 = J3YmdBox
-        dgvScreeningUp.targetYmdBox4 = J4YmdBox
+        dgvScreeningUp.targetYmdBoxJ1 = J1YmdBox
+        dgvScreeningUp.targetYmdBoxJ2 = J2YmdBox
+        dgvScreeningUp.targetYmdBoxJ3 = J3YmdBox
+        dgvScreeningUp.targetYmdBoxJ4 = J4YmdBox
+        dgvScreeningUp.targetYmdBoxK1 = K1YmdBox
+        dgvScreeningUp.targetYmdBoxK2 = K2YmdBox
+        dgvScreeningUp.targetYmdBoxK3 = K3YmdBox
+        dgvScreeningUp.targetYmdBoxK4 = K4YmdBox
+
+        '
+        clearScreening()
+    End Sub
+
+    ''' <summary>
+    ''' dgvスクリーニング（下）初期設定
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub initDgvScreeningDown()
+        Util.EnableDoubleBuffering(dgvScreeningDown)
+
+        With dgvScreeningDown
+            .AllowUserToAddRows = False '行追加禁止
+            .AllowUserToResizeColumns = False '列の幅をユーザーが変更できないようにする
+            .AllowUserToResizeRows = False '行の高さをユーザーが変更できないようにする
+            .AllowUserToDeleteRows = False '行削除禁止
+            .BorderStyle = BorderStyle.FixedSingle
+            .MultiSelect = False
+            .SelectionMode = DataGridViewSelectionMode.CellSelect
+            .RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing
+            .ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+            .ColumnHeadersVisible = False
+            .DefaultCellStyle.SelectionBackColor = Color.White
+            .DefaultCellStyle.SelectionForeColor = Color.Black
+            .RowHeadersVisible = False
+            .RowTemplate.Height = 19
+            .BackgroundColor = Color.FromKnownColor(KnownColor.Control)
+            .ShowCellToolTips = False
+            .EnableHeadersVisualStyles = False
+        End With
+
+        '空行追加等
+        Dim itemArray() As String = {"食事摂取量", "", "", "　　　 (内　容)", "栄養補給法", "褥瘡"}
+        Dim unitArray() As String = {"摂食割合(％)", "", "低/中", "", "経腸/静脈/無", "褥瘡/無"}
+        Dim dt As New DataTable()
+        dt.Columns.Add("Item", Type.GetType("System.String"))
+        dt.Columns.Add("Unit", Type.GetType("System.String"))
+        dt.Columns.Add("J1", Type.GetType("System.String"))
+        dt.Columns.Add("J2", Type.GetType("System.String"))
+        dt.Columns.Add("J3", Type.GetType("System.String"))
+        dt.Columns.Add("J4", Type.GetType("System.String"))
+        For i As Integer = 0 To 5
+            Dim row As DataRow = dt.NewRow()
+            row(0) = itemArray(i)
+            row(1) = unitArray(i)
+            row(2) = ""
+            row(3) = ""
+            row(4) = ""
+            row(5) = ""
+            dt.Rows.Add(row)
+        Next
+
+        '表示
+        dgvScreeningDown.DataSource = dt
+
+        '幅設定等
+        With dgvScreeningDown
+            With .Columns("Item")
+                .DefaultCellStyle = itemUnitColumnCellStyle
+                .Width = 80
+                .SortMode = DataGridViewColumnSortMode.NotSortable
+                .ReadOnly = True
+            End With
+            With .Columns("Unit")
+                .DefaultCellStyle = itemUnitColumnCellStyle
+                .Width = 80
+                .SortMode = DataGridViewColumnSortMode.NotSortable
+                .ReadOnly = True
+            End With
+            With .Columns("J1")
+                .DefaultCellStyle = inputWhiteCellStyle
+                .Width = 127
+                .SortMode = DataGridViewColumnSortMode.NotSortable
+            End With
+            With .Columns("J2")
+                .DefaultCellStyle = inputWhiteCellStyle
+                .Width = 127
+                .SortMode = DataGridViewColumnSortMode.NotSortable
+            End With
+            With .Columns("J3")
+                .DefaultCellStyle = inputWhiteCellStyle
+                .Width = 127
+                .SortMode = DataGridViewColumnSortMode.NotSortable
+            End With
+            With .Columns("J4")
+                .DefaultCellStyle = inputWhiteCellStyle
+                .Width = 127
+                .SortMode = DataGridViewColumnSortMode.NotSortable
+            End With
+
+            '個別にセルスタイル設定
+            For i As Integer = 1 To 4
+                dgvScreeningDown("J" & i, 1).Style = inputGrayCellStyle
+                dgvScreeningDown("J" & i, 1).ReadOnly = True
+            Next
+        End With
+
+        '対象設定
+        dgvScreeningDown.targetYmdBoxK1 = K1YmdBox
+        dgvScreeningDown.targetYmdBoxK2 = K2YmdBox
+        dgvScreeningDown.targetYmdBoxK3 = K3YmdBox
+        dgvScreeningDown.targetYmdBoxK4 = K4YmdBox
+
+        dgvScreeningDown.CurrentCell.Selected = False
 
         '
         clearScreening()
@@ -396,7 +505,7 @@ Public Class スクリーニング書
         For Each row As DataGridViewRow In dgvTokki.Rows
             row.Cells("Text").Value = ""
         Next
-        'dgvスクリーニング
+        'dgvスクリーニング（上）
         J1YmdBox.clearText()
         J2YmdBox.clearText()
         J3YmdBox.clearText()
@@ -407,6 +516,18 @@ Public Class スクリーニング書
             row.Cells("J3").Value = ""
             row.Cells("J4").Value = ""
         Next
+        'dgvスクリーニング（下）
+        K1YmdBox.clearText()
+        K2YmdBox.clearText()
+        K3YmdBox.clearText()
+        K4YmdBox.clearText()
+        For Each row As DataGridViewRow In dgvScreeningDown.Rows
+            row.Cells("J1").Value = ""
+            row.Cells("J2").Value = ""
+            row.Cells("J3").Value = ""
+            row.Cells("J4").Value = ""
+        Next
+
     End Sub
 
     ''' <summary>
@@ -541,16 +662,23 @@ Public Class スクリーニング書
             '血清ｱﾙﾌﾞﾐﾝ値
             dgvScreeningUp(gyo + 1, 9).Value = Util.checkDBNullValue(rs.Fields("Alb1").Value)
             dgvScreeningUp(gyo + 1, 10).Value = Util.checkDBNullValue(rs.Fields("Alb2").Value)
-            dgvScreeningUp(gyo + 1, 11).Value = Util.checkDBNullValue(rs.Fields("Alb3").Value)
+            Dim alb3Ymd As String = Util.checkDBNullValue(rs.Fields("Alb3").Value)
+            If System.Text.RegularExpressions.Regex.IsMatch(alb3Ymd, "[12]\d\d\d/\d\d/\d\d") Then
+                '西暦の場合
+                DirectCast(KPanel.Controls("K" & gyo & "YmdBox"), ymdBox.ymdBox).setADStr(alb3Ymd)
+            ElseIf System.Text.RegularExpressions.Regex.IsMatch(alb3Ymd, "[A-Z]\d\d/\d\d/\d\d") Then
+                '和暦の場合
+                DirectCast(KPanel.Controls("K" & gyo & "YmdBox"), ymdBox.ymdBox).setWarekiStr(alb3Ymd)
+            End If
             '食事摂取量
-            dgvScreeningUp(gyo + 1, 12).Value = Util.checkDBNullValue(rs.Fields("Syoku1").Value)
-            dgvScreeningUp(gyo + 1, 13).Value = Util.checkDBNullValue(rs.Fields("Syoku2").Value)
-            dgvScreeningUp(gyo + 1, 14).Value = Util.checkDBNullValue(rs.Fields("Syoku3").Value)
-            dgvScreeningUp(gyo + 1, 15).Value = Util.checkDBNullValue(rs.Fields("Syoku4").Value)
+            dgvScreeningDown(gyo + 1, 0).Value = Util.checkDBNullValue(rs.Fields("Syoku1").Value)
+            dgvScreeningDown(gyo + 1, 1).Value = Util.checkDBNullValue(rs.Fields("Syoku2").Value)
+            dgvScreeningDown(gyo + 1, 2).Value = Util.checkDBNullValue(rs.Fields("Syoku3").Value)
+            dgvScreeningDown(gyo + 1, 3).Value = Util.checkDBNullValue(rs.Fields("Syoku4").Value)
             '栄養補給法
-            dgvScreeningUp(gyo + 1, 16).Value = Util.checkDBNullValue(rs.Fields("Eiyo").Value)
+            dgvScreeningDown(gyo + 1, 4).Value = Util.checkDBNullValue(rs.Fields("Eiyo").Value)
             '褥瘡
-            dgvScreeningUp(gyo + 1, 17).Value = Util.checkDBNullValue(rs.Fields("Joku").Value)
+            dgvScreeningDown(gyo + 1, 5).Value = Util.checkDBNullValue(rs.Fields("Joku").Value)
 
             rs.MoveNext()
         End While
@@ -687,7 +815,22 @@ Public Class スクリーニング書
         displayScreening(ymd)
     End Sub
 
-    Private Sub dgvScreening_CellPainting(sender As Object, e As System.Windows.Forms.DataGridViewCellPaintingEventArgs) Handles dgvScreeningUp.CellPainting
+    Private Sub dgvScreeningUp_CellPainting(sender As Object, e As System.Windows.Forms.DataGridViewCellPaintingEventArgs) Handles dgvScreeningUp.CellPainting
+        '選択したセルに枠を付ける
+        If e.ColumnIndex >= 0 AndAlso e.RowIndex >= 0 AndAlso (e.PaintParts And DataGridViewPaintParts.Background) = DataGridViewPaintParts.Background Then
+            e.Graphics.FillRectangle(New SolidBrush(e.CellStyle.BackColor), e.CellBounds)
+
+            If (e.PaintParts And DataGridViewPaintParts.SelectionBackground) = DataGridViewPaintParts.SelectionBackground AndAlso (e.State And DataGridViewElementStates.Selected) = DataGridViewElementStates.Selected Then
+                e.Graphics.DrawRectangle(New Pen(Color.Black, 2I), e.CellBounds.X + 1I, e.CellBounds.Y + 1I, e.CellBounds.Width - 3I, e.CellBounds.Height - 3I)
+            End If
+
+            Dim pParts As DataGridViewPaintParts = e.PaintParts And Not DataGridViewPaintParts.Background
+            e.Paint(e.ClipBounds, pParts)
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub dgvScreeningDown_CellPainting(sender As Object, e As System.Windows.Forms.DataGridViewCellPaintingEventArgs) Handles dgvScreeningDown.CellPainting
         '選択したセルに枠を付ける
         If e.ColumnIndex >= 0 AndAlso e.RowIndex >= 0 AndAlso (e.PaintParts And DataGridViewPaintParts.Background) = DataGridViewPaintParts.Background Then
             e.Graphics.FillRectangle(New SolidBrush(e.CellStyle.BackColor), e.CellBounds)
@@ -718,6 +861,32 @@ Public Class スクリーニング書
     Private Sub JYmdBox_keyDownRight(sender As Object, e As System.EventArgs) Handles J1YmdBox.keyDownRight, J2YmdBox.keyDownRight, J3YmdBox.keyDownRight
         Dim num As Integer = CInt(DirectCast(sender, ymdBox.ymdBox).Name.Substring(1, 1)) + 1
         DirectCast(JPanel.Controls("J" & num & "YmdBox"), ymdBox.ymdBox).Focus()
+    End Sub
+
+    Private Sub KYmdBox_keyDownEnterOrDown(sender As Object, e As System.EventArgs) Handles K1YmdBox.keyDownEnterOrDown, K2YmdBox.keyDownEnterOrDown, K3YmdBox.keyDownEnterOrDown, K4YmdBox.keyDownEnterOrDown
+        Dim number As Integer = CInt(CType(sender, ymdBox.ymdBox).Name.Substring(1, 1))
+        dgvScreeningDown.CurrentCell = dgvScreeningDown(number + 1, 0)
+        dgvScreeningDown.BeginEdit(True)
+        dgvScreeningDown.EndEdit()
+        dgvScreeningDown.CurrentCell.Selected = True
+    End Sub
+
+    Private Sub KYmdBox_keyDownUp(sender As Object, e As System.EventArgs) Handles K1YmdBox.keyDownUp, K2YmdBox.keyDownUp, K3YmdBox.keyDownUp, K4YmdBox.keyDownUp
+        Dim number As Integer = CInt(CType(sender, ymdBox.ymdBox).Name.Substring(1, 1))
+        dgvScreeningUp.CurrentCell = dgvScreeningUp(number + 1, 10)
+        dgvScreeningUp.BeginEdit(True)
+        dgvScreeningUp.EndEdit()
+        dgvScreeningUp.CurrentCell.Selected = True
+    End Sub
+
+    Private Sub KYmdBox_keyDownLeft(sender As Object, e As System.EventArgs) Handles K2YmdBox.keyDownLeft, K3YmdBox.keyDownLeft, K4YmdBox.keyDownLeft
+        Dim num As Integer = CInt(DirectCast(sender, ymdBox.ymdBox).Name.Substring(1, 1)) - 1
+        DirectCast(KPanel.Controls("K" & num & "YmdBox"), ymdBox.ymdBox).Focus()
+    End Sub
+
+    Private Sub KYmdBox_keyDownRight(sender As Object, e As System.EventArgs) Handles K1YmdBox.keyDownRight, K2YmdBox.keyDownRight, K3YmdBox.keyDownRight
+        Dim num As Integer = CInt(DirectCast(sender, ymdBox.ymdBox).Name.Substring(1, 1)) + 1
+        DirectCast(KPanel.Controls("K" & num & "YmdBox"), ymdBox.ymdBox).Focus()
     End Sub
 
     Private Sub dgvTokki_CellEnter(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvTokki.CellEnter
@@ -754,6 +923,10 @@ Public Class スクリーニング書
             '対象の列のみクリア
             DirectCast(JPanel.Controls("J" & (targetColumnIndex - 1) & "YmdBox"), ymdBox.ymdBox).clearText()
             For Each row As DataGridViewRow In dgvScreeningUp.Rows
+                row.Cells(targetColumnIndex).Value = ""
+            Next
+            DirectCast(KPanel.Controls("K" & (targetColumnIndex - 1) & "YmdBox"), ymdBox.ymdBox).clearText()
+            For Each row As DataGridViewRow In dgvScreeningDown.Rows
                 row.Cells(targetColumnIndex).Value = ""
             Next
         End If
@@ -1544,5 +1717,168 @@ Public Class スクリーニング書
         oSheet = Nothing
         objWorkBook = Nothing
         objExcel = Nothing
+    End Sub
+
+    Private Sub dgvScreeningUp_GotFocus(sender As Object, e As System.EventArgs) Handles dgvScreeningUp.GotFocus
+        If Not IsNothing(dgvScreeningDown.CurrentCell) Then
+            dgvScreeningDown.CurrentCell.Selected = False
+        End If
+    End Sub
+
+    Private Sub dgvScreeningDown_GotFocus(sender As Object, e As System.EventArgs) Handles dgvScreeningDown.GotFocus
+        If Not IsNothing(dgvScreeningUp.CurrentCell) Then
+            dgvScreeningUp.CurrentCell.Selected = False
+        End If
+    End Sub
+
+    Private Sub kJYmdBox_YmdGotFocus(sender As Object, e As System.EventArgs) Handles J1YmdBox.YmdGotFocus, J2YmdBox.YmdGotFocus, J3YmdBox.YmdGotFocus, J4YmdBox.YmdGotFocus, K1YmdBox.YmdGotFocus, K2YmdBox.YmdGotFocus, K3YmdBox.YmdGotFocus, K4YmdBox.YmdGotFocus
+        If Not IsNothing(dgvScreeningUp.CurrentCell) Then
+            dgvScreeningUp.CurrentCell.Selected = False
+        End If
+        If Not IsNothing(dgvScreeningDown.CurrentCell) Then
+            dgvScreeningDown.CurrentCell.Selected = False
+        End If
+    End Sub
+
+    Private Sub dgvScreeningUp_EditingControlShowing(sender As Object, e As System.Windows.Forms.DataGridViewEditingControlShowingEventArgs) Handles dgvScreeningUp.EditingControlShowing
+        If TypeOf e.Control Is DataGridViewTextBoxEditingControl Then
+            Dim dgv As DataGridView = DirectCast(sender, DataGridView)
+
+            '選択行index
+            Dim selectedRowIndex As Integer = dgv.CurrentCell.RowIndex
+
+            '編集のために表示されているテキストボックス取得、設定
+            Dim tb As DataGridViewTextBoxEditingControl = DirectCast(e.Control, DataGridViewTextBoxEditingControl)
+
+            If selectedRowIndex = 1 OrElse selectedRowIndex = 2 OrElse selectedRowIndex = 3 OrElse selectedRowIndex = 5 OrElse selectedRowIndex = 6 OrElse selectedRowIndex = 9 Then
+                tb.ImeMode = Windows.Forms.ImeMode.Disable
+                tb.ContextMenu = New ContextMenu()
+            End If
+
+            'イベントハンドラを削除
+            RemoveHandler tb.KeyDown, AddressOf numTextBox_KeyDown
+
+            '該当行
+            If selectedRowIndex = 1 OrElse selectedRowIndex = 2 OrElse selectedRowIndex = 3 OrElse selectedRowIndex = 5 OrElse selectedRowIndex = 6 OrElse selectedRowIndex = 9 Then
+                '
+                AddHandler tb.KeyDown, AddressOf numTextBox_KeyDown
+            End If
+        End If
+    End Sub
+
+    Private Sub dgvScreeningDown_EditingControlShowing(sender As Object, e As System.Windows.Forms.DataGridViewEditingControlShowingEventArgs) Handles dgvScreeningDown.EditingControlShowing
+        If TypeOf e.Control Is DataGridViewTextBoxEditingControl Then
+            Dim dgv As DataGridView = DirectCast(sender, DataGridView)
+
+            '選択行index
+            Dim selectedRowIndex As Integer = dgv.CurrentCell.RowIndex
+
+            '編集のために表示されているテキストボックス取得、設定
+            Dim tb As DataGridViewTextBoxEditingControl = DirectCast(e.Control, DataGridViewTextBoxEditingControl)
+
+            If selectedRowIndex = 0 Then
+                tb.ImeMode = Windows.Forms.ImeMode.Disable
+                tb.ContextMenu = New ContextMenu()
+            End If
+
+            'イベントハンドラを削除
+            RemoveHandler tb.KeyDown, AddressOf numTextBox_KeyDown
+
+            '該当行
+            If selectedRowIndex = 0 Then
+                '
+                AddHandler tb.KeyDown, AddressOf numTextBox_KeyDown
+            End If
+        End If
+    End Sub
+
+    Private Sub numTextBox_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs)
+        Dim tb As TextBox = CType(sender, TextBox)
+        If Not ((Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9) OrElse (Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) OrElse e.KeyCode = Keys.Back OrElse e.KeyCode = Keys.Delete OrElse e.KeyCode = Keys.Decimal OrElse e.KeyCode = Keys.Up OrElse e.KeyCode = Keys.Down OrElse e.KeyCode = Keys.Left OrElse e.KeyCode = Keys.Right OrElse e.KeyCode = Keys.Subtract) Then
+            e.SuppressKeyPress = True
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' 登録ボタンクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnRegist_Click(sender As System.Object, e As System.EventArgs) Handles btnRegist.Click
+        '記入者氏名
+        Dim tanto As String = tantoComboBox.Text
+        If tanto = "" Then
+            MsgBox("記入者氏名を選択して下さい。", MsgBoxStyle.Exclamation)
+            Return
+        End If
+        '作成年月日
+        Dim ymd As String = createYmdBox.getADStr()
+        '介護度
+        Dim kai As String = kaiComboBox.Text
+        '特記事項
+        Dim tokki1 As String = Util.checkDBNullValue(dgvTokki(0, 0).Value)
+        Dim tokki2 As String = Util.checkDBNullValue(dgvTokki(0, 1).Value)
+        Dim tokki3 As String = Util.checkDBNullValue(dgvTokki(0, 2).Value)
+
+        '既存データ削除
+        Dim cnn As New ADODB.Connection
+        cnn.Open(topform.DB_NCare)
+        Dim cmd As New ADODB.Command()
+        cmd.ActiveConnection = cnn
+        cmd.CommandText = "delete from Dat0 where Nam='" & selectedResidentName & "' and Ymd='" & ymd & "'"
+        cmd.Execute()
+
+        '登録
+        Dim rs As New ADODB.Recordset
+        rs.Open("Dat0", cnn, ADODB.CursorTypeEnum.adOpenForwardOnly, ADODB.LockTypeEnum.adLockOptimistic)
+        For gyo As Integer = 1 To 4
+            rs.AddNew()
+            If gyo = 1 Then
+                rs.Fields("Tokki1").Value = tokki1
+                rs.Fields("Tokki2").Value = tokki2
+                rs.Fields("Tokki3").Value = tokki3
+            End If
+            rs.Fields("Nam").Value = selectedResidentName
+            rs.Fields("Ymd").Value = ymd
+            rs.Fields("YmdJ").Value = DirectCast(JPanel.Controls("J" & gyo & "YmdBox"), ymdBox.ymdBox).getADStr()
+            rs.Fields("Gyo").Value = gyo
+            rs.Fields("Tanto").Value = tanto
+            rs.Fields("Kai").Value = kai
+            rs.Fields("Risk").Value = Util.checkDBNullValue(dgvScreeningUp("J" & gyo, 0).Value)
+            rs.Fields("Hei").Value = Util.checkDBNullValue(dgvScreeningUp("J" & gyo, 1).Value)
+            rs.Fields("Wei").Value = Util.checkDBNullValue(dgvScreeningUp("J" & gyo, 2).Value)
+            rs.Fields("Bmi1").Value = Util.checkDBNullValue(dgvScreeningUp("J" & gyo, 3).Value)
+            rs.Fields("Bmi2").Value = Util.checkDBNullValue(dgvScreeningUp("J" & gyo, 4).Value)
+            rs.Fields("Gen1").Value = Util.checkDBNullValue(dgvScreeningUp("J" & gyo, 5).Value)
+            rs.Fields("Gen2").Value = Util.checkDBNullValue(dgvScreeningUp("J" & gyo, 6).Value)
+            rs.Fields("Gen3").Value = Util.checkDBNullValue(dgvScreeningUp("J" & gyo, 7).Value)
+            rs.Fields("Gen4").Value = Util.checkDBNullValue(dgvScreeningUp("J" & gyo, 8).Value)
+            rs.Fields("Alb1").Value = Util.checkDBNullValue(dgvScreeningUp("J" & gyo, 9).Value)
+            rs.Fields("Alb2").Value = Util.checkDBNullValue(dgvScreeningUp("J" & gyo, 10).Value)
+            rs.Fields("Alb3").Value = DirectCast(KPanel.Controls("K" & gyo & "YmdBox"), ymdBox.ymdBox).getADStr()
+            rs.Fields("Syoku1").Value = Util.checkDBNullValue(dgvScreeningDown("J" & gyo, 0).Value)
+            rs.Fields("Syoku2").Value = Util.checkDBNullValue(dgvScreeningDown("J" & gyo, 1).Value)
+            rs.Fields("Syoku3").Value = Util.checkDBNullValue(dgvScreeningDown("J" & gyo, 2).Value)
+            rs.Fields("Syoku4").Value = Util.checkDBNullValue(dgvScreeningDown("J" & gyo, 3).Value)
+            rs.Fields("Eiyo").Value = Util.checkDBNullValue(dgvScreeningDown("J" & gyo, 4).Value)
+            rs.Fields("Joku").Value = Util.checkDBNullValue(dgvScreeningDown("J" & gyo, 5).Value)
+        Next
+        rs.Update()
+        rs.Close()
+        cnn.Close()
+
+        clearScreening()
+
+    End Sub
+
+    ''' <summary>
+    ''' 印刷ボタンクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnPrint_Click(sender As System.Object, e As System.EventArgs) Handles btnPrint.Click
+
     End Sub
 End Class

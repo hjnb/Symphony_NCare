@@ -88,6 +88,12 @@
     <Compile Include="AssesDataGridView.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="screeningDataGridViewDown.Designer.vb">
+      <DependentUpon>screeningDataGridViewDown.vb</DependentUpon>
+    </Compile>
+    <Compile Include="screeningDataGridViewDown.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="screeningDataGridViewUp.Designer.vb">
       <DependentUpon>screeningDataGridViewUp.vb</DependentUpon>
     </Compile>
