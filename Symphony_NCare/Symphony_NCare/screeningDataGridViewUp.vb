@@ -22,23 +22,40 @@
             If Me.CurrentCell.RowIndex = 0 Then 'リスク
                 If riskDic.ContainsKey(inputStr) Then
                     CType(Me.EditingControl, DataGridViewTextBoxEditingControl).Text = riskDic(inputStr)
+                ElseIf inputStr <> "" Then
+                    MsgBox("正しく入力して下さい。", MsgBoxStyle.Exclamation)
                 End If
             ElseIf Me.CurrentCell.RowIndex = 4 Then 'BMI 低/中
                 If bmiDic.ContainsKey(inputStr) Then
                     CType(Me.EditingControl, DataGridViewTextBoxEditingControl).Text = bmiDic(inputStr)
+                ElseIf inputStr <> "" Then
+                    MsgBox("正しく入力して下さい。", MsgBoxStyle.Exclamation)
                 End If
             ElseIf Me.CurrentCell.RowIndex = 7 Then '体重減少率 増/減
                 If weightDown1Dic.ContainsKey(inputStr) Then
                     CType(Me.EditingControl, DataGridViewTextBoxEditingControl).Text = weightDown1Dic(inputStr)
+                ElseIf inputStr <> "" Then
+                    MsgBox("正しく入力して下さい。", MsgBoxStyle.Exclamation)
                 End If
             ElseIf Me.CurrentCell.RowIndex = 8 Then '体重減少率 低/中/高
                 If weightDown2Dic.ContainsKey(inputStr) Then
                     CType(Me.EditingControl, DataGridViewTextBoxEditingControl).Text = weightDown2Dic(inputStr)
+                ElseIf inputStr <> "" Then
+                    MsgBox("正しく入力して下さい。", MsgBoxStyle.Exclamation)
                 End If
             ElseIf Me.CurrentCell.RowIndex = 10 Then '血清ｱﾙﾌﾞﾐﾝ値 低/中/高
                 If albDic.ContainsKey(inputStr) Then
                     CType(Me.EditingControl, DataGridViewTextBoxEditingControl).Text = albDic(inputStr)
+                ElseIf inputStr <> "" Then
+                    MsgBox("正しく入力して下さい。", MsgBoxStyle.Exclamation)
                 End If
+            End If
+        ElseIf keyData = Keys.Back Then
+            Me.CurrentCell.Value = ""
+            Me.BeginEdit(False)
+        ElseIf Not ((Keys.NumPad0 <= keyData AndAlso keyData <= Keys.NumPad9) OrElse (Keys.D0 <= keyData AndAlso keyData <= Keys.D9) OrElse keyData = Keys.Back OrElse keyData = Keys.Delete OrElse keyData = Keys.Decimal OrElse keyData = Keys.OemPeriod OrElse keyData = Keys.Up OrElse keyData = Keys.Down OrElse keyData = Keys.Left OrElse keyData = Keys.Right OrElse keyData = Keys.Subtract OrElse keyData = Keys.OemMinus) Then
+            If Me.CurrentCell.RowIndex = 1 OrElse Me.CurrentCell.RowIndex = 2 OrElse Me.CurrentCell.RowIndex = 3 OrElse Me.CurrentCell.RowIndex = 5 OrElse Me.CurrentCell.RowIndex = 6 OrElse Me.CurrentCell.RowIndex = 9 Then
+                Me.BeginEdit(True)
             End If
         End If
 
@@ -57,7 +74,40 @@
     End Function
 
     Protected Overrides Function ProcessDataGridViewKey(e As System.Windows.Forms.KeyEventArgs) As Boolean
-        Dim tb As DataGridViewTextBoxEditingControl = CType(Me.EditingControl, DataGridViewTextBoxEditingControl)
+        Dim inputStr As String = Util.checkDBNullValue(Me.CurrentCell.Value)
+        If e.KeyCode = Keys.Enter Then
+            If Me.CurrentCell.RowIndex = 0 Then 'リスク
+                If riskDic.ContainsKey(inputStr) Then
+                    Me.CurrentCell.Value = riskDic(inputStr)
+                ElseIf inputStr <> "" Then
+                    MsgBox("正しく入力して下さい。", MsgBoxStyle.Exclamation)
+                End If
+            ElseIf Me.CurrentCell.RowIndex = 4 Then 'BMI 低/中
+                If bmiDic.ContainsKey(inputStr) Then
+                    Me.CurrentCell.Value = bmiDic(inputStr)
+                ElseIf inputStr <> "" Then
+                    MsgBox("正しく入力して下さい。", MsgBoxStyle.Exclamation)
+                End If
+            ElseIf Me.CurrentCell.RowIndex = 7 Then '体重減少率 増/減
+                If weightDown1Dic.ContainsKey(inputStr) Then
+                    Me.CurrentCell.Value = weightDown1Dic(inputStr)
+                ElseIf inputStr <> "" Then
+                    MsgBox("正しく入力して下さい。", MsgBoxStyle.Exclamation)
+                End If
+            ElseIf Me.CurrentCell.RowIndex = 8 Then '体重減少率 低/中/高
+                If weightDown2Dic.ContainsKey(inputStr) Then
+                    Me.CurrentCell.Value = weightDown2Dic(inputStr)
+                ElseIf inputStr <> "" Then
+                    MsgBox("正しく入力して下さい。", MsgBoxStyle.Exclamation)
+                End If
+            ElseIf Me.CurrentCell.RowIndex = 10 Then '血清ｱﾙﾌﾞﾐﾝ値 低/中/高
+                If albDic.ContainsKey(inputStr) Then
+                    Me.CurrentCell.Value = albDic(inputStr)
+                ElseIf inputStr <> "" Then
+                    MsgBox("正しく入力して下さい。", MsgBoxStyle.Exclamation)
+                End If
+            End If
+        End If
 
         If Me.CurrentCell.ColumnIndex >= 2 AndAlso Me.CurrentCell.RowIndex = 0 AndAlso e.KeyCode = Keys.Up Then
             If Me.CurrentCell.ColumnIndex = 2 Then
@@ -81,6 +131,7 @@
             End If
         End If
 
+        Dim tb As DataGridViewTextBoxEditingControl = CType(Me.EditingControl, DataGridViewTextBoxEditingControl)
         If Not IsNothing(tb) AndAlso ((e.KeyCode = Keys.Left AndAlso tb.SelectionStart = 0) OrElse (e.KeyCode = Keys.Right AndAlso tb.SelectionStart = tb.TextLength)) Then
             Return False
         Else

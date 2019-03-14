@@ -1794,7 +1794,7 @@ Public Class スクリーニング書
 
     Private Sub numTextBox_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs)
         Dim tb As TextBox = CType(sender, TextBox)
-        If Not ((Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9) OrElse (Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) OrElse e.KeyCode = Keys.Back OrElse e.KeyCode = Keys.Delete OrElse e.KeyCode = Keys.Decimal OrElse e.KeyCode = Keys.Up OrElse e.KeyCode = Keys.Down OrElse e.KeyCode = Keys.Left OrElse e.KeyCode = Keys.Right OrElse e.KeyCode = Keys.Subtract) Then
+        If Not ((Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9) OrElse (Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) OrElse e.KeyCode = Keys.Back OrElse e.KeyCode = Keys.Delete OrElse e.KeyCode = Keys.Decimal OrElse e.KeyCode = Keys.OemPeriod OrElse e.KeyCode = Keys.Up OrElse e.KeyCode = Keys.Down OrElse e.KeyCode = Keys.Left OrElse e.KeyCode = Keys.Right OrElse e.KeyCode = Keys.Subtract OrElse e.KeyCode = Keys.OemMinus) Then
             e.SuppressKeyPress = True
         End If
     End Sub
