@@ -85,16 +85,20 @@ Public Class topform
     End Sub
 
     Private Sub btnSukuri_Click(sender As System.Object, e As System.EventArgs) Handles btnSukuri.Click
-        If IsNothing(frmSukuri) OrElse frmSukuri.IsDisposed Then
-            frmSukuri = New スクリーニング書()
-            frmSukuri.Owner = Me
-            frmSukuri.Show()
+        If lblName.Text = "" Then
+            MsgBox("要介護者を選択してください。")
+        Else
+            If IsNothing(frmSukuri) OrElse frmSukuri.IsDisposed Then
+                frmSukuri = New スクリーニング書()
+                frmSukuri.Owner = Me
+                frmSukuri.Show()
+            End If
         End If
     End Sub
 
     Private Sub btnKeikakusyo_Click(sender As System.Object, e As System.EventArgs) Handles btnKeikakusyo.Click
         If lblName.Text = "" Then
-            MsgBox("利用者を選択してください。")
+            MsgBox("要介護者を選択してください。")
         Else
             If IsNothing(frmKeikakusyo) OrElse frmKeikakusyo.IsDisposed Then
                 frmKeikakusyo = New 計画書(lblName.Text, Birth, Jyuusyo)
@@ -106,7 +110,7 @@ Public Class topform
 
     Private Sub btnKannfarennsu_Click(sender As System.Object, e As System.EventArgs) Handles btnKannfarennsu.Click
         If lblName.Text = "" Then
-            MsgBox("利用者を選択してください。")
+            MsgBox("要介護者を選択してください。")
         Else
             If IsNothing(frmKannfarennsu) OrElse frmKannfarennsu.IsDisposed Then
                 frmKannfarennsu = New カンファレンス(lblName.Text)
