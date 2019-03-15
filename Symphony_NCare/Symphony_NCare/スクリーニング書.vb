@@ -1408,10 +1408,22 @@ Public Class スクリーニング書
         End If
     End Function
 
+    Private Function checkTextBoxInputNum2(tb As TextBox) As Boolean
+        If tb.Text = "" Then
+            Return True
+        End If
+        '整数または小数の場合はtrue
+        If System.Text.RegularExpressions.Regex.IsMatch(tb.Text, "^\d+$") OrElse System.Text.RegularExpressions.Regex.IsMatch(tb.Text, "^\d+(\.\d+)?$") Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
     ''' <summary>
     ''' 和暦表記にフォーマット
     ''' </summary>
-    ''' <param name="adStr"></param>
+    ''' <param name="ymdStr"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
     Private Function formatDateStr(ymdStr As String) As String
@@ -1875,7 +1887,45 @@ Public Class スクリーニング書
         cnn.Close()
 
         clearScreening()
+        loadHistoryList()
 
+    End Sub
+
+    ''' <summary>
+    ''' 削除ボタンクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnDelete_Click(sender As System.Object, e As System.EventArgs) Handles btnDelete.Click
+        '日付
+        Dim ymd As String = createYmdBox.getADStr()
+
+        '対象日付のデータが存在しているかチェック
+        Dim cn As New ADODB.Connection()
+        cn.Open(topform.DB_NCare)
+        Dim sql As String = "select * from Dat0 where Nam='" & selectedResidentName & "' And Ymd='" & ymd & "'"
+        Dim rs As New ADODB.Recordset
+        rs.Open(sql, cn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
+        If rs.RecordCount <= 0 Then
+            MsgBox("登録されていません。", MsgBoxStyle.Exclamation)
+            rs.Close()
+            cn.Close()
+            Return
+        End If
+
+        '削除
+        Dim result As DialogResult = MessageBox.Show("削除してよろしいですか？", "削除", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If result = Windows.Forms.DialogResult.Yes Then
+            Dim cmd As New ADODB.Command()
+            cmd.ActiveConnection = cn
+            cmd.CommandText = "delete from Dat0 where Nam='" & selectedResidentName & "' and Ymd='" & ymd & "'"
+            cmd.Execute()
+            rs.Close()
+            cn.Close()
+            clearScreening()
+            loadHistoryList()
+        End If
     End Sub
 
     ''' <summary>
@@ -2122,5 +2172,114 @@ Public Class スクリーニング書
         oSheet = Nothing
         objWorkBook = Nothing
         objExcel = Nothing
+    End Sub
+
+    ''' <summary>
+    ''' 挿入ボタンクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnInsert_Click(sender As System.Object, e As System.EventArgs) Handles btnInsert.Click
+        Dim numStr As String = insertNumComboBox.Text
+        If numStr = "" Then
+            MsgBox("挿入箇所を指定して下さい。", MsgBoxStyle.Exclamation)
+            Return
+        End If
+
+        For Each tb As TextBox In {albTextBox, intakeTextBox}
+            If Not checkTextBoxInputNum2(tb) Then
+                tb.Focus()
+                MsgBox("数値を入力して下さい", MsgBoxStyle.Exclamation)
+                Return
+            End If
+        Next
+
+        Dim targetColumnNum As Integer
+        If numStr = "Ⅰ" Then
+            targetColumnNum = 1
+        ElseIf numStr = "Ⅱ" Then
+            targetColumnNum = 2
+        ElseIf numStr = "Ⅲ" Then
+            targetColumnNum = 3
+        ElseIf numStr = "Ⅳ" Then
+            targetColumnNum = 4
+        End If
+
+        '挿入データ
+        Dim jYmd As String = JYmdBox.getWarekiStr() '実施日
+        Dim height As String = heightLabel.Text '身長
+        Dim weight As String = weightLabel.Text '体重
+        Dim bmi As String = If(bmiLabel.Text = "0", "", bmiLabel.Text) 'bmi
+        Dim bmiKanji As String = bmiKanjiLabel.Text 'bmiの漢字（"低" or "中" or 空白）
+        Dim alb As String = albTextBox.Text 'ｱﾙﾌﾞﾐﾝ値
+        Dim albKanji As String = "" 'ｱﾙﾌﾞﾐﾝ値の漢字（"低" or "中" or "高" or 空白）
+        If alb <> "" Then
+            If System.Text.RegularExpressions.Regex.IsMatch(alb, "^\d+$") OrElse System.Text.RegularExpressions.Regex.IsMatch(alb, "^\d+(\.\d+)?$") Then
+                Dim albNum As Double = alb
+                If 3.6 <= albNum Then
+                    albKanji = "低"
+                ElseIf 3 <= albNum AndAlso albNum <= 3.5 Then
+                    albKanji = "中"
+                ElseIf albNum < 3 Then
+                    albKanji = "高"
+                End If
+            Else
+                alb = ""
+            End If
+        End If
+        Dim intake As String = intakeTextBox.Text '食事摂取量
+        Dim intakeKanji As String = "" '("低" or "中" or 空白)
+        If intake <> "" Then
+            If System.Text.RegularExpressions.Regex.IsMatch(intake, "^\d+$") OrElse System.Text.RegularExpressions.Regex.IsMatch(intake, "^\d+(\.\d+)?$") Then
+                Dim intakeNum As Double = intake
+                If 75 >= intake Then
+                    intakeKanji = "低"
+                ElseIf 76 <= intakeNum AndAlso intakeNum <= 100 Then
+                    intakeKanji = "中"
+                End If
+            Else
+                intake = ""
+            End If
+        End If
+        Dim nutrition As String = nutritionTextBox.Text '栄養補給法
+        If nutrition = "1" Then
+            nutrition = "経腸栄養法"
+        ElseIf nutrition = "2" Then
+            nutrition = "静脈栄養法"
+        ElseIf nutrition = "3" Then
+            nutrition = "該当なし"
+        Else
+            nutrition = ""
+        End If
+        Dim joku As String = decubitusTextBox.Text '褥瘡
+        If joku = "1" Then
+            joku = "褥瘡"
+        ElseIf joku = "2" Then
+            joku = "該当なし"
+        Else
+            joku = ""
+        End If
+
+        'データ挿入
+        '実施日
+        DirectCast(JPanel.Controls("J" & targetColumnNum & "YmdBox"), ymdBox.ymdBox).setWarekiStr(jYmd)
+        '身長
+        dgvScreeningUp(targetColumnNum + 1, 1).Value = height
+        '体重
+        dgvScreeningUp(targetColumnNum + 1, 2).Value = weight
+        'BMI
+        dgvScreeningUp(targetColumnNum + 1, 3).Value = bmi
+        dgvScreeningUp(targetColumnNum + 1, 4).Value = bmiKanji
+        '血清ｱﾙﾌﾞﾐﾝ値
+        dgvScreeningUp(targetColumnNum + 1, 9).Value = alb
+        dgvScreeningUp(targetColumnNum + 1, 10).Value = albKanji
+        '食事摂取量
+        dgvScreeningDown(targetColumnNum + 1, 0).Value = intake
+        dgvScreeningDown(targetColumnNum + 1, 2).Value = intakeKanji
+        '栄養補給法
+        dgvScreeningDown(targetColumnNum + 1, 4).Value = nutrition
+        '褥瘡
+        dgvScreeningDown(targetColumnNum + 1, 5).Value = joku
     End Sub
 End Class
