@@ -389,7 +389,7 @@ Public Class カンファレンス
         objWorkBooks = objExcel.Workbooks
         objWorkBook = objWorkBooks.Open(topform.excelFilePass)
         oSheets = objWorkBook.Worksheets
-        oSheet = objWorkBook.Worksheets("カンファレンス医療")
+        oSheet = objWorkBook.Worksheets("カンファレンス医療改")
 
         objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
         objExcel.ScreenUpdating = False

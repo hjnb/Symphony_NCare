@@ -47,7 +47,7 @@ Public Class 職員食印刷
             objWorkBooks = objExcel.Workbooks
             objWorkBook = objWorkBooks.Open(topform.excelFilePass)
             oSheets = objWorkBook.Worksheets
-            oSheet = objWorkBook.Worksheets("職員食申込表")
+            oSheet = objWorkBook.Worksheets("職員食申込表改")
 
             objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
             objExcel.ScreenUpdating = False
@@ -114,7 +114,7 @@ Public Class 職員食印刷
             objWorkBooks = objExcel.Workbooks
             objWorkBook = objWorkBooks.Open(topform.excelFilePass)
             oSheets = objWorkBook.Worksheets
-            oSheet = objWorkBook.Worksheets("職員食集計")
+            oSheet = objWorkBook.Worksheets("職員食集計改")
 
             objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
             objExcel.ScreenUpdating = False
@@ -361,7 +361,7 @@ line1:
             objWorkBooks = objExcel.Workbooks
             objWorkBook = objWorkBooks.Open(topform.excelFilePass)
             oSheets = objWorkBook.Worksheets
-            oSheet = objWorkBook.Worksheets("職員食月末請求")
+            oSheet = objWorkBook.Worksheets("職員食月末請求改")
 
             objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
             objExcel.ScreenUpdating = False

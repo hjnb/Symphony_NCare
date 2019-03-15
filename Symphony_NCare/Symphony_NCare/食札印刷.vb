@@ -42,7 +42,7 @@ Public Class 食札印刷
                 objWorkBooks = objExcel.Workbooks
                 objWorkBook = objWorkBooks.Open(topform.excelFilePass)
                 oSheets = objWorkBook.Worksheets
-                oSheet = objWorkBook.Worksheets("個人複数")
+                oSheet = objWorkBook.Worksheets("個人複数改")
 
                 objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
                 objExcel.ScreenUpdating = False
@@ -215,7 +215,7 @@ Public Class 食札印刷
                 objWorkBooks = objExcel.Workbooks
                 objWorkBook = objWorkBooks.Open(topform.excelFilePass)
                 oSheets = objWorkBook.Worksheets
-                oSheet = objWorkBook.Worksheets("個人食札")
+                oSheet = objWorkBook.Worksheets("個人食札改")
 
                 objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
                 objExcel.ScreenUpdating = False
@@ -351,7 +351,7 @@ Public Class 食札印刷
             objExcel = CreateObject("Excel.Application")
             objWorkBooks = objExcel.Workbooks
             objWorkBook = objWorkBooks.Open(topform.excelFilePass)
-            oSheet = objWorkBook.Worksheets("食札")
+            oSheet = objWorkBook.Worksheets("食札改")
 
             objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
             objExcel.ScreenUpdating = False
@@ -2608,7 +2608,7 @@ line22:
             objExcel = CreateObject("Excel.Application")
             objWorkBooks = objExcel.Workbooks
             objWorkBook = objWorkBooks.Open(topform.excelFilePass)
-            oSheet = objWorkBook.Worksheets("食札一覧")
+            oSheet = objWorkBook.Worksheets("食札一覧改")
 
             objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
             objExcel.ScreenUpdating = False
@@ -3007,7 +3007,7 @@ line22:
             objWorkBooks = objExcel.Workbooks
             objWorkBook = objWorkBooks.Open(topform.excelFilePass)
             oSheets = objWorkBook.Worksheets
-            oSheet = objWorkBook.Worksheets("特記事項")
+            oSheet = objWorkBook.Worksheets("特記事項改")
 
             objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
             objExcel.ScreenUpdating = False

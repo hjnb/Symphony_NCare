@@ -586,7 +586,7 @@ Public Class ＳＳ食数
         objExcel = CreateObject("Excel.Application")
         objWorkBooks = objExcel.Workbooks
         objWorkBook = objWorkBooks.Open(topform.excelFilePass)
-        oSheet = objWorkBook.Worksheets("SS食数")
+        oSheet = objWorkBook.Worksheets("SS食数改")
 
         oSheet.Range("B2").Value = YmdBox1.getWarekiKanji() & " " & Strings.Mid(Util.convADStrToWarekiStr(YmdBox1.getADStr()), 2, 2) & " 年 " & Strings.Mid(YmdBox1.getADStr(), 6, 2) & " 月 "
 

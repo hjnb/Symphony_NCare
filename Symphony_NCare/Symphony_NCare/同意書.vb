@@ -12,8 +12,10 @@ Public Class 同意書
         objWorkBooks = objExcel.Workbooks
         objWorkBook = objWorkBooks.Open(topform.excelFilePass)
         oSheets = objWorkBook.Worksheets
-        oSheet = objWorkBook.Worksheets("同意書２")
+        oSheet = objWorkBook.Worksheets("同意書２改")
 
+
+        objExcel.DisplayAlerts = False
         ' エクセル表示
         objExcel.Visible = True
 
