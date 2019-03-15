@@ -48,6 +48,11 @@ Symphony_NCare
  dgvスクリーニング（下）初期設定
  </summary>
 	<remarks></remarks>
+</member><member name="M:Symphony_NCare.スクリーニング書.displayWeightChart(System.String)">
+	<summary>
+ 体重グラフ初期設定
+ </summary>
+	<remarks></remarks>
 </member><member name="M:Symphony_NCare.スクリーニング書.clearScreening">
 	<summary>
  スクリーニング部分のクリア

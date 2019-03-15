@@ -1,6 +1,7 @@
 ﻿Imports System.Data.OleDb
 Imports Microsoft.Office.Interop
 Imports System.Runtime.InteropServices
+Imports System.Windows.Forms.DataVisualization.Charting
 
 Public Class スクリーニング書
 
@@ -67,9 +68,6 @@ Public Class スクリーニング書
         clearComboBox.Items.AddRange(columnNumArray)
         insertNumComboBox.Items.AddRange(columnNumArray)
 
-        '作成年月日
-        createYmdBox.setADStr(Today.ToString("yyyy/MM/dd"))
-
         '名前表示
         namArea.Text = selectedResidentName
 
@@ -87,11 +85,14 @@ Public Class スクリーニング書
         initDgvScreeningUp()
         initDgvScreeningDown()
 
+        'dgv体重推移初期設定
+        initDgvWeightChange()
+
         '入居者情報表示(ユニット、名前、性別、生年月日、年齢)
         displayResidentInfo()
 
-        'dgv体重推移初期設定
-        initDgvWeightChange()
+        '作成年月日
+        createYmdBox.setADStr(Today.ToString("yyyy/MM/dd"))
 
         '実施年月日
         JYmdBox.setADStr(Today.ToString("yyyy/MM/dd"))
@@ -490,6 +491,73 @@ Public Class スクリーニング書
 
         '
         clearScreening()
+    End Sub
+
+    ''' <summary>
+    ''' 体重グラフ初期設定
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub displayWeightChart(ymd As String)
+        '初期化
+        With weightChart
+            .Titles.Clear()
+            .Series.Clear()
+            .ChartAreas.Clear()
+            .BackColor = Color.FromKnownColor(KnownColor.Control)
+        End With
+
+        'データ取得、作成
+        Dim year As Integer = CInt(ymd.Split("/")(0))
+        Dim month As Integer = CInt(ymd.Split("/")(1))
+        Dim dt As New DateTime(year, month, 1)
+        Dim ymArray(11) As String '年月(yyyy/MM)データ
+        Dim j As Integer = 0
+        For i As Integer = 11 To 0 Step -1
+            Dim ym As String = dt.AddMonths(-i).ToString("yyyy/MM")
+            ymArray(j) = ym
+            j += 1
+        Next
+        Dim weightArray(11) As String '体重データ
+        For i As Integer = 0 To 11
+            For Each row As DataGridViewRow In dgvWeight.Rows
+                If ymArray(i) = Util.checkDBNullValue(row.Cells("Ym").Value) Then
+                    weightArray(i) = Util.checkDBNullValue(row.Cells("Weight").Value)
+                End If
+            Next
+        Next
+        For i As Integer = 0 To 11
+            If IsNothing(weightArray(i)) OrElse weightArray(i) = "" Then
+                weightArray(i) = "0"
+            End If
+        Next
+
+        'データをセット
+        Dim series As Series = New Series()
+        series.ChartType = SeriesChartType.Column '棒グラフ
+        For i As Integer = 0 To 11
+            series.Points.Add(New DataPoint(i, weightArray(i)))
+            series.Points(i).AxisLabel = ymArray(i)
+            series.Points(i).Color = Color.FromArgb(0, 0, 202)
+        Next
+
+        Dim area As New ChartArea()
+        area.BackColor = Color.FromKnownColor(KnownColor.Control)
+        With area.AxisY 'Y軸設定
+            '目盛り
+            .Maximum = 70 '最大値
+            .Minimum = 20 '最小値
+            .Interval = 5 '間隔
+        End With
+        With area.AxisX
+            .IsLabelAutoFit = True
+            .LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont Or LabelAutoFitStyles.IncreaseFont
+            .LabelAutoFitMaxFontSize = 8
+            .LabelAutoFitMinFontSize = 8
+
+        End With
+
+        weightChart.ChartAreas.Add(area)
+        weightChart.Series.Add(series)
     End Sub
 
     ''' <summary>
@@ -2281,5 +2349,9 @@ Public Class スクリーニング書
         dgvScreeningDown(targetColumnNum + 1, 4).Value = nutrition
         '褥瘡
         dgvScreeningDown(targetColumnNum + 1, 5).Value = joku
+    End Sub
+
+    Private Sub createYmdBox_YmdTextChange(sender As Object, e As System.EventArgs) Handles createYmdBox.YmdTextChange
+        displayWeightChart(createYmdBox.getADStr())
     End Sub
 End Class
