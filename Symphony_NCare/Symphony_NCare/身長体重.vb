@@ -244,41 +244,33 @@ Public Class 身長体重
         Dim cnn As New ADODB.Connection
         Dim SQL As String = ""
         cnn.Open(topform.DB_NCare)
-
         Dim DGVHeightrowcount As Integer = DataGridViewHeight.Rows.Count
-
-        For DGVHighetindex As Integer = 0 To DGVHeightrowcount - 1   'Dat10にデータがあるか
-            'その人のデータがあるかないか
-            For i As Integer = 1 To 10
-                Dim DGVType As DataGridView = CType(Controls("DataGridView" & i), DataGridView)
-                Dim mojisuu As Integer = Controls("lblDGV" & i & "PSC").Text.Length
-                Dim Str As String = Controls("lblDGV" & i & "PSC").Text.Remove(mojisuu - 1, 1)
-                Dim personcount As Integer = Val(Str)
-                For row As Integer = 0 To personcount - 1
+        'DataGridView1～10のデータがあるかないか
+        For i As Integer = 1 To 10
+            Dim DGVType As DataGridView = CType(Controls("DataGridView" & i), DataGridView)
+            '各ユニットの人数を取得
+            Dim mojisuu As Integer = Controls("lblDGV" & i & "PSC").Text.Length
+            Dim Str As String = Controls("lblDGV" & i & "PSC").Text.Remove(mojisuu - 1, 1)
+            Dim personcount As Integer = Val(Str)
+            '各ユニットごとの人をみる
+            For row As Integer = 0 To personcount - 1
+                'Dat10にデータがあるか
+                For DGVHighetindex As Integer = 0 To DGVHeightrowcount - 1
                     If DGVType(1, row).Value = DataGridViewHeight(0, DGVHighetindex).Value Then
                         'ある場合
                         SQL = "UPDATE Dat10 SET Height = '" & Util.checkDBNullValue(DGVType(3, row).Value) & "' WHERE Nam = '" & DGVType(1, row).Value & "'"
                         cnn.Execute(SQL)
-
+                        Exit For
+                    End If
+                    If DGVHighetindex = DGVHeightrowcount - 1 AndAlso Util.checkDBNullValue(DGVType(1, row).Value) <> DataGridViewHeight(0, DGVHighetindex).Value Then
+                        'ない場合
+                        Dim nam, height As String
+                        nam = Util.checkDBNullValue(DGVType(1, row).Value)
+                        height = Util.checkDBNullValue(DGVType(3, row).Value)
+                        SQL = "INSERT INTO Dat10 VALUES ('" & nam & "', '" & height & "')"
+                        cnn.Execute(SQL)
                     End If
                 Next
-            Next
-        Next
-
-
-        'ない場合
-        Dim nam, height As String
-
-        For i As Integer = 1 To 10
-            Dim DGVType As DataGridView = CType(Controls("DataGridView" & i), DataGridView)
-            Dim mojisuu As Integer = Controls("lblDGV" & i & "PSC").Text.Length
-            Dim Str As String = Controls("lblDGV" & i & "PSC").Text.Remove(mojisuu - 1, 1)
-            Dim personcount As Integer = Val(Str)
-            For row As Integer = 0 To personcount - 1
-                nam = Util.checkDBNullValue(DGVType(1, row).Value)
-                height = Util.checkDBNullValue(DGVType(3, row).Value)
-                SQL = "INSERT INTO Dat10 VALUES ('" & nam & "', '" & height & "')"
-                cnn.Execute(SQL)
             Next
         Next
         cnn.Close()
