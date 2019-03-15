@@ -1414,12 +1414,18 @@ Public Class スクリーニング書
     ''' <param name="adStr"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function formatDateStr(adStr As String) As String
-        If adStr = "" Then
+    Private Function formatDateStr(ymdStr As String) As String
+        If ymdStr = "" Then
             Return ""
         End If
+        Dim warekiStr As String
+        If System.Text.RegularExpressions.Regex.IsMatch(ymdStr, "[12]\d\d\d/\d\d/\d\d") Then
+            '西暦の場合は和暦に変換
+            warekiStr = Util.convADStrToWarekiStr(ymdStr)
+        Else
+            warekiStr = ymdStr
+        End If
 
-        Dim warekiStr As String = Util.convADStrToWarekiStr(adStr)
         Dim kanji As String = Util.getKanji(warekiStr)
         Dim eraNum As String = CInt(warekiStr.Substring(1, 2))
         Dim monthNum As String = CInt(warekiStr.Substring(4, 2))
@@ -1879,6 +1885,242 @@ Public Class スクリーニング書
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub btnPrint_Click(sender As System.Object, e As System.EventArgs) Handles btnPrint.Click
+        '作成年月日のデータ存在チェック
+        Dim ymd As String = createYmdBox.getADStr()
+        Dim cn As New ADODB.Connection()
+        cn.Open(topform.DB_NCare)
+        Dim sql As String = "select * from Dat0 where Nam='" & selectedResidentName & "' And Ymd='" & ymd & "' order by Gyo"
+        Dim rs As New ADODB.Recordset
+        rs.Open(sql, cn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
+        If rs.RecordCount <= 0 Then
+            MsgBox("ｽｸﾘｰﾆﾝｸﾞ書は登録されていません。", MsgBoxStyle.Exclamation)
+            rs.Close()
+            cn.Close()
+            Return
+        End If
 
+        'データ作成
+        Dim dataArray(42, 75) As String
+        '記入者氏名
+        dataArray(0, 37) = "記入者氏名"
+        dataArray(0, 43) = Util.checkDBNullValue(rs.Fields("Tanto").Value)
+        '作成年月日
+        dataArray(0, 57) = "作成年月日"
+        dataArray(0, 63) = formatDateStr(ymd)
+        'ふりがな
+        dataArray(2, 0) = "（ふりがな）"
+        dataArray(2, 6) = selectedResidentKana
+        '氏名
+        dataArray(3, 0) = selectedResidentName
+        '生年月日
+        Dim birthWareki As String = Util.convADStrToWarekiStr(selectedResidentBirth)
+        Dim initial As String = birthWareki.Substring(0, 1)
+        Dim era As String = birthWareki.Substring(1, 2)
+        Dim month As String = CInt(birthWareki.Substring(4, 2))
+        Dim day As String = CInt(birthWareki.Substring(7, 2))
+        Dim age As String = calcAge(selectedResidentBirth, ymd)
+        dataArray(6, 3) = "明"
+        dataArray(6, 9) = "大"
+        dataArray(6, 13) = "昭"
+        dataArray(7, 17) = "年"
+        dataArray(7, 20) = "月"
+        dataArray(7, 23) = "日"
+        dataArray(7, 25) = "（"
+        dataArray(7, 31) = "才）"
+        If initial = "M" Then
+            dataArray(7, 2) = "ㇾ"
+        ElseIf initial = "T" Then
+            dataArray(7, 6) = "ㇾ"
+        ElseIf initial = "S" Then
+            dataArray(7, 12) = "ㇾ"
+        End If
+        dataArray(6, 15) = era '年
+        dataArray(6, 18) = month '月
+        dataArray(6, 21) = day '日
+        dataArray(6, 28) = age '才
+        '要介護度
+        dataArray(2, 34) = "要介護度"
+        dataArray(3, 34) = Util.checkDBNullValue(rs.Fields("Kai").Value)
+        '性別
+        If selectedResidentSex = "1" Then
+            '男
+            dataArray(6, 34) = "①男2女"
+        ElseIf selectedResidentSex = "2" Then
+            '女
+            dataArray(6, 34) = "1男②女"
+        End If
+        '特記事項
+        dataArray(2, 38) = "特記事項："
+        dataArray(3, 38) = Util.checkDBNullValue(rs.Fields("Tokki1").Value)
+        dataArray(4, 38) = Util.checkDBNullValue(rs.Fields("Tokki2").Value)
+        dataArray(6, 38) = Util.checkDBNullValue(rs.Fields("Tokki3").Value)
+
+        Dim basePlusNum As Integer = 19
+        Dim re As String = "レ"
+        While Not rs.EOF
+            Dim gyo As Integer = Util.checkDBNullValue(rs.Fields("Gyo").Value)
+            Dim plusNum As Integer = basePlusNum * (gyo - 1)
+            '実施日
+            dataArray(10, 0 + plusNum) = formatDateStr(Util.checkDBNullValue(rs.Fields("YmdJ").Value))
+            'リスク
+            dataArray(11, 3 + plusNum) = "低"
+            dataArray(11, 11 + plusNum) = "中"
+            dataArray(11, 15 + plusNum) = "高"
+            Dim risk As String = Util.checkDBNullValue(rs.Fields("Risk").Value)
+            If risk = "低" Then
+                dataArray(12, 2 + plusNum) = re
+            ElseIf risk = "中" Then
+                dataArray(12, 7 + plusNum) = re
+            ElseIf risk = "高" Then
+                dataArray(12, 14 + plusNum) = re
+            End If
+            '身長
+            dataArray(14, 0 + plusNum) = Util.checkDBNullValue(rs.Fields("Hei").Value)
+            dataArray(14, 16 + plusNum) = "cm"
+            '体重
+            dataArray(15, 0 + plusNum) = Util.checkDBNullValue(rs.Fields("Wei").Value)
+            dataArray(15, 16 + plusNum) = "kg"
+            'BMI
+            dataArray(17, 0 + plusNum) = "("
+            dataArray(17, 1 + plusNum) = Util.checkDBNullValue(rs.Fields("Bmi1").Value)
+            dataArray(17, 6 + plusNum) = ")"
+            dataArray(16, 11 + plusNum) = "低"
+            dataArray(16, 15 + plusNum) = "中"
+            Dim bmiStr As String = Util.checkDBNullValue(rs.Fields("Bmi2").Value)
+            If bmiStr = "低" Then
+                dataArray(17, 8 + plusNum) = re
+            ElseIf bmiStr = "中" Then
+                dataArray(17, 14 + plusNum) = re
+            End If
+            '体重減少率
+            dataArray(19, 0 + plusNum) = Util.checkDBNullValue(rs.Fields("Gen1").Value)
+            dataArray(19, 3 + plusNum) = "か月に"
+            dataArray(19, 9 + plusNum) = "（"
+            dataArray(19, 11 + plusNum) = Util.checkDBNullValue(rs.Fields("Gen2").Value)
+            dataArray(19, 15 + plusNum) = "）％"
+            Dim gen3 As String = Util.checkDBNullValue(rs.Fields("Gen3").Value)
+            Dim gen4 As String = Util.checkDBNullValue(rs.Fields("Gen4").Value)
+            dataArray(21, 0 + plusNum) = "（"
+            dataArray(20, 2 + plusNum) = "減"
+            dataArray(20, 5 + plusNum) = "増"
+            dataArray(21, 9 + plusNum) = "）"
+            If gen3 = "減" Then
+                dataArray(21, 1 + plusNum) = re
+            ElseIf gen3 = "増" Then
+                dataArray(21, 4 + plusNum) = re
+            End If
+            dataArray(20, 12 + plusNum) = "低"
+            dataArray(20, 15 + plusNum) = "中"
+            dataArray(20, 17 + plusNum) = "高"
+            If gen4 = "低" Then
+                dataArray(21, 11 + plusNum) = re
+            ElseIf gen4 = "中" Then
+                dataArray(21, 14 + plusNum) = re
+            ElseIf gen4 = "高" Then
+                dataArray(21, 16 + plusNum) = re
+            End If
+            '血清アルブミン値
+            dataArray(23, 0 + plusNum) = Util.checkDBNullValue(rs.Fields("Alb1").Value)
+            dataArray(23, 4 + plusNum) = "g/dl"
+            dataArray(23, 11 + plusNum) = "（"
+            Dim alb3 As String = Util.checkDBNullValue(rs.Fields("Alb3").Value)
+            If alb3 <> "" Then
+                If System.Text.RegularExpressions.Regex.IsMatch(alb3, "[12]\d\d\d/\d\d/\d\d") Then
+                    dataArray(23, 12 + plusNum) = Util.convADStrToWarekiStr(alb3)
+                Else
+                    dataArray(23, 12 + plusNum) = alb3
+                End If
+            End If
+            dataArray(23, 17 + plusNum) = "）"
+            dataArray(24, 3 + plusNum) = "低"
+            dataArray(24, 9 + plusNum) = "中"
+            dataArray(24, 13 + plusNum) = "高"
+            Dim alb2 As String = Util.checkDBNullValue(rs.Fields("Alb2").Value)
+            If alb2 = "低" Then
+                dataArray(25, 2 + plusNum) = re
+            ElseIf alb2 = "中" Then
+                dataArray(25, 6 + plusNum) = re
+            ElseIf alb2 = "高" Then
+                dataArray(25, 12 + plusNum) = re
+            End If
+            '食事摂取量
+            dataArray(27, 1 + plusNum) = "摂食量率"
+            dataArray(27, 6 + plusNum) = Util.checkDBNullValue(rs.Fields("Syoku1").Value)
+            dataArray(27, 12 + plusNum) = "％"
+            dataArray(27, 13 + plusNum) = "（主副食）"
+            dataArray(29, 2 + plusNum) = "低"
+            dataArray(29, 9 + plusNum) = "中"
+            Dim syoku3 As String = Util.checkDBNullValue(rs.Fields("Syoku3").Value)
+            If syoku3 = "低" Then
+                dataArray(29, 1 + plusNum) = re
+            ElseIf syoku3 = "中" Then
+                dataArray(29, 6 + plusNum) = re
+            End If
+            dataArray(31, 0 + plusNum) = "（"
+            dataArray(31, 1 + plusNum) = "内容："
+            dataArray(31, 4 + plusNum) = Util.checkDBNullValue(rs.Fields("Syoku4").Value)
+            dataArray(31, 18 + plusNum) = "）"
+            '栄養補給法
+            dataArray(33, 2 + plusNum) = " 経腸栄養法"
+            dataArray(35, 2 + plusNum) = " 静脈栄養法"
+            dataArray(37, 2 + plusNum) = " 該当なし"
+            Dim eiyo As String = Util.checkDBNullValue(rs.Fields("Eiyo").Value)
+            If eiyo = "経腸栄養法" Then
+                dataArray(33, 1 + plusNum) = re
+                dataArray(35, 15 + plusNum) = "中"
+            ElseIf eiyo = "静脈栄養法" Then
+                dataArray(35, 1 + plusNum) = re
+                dataArray(35, 15 + plusNum) = "中"
+            ElseIf eiyo = "該当なし" Then
+                dataArray(37, 1 + plusNum) = re
+                dataArray(35, 15 + plusNum) = "低"
+            End If
+            '褥瘡
+            dataArray(40, 2 + plusNum) = " 褥瘡"
+            dataArray(42, 2 + plusNum) = " 該当なし"
+            Dim joku As String = Util.checkDBNullValue(rs.Fields("Joku").Value)
+            If joku = "褥瘡" Then
+                dataArray(40, 1 + plusNum) = re
+                dataArray(40, 15 + plusNum) = "高"
+            ElseIf joku = "該当なし" Then
+                dataArray(42, 1 + plusNum) = re
+                dataArray(40, 15 + plusNum) = "低"
+            End If
+
+            rs.MoveNext()
+        End While
+
+        'エクセル準備
+        Dim objExcel As Excel.Application = CreateObject("Excel.Application")
+        Dim objWorkBooks As Excel.Workbooks = objExcel.Workbooks
+        Dim objWorkBook As Excel.Workbook = objWorkBooks.Open(topform.excelFilePass)
+        Dim oSheet As Excel.Worksheet = objWorkBook.Worksheets("(改)スクリーニング改")
+        objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
+        objExcel.ScreenUpdating = False
+
+        'データ貼り付け
+        oSheet.Range("C3", "BZ45").Value = dataArray
+
+        objExcel.Calculation = Excel.XlCalculation.xlCalculationAutomatic
+        objExcel.ScreenUpdating = True
+
+        '変更保存確認ダイアログ非表示
+        objExcel.DisplayAlerts = False
+
+        '印刷
+        If topform.rbnPrintout.Checked = True Then
+            oSheet.PrintOut()
+        ElseIf topform.rbnPreview.Checked = True Then
+            objExcel.Visible = True
+            oSheet.PrintPreview(1)
+        End If
+
+        ' EXCEL解放
+        objExcel.Quit()
+        Marshal.ReleaseComObject(objWorkBook)
+        Marshal.ReleaseComObject(objExcel)
+        oSheet = Nothing
+        objWorkBook = Nothing
+        objExcel = Nothing
     End Sub
 End Class
