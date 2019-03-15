@@ -306,7 +306,7 @@ Public Class 整備状況
 
             Else
                 If IsNothing(frmSukuri) OrElse frmSukuri.IsDisposed Then
-                    frmSukuri = New スクリーニング書()
+                    frmSukuri = New スクリーニング書(nam)
                     frmSukuri.Owner = Me
                     frmSukuri.Show()
                 End If
@@ -326,7 +326,7 @@ Public Class 整備状況
 
             Else
                 If IsNothing(frmSukuri) OrElse frmSukuri.IsDisposed Then
-                    frmSukuri = New スクリーニング書()
+                    frmSukuri = New スクリーニング書(nam)
                     frmSukuri.Owner = Me
                     frmSukuri.Show()
                 End If
@@ -346,7 +346,7 @@ Public Class 整備状況
 
             Else
                 If IsNothing(frmSukuri) OrElse frmSukuri.IsDisposed Then
-                    frmAsemoni = New アセモニ()
+                    frmAsemoni = New アセモニ(nam)
                     frmAsemoni.Owner = Me
                     frmAsemoni.Show()
                 End If
