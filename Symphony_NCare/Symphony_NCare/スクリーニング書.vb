@@ -2,6 +2,7 @@
 Imports Microsoft.Office.Interop
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms.DataVisualization.Charting
+Imports System.Text
 
 Public Class スクリーニング書
 
@@ -38,6 +39,10 @@ Public Class スクリーニング書
 
     'セルエンター制御用フラグ
     Private canCellEnter As Boolean = False
+
+    '文字数制限用
+    Private Const SCREENING_LIMIT_LENGTH_BYTE As Integer = 18
+    Private Const TOKKI_LIMIT_LENGTH_BYTE As Integer = 64
 
     ''' <summary>
     ''' コンストラクタ
@@ -808,11 +813,11 @@ Public Class スクリーニング書
             Dim indexRect As Rectangle = e.CellBounds
             indexRect.Inflate(-2, -2)
             '行番号を描画する
-            TextRenderer.DrawText(e.Graphics, _
-                weightChangeRowHeaderText(e.RowIndex), _
-                New Font("ＭＳ Ｐゴシック", 8), _
-                indexRect, _
-                e.CellStyle.ForeColor, _
+            TextRenderer.DrawText(e.Graphics,
+                weightChangeRowHeaderText(e.RowIndex),
+                New Font("ＭＳ Ｐゴシック", 8),
+                indexRect,
+                e.CellStyle.ForeColor,
                 TextFormatFlags.HorizontalCenter Or TextFormatFlags.VerticalCenter)
             '描画が完了したことを知らせる
             e.Handled = True
@@ -892,6 +897,20 @@ Public Class スクリーニング書
                 e.Graphics.DrawRectangle(New Pen(Color.Black, 2I), e.CellBounds.X + 1I, e.CellBounds.Y + 1I, e.CellBounds.Width - 3I, e.CellBounds.Height - 3I)
             End If
 
+            '区切りの横青線
+            If e.RowIndex = 0 OrElse e.RowIndex = 1 OrElse e.RowIndex = 2 OrElse e.RowIndex = 4 OrElse e.RowIndex = 8 Then
+                With e.CellBounds
+                    .Offset(0, -2)
+                    e.Graphics.DrawLine(New Pen(Color.Blue), .Left, .Bottom, .Right, .Bottom)
+                End With
+                If e.RowIndex = 0 Then
+                    With e.CellBounds
+                        .Offset(0, 1)
+                        e.Graphics.DrawLine(New Pen(Color.Blue), .Left, .Top, .Right, .Top)
+                    End With
+                End If
+            End If
+
             Dim pParts As DataGridViewPaintParts = e.PaintParts And Not DataGridViewPaintParts.Background
             e.Paint(e.ClipBounds, pParts)
             e.Handled = True
@@ -905,6 +924,20 @@ Public Class スクリーニング書
 
             If (e.PaintParts And DataGridViewPaintParts.SelectionBackground) = DataGridViewPaintParts.SelectionBackground AndAlso (e.State And DataGridViewElementStates.Selected) = DataGridViewElementStates.Selected Then
                 e.Graphics.DrawRectangle(New Pen(Color.Black, 2I), e.CellBounds.X + 1I, e.CellBounds.Y + 1I, e.CellBounds.Width - 3I, e.CellBounds.Height - 3I)
+            End If
+
+            '区切りの横青線
+            If e.RowIndex = 0 OrElse e.RowIndex = 3 OrElse e.RowIndex = 4 Then
+                With e.CellBounds
+                    .Offset(0, -2)
+                    e.Graphics.DrawLine(New Pen(Color.Blue), .Left, .Bottom, .Right, .Bottom)
+                End With
+                If e.RowIndex = 0 Then
+                    With e.CellBounds
+                        .Offset(0, 1)
+                        e.Graphics.DrawLine(New Pen(Color.Blue), .Left, .Top, .Right, .Top)
+                    End With
+                End If
             End If
 
             Dim pParts As DataGridViewPaintParts = e.PaintParts And Not DataGridViewPaintParts.Background
@@ -1826,6 +1859,17 @@ Public Class スクリーニング書
         End If
     End Sub
 
+    Private Sub dgvTokki_EditingControlShowing(sender As Object, e As System.Windows.Forms.DataGridViewEditingControlShowingEventArgs) Handles dgvTokki.EditingControlShowing
+        If TypeOf e.Control Is DataGridViewTextBoxEditingControl Then
+            '編集のために表示されているテキストボックス取得、設定
+            Dim tb As DataGridViewTextBoxEditingControl = DirectCast(e.Control, DataGridViewTextBoxEditingControl)
+            tb.ImeMode = Windows.Forms.ImeMode.Hiragana
+
+            RemoveHandler tb.KeyPress, AddressOf dgvTokkiTextBox_KeyPress
+            AddHandler tb.KeyPress, AddressOf dgvTokkiTextBox_KeyPress
+        End If
+    End Sub
+
     Private Sub dgvScreeningUp_EditingControlShowing(sender As Object, e As System.Windows.Forms.DataGridViewEditingControlShowingEventArgs) Handles dgvScreeningUp.EditingControlShowing
         If TypeOf e.Control Is DataGridViewTextBoxEditingControl Then
             Dim dgv As DataGridView = DirectCast(sender, DataGridView)
@@ -1835,7 +1879,7 @@ Public Class スクリーニング書
 
             '編集のために表示されているテキストボックス取得、設定
             Dim tb As DataGridViewTextBoxEditingControl = DirectCast(e.Control, DataGridViewTextBoxEditingControl)
-
+            tb.ImeMode = Windows.Forms.ImeMode.NoControl
             If selectedRowIndex = 1 OrElse selectedRowIndex = 2 OrElse selectedRowIndex = 3 OrElse selectedRowIndex = 5 OrElse selectedRowIndex = 6 OrElse selectedRowIndex = 9 Then
                 tb.ImeMode = Windows.Forms.ImeMode.Disable
                 tb.ContextMenu = New ContextMenu()
@@ -1861,7 +1905,7 @@ Public Class スクリーニング書
 
             '編集のために表示されているテキストボックス取得、設定
             Dim tb As DataGridViewTextBoxEditingControl = DirectCast(e.Control, DataGridViewTextBoxEditingControl)
-
+            tb.ImeMode = Windows.Forms.ImeMode.NoControl
             If selectedRowIndex = 0 Then
                 tb.ImeMode = Windows.Forms.ImeMode.Disable
                 tb.ContextMenu = New ContextMenu()
@@ -1869,11 +1913,14 @@ Public Class スクリーニング書
 
             'イベントハンドラを削除
             RemoveHandler tb.KeyDown, AddressOf numTextBox_KeyDown
+            RemoveHandler tb.KeyPress, AddressOf dgvTextBox_KeyPress
 
             '該当行
             If selectedRowIndex = 0 Then
                 '
                 AddHandler tb.KeyDown, AddressOf numTextBox_KeyDown
+            ElseIf selectedRowIndex = 3 Then
+                AddHandler tb.KeyPress, AddressOf dgvTextBox_KeyPress
             End If
         End If
     End Sub
@@ -1882,6 +1929,36 @@ Public Class スクリーニング書
         Dim tb As TextBox = CType(sender, TextBox)
         If Not ((Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9) OrElse (Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) OrElse e.KeyCode = Keys.Back OrElse e.KeyCode = Keys.Delete OrElse e.KeyCode = Keys.Decimal OrElse e.KeyCode = Keys.OemPeriod OrElse e.KeyCode = Keys.Up OrElse e.KeyCode = Keys.Down OrElse e.KeyCode = Keys.Left OrElse e.KeyCode = Keys.Right OrElse e.KeyCode = Keys.Subtract OrElse e.KeyCode = Keys.OemMinus) Then
             e.SuppressKeyPress = True
+        End If
+    End Sub
+
+    Private Sub dgvTextBox_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
+        Dim text As String = CType(sender, DataGridViewTextBoxEditingControl).Text
+        Dim lengthByte As Integer = Encoding.GetEncoding("Shift_JIS").GetByteCount(text)
+
+        If lengthByte >= SCREENING_LIMIT_LENGTH_BYTE Then '設定されているバイト数以上の時
+            If e.KeyChar = ChrW(Keys.Back) Then
+                'Backspaceは入力可能
+                e.Handled = False
+            Else
+                '入力できなくする
+                e.Handled = True
+            End If
+        End If
+    End Sub
+
+    Private Sub dgvTokkiTextBox_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs)
+        Dim text As String = CType(sender, DataGridViewTextBoxEditingControl).Text
+        Dim lengthByte As Integer = Encoding.GetEncoding("Shift_JIS").GetByteCount(text)
+
+        If lengthByte >= TOKKI_LIMIT_LENGTH_BYTE Then '設定されているバイト数以上の時
+            If e.KeyChar = ChrW(Keys.Back) Then
+                'Backspaceは入力可能
+                e.Handled = False
+            Else
+                '入力できなくする
+                e.Handled = True
+            End If
         End If
     End Sub
 
