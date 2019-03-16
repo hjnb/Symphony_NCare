@@ -493,19 +493,28 @@ Public Class 計画書
             Return
         End If
 
-        If MsgBox("削除してよろしいですか？", MsgBoxStyle.YesNo + vbExclamation, "削除確認") = MsgBoxResult.Yes Then
-            Dim cnn As New ADODB.Connection
-            cnn.Open(topform.DB_NCare)
+        Dim DGV1rowcount As Integer = DataGridView1.Rows.Count
+        For i As Integer = 0 To DGV1rowcount - 1
+            If YmdBox1.getADStr() = DataGridView1(1, i).Value Then
+                If MsgBox("削除してよろしいですか？", MsgBoxStyle.YesNo + vbExclamation, "削除確認") = MsgBoxResult.Yes Then
+                    Dim cnn As New ADODB.Connection
+                    cnn.Open(topform.DB_NCare)
 
-            Dim SQL As String = ""
+                    Dim SQL As String = ""
 
-            SQL = "DELETE FROM Dat2 WHERE Nam = '" & lblName.Text & "' AND Ymd = '" & YmdBox1.getADStr() & "' AND NyuYmd = '" & ymdboxNyuymd.getADStr & "'"
+                    SQL = "DELETE FROM Dat2 WHERE Nam = '" & lblName.Text & "' AND Ymd = '" & YmdBox1.getADStr() & "'"
 
-            cnn.Execute(SQL)
-            cnn.Close()
+                    cnn.Execute(SQL)
+                    cnn.Close()
 
-            FormUpdate()
-        End If
+                    FormUpdate()
+
+                    Exit Sub
+                End If
+            End If
+        Next
+
+        MsgBox("登録されていません")
     End Sub
 
     Private Sub btnPrint_Click(sender As System.Object, e As System.EventArgs) Handles btnPrint.Click
@@ -515,108 +524,118 @@ Public Class 計画書
             Return
         End If
 
-        Dim cnn As New ADODB.Connection
-        Dim rs As New ADODB.Recordset
-        Dim sql As String = "select * from Dat2 WHERE Nam = '" & lblName.Text & "' AND Ymd = '" & YmdBox1.getADStr() & "' AND NyuYmd = '" & ymdboxNyuymd.getADStr() & "' AND Birth = '" & birth & "'"
-        cnn.Open(topform.DB_NCare)
-        rs.Open(sql, cnn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockReadOnly)
+        Dim DGV1rowcount As Integer = DataGridView1.Rows.Count
+        For row As Integer = 0 To DGV1rowcount - 1
+            If YmdBox1.getADStr() = DataGridView1(1, row).Value Then
+                Dim cnn As New ADODB.Connection
+                Dim rs As New ADODB.Recordset
+                Dim sql As String = "select * from Dat2 WHERE Nam = '" & lblName.Text & "' AND Ymd = '" & YmdBox1.getADStr() & "' AND NyuYmd = '" & ymdboxNyuymd.getADStr() & "' AND Birth = '" & birth & "'"
+                cnn.Open(topform.DB_NCare)
+                rs.Open(sql, cnn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockReadOnly)
 
-        Dim objExcel As Object
-        Dim objWorkBooks As Object
-        Dim objWorkBook As Object
-        Dim oSheets As Object
-        Dim oSheet As Object
-        Dim day As DateTime = DateTime.Today
+                Dim objExcel As Object
+                Dim objWorkBooks As Object
+                Dim objWorkBook As Object
+                Dim oSheets As Object
+                Dim oSheet As Object
+                Dim day As DateTime = DateTime.Today
 
-        objExcel = CreateObject("Excel.Application")
-        objWorkBooks = objExcel.Workbooks
-        objWorkBook = objWorkBooks.Open(topform.excelFilePass)
-        oSheets = objWorkBook.Worksheets
-        oSheet = objWorkBook.Worksheets("計画書２改")
+                objExcel = CreateObject("Excel.Application")
+                objWorkBooks = objExcel.Workbooks
+                objWorkBook = objWorkBooks.Open(topform.excelFilePass)
+                oSheets = objWorkBook.Worksheets
+                oSheet = objWorkBook.Worksheets("計画書２改")
 
-        oSheet.Range("B7").Value = "利用者名 ;　 " & rs.Fields("Nam").Value
-        oSheet.Range("I7").Value = "生年月日 ;　 " & Util.getKanji(Util.convADStrToWarekiStr(birth)) & Strings.Mid(Util.convADStrToWarekiStr(birth), 2, 2) & "年" & Strings.Mid(birth, 6, 2) & "月" & Strings.Right(birth, 2) & "日"
-        oSheet.Range("Q7").Value = jyuusyo
-        oSheet.Range("S10").Value = Util.getKanji(Util.convADStrToWarekiStr(rs.Fields("Ymd").Value)) & Strings.Mid(Util.convADStrToWarekiStr(rs.Fields("Ymd").Value), 2, 2) & "年" & Strings.Mid(rs.Fields("Ymd").Value, 6, 2) & "月" & Strings.Right(rs.Fields("Ymd").Value, 2) & "日"
-        oSheet.Range("S9").Value = Util.getKanji(Util.convADStrToWarekiStr(rs.Fields("FstYmd").Value)) & Strings.Mid(Util.convADStrToWarekiStr(rs.Fields("FstYmd").Value), 2, 2) & "年" & Strings.Mid(rs.Fields("FstYmd").Value, 6, 2) & "月" & Strings.Right(rs.Fields("FstYmd").Value, 2) & "日"
-        oSheet.Range("S8").Value = Util.getKanji(Util.convADStrToWarekiStr(rs.Fields("NyuYmd").Value)) & Strings.Mid(Util.convADStrToWarekiStr(rs.Fields("NyuYmd").Value), 2, 2) & "年" & Strings.Mid(rs.Fields("NyuYmd").Value, 6, 2) & "月" & Strings.Right(rs.Fields("NyuYmd").Value, 2) & "日"
-        If rs.Fields("Kei").Value = 1 Then
-            oSheet.Range("O4").Value = "ﾚ"
-        ElseIf rs.Fields("Kei").Value = 2 Then
-            oSheet.Range("Q4").Value = "ﾚ"
-        ElseIf rs.Fields("Kei").Value = 3 Then
-            oSheet.Range("S4").Value = "ﾚ"
-        Else
+                oSheet.Range("B7").Value = "利用者名 ;　 " & rs.Fields("Nam").Value
+                oSheet.Range("I7").Value = "生年月日 ;　 " & Util.getKanji(Util.convADStrToWarekiStr(birth)) & Strings.Mid(Util.convADStrToWarekiStr(birth), 2, 2) & "年" & Strings.Mid(birth, 6, 2) & "月" & Strings.Right(birth, 2) & "日"
+                oSheet.Range("Q7").Value = jyuusyo
+                oSheet.Range("S10").Value = Util.getKanji(Util.convADStrToWarekiStr(rs.Fields("Ymd").Value)) & Strings.Mid(Util.convADStrToWarekiStr(rs.Fields("Ymd").Value), 2, 2) & "年" & Strings.Mid(rs.Fields("Ymd").Value, 6, 2) & "月" & Strings.Right(rs.Fields("Ymd").Value, 2) & "日"
+                oSheet.Range("S9").Value = Util.getKanji(Util.convADStrToWarekiStr(rs.Fields("FstYmd").Value)) & Strings.Mid(Util.convADStrToWarekiStr(rs.Fields("FstYmd").Value), 2, 2) & "年" & Strings.Mid(rs.Fields("FstYmd").Value, 6, 2) & "月" & Strings.Right(rs.Fields("FstYmd").Value, 2) & "日"
+                oSheet.Range("S8").Value = Util.getKanji(Util.convADStrToWarekiStr(rs.Fields("NyuYmd").Value)) & Strings.Mid(Util.convADStrToWarekiStr(rs.Fields("NyuYmd").Value), 2, 2) & "年" & Strings.Mid(rs.Fields("NyuYmd").Value, 6, 2) & "月" & Strings.Right(rs.Fields("NyuYmd").Value, 2) & "日"
+                If rs.Fields("Kei").Value = 1 Then
+                    oSheet.Range("O4").Value = "ﾚ"
+                ElseIf rs.Fields("Kei").Value = 2 Then
+                    oSheet.Range("Q4").Value = "ﾚ"
+                ElseIf rs.Fields("Kei").Value = 3 Then
+                    oSheet.Range("S4").Value = "ﾚ"
+                Else
 
-        End If
-        If rs.Fields("Nin").Value = 1 Then
-            oSheet.Range("V4").Value = "ﾚ"
-        ElseIf rs.Fields("Nin").Value = 2 Then
-            oSheet.Range("X4").Value = "ﾚ"
-        Else
+                End If
+                If rs.Fields("Nin").Value = 1 Then
+                    oSheet.Range("V4").Value = "ﾚ"
+                ElseIf rs.Fields("Nin").Value = 2 Then
+                    oSheet.Range("X4").Value = "ﾚ"
+                Else
 
-        End If
-        oSheet.Range("D8").Value = rs.Fields("Author").Value
-        oSheet.Range("D10").Value = rs.Fields("Tanto").Value
-        If rs.Fields("kai").Value = 1 Then
-            oSheet.Range("D13").Value = "ﾚ"
-        ElseIf rs.Fields("Kai").Value = 2 Then
-            oSheet.Range("F13").Value = "ﾚ"
-        ElseIf rs.Fields("Kai").Value = 3 Then
-            oSheet.Range("H13").Value = "ﾚ"
-        ElseIf rs.Fields("Kai").Value = 4 Then
-            oSheet.Range("J13").Value = "ﾚ"
-        ElseIf rs.Fields("Kai").Value = 5 Then
-            oSheet.Range("L13").Value = "ﾚ"
-        Else
+                End If
+                oSheet.Range("D8").Value = rs.Fields("Author").Value
+                oSheet.Range("D10").Value = rs.Fields("Tanto").Value
+                If rs.Fields("kai").Value = 1 Then
+                    oSheet.Range("D13").Value = "ﾚ"
+                ElseIf rs.Fields("Kai").Value = 2 Then
+                    oSheet.Range("F13").Value = "ﾚ"
+                ElseIf rs.Fields("Kai").Value = 3 Then
+                    oSheet.Range("H13").Value = "ﾚ"
+                ElseIf rs.Fields("Kai").Value = 4 Then
+                    oSheet.Range("J13").Value = "ﾚ"
+                ElseIf rs.Fields("Kai").Value = 5 Then
+                    oSheet.Range("L13").Value = "ﾚ"
+                Else
 
-        End If
-        oSheet.Range("Q13").Value = rs.Fields("KaiTxt").Value
-        oSheet.Range("D16").Value = rs.Fields("Iko1").Value
-        oSheet.Range("D17").Value = rs.Fields("Iko2").Value
-        If rs.Fields("Risk").Value = 1 Then
-            oSheet.Range("F19").Value = "ﾚ"
-        ElseIf rs.Fields("Risk").Value = 2 Then
-            oSheet.Range("H19").Value = "ﾚ"
-        ElseIf rs.Fields("Risk").Value = 3 Then
-            oSheet.Range("J19").Value = "ﾚ"
-        Else
+                End If
+                oSheet.Range("Q13").Value = rs.Fields("KaiTxt").Value
+                oSheet.Range("D16").Value = rs.Fields("Iko1").Value
+                oSheet.Range("D17").Value = rs.Fields("Iko2").Value
+                If rs.Fields("Risk").Value = 1 Then
+                    oSheet.Range("F19").Value = "ﾚ"
+                ElseIf rs.Fields("Risk").Value = 2 Then
+                    oSheet.Range("H19").Value = "ﾚ"
+                ElseIf rs.Fields("Risk").Value = 3 Then
+                    oSheet.Range("J19").Value = "ﾚ"
+                Else
 
-        End If
-        For i As Integer = 13 To 17
-            oSheet.Range("D" & i + 8).Value = rs.Fields(i).Value
+                End If
+                For i As Integer = 13 To 17
+                    oSheet.Range("D" & i + 8).Value = rs.Fields(i).Value
+                Next
+                For i As Integer = 1 To 18
+                    oSheet.Range("B" & i + 27).Value = rs.Fields(i * 5 + 13).Value
+                    oSheet.Range("F" & i + 27).Value = rs.Fields(i * 5 + 14).Value
+                    oSheet.Range("S" & i + 27).Value = rs.Fields(i * 5 + 15).Value
+                    oSheet.Range("V" & i + 27).Value = rs.Fields(i * 5 + 16).Value
+                    oSheet.Range("X" & i + 27).Value = rs.Fields(i * 5 + 17).Value
+                Next
+                oSheet.Range("Q46").Value = rs.Fields("Tok1").Value
+                oSheet.Range("Q47").Value = rs.Fields("Tok2").Value
+
+                '保存
+                objExcel.DisplayAlerts = False
+
+                ' エクセル表示
+                objExcel.Visible = True
+
+                '印刷
+                If topform.rbnPreview.Checked = True Then
+                    oSheet.PrintPreview(1)
+                ElseIf topform.rbnPrintout.Checked = True Then
+                    oSheet.Printout(1)
+                End If
+
+                ' EXCEL解放
+                objExcel.Quit()
+                Marshal.ReleaseComObject(oSheet)
+                Marshal.ReleaseComObject(objWorkBook)
+                Marshal.ReleaseComObject(objExcel)
+                oSheet = Nothing
+                objWorkBook = Nothing
+                objExcel = Nothing
+
+                Exit Sub
+            End If
         Next
-        For i As Integer = 1 To 18
-            oSheet.Range("B" & i + 27).Value = rs.Fields(i * 5 + 13).Value
-            oSheet.Range("F" & i + 27).Value = rs.Fields(i * 5 + 14).Value
-            oSheet.Range("S" & i + 27).Value = rs.Fields(i * 5 + 15).Value
-            oSheet.Range("V" & i + 27).Value = rs.Fields(i * 5 + 16).Value
-            oSheet.Range("X" & i + 27).Value = rs.Fields(i * 5 + 17).Value
-        Next
-        oSheet.Range("Q46").Value = rs.Fields("Tok1").Value
-        oSheet.Range("Q47").Value = rs.Fields("Tok2").Value
+        MsgBox("計画書は登録されていません")
 
-        '保存
-        objExcel.DisplayAlerts = False
-
-        ' エクセル表示
-        objExcel.Visible = True
-
-        '印刷
-        If topform.rbnPreview.Checked = True Then
-            oSheet.PrintPreview(1)
-        ElseIf topform.rbnPrintout.Checked = True Then
-            oSheet.Printout(1)
-        End If
-
-        ' EXCEL解放
-        objExcel.Quit()
-        Marshal.ReleaseComObject(oSheet)
-        Marshal.ReleaseComObject(objWorkBook)
-        Marshal.ReleaseComObject(objExcel)
-        oSheet = Nothing
-        objWorkBook = Nothing
-        objExcel = Nothing
+        
 
     End Sub
 

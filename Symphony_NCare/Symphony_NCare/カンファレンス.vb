@@ -356,19 +356,29 @@ Public Class カンファレンス
             Return
         End If
 
-        If MsgBox("削除してよろしいですか？", MsgBoxStyle.YesNo + vbExclamation, "削除確認") = MsgBoxResult.Yes Then
-            Dim cnn As New ADODB.Connection
-            cnn.Open(topform.DB_NCare)
+        Dim DGV1rowcount As Integer = DataGridView1.Rows.Count
+        For i As Integer = 0 To DGV1rowcount - 1
+            If YmdBox1.getADStr() = DataGridView1(2, i).Value Then
+                If MsgBox("削除してよろしいですか？", MsgBoxStyle.YesNo + vbExclamation, "削除確認") = MsgBoxResult.Yes Then
+                    Dim cnn As New ADODB.Connection
+                    cnn.Open(topform.DB_NCare)
 
-            Dim SQL As String = ""
+                    Dim SQL As String = ""
 
-            SQL = "DELETE FROM Dat5 WHERE Nam = '" & lblName.Text & "' AND Ymd = '" & YmdBox1.getADStr() & "'"
+                    SQL = "DELETE FROM Dat5 WHERE Nam = '" & lblName.Text & "' AND Ymd = '" & YmdBox1.getADStr() & "'"
 
-            cnn.Execute(SQL)
-            cnn.Close()
+                    cnn.Execute(SQL)
+                    cnn.Close()
 
-            FormUpdate()
-        End If
+                    FormUpdate()
+                    Exit Sub
+
+                End If
+            End If
+        Next
+        
+        MsgBox("登録されていません")
+        
     End Sub
 
     Private Sub btnPrint_Click(sender As System.Object, e As System.EventArgs) Handles btnPrint.Click
@@ -378,72 +388,82 @@ Public Class カンファレンス
             Return
         End If
 
-        Dim objExcel As Object
-        Dim objWorkBooks As Object
-        Dim objWorkBook As Object
-        Dim oSheets As Object
-        Dim oSheet As Object
-        Dim day As DateTime = DateTime.Today
+        Dim DGV1rowcount As Integer = DataGridView1.Rows.Count
+        For i As Integer = 0 To DGV1rowcount - 1
+            If YmdBox1.getADStr() = DataGridView1(2, i).Value Then
+                Dim objExcel As Object
+                Dim objWorkBooks As Object
+                Dim objWorkBook As Object
+                Dim oSheets As Object
+                Dim oSheet As Object
+                Dim day As DateTime = DateTime.Today
 
-        objExcel = CreateObject("Excel.Application")
-        objWorkBooks = objExcel.Workbooks
-        objWorkBook = objWorkBooks.Open(topform.excelFilePass)
-        oSheets = objWorkBook.Worksheets
-        oSheet = objWorkBook.Worksheets("カンファレンス医療改")
+                objExcel = CreateObject("Excel.Application")
+                objWorkBooks = objExcel.Workbooks
+                objWorkBook = objWorkBooks.Open(topform.excelFilePass)
+                oSheets = objWorkBook.Worksheets
+                oSheet = objWorkBook.Worksheets("カンファレンス医療改")
 
-        objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
-        objExcel.ScreenUpdating = False
+                objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
+                objExcel.ScreenUpdating = False
 
-        Dim Hiduke As String = Util.convADStrToWarekiStr(Util.checkDBNullValue(DataGridView1(2, selectedRow).Value))
-        Dim time() As String = (Util.checkDBNullValue(DataGridView1(3, selectedRow).Value)).ToString.Split(":")
-        oSheet.Range("C4").Value = Util.checkDBNullValue(DataGridView1(0, selectedRow).Value)
-        oSheet.Range("C6").Value = Strings.Left(Hiduke, 3) & "年" & Strings.Mid(Hiduke, 5, 2) & "月" & Strings.Right(Hiduke, 2) & "日"
-        oSheet.Range("F6").Value = time(0) & ":" & time(1) & "～"
-        oSheet.Range("H6").Value = "開催回数　" & Util.checkDBNullValue(DataGridView1(1, selectedRow).Value)
-        Dim cell1(3, 1) As String
-        For row As Integer = 0 To 3
-            For col As Integer = 0 To 1
-                cell1(row, col) = Util.checkDBNullValue(DataGridView1((row * 2) + 6 + col, selectedRow).Value)
-            Next
+                Dim Hiduke As String = Util.convADStrToWarekiStr(Util.checkDBNullValue(DataGridView1(2, selectedRow).Value))
+                Dim time() As String = (Util.checkDBNullValue(DataGridView1(3, selectedRow).Value)).ToString.Split(":")
+                oSheet.Range("C4").Value = Util.checkDBNullValue(DataGridView1(0, selectedRow).Value)
+                oSheet.Range("C6").Value = Strings.Left(Hiduke, 3) & "年" & Strings.Mid(Hiduke, 5, 2) & "月" & Strings.Right(Hiduke, 2) & "日"
+                oSheet.Range("F6").Value = time(0) & ":" & time(1) & "～"
+                oSheet.Range("H6").Value = "開催回数　" & Util.checkDBNullValue(DataGridView1(1, selectedRow).Value)
+                Dim cell1(3, 1) As String
+                For row As Integer = 0 To 3
+                    For col As Integer = 0 To 1
+                        cell1(row, col) = Util.checkDBNullValue(DataGridView1((row * 2) + 6 + col, selectedRow).Value)
+                    Next
+                Next
+                oSheet.Range("D9", "F12").Value = cell1
+                Dim cell2(3, 1) As String
+                For row As Integer = 0 To 3
+                    For col As Integer = 0 To 1
+                        cell2(row, col) = Util.checkDBNullValue(DataGridView1((row * 2) + 14 + col, selectedRow).Value)
+                    Next
+                Next
+                oSheet.Range("G9", "H12").Value = cell2
+                Dim cell3(19, 0) As String
+                For row As Integer = 0 To 19
+                    cell3(row, 0) = Util.checkDBNullValue(DataGridView1(row + 22, selectedRow).Value)
+                Next
+                oSheet.Range("D13", "D32").Value = cell3
+                oSheet.Range("H34").Value = Util.checkDBNullValue(DataGridView1(5, selectedRow).Value)
+
+                objExcel.Calculation = Excel.XlCalculation.xlCalculationAutomatic
+                objExcel.ScreenUpdating = True
+
+                '保存
+                objExcel.DisplayAlerts = False
+
+                ' エクセル表示
+                objExcel.Visible = True
+
+                '印刷
+                If topform.rbnPreview.Checked = True Then
+                    oSheet.PrintPreview(1)
+                ElseIf topform.rbnPrintout.Checked = True Then
+                    oSheet.Printout(1)
+                End If
+
+                ' EXCEL解放
+                objExcel.Quit()
+                Marshal.ReleaseComObject(oSheet)
+                Marshal.ReleaseComObject(objWorkBook)
+                Marshal.ReleaseComObject(objExcel)
+                oSheet = Nothing
+                objWorkBook = Nothing
+                objExcel = Nothing
+
+                Exit Sub
+            End If
         Next
-        oSheet.Range("D9", "F12").Value = cell1
-        Dim cell2(3, 1) As String
-        For row As Integer = 0 To 3
-            For col As Integer = 0 To 1
-                cell2(row, col) = Util.checkDBNullValue(DataGridView1((row * 2) + 14 + col, selectedRow).Value)
-            Next
-        Next
-        oSheet.Range("G9", "H12").Value = cell2
-        Dim cell3(19, 0) As String
-        For row As Integer = 0 To 19
-            cell3(row, 0) = Util.checkDBNullValue(DataGridView1(row + 22, selectedRow).Value)
-        Next
-        oSheet.Range("D13", "D32").Value = cell3
-        oSheet.Range("H34").Value = Util.checkDBNullValue(DataGridView1(5, selectedRow).Value)
-
-        objExcel.Calculation = Excel.XlCalculation.xlCalculationAutomatic
-        objExcel.ScreenUpdating = True
-
-        '保存
-        objExcel.DisplayAlerts = False
-
-        ' エクセル表示
-        objExcel.Visible = True
-
-        '印刷
-        If topform.rbnPreview.Checked = True Then
-            oSheet.PrintPreview(1)
-        ElseIf topform.rbnPrintout.Checked = True Then
-            oSheet.Printout(1)
-        End If
-
-        ' EXCEL解放
-        objExcel.Quit()
-        Marshal.ReleaseComObject(oSheet)
-        Marshal.ReleaseComObject(objWorkBook)
-        Marshal.ReleaseComObject(objExcel)
-        oSheet = Nothing
-        objWorkBook = Nothing
-        objExcel = Nothing
+        
+        MsgBox("ｶﾝﾌｧﾚﾝｽ記録は登録されていません")
+        
     End Sub
 End Class

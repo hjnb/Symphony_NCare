@@ -86,7 +86,7 @@ Public Class topform
 
     Private Sub btnSukuri_Click(sender As System.Object, e As System.EventArgs) Handles btnSukuri.Click
         If lblName.Text = "" Then
-            MsgBox("利用者を選択してください。")
+            MsgBox("要介護者を選択してください。")
         Else
             If IsNothing(frmSukuri) OrElse frmSukuri.IsDisposed Then
                 frmSukuri = New スクリーニング書(lblName.Text)
@@ -146,7 +146,7 @@ Public Class topform
 
     Private Sub btnAsemoni_Click(sender As System.Object, e As System.EventArgs) Handles btnAsemoni.Click
         If lblName.Text = "" Then
-            MsgBox("利用者を選択してください。")
+            MsgBox("要介護者を選択してください。")
         Else
             If IsNothing(frmAsemoni) OrElse frmAsemoni.IsDisposed Then
                 frmAsemoni = New アセモニ(lblName.Text)

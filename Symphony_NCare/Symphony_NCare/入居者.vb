@@ -336,6 +336,84 @@ Public Class 入居者
     End Sub
 
     Private Sub btnDelete_Click(sender As System.Object, e As System.EventArgs) Handles btnDelete.Click
+        Dim unit, kana, nam, sex, birth, jyu, hyo, ymd As String
+
+        If rbnMori.Checked = True Then
+            unit = "森"
+        ElseIf rbnHosi.Checked = True Then
+            unit = "星"
+        ElseIf rbnSora.Checked = True Then
+            unit = "空"
+        ElseIf rbnHana.Checked = True Then
+            unit = "花"
+        ElseIf rbnTuki.Checked = True Then
+            unit = "月"
+        ElseIf rbnUmi.Checked = True Then
+            unit = "海"
+        ElseIf rbnNiji.Checked = True Then
+            unit = "虹"
+        ElseIf rbnHikari.Checked = True Then
+            unit = "光"
+        ElseIf rbnOka.Checked = True Then
+            unit = "丘"
+        ElseIf rbnKaze.Checked = True Then
+            unit = "風"
+        ElseIf rbnYuki.Checked = True Then
+            unit = "雪"
+        Else
+            MsgBox("ユニットを選択してください")
+            Return
+        End If
+
+        If txtKana.Text = "" Then
+            MsgBox("ふりがなを入力してください")
+            Return
+        Else
+            kana = txtKana.Text
+        End If
+
+        If txtNam.Text = "" Then
+            MsgBox("氏名を入力してください")
+            Return
+        Else
+            nam = txtNam.Text
+        End If
+
+        If txtSex.Text = "1" OrElse txtSex.Text = "2" Then
+            sex = txtSex.Text
+        Else
+            MsgBox("性別を正しく入力してください")
+            Return
+        End If
+
+        If ymdboxBirth.getADStr() = "" Then
+            MsgBox("生年月日を正しく入力してください")
+            Return
+        Else
+            birth = ymdboxBirth.getADStr()
+        End If
+
+        If txtJyu.Text = "" Then
+            MsgBox("住所を入力してください")
+            Return
+        Else
+            jyu = txtJyu.Text
+        End If
+
+        If txtHyo.Text = "1" OrElse txtHyo.Text = "2" Then
+            hyo = txtHyo.Text
+        Else
+            MsgBox("表示を正しくを入力してください")
+            Return
+        End If
+
+        If ymdboxYmd.getADStr() = "" Then
+            MsgBox("登録日を入力してください")
+            Return
+        Else
+            ymd = ymdboxYmd.getADStr()
+        End If
+
         Dim DGV1Rowcount As Integer = DataGridView1.Rows.Count
         For i As Integer = 0 To DGV1Rowcount - 1
             If txtNam.Text = DataGridView1(2, i).Value AndAlso ymdboxBirth.getWarekiStr() = DataGridView1(4, i).Value Then
@@ -352,11 +430,10 @@ Public Class 入居者
                     FormUpdate()
                 End If
                 Exit Sub
-            Else
-                MsgBox("登録されていません")
-                Exit Sub
+
             End If
         Next
+        MsgBox("登録されていません")
 
     End Sub
 
