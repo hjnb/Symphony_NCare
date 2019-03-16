@@ -6,446 +6,514 @@ Symphony_NCare
 </name>
 </assembly>
 <members>
-<member name="M:Symphony_NCare.スクリーニング書.#ctor(System.String)">
-	<summary>
- コンストラクタ
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.スクリーニング書_Load(System.Object,System.EventArgs)">
-	<summary>
- loadイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.createCellStyle">
-	<summary>
- セルスタイル作成
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.initDgvWeightChange">
-	<summary>
- dgv体重推移初期設定
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.initDgvWeight">
-	<summary>
- dgv体重身長マスタ初期設定
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.initDgvTokki">
-	<summary>
- dgv特記事項初期設定
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.initDgvScreeningUp">
-	<summary>
- dgvスクリーニング（上）初期設定
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.initDgvScreeningDown">
-	<summary>
- dgvスクリーニング（下）初期設定
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.displayWeightChart(System.String)">
-	<summary>
- 体重グラフ初期設定
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.clearScreening">
-	<summary>
- スクリーニング部分のクリア
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.displayWHMaster">
-	<summary>
- W/Hマスタ表示
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.displayResidentInfo">
-	<summary>
- 入居者情報表示(ユニット、名前、性別、生年月日)
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.displayScreening(System.String)">
-	<summary>
- スクリーニングデータ表示
- </summary>
-	<param name="ymd"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.calcAge(System.String,System.String)">
-	<summary>
- 現在年齢算出
- </summary>
-	<param name="birthYmd"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.loadHistoryList">
-	<summary>
- 履歴リスト表示
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.dgvWeightChange_CellPainting(System.Object,System.Windows.Forms.DataGridViewCellPaintingEventArgs)">
-	<summary>
- dgv体重推移CellPaintingイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.btnClearRight_Click(System.Object,System.EventArgs)">
-	<summary>
- クリアボタン（右）クリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.historyListBox_SelectedValueChanged(System.Object,System.EventArgs)">
-	<summary>
- 履歴リスト値変更イベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.btnClear_Click(System.Object,System.EventArgs)">
-	<summary>
- クリアボタン（左）クリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.btnCall_Click(System.Object,System.EventArgs)">
-	<summary>
- 呼び出しボタンクリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.dgvWeight_CellFormatting(System.Object,System.Windows.Forms.DataGridViewCellFormattingEventArgs)">
-	<summary>
- dgv体重CellFormattingイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.dgvWeight_CellMouseClick(System.Object,System.Windows.Forms.DataGridViewCellMouseEventArgs)">
-	<summary>
- dgv体重セルマウスクリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.btnSave_Click(System.Object,System.EventArgs)">
-	<summary>
- 保存ボタンクリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.btnCalc_Click(System.Object,System.EventArgs)">
-	<summary>
- 算出ボタンクリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.roundFormat(System.Double,System.Int32)">
-	<summary>
- 数値フォーマット
- </summary>
-	<param name="calcVal"></param>
-	<param name="digits"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.checkTextBoxInputNum(System.Windows.Forms.TextBox)">
-	<summary>
- テキストが数値であるか判定
- </summary>
-	<param name="tb"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.formatDateStr(System.String)">
-	<summary>
- 和暦表記にフォーマット
- </summary>
-	<param name="ymdStr"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.btnPrintRight_Click(System.Object,System.EventArgs)">
-	<summary>
- 印刷ボタン（右）クリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.btnRegist_Click(System.Object,System.EventArgs)">
-	<summary>
- 登録ボタンクリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.btnDelete_Click(System.Object,System.EventArgs)">
-	<summary>
- 削除ボタンクリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.btnPrint_Click(System.Object,System.EventArgs)">
-	<summary>
- 印刷ボタンクリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.スクリーニング書.btnInsert_Click(System.Object,System.EventArgs)">
-	<summary>
- 挿入ボタンクリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.Util.EnableDoubleBuffering(System.Windows.Forms.Control)">
-	<summary>
- コントロールのDoubleBufferedプロパティをTrueにする
- </summary>
-	<param name="control">対象のコントロール</param>
-</member><member name="M:Symphony_NCare.Util.checkDBNullValue(System.Object)">
-	<summary>
- dgvのセルの値がNullかチェック、Nullの場合空文字を返す
- </summary>
-	<param name="dgvCellValue"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.Util.convADStrToWarekiStr(System.String)">
-	<summary>
- 西暦(yyyy/MM/dd)を和暦に変換
- </summary>
-	<param name="adStr"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.Util.convWarekiStrToADStr(System.String)">
-	<summary>
- 和暦を西暦に変換
- </summary>
-	<param name="warekiStr"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.Util.getKanji(System.String)">
-	<summary>
- 和暦の漢字を取得
- </summary>
-	<param name="warekiStr"></param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.Util.getIniString(System.String,System.String,System.String)">
-	<summary>
- iniファイルから読み込み
- </summary>
-	<param name="lpSection">セクション名</param>
-	<param name="lpKeyName">読み込むkey名</param>
-	<param name="lpFileName">iniファイルパス</param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.Util.putIniString(System.String,System.String,System.String,System.String)">
-	<summary>
- iniファイルへ書き込み
- </summary>
-	<param name="lpSection">セクション名</param>
-	<param name="lpKeyName">書き込む対象のkey名</param>
-	<param name="lpValue">書き込む値</param>
-	<param name="lpFileName">iniファイルパス</param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.#ctor(System.String)">
-	<summary>
- コンストラクタ
- </summary>
-	<param name="selectedName"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.アセモニ_Load(System.Object,System.EventArgs)">
-	<summary>
- loadイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.createCellStyles">
-	<summary>
- セルスタイル定義
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.clearInput">
-	<summary>
- 入力内容クリア
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.initDgvSub">
-	<summary>
- データグリッドビューSubの初期設定
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.initDgvAsses">
-	<summary>
- データグリッドビューアセモニの初期設定
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.displayDgvAsses(System.String)">
-	<summary>
- アセモニデータ表示
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.setHistoryList">
-	<summary>
- 履歴リストセット
- </summary>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.historyListBox_SelectedValueChanged(System.Object,System.EventArgs)">
-	<summary>
- 履歴リスト値変更イベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.clearColumnData(System.Int32)">
-	<summary>
- 列データクリア
- </summary>
-	<param name="columnNum">クリア対象列index</param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.btnClear_Click(System.Object,System.EventArgs)">
-	<summary>
- クリアボタンクリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.btnCopy_Click(System.Object,System.EventArgs)">
-	<summary>
- コピーボタンクリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.btnPaste_Click(System.Object,System.EventArgs)">
-	<summary>
- 貼り付けボタンクリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.dateYmdBox_Enter(System.Object,System.EventArgs)">
-	<summary>
- 実施日ボックスエンターイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.dgvAsses_CellMouseClick(System.Object,System.Windows.Forms.DataGridViewCellMouseEventArgs)">
-	<summary>
- dgvアセモニセルマウスクリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.dgvSub_EditingControlShowing(System.Object,System.Windows.Forms.DataGridViewEditingControlShowingEventArgs)">
-	<summary>
- dgvSubのセル編集の時のイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.dgvAsses_EditingControlShowing(System.Object,System.Windows.Forms.DataGridViewEditingControlShowingEventArgs)">
-	<summary>
- dgvアセモニのセル編集の時のイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.decimalTextBox_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
-	<summary>
- kg等のテキストボックス用keyDownイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.monthTextBox_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
-	<summary>
- ヶ月テキストボックス用keyDownイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.percentTextBox_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
-	<summary>
- パーセントテキストボックス用keyDownイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.kcalTextBox_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
-	<summary>
- カロリーテキストボックス用keyDownイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.dgvAssesTextBox_KeyPress(System.Object,System.Windows.Forms.KeyPressEventArgs)">
-	<summary>
- 通常文章入力テキストボックス用KeyPressイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.dgvSubTextBox_KeyPress(System.Object,System.Windows.Forms.KeyPressEventArgs)">
-	<summary>
- dgvSub用テキストボックスKeyPress
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.formatWarekiStr(System.String)">
-	<summary>
- 実施日用和暦変換
- </summary>
-	<param name="adStr">西暦</param>
-	<returns></returns>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.btnRegist_Click(System.Object,System.EventArgs)">
-	<summary>
- 登録ボタンクリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.btnDelete_Click(System.Object,System.EventArgs)">
-	<summary>
- 削除ボタンクリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="M:Symphony_NCare.アセモニ.btnPrint_Click(System.Object,System.EventArgs)">
-	<summary>
- 印刷ボタンクリックイベント
- </summary>
-	<param name="sender"></param>
-	<param name="e"></param>
-	<remarks></remarks>
-</member><member name="P:Symphony_NCare.My.Resources.Resources.ResourceManager">
-	<summary>
+<member name="T:Symphony_NCare.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:Symphony_NCare.My.Resources.Resources.ResourceManager">
+<summary>
   Returns the cached ResourceManager instance used by this class.
 </summary>
-</member><member name="P:Symphony_NCare.My.Resources.Resources.Culture">
-	<summary>
+</member>
+<member name="P:Symphony_NCare.My.Resources.Resources.Culture">
+<summary>
   Overrides the current thread's CurrentUICulture property for all
   resource lookups using this strongly typed resource class.
 </summary>
-</member><member name="T:Symphony_NCare.My.Resources.Resources">
-	<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
+</member>
+<member name="M:Symphony_NCare.Util.EnableDoubleBuffering(System.Windows.Forms.Control)">
+ <summary>
+ コントロールのDoubleBufferedプロパティをTrueにする
+ </summary>
+ <param name="control">対象のコントロール</param>
+</member>
+<member name="M:Symphony_NCare.Util.checkDBNullValue(System.Object)">
+ <summary>
+ dgvのセルの値がNullかチェック、Nullの場合空文字を返す
+ </summary>
+ <param name="dgvCellValue"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.Util.convADStrToWarekiStr(System.String)">
+ <summary>
+ 西暦(yyyy/MM/dd)を和暦に変換
+ </summary>
+ <param name="adStr"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.Util.convWarekiStrToADStr(System.String)">
+ <summary>
+ 和暦を西暦に変換
+ </summary>
+ <param name="warekiStr"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.Util.getKanji(System.String)">
+ <summary>
+ 和暦の漢字を取得
+ </summary>
+ <param name="warekiStr"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.Util.getIniString(System.String,System.String,System.String)">
+ <summary>
+ iniファイルから読み込み
+ </summary>
+ <param name="lpSection">セクション名</param>
+ <param name="lpKeyName">読み込むkey名</param>
+ <param name="lpFileName">iniファイルパス</param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.Util.putIniString(System.String,System.String,System.String,System.String)">
+ <summary>
+ iniファイルへ書き込み
+ </summary>
+ <param name="lpSection">セクション名</param>
+ <param name="lpKeyName">書き込む対象のkey名</param>
+ <param name="lpValue">書き込む値</param>
+ <param name="lpFileName">iniファイルパス</param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.#ctor(System.String)">
+ <summary>
+ コンストラクタ
+ </summary>
+ <param name="selectedName"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.アセモニ_Load(System.Object,System.EventArgs)">
+ <summary>
+ loadイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.createCellStyles">
+ <summary>
+ セルスタイル定義
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.clearInput">
+ <summary>
+ 入力内容クリア
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.initDgvSub">
+ <summary>
+ データグリッドビューSubの初期設定
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.initDgvAsses">
+ <summary>
+ データグリッドビューアセモニの初期設定
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.displayDgvAsses(System.String)">
+ <summary>
+ アセモニデータ表示
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.setHistoryList">
+ <summary>
+ 履歴リストセット
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.historyListBox_SelectedValueChanged(System.Object,System.EventArgs)">
+ <summary>
+ 履歴リスト値変更イベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.clearColumnData(System.Int32)">
+ <summary>
+ 列データクリア
+ </summary>
+ <param name="columnNum">クリア対象列index</param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.btnClear_Click(System.Object,System.EventArgs)">
+ <summary>
+ クリアボタンクリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.btnCopy_Click(System.Object,System.EventArgs)">
+ <summary>
+ コピーボタンクリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.btnPaste_Click(System.Object,System.EventArgs)">
+ <summary>
+ 貼り付けボタンクリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.dateYmdBox_Enter(System.Object,System.EventArgs)">
+ <summary>
+ 実施日ボックスエンターイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.dgvAsses_CellMouseClick(System.Object,System.Windows.Forms.DataGridViewCellMouseEventArgs)">
+ <summary>
+ dgvアセモニセルマウスクリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.dgvSub_EditingControlShowing(System.Object,System.Windows.Forms.DataGridViewEditingControlShowingEventArgs)">
+ <summary>
+ dgvSubのセル編集の時のイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.dgvAsses_EditingControlShowing(System.Object,System.Windows.Forms.DataGridViewEditingControlShowingEventArgs)">
+ <summary>
+ dgvアセモニのセル編集の時のイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.decimalTextBox_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+ <summary>
+ kg等のテキストボックス用keyDownイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.monthTextBox_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+ <summary>
+ ヶ月テキストボックス用keyDownイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.percentTextBox_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+ <summary>
+ パーセントテキストボックス用keyDownイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.kcalTextBox_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+ <summary>
+ カロリーテキストボックス用keyDownイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.dgvAssesTextBox_KeyPress(System.Object,System.Windows.Forms.KeyPressEventArgs)">
+ <summary>
+ 通常文章入力テキストボックス用KeyPressイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.dgvSubTextBox_KeyPress(System.Object,System.Windows.Forms.KeyPressEventArgs)">
+ <summary>
+ dgvSub用テキストボックスKeyPress
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.formatWarekiStr(System.String)">
+ <summary>
+ 実施日用和暦変換
+ </summary>
+ <param name="adStr">西暦</param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.btnRegist_Click(System.Object,System.EventArgs)">
+ <summary>
+ 登録ボタンクリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.btnDelete_Click(System.Object,System.EventArgs)">
+ <summary>
+ 削除ボタンクリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.アセモニ.btnPrint_Click(System.Object,System.EventArgs)">
+ <summary>
+ 印刷ボタンクリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.#ctor(System.String)">
+ <summary>
+ コンストラクタ
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.スクリーニング書_Load(System.Object,System.EventArgs)">
+ <summary>
+ loadイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.createCellStyle">
+ <summary>
+ セルスタイル作成
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.initDgvWeightChange">
+ <summary>
+ dgv体重推移初期設定
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.initDgvWeight">
+ <summary>
+ dgv体重身長マスタ初期設定
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.initDgvTokki">
+ <summary>
+ dgv特記事項初期設定
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.initDgvScreeningUp">
+ <summary>
+ dgvスクリーニング（上）初期設定
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.initDgvScreeningDown">
+ <summary>
+ dgvスクリーニング（下）初期設定
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.displayWeightChart(System.String)">
+ <summary>
+ 体重グラフ初期設定
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.clearScreening">
+ <summary>
+ スクリーニング部分のクリア
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.displayWHMaster">
+ <summary>
+ W/Hマスタ表示
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.displayResidentInfo">
+ <summary>
+ 入居者情報表示(ユニット、名前、性別、生年月日)
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.displayScreening(System.String)">
+ <summary>
+ スクリーニングデータ表示
+ </summary>
+ <param name="ymd"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.calcAge(System.String,System.String)">
+ <summary>
+ 現在年齢算出
+ </summary>
+ <param name="birthYmd"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.loadHistoryList">
+ <summary>
+ 履歴リスト表示
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.dgvWeightChange_CellPainting(System.Object,System.Windows.Forms.DataGridViewCellPaintingEventArgs)">
+ <summary>
+ dgv体重推移CellPaintingイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.btnClearRight_Click(System.Object,System.EventArgs)">
+ <summary>
+ クリアボタン（右）クリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.historyListBox_SelectedValueChanged(System.Object,System.EventArgs)">
+ <summary>
+ 履歴リスト値変更イベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.btnClear_Click(System.Object,System.EventArgs)">
+ <summary>
+ クリアボタン（左）クリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.btnCall_Click(System.Object,System.EventArgs)">
+ <summary>
+ 呼び出しボタンクリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.dgvWeight_CellFormatting(System.Object,System.Windows.Forms.DataGridViewCellFormattingEventArgs)">
+ <summary>
+ dgv体重CellFormattingイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.dgvWeight_CellMouseClick(System.Object,System.Windows.Forms.DataGridViewCellMouseEventArgs)">
+ <summary>
+ dgv体重セルマウスクリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.btnSave_Click(System.Object,System.EventArgs)">
+ <summary>
+ 保存ボタンクリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.btnCalc_Click(System.Object,System.EventArgs)">
+ <summary>
+ 算出ボタンクリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.roundFormat(System.Double,System.Int32)">
+ <summary>
+ 数値フォーマット
+ </summary>
+ <param name="calcVal"></param>
+ <param name="digits"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.checkTextBoxInputNum(System.Windows.Forms.TextBox)">
+ <summary>
+ テキストが数値であるか判定
+ </summary>
+ <param name="tb"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.formatDateStr(System.String)">
+ <summary>
+ 和暦表記にフォーマット
+ </summary>
+ <param name="ymdStr"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.btnPrintRight_Click(System.Object,System.EventArgs)">
+ <summary>
+ 印刷ボタン（右）クリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.btnRegist_Click(System.Object,System.EventArgs)">
+ <summary>
+ 登録ボタンクリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.btnDelete_Click(System.Object,System.EventArgs)">
+ <summary>
+ 削除ボタンクリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.btnPrint_Click(System.Object,System.EventArgs)">
+ <summary>
+ 印刷ボタンクリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Symphony_NCare.スクリーニング書.btnInsert_Click(System.Object,System.EventArgs)">
+ <summary>
+ 挿入ボタンクリックイベント
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
 </member>
 </members>
 </doc>

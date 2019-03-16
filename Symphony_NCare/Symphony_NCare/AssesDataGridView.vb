@@ -14,6 +14,10 @@
 
     Protected Overrides Function ProcessDialogKey(keyData As System.Windows.Forms.Keys) As Boolean
         Dim inputStr As String = If(Not IsNothing(Me.EditingControl), CType(Me.EditingControl, DataGridViewTextBoxEditingControl).Text, "") '入力文字
+        If inputStr <> "" Then
+            inputStr = StrConv(inputStr, vbNarrow)
+        End If
+
         If keyData = Keys.Enter Then
             If Me.CurrentCell.RowIndex = 0 Then '本人の意欲
                 If iyokuDic.ContainsKey(inputStr) Then
