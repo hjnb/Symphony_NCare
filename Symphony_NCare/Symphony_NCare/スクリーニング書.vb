@@ -1162,6 +1162,7 @@ Public Class スクリーニング書
         End If
         rs.Close()
         cn.Close()
+        clearScreening()
     End Sub
 
     ''' <summary>
@@ -1348,6 +1349,7 @@ Public Class スクリーニング書
         rs.Update()
         rs.Close()
         cn.Close()
+        clearScreening()
 
     End Sub
 
@@ -2098,6 +2100,7 @@ Public Class スクリーニング書
         End If
 
         'データ作成
+        Dim re As String = "レ"
         Dim dataArray(42, 75) As String
         '記入者氏名
         dataArray(0, 37) = "記入者氏名"
@@ -2126,11 +2129,11 @@ Public Class スクリーニング書
         dataArray(7, 25) = "（"
         dataArray(7, 31) = "才）"
         If initial = "M" Then
-            dataArray(7, 2) = "ㇾ"
+            dataArray(7, 2) = re
         ElseIf initial = "T" Then
-            dataArray(7, 6) = "ㇾ"
+            dataArray(7, 6) = re
         ElseIf initial = "S" Then
-            dataArray(7, 12) = "ㇾ"
+            dataArray(7, 12) = re
         End If
         dataArray(6, 15) = era '年
         dataArray(6, 18) = month '月
@@ -2154,7 +2157,6 @@ Public Class スクリーニング書
         dataArray(6, 38) = Util.checkDBNullValue(rs.Fields("Tokki3").Value)
 
         Dim basePlusNum As Integer = 19
-        Dim re As String = "レ"
         While Not rs.EOF
             Dim gyo As Integer = Util.checkDBNullValue(rs.Fields("Gyo").Value)
             Dim plusNum As Integer = basePlusNum * (gyo - 1)

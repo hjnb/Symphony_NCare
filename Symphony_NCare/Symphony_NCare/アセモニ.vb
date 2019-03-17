@@ -1156,7 +1156,7 @@ Public Class アセモニ
             e.SuppressKeyPress = True
         ElseIf (Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9) OrElse (Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) Then
             Dim keyDownChar As String = If(Keys.NumPad0 <= e.KeyCode, Chr(e.KeyCode - 48), Chr(e.KeyCode))
-            If maxSelectionStart = 8 OrElse (keyDownChar = "0" AndAlso currentSelectionStart = 0) Then
+            If maxSelectionStart = 4 OrElse (keyDownChar = "0" AndAlso currentSelectionStart = 0) Then
                 e.SuppressKeyPress = True
             ElseIf tb.Text = "0" AndAlso tb.SelectionStart = 1 Then
                 tb.Text = keyDownChar
@@ -1506,9 +1506,9 @@ Public Class アセモニ
             dataArray(2, 1 + ((gyo - 1) * plusBaseNum)) = "("
             dataArray(2, 2 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Iyoku2").Value) '(健康感、生活機能、身体機能等)
             dataArray(2, 12 + ((gyo - 1) * plusBaseNum)) = ")"
-            dataArray(3, 4 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Tai").Value) '体重
+            dataArray(3, 4 + ((gyo - 1) * plusBaseNum)) = convZeroToEmpty(Util.checkDBNullValue(rs.Fields("Tai").Value)) '体重
             dataArray(3, 10 + ((gyo - 1) * plusBaseNum)) = "(kg)"
-            dataArray(4, 4 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Bmi").Value) 'BMI
+            dataArray(4, 4 + ((gyo - 1) * plusBaseNum)) = convZeroToEmpty(Util.checkDBNullValue(rs.Fields("Bmi").Value)) 'BMI
             dataArray(4, 10 + ((gyo - 1) * plusBaseNum)) = "(kg/㎡)"
             dataArray(5, 1 + ((gyo - 1) * plusBaseNum)) = If(Util.checkDBNullValue(rs.Fields("Gen1").Value) = "無", "■", "□")
             dataArray(5, 2 + ((gyo - 1) * plusBaseNum)) = "無"
@@ -1544,7 +1544,7 @@ Public Class アセモニ
             dataArray(11, 10 + ((gyo - 1) * plusBaseNum)) = "%"
             dataArray(12, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Hok21").Value)
             dataArray(13, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Hok22").Value)
-            dataArray(14, 2 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Engy1").Value)
+            dataArray(14, 2 + ((gyo - 1) * plusBaseNum)) = convZeroToEmpty(Util.checkDBNullValue(rs.Fields("Engy1").Value))
             dataArray(14, 6 + ((gyo - 1) * plusBaseNum)) = "kcal"
             dataArray(14, 10 + ((gyo - 1) * plusBaseNum)) = convDecimalStr(Util.checkDBNullValue(rs.Fields("Engy2").Value))
             dataArray(14, 12 + ((gyo - 1) * plusBaseNum)) = "g"
