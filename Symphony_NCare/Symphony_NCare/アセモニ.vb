@@ -717,7 +717,7 @@ Public Class アセモニ
                     tb.Text = "0"
                 End If
             ElseIf selectedRowIndex = 0 OrElse selectedRowIndex = 4 OrElse selectedRowIndex = 19 OrElse selectedRowIndex = 27 OrElse selectedRowIndex = 35 OrElse selectedRowIndex = 9 OrElse selectedRowIndex = 36 OrElse selectedRowIndex = 46 Then
-                tb.ImeMode = Windows.Forms.ImeMode.Alpha
+                tb.ImeMode = Windows.Forms.ImeMode.Off
             End If
 
             'イベントハンドラを削除
@@ -1595,7 +1595,7 @@ Public Class アセモニ
                 dataArray(43, 1 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Mon11").Value)
             End If
             dataArray(44, 0 + ((gyo - 1) * plusBaseNum)) = Util.checkDBNullValue(rs.Fields("Result").Value)
-            
+
             rs.MoveNext()
         End While
 
