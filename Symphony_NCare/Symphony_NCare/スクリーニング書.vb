@@ -104,6 +104,9 @@ Public Class スクリーニング書
 
         '右半分初期化
         btnClearRight.PerformClick()
+
+        JYmdBox.canEnterKeyDown = True
+        createYmdBox.canEnterKeyDown = True
     End Sub
 
     ''' <summary>
@@ -2430,5 +2433,21 @@ Public Class スクリーニング書
 
     Private Sub createYmdBox_YmdTextChange(sender As Object, e As System.EventArgs) Handles createYmdBox.YmdTextChange
         displayWeightChart(createYmdBox.getADStr())
+    End Sub
+
+    Private Sub textBox_KeyDown(sender As Object, e As KeyEventArgs) Handles tantoComboBox.KeyDown, kaiComboBox.KeyDown, JYmdBox.KeyDown, keikotuTextBox.KeyDown, hizatakaTextBox.KeyDown, goalBmiTextBox.KeyDown, katudo1TextBox.KeyDown, stress1TextBox.KeyDown, kaizen1TextBox.KeyDown, katudo2TextBox.KeyDown, stress2TextBox.KeyDown, kaizen2TextBox.KeyDown, albTextBox.KeyDown, intakeTextBox.KeyDown, nutritionTextBox.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            If e.Control = False Then
+                Me.SelectNextControl(Me.ActiveControl, Not e.Shift, True, True, True)
+            End If
+        End If
+    End Sub
+
+    Private Sub JYmdBox_KeyDownEnter(sender As Object, e As System.EventArgs) Handles JYmdBox.keyDownEnterOrDown
+        keikotuTextBox.Focus()
+    End Sub
+
+    Private Sub createYmdBox_KeyDownEnter(sender As Object, e As System.EventArgs) Handles createYmdBox.keyDownEnterOrDown
+        kaiComboBox.Focus()
     End Sub
 End Class
