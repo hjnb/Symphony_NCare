@@ -569,6 +569,12 @@ Public Class ＳＳ食数
     End Sub
 
     Private Sub btnPrint_Click(sender As System.Object, e As System.EventArgs) Handles btnPrint.Click
+        Dim DGV2RowCount As Integer = DataGridView2.Rows.Count
+        If DGV2RowCount = 0 Then
+            MsgBox("該当がありません")
+            Return
+        End If
+
         Dim Cn As New OleDbConnection(topform.DB_NCare)
         Dim SQLCm4 As OleDbCommand = Cn.CreateCommand
         Dim Adapter4 As New OleDbDataAdapter(SQLCm4)
@@ -590,7 +596,7 @@ Public Class ＳＳ食数
 
         oSheet.Range("B2").Value = YmdBox1.getWarekiKanji() & " " & Strings.Mid(Util.convADStrToWarekiStr(YmdBox1.getADStr()), 2, 2) & " 年 " & Strings.Mid(YmdBox1.getADStr(), 6, 2) & " 月 "
 
-        Dim DGV2RowCount As Integer = DataGridView2.Rows.Count
+
         '印刷枚数調整
         If DGV2RowCount <= 10 Then
             '1枚

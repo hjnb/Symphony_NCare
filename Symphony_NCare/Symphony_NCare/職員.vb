@@ -337,6 +337,12 @@ Public Class 職員
     End Sub
 
     Private Sub btnDelete_Click(sender As System.Object, e As System.EventArgs) Handles btnDelete.Click
+        Dim selectedRow As Integer = If(IsNothing(DataGridView1.CurrentRow), -1, DataGridView1.CurrentRow.Index)
+        If selectedRow = -1 Then
+            MsgBox("選択して下さい")
+            Return
+        End If
+
         Dim DGV1Rowcount As Integer = DataGridView1.Rows.Count
         For i As Integer = 0 To DGV1Rowcount - 1
             If cmbSyu.Text = DataGridView1(1, i).Value AndAlso cmbYak.Text = DataGridView1(4, i).Value AndAlso txtNam.Text = DataGridView1(5, i).Value Then
@@ -355,7 +361,7 @@ Public Class 職員
                 Exit Sub
             End If
         Next
-        MsgBox("登録されていません")
+        MsgBox("選択して下さい")
     End Sub
 
     Private Sub Clear()

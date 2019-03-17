@@ -121,6 +121,7 @@ Partial Class 職員
         '
         'cmbSyu
         '
+        Me.cmbSyu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbSyu.FormattingEnabled = True
         Me.cmbSyu.ImeMode = System.Windows.Forms.ImeMode.Hiragana
         Me.cmbSyu.Items.AddRange(New Object() {"管理系", "事務", "特別養護老人ホーム", "栄養課", "居宅介護支援事業所", "ヘルパーステーション", "デイサービス", "生活支援ハウス", "ボランティア", "宿直", "その他"})
@@ -131,6 +132,7 @@ Partial Class 職員
         '
         'cmbYak
         '
+        Me.cmbYak.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbYak.FormattingEnabled = True
         Me.cmbYak.ImeMode = System.Windows.Forms.ImeMode.Hiragana
         Me.cmbYak.Location = New System.Drawing.Point(87, 53)

@@ -384,7 +384,7 @@ Public Class 職員食
             Next
         Next
         For row As Integer = 0 To 1
-            For col As Integer = 1 To 21
+            For col As Integer = 0 To 21
                 DataGridView3(col, row).Value = ""
             Next
         Next

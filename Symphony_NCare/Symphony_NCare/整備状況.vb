@@ -370,6 +370,20 @@ Public Class 整備状況
     End Sub
 
     Private Sub btnTouroku_Click(sender As System.Object, e As System.EventArgs) Handles btnTouroku.Click
+        Dim DGV1rowscount As Integer = DataGridView1.Rows.Count
+        Dim personcount As Integer = 0
+        For i As Integer = 0 To 199
+            If Util.checkDBNullValue(DataGridView1(1, i).Value) <> "" Then
+                personcount = personcount + 1
+            Else
+                Exit For
+            End If
+        Next
+        If personcount = 0 Then
+            MsgBox("該当データがありません")
+            Return
+        End If
+
         Dim cnn As New ADODB.Connection
         Dim rs As New ADODB.Recordset
         cnn.Open(topform.DB_NCare)
@@ -380,14 +394,7 @@ Public Class 整備状況
 
         rs.Open("Dat14", cnn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
 
-        Dim personcount As Integer = 0
-        For i As Integer = 0 To 199
-            If Util.checkDBNullValue(DataGridView1(1, i).Value) <> "" Then
-                personcount = personcount + 1
-            Else
-                Exit For
-            End If
-        Next
+        
 
         For i As Integer = 0 To personcount - 1
             rs.AddNew()
@@ -420,7 +427,7 @@ Public Class 整備状況
             End If
         Next
         If personcount = 0 Then
-            MsgBox("データを表示してください")
+            MsgBox("該当データがありません")
             Return
         End If
 
@@ -434,7 +441,7 @@ Public Class 整備状況
         objExcel = CreateObject("Excel.Application")
         objWorkBooks = objExcel.Workbooks
         objWorkBook = objWorkBooks.Open(topform.excelFilePass)
-        oSheet = objWorkBook.Worksheets("整備状況")
+        oSheet = objWorkBook.Worksheets("整備状況改")
 
         objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
         objExcel.ScreenUpdating = False
