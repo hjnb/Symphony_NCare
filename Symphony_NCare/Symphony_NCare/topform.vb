@@ -124,6 +124,7 @@ Public Class topform
         If IsNothing(frmNyuukyosya) OrElse frmNyuukyosya.IsDisposed Then
             frmNyuukyosya = New 入居者()
             frmNyuukyosya.Owner = Me
+            frmNyuukyosya.StartPosition = FormStartPosition.CenterScreen
             frmNyuukyosya.Show()
         End If
     End Sub
@@ -168,6 +169,7 @@ Public Class topform
         If IsNothing(frmSyokuinn) OrElse frmSyokuinn.IsDisposed Then
             frmSyokuinn = New 職員()
             frmSyokuinn.Owner = Me
+            frmSyokuinn.StartPosition = FormStartPosition.CenterScreen
             frmSyokuinn.Show()
         End If
     End Sub

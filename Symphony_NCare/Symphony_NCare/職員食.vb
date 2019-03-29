@@ -696,6 +696,13 @@ Public Class 職員食
     End Sub
 
     Private Sub btnSakujo_Click(sender As System.Object, e As System.EventArgs) Handles btnSakujo.Click
+        Dim DGV2rowcount As Integer = DataGridView2.Rows.Count
+        If DGV2rowcount = 1 Then
+            MsgBox("ｴﾗｰ：削除できる保存データがありません")
+            Return
+        End If
+
+
         If MsgBox("削除してよろしいですか？", MsgBoxStyle.YesNo + vbExclamation, "削除確認") = MsgBoxResult.Yes Then
             Dim cnn As New ADODB.Connection
             cnn.Open(topform.DB_NCare)

@@ -22,12 +22,6 @@ Partial Class カンファレンス
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.LineShape5 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me.LineShape4 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me.LineShape3 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me.LineShape2 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
         Me.btnPrint = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.btnClear = New System.Windows.Forms.Button()
@@ -91,59 +85,14 @@ Partial Class カンファレンス
         Me.cmbSakuseisya = New System.Windows.Forms.ComboBox()
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
         Me.lblPosition = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'LineShape5
-        '
-        Me.LineShape5.Name = "LineShape5"
-        Me.LineShape5.X1 = 149
-        Me.LineShape5.X2 = 174
-        Me.LineShape5.Y1 = 50
-        Me.LineShape5.Y2 = 50
-        '
-        'LineShape4
-        '
-        Me.LineShape4.Name = "LineShape4"
-        Me.LineShape4.X1 = 31
-        Me.LineShape4.X2 = 43
-        Me.LineShape4.Y1 = 50
-        Me.LineShape4.Y2 = 50
-        '
-        'LineShape3
-        '
-        Me.LineShape3.Name = "LineShape3"
-        Me.LineShape3.X1 = 31
-        Me.LineShape3.X2 = 174
-        Me.LineShape3.Y1 = 349
-        Me.LineShape3.Y2 = 349
-        '
-        'LineShape2
-        '
-        Me.LineShape2.Name = "LineShape2"
-        Me.LineShape2.X1 = 31
-        Me.LineShape2.X2 = 31
-        Me.LineShape2.Y1 = 50
-        Me.LineShape2.Y2 = 348
-        '
-        'LineShape1
-        '
-        Me.LineShape1.Name = "LineShape1"
-        Me.LineShape1.X1 = 174
-        Me.LineShape1.X2 = 174
-        Me.LineShape1.Y1 = 50
-        Me.LineShape1.Y2 = 349
-        '
-        'ShapeContainer1
-        '
-        Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
-        Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
-        Me.ShapeContainer1.Name = "ShapeContainer1"
-        Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.LineShape1, Me.LineShape2, Me.LineShape3, Me.LineShape4, Me.LineShape5})
-        Me.ShapeContainer1.Size = New System.Drawing.Size(1496, 778)
-        Me.ShapeContainer1.TabIndex = 0
-        Me.ShapeContainer1.TabStop = False
         '
         'btnPrint
         '
@@ -685,11 +634,61 @@ Partial Class カンファレンス
         Me.lblPosition.Text = "0"
         Me.lblPosition.Visible = False
         '
+        'Label23
+        '
+        Me.Label23.BackColor = System.Drawing.Color.Black
+        Me.Label23.ForeColor = System.Drawing.Color.Black
+        Me.Label23.Location = New System.Drawing.Point(31, 51)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(1, 300)
+        Me.Label23.TabIndex = 126
+        '
+        'Label20
+        '
+        Me.Label20.BackColor = System.Drawing.Color.Black
+        Me.Label20.ForeColor = System.Drawing.Color.Black
+        Me.Label20.Location = New System.Drawing.Point(31, 51)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(12, 1)
+        Me.Label20.TabIndex = 125
+        '
+        'Label21
+        '
+        Me.Label21.BackColor = System.Drawing.Color.Black
+        Me.Label21.ForeColor = System.Drawing.Color.Black
+        Me.Label21.Location = New System.Drawing.Point(31, 351)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(145, 1)
+        Me.Label21.TabIndex = 124
+        '
+        'Label24
+        '
+        Me.Label24.BackColor = System.Drawing.Color.Black
+        Me.Label24.ForeColor = System.Drawing.Color.Black
+        Me.Label24.Location = New System.Drawing.Point(175, 51)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(1, 300)
+        Me.Label24.TabIndex = 128
+        '
+        'Label22
+        '
+        Me.Label22.BackColor = System.Drawing.Color.Black
+        Me.Label22.ForeColor = System.Drawing.Color.Black
+        Me.Label22.Location = New System.Drawing.Point(148, 50)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(28, 1)
+        Me.Label22.TabIndex = 127
+        '
         'カンファレンス
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1496, 778)
+        Me.Controls.Add(Me.Label24)
+        Me.Controls.Add(Me.Label22)
+        Me.Controls.Add(Me.Label23)
+        Me.Controls.Add(Me.Label20)
+        Me.Controls.Add(Me.Label21)
         Me.Controls.Add(Me.lblPosition)
         Me.Controls.Add(Me.lstName)
         Me.Controls.Add(Me.DataGridView2)
@@ -753,7 +752,6 @@ Partial Class カンファレンス
         Me.Controls.Add(Me.YmdBox1)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.lblName)
-        Me.Controls.Add(Me.ShapeContainer1)
         Me.Name = "カンファレンス"
         Me.Text = "カンファレンス"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -762,12 +760,6 @@ Partial Class カンファレンス
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents LineShape5 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape4 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape3 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape2 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape1 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
     Friend WithEvents btnPrint As System.Windows.Forms.Button
     Friend WithEvents btnDelete As System.Windows.Forms.Button
     Friend WithEvents btnClear As System.Windows.Forms.Button
@@ -831,4 +823,9 @@ Partial Class カンファレンス
     Friend WithEvents cmbSakuseisya As System.Windows.Forms.ComboBox
     Friend WithEvents DataGridView2 As System.Windows.Forms.DataGridView
     Friend WithEvents lblPosition As System.Windows.Forms.Label
+    Friend WithEvents Label23 As System.Windows.Forms.Label
+    Friend WithEvents Label20 As System.Windows.Forms.Label
+    Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents Label24 As System.Windows.Forms.Label
+    Friend WithEvents Label22 As System.Windows.Forms.Label
 End Class

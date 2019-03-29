@@ -113,7 +113,7 @@ Partial Class 食札
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowTemplate.Height = 21
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(123, 462)
+        Me.DataGridView1.Size = New System.Drawing.Size(123, 385)
         Me.DataGridView1.TabIndex = 0
         '
         'DataGridView2
@@ -124,14 +124,14 @@ Partial Class 食札
         Me.DataGridView2.AllowUserToResizeRows = False
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView2.ColumnHeadersVisible = False
-        Me.DataGridView2.Location = New System.Drawing.Point(33, 520)
+        Me.DataGridView2.Location = New System.Drawing.Point(33, 441)
         Me.DataGridView2.MultiSelect = False
         Me.DataGridView2.Name = "DataGridView2"
         Me.DataGridView2.ReadOnly = True
         Me.DataGridView2.RowHeadersVisible = False
         Me.DataGridView2.RowTemplate.Height = 21
         Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView2.Size = New System.Drawing.Size(123, 222)
+        Me.DataGridView2.Size = New System.Drawing.Size(123, 183)
         Me.DataGridView2.TabIndex = 1
         '
         'Label1
@@ -146,7 +146,7 @@ Partial Class 食札
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(31, 502)
+        Me.Label2.Location = New System.Drawing.Point(31, 423)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(45, 12)
         Me.Label2.TabIndex = 3
@@ -166,7 +166,7 @@ Partial Class 食札
         Me.lblHurigana.AutoSize = True
         Me.lblHurigana.Font = New System.Drawing.Font("MS UI Gothic", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lblHurigana.ForeColor = System.Drawing.Color.Blue
-        Me.lblHurigana.Location = New System.Drawing.Point(207, 73)
+        Me.lblHurigana.Location = New System.Drawing.Point(207, 69)
         Me.lblHurigana.Name = "lblHurigana"
         Me.lblHurigana.Size = New System.Drawing.Size(39, 11)
         Me.lblHurigana.TabIndex = 5
@@ -177,7 +177,7 @@ Partial Class 食札
         Me.lblName.AutoSize = True
         Me.lblName.Font = New System.Drawing.Font("MS UI Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lblName.ForeColor = System.Drawing.Color.Blue
-        Me.lblName.Location = New System.Drawing.Point(206, 94)
+        Me.lblName.Location = New System.Drawing.Point(206, 90)
         Me.lblName.Name = "lblName"
         Me.lblName.Size = New System.Drawing.Size(40, 16)
         Me.lblName.TabIndex = 6
@@ -186,7 +186,7 @@ Partial Class 食札
         'chkInsatutaisyou
         '
         Me.chkInsatutaisyou.AutoSize = True
-        Me.chkInsatutaisyou.Location = New System.Drawing.Point(386, 94)
+        Me.chkInsatutaisyou.Location = New System.Drawing.Point(386, 90)
         Me.chkInsatutaisyou.Name = "chkInsatutaisyou"
         Me.chkInsatutaisyou.Size = New System.Drawing.Size(72, 16)
         Me.chkInsatutaisyou.TabIndex = 7
@@ -196,7 +196,7 @@ Partial Class 食札
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(188, 153)
+        Me.Label3.Location = New System.Drawing.Point(188, 129)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(53, 12)
         Me.Label3.TabIndex = 8
@@ -205,7 +205,7 @@ Partial Class 食札
         'txtTyuui1
         '
         Me.txtTyuui1.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTyuui1.Location = New System.Drawing.Point(245, 150)
+        Me.txtTyuui1.Location = New System.Drawing.Point(245, 126)
         Me.txtTyuui1.Name = "txtTyuui1"
         Me.txtTyuui1.Size = New System.Drawing.Size(137, 19)
         Me.txtTyuui1.TabIndex = 9
@@ -213,7 +213,7 @@ Partial Class 食札
         'txtTyuui2
         '
         Me.txtTyuui2.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTyuui2.Location = New System.Drawing.Point(385, 150)
+        Me.txtTyuui2.Location = New System.Drawing.Point(385, 126)
         Me.txtTyuui2.Name = "txtTyuui2"
         Me.txtTyuui2.Size = New System.Drawing.Size(137, 19)
         Me.txtTyuui2.TabIndex = 10
@@ -221,7 +221,7 @@ Partial Class 食札
         'txtTyuui3
         '
         Me.txtTyuui3.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTyuui3.Location = New System.Drawing.Point(525, 150)
+        Me.txtTyuui3.Location = New System.Drawing.Point(525, 126)
         Me.txtTyuui3.Name = "txtTyuui3"
         Me.txtTyuui3.Size = New System.Drawing.Size(137, 19)
         Me.txtTyuui3.TabIndex = 11
@@ -229,7 +229,7 @@ Partial Class 食札
         'txtTyuui4
         '
         Me.txtTyuui4.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTyuui4.Location = New System.Drawing.Point(665, 150)
+        Me.txtTyuui4.Location = New System.Drawing.Point(665, 126)
         Me.txtTyuui4.Name = "txtTyuui4"
         Me.txtTyuui4.Size = New System.Drawing.Size(137, 19)
         Me.txtTyuui4.TabIndex = 12
@@ -237,7 +237,7 @@ Partial Class 食札
         'txtTyuui5
         '
         Me.txtTyuui5.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTyuui5.Location = New System.Drawing.Point(245, 170)
+        Me.txtTyuui5.Location = New System.Drawing.Point(245, 146)
         Me.txtTyuui5.Name = "txtTyuui5"
         Me.txtTyuui5.Size = New System.Drawing.Size(137, 19)
         Me.txtTyuui5.TabIndex = 13
@@ -245,7 +245,7 @@ Partial Class 食札
         'txtTyuui6
         '
         Me.txtTyuui6.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTyuui6.Location = New System.Drawing.Point(385, 170)
+        Me.txtTyuui6.Location = New System.Drawing.Point(385, 146)
         Me.txtTyuui6.Name = "txtTyuui6"
         Me.txtTyuui6.Size = New System.Drawing.Size(137, 19)
         Me.txtTyuui6.TabIndex = 14
@@ -253,7 +253,7 @@ Partial Class 食札
         'txtTyuui7
         '
         Me.txtTyuui7.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTyuui7.Location = New System.Drawing.Point(525, 170)
+        Me.txtTyuui7.Location = New System.Drawing.Point(525, 146)
         Me.txtTyuui7.Name = "txtTyuui7"
         Me.txtTyuui7.Size = New System.Drawing.Size(137, 19)
         Me.txtTyuui7.TabIndex = 15
@@ -261,7 +261,7 @@ Partial Class 食札
         'txtTyuui8
         '
         Me.txtTyuui8.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTyuui8.Location = New System.Drawing.Point(665, 170)
+        Me.txtTyuui8.Location = New System.Drawing.Point(665, 146)
         Me.txtTyuui8.Name = "txtTyuui8"
         Me.txtTyuui8.Size = New System.Drawing.Size(137, 19)
         Me.txtTyuui8.TabIndex = 16
@@ -269,7 +269,7 @@ Partial Class 食札
         'txtTyuui9
         '
         Me.txtTyuui9.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTyuui9.Location = New System.Drawing.Point(245, 190)
+        Me.txtTyuui9.Location = New System.Drawing.Point(245, 166)
         Me.txtTyuui9.Name = "txtTyuui9"
         Me.txtTyuui9.Size = New System.Drawing.Size(137, 19)
         Me.txtTyuui9.TabIndex = 17
@@ -277,7 +277,7 @@ Partial Class 食札
         'txtTyuui10
         '
         Me.txtTyuui10.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTyuui10.Location = New System.Drawing.Point(385, 190)
+        Me.txtTyuui10.Location = New System.Drawing.Point(385, 166)
         Me.txtTyuui10.Name = "txtTyuui10"
         Me.txtTyuui10.Size = New System.Drawing.Size(137, 19)
         Me.txtTyuui10.TabIndex = 18
@@ -285,7 +285,7 @@ Partial Class 食札
         'txtTyuui11
         '
         Me.txtTyuui11.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTyuui11.Location = New System.Drawing.Point(525, 190)
+        Me.txtTyuui11.Location = New System.Drawing.Point(525, 166)
         Me.txtTyuui11.Name = "txtTyuui11"
         Me.txtTyuui11.Size = New System.Drawing.Size(137, 19)
         Me.txtTyuui11.TabIndex = 19
@@ -293,7 +293,7 @@ Partial Class 食札
         'txtTyuui12
         '
         Me.txtTyuui12.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTyuui12.Location = New System.Drawing.Point(665, 190)
+        Me.txtTyuui12.Location = New System.Drawing.Point(665, 166)
         Me.txtTyuui12.Name = "txtTyuui12"
         Me.txtTyuui12.Size = New System.Drawing.Size(137, 19)
         Me.txtTyuui12.TabIndex = 20
@@ -301,7 +301,7 @@ Partial Class 食札
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(188, 229)
+        Me.Label4.Location = New System.Drawing.Point(188, 201)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(41, 12)
         Me.Label4.TabIndex = 21
@@ -310,7 +310,7 @@ Partial Class 食札
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(188, 269)
+        Me.Label5.Location = New System.Drawing.Point(188, 236)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(41, 12)
         Me.Label5.TabIndex = 22
@@ -319,7 +319,7 @@ Partial Class 食札
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(188, 311)
+        Me.Label6.Location = New System.Drawing.Point(188, 276)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(37, 12)
         Me.Label6.TabIndex = 23
@@ -328,7 +328,7 @@ Partial Class 食札
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(188, 352)
+        Me.Label7.Location = New System.Drawing.Point(188, 312)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(41, 12)
         Me.Label7.TabIndex = 24
@@ -337,7 +337,7 @@ Partial Class 食札
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(445, 352)
+        Me.Label8.Location = New System.Drawing.Point(445, 312)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(37, 12)
         Me.Label8.TabIndex = 25
@@ -346,7 +346,7 @@ Partial Class 食札
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(445, 380)
+        Me.Label9.Location = New System.Drawing.Point(445, 340)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(37, 12)
         Me.Label9.TabIndex = 26
@@ -355,7 +355,7 @@ Partial Class 食札
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(188, 411)
+        Me.Label10.Location = New System.Drawing.Point(188, 368)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(48, 12)
         Me.Label10.TabIndex = 27
@@ -364,7 +364,7 @@ Partial Class 食札
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(188, 459)
+        Me.Label11.Location = New System.Drawing.Point(188, 403)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(41, 12)
         Me.Label11.TabIndex = 28
@@ -373,7 +373,7 @@ Partial Class 食札
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(188, 498)
+        Me.Label12.Location = New System.Drawing.Point(188, 432)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(37, 12)
         Me.Label12.TabIndex = 29
@@ -382,7 +382,7 @@ Partial Class 食札
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(188, 534)
+        Me.Label13.Location = New System.Drawing.Point(188, 461)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(53, 12)
         Me.Label13.TabIndex = 30
@@ -393,7 +393,7 @@ Partial Class 食札
         Me.cmbSyokusyu.FormattingEnabled = True
         Me.cmbSyokusyu.ImeMode = System.Windows.Forms.ImeMode.Hiragana
         Me.cmbSyokusyu.Items.AddRange(New Object() {"PEG", "HT6g", "DM1200", "DM1440", "DM1600", "経鼻経管"})
-        Me.cmbSyokusyu.Location = New System.Drawing.Point(245, 225)
+        Me.cmbSyokusyu.Location = New System.Drawing.Point(245, 197)
         Me.cmbSyokusyu.Name = "cmbSyokusyu"
         Me.cmbSyokusyu.Size = New System.Drawing.Size(116, 20)
         Me.cmbSyokusyu.TabIndex = 31
@@ -404,7 +404,7 @@ Partial Class 食札
         Me.Panel1.Controls.Add(Me.rbnTyousyoku3)
         Me.Panel1.Controls.Add(Me.rbnTyousyoku2)
         Me.Panel1.Controls.Add(Me.rbnTyousyoku1)
-        Me.Panel1.Location = New System.Drawing.Point(245, 260)
+        Me.Panel1.Location = New System.Drawing.Point(245, 227)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(308, 32)
         Me.Panel1.TabIndex = 32
@@ -460,7 +460,7 @@ Partial Class 食札
         Me.Panel2.Controls.Add(Me.rbnSiru0)
         Me.Panel2.Controls.Add(Me.rbnSiru2)
         Me.Panel2.Controls.Add(Me.rbnSiru1)
-        Me.Panel2.Location = New System.Drawing.Point(245, 301)
+        Me.Panel2.Location = New System.Drawing.Point(245, 266)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(436, 34)
         Me.Panel2.TabIndex = 33
@@ -521,7 +521,7 @@ Partial Class 食札
         '
         Me.Panel3.Controls.Add(Me.rbnTomo0)
         Me.Panel3.Controls.Add(Me.rbnTomo1)
-        Me.Panel3.Location = New System.Drawing.Point(245, 400)
+        Me.Panel3.Location = New System.Drawing.Point(245, 357)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(146, 35)
         Me.Panel3.TabIndex = 34
@@ -551,7 +551,7 @@ Partial Class 食札
         'txtKei1
         '
         Me.txtKei1.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtKei1.Location = New System.Drawing.Point(245, 349)
+        Me.txtKei1.Location = New System.Drawing.Point(245, 309)
         Me.txtKei1.Name = "txtKei1"
         Me.txtKei1.Size = New System.Drawing.Size(177, 19)
         Me.txtKei1.TabIndex = 35
@@ -559,7 +559,7 @@ Partial Class 食札
         'txtKei2
         '
         Me.txtKei2.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtKei2.Location = New System.Drawing.Point(488, 349)
+        Me.txtKei2.Location = New System.Drawing.Point(488, 309)
         Me.txtKei2.Name = "txtKei2"
         Me.txtKei2.Size = New System.Drawing.Size(193, 19)
         Me.txtKei2.TabIndex = 36
@@ -567,7 +567,7 @@ Partial Class 食札
         'txtKei3
         '
         Me.txtKei3.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtKei3.Location = New System.Drawing.Point(488, 377)
+        Me.txtKei3.Location = New System.Drawing.Point(488, 337)
         Me.txtKei3.Name = "txtKei3"
         Me.txtKei3.Size = New System.Drawing.Size(193, 19)
         Me.txtKei3.TabIndex = 37
@@ -578,7 +578,7 @@ Partial Class 食札
         Me.YmdBoxStart.DateText = ""
         Me.YmdBoxStart.EraLabelText = "H31"
         Me.YmdBoxStart.EraText = ""
-        Me.YmdBoxStart.Location = New System.Drawing.Point(245, 449)
+        Me.YmdBoxStart.Location = New System.Drawing.Point(245, 393)
         Me.YmdBoxStart.MonthLabelText = "03"
         Me.YmdBoxStart.MonthText = ""
         Me.YmdBoxStart.Name = "YmdBoxStart"
@@ -590,7 +590,7 @@ Partial Class 食札
         Me.cmbStrt.FormattingEnabled = True
         Me.cmbStrt.ImeMode = System.Windows.Forms.ImeMode.Hiragana
         Me.cmbStrt.Items.AddRange(New Object() {"朝", "昼", "おやつ", "夕"})
-        Me.cmbStrt.Location = New System.Drawing.Point(370, 456)
+        Me.cmbStrt.Location = New System.Drawing.Point(370, 400)
         Me.cmbStrt.Name = "cmbStrt"
         Me.cmbStrt.Size = New System.Drawing.Size(59, 20)
         Me.cmbStrt.TabIndex = 39
@@ -598,7 +598,7 @@ Partial Class 食札
         'chkEndCK
         '
         Me.chkEndCK.AutoSize = True
-        Me.chkEndCK.Location = New System.Drawing.Point(457, 458)
+        Me.chkEndCK.Location = New System.Drawing.Point(457, 402)
         Me.chkEndCK.Name = "chkEndCK"
         Me.chkEndCK.Size = New System.Drawing.Size(60, 16)
         Me.chkEndCK.TabIndex = 40
@@ -611,7 +611,7 @@ Partial Class 食札
         Me.YmdBoxEND.DateText = ""
         Me.YmdBoxEND.EraLabelText = "H31"
         Me.YmdBoxEND.EraText = ""
-        Me.YmdBoxEND.Location = New System.Drawing.Point(523, 449)
+        Me.YmdBoxEND.Location = New System.Drawing.Point(523, 393)
         Me.YmdBoxEND.MonthLabelText = "03"
         Me.YmdBoxEND.MonthText = ""
         Me.YmdBoxEND.Name = "YmdBoxEND"
@@ -622,7 +622,7 @@ Partial Class 食札
         'chkCng
         '
         Me.chkCng.AutoSize = True
-        Me.chkCng.Location = New System.Drawing.Point(245, 496)
+        Me.chkCng.Location = New System.Drawing.Point(245, 430)
         Me.chkCng.Name = "chkCng"
         Me.chkCng.Size = New System.Drawing.Size(42, 16)
         Me.chkCng.TabIndex = 42
@@ -634,7 +634,7 @@ Partial Class 食札
         Me.cmbEnd.FormattingEnabled = True
         Me.cmbEnd.ImeMode = System.Windows.Forms.ImeMode.Hiragana
         Me.cmbEnd.Items.AddRange(New Object() {"朝", "昼", "おやつ", "夕"})
-        Me.cmbEnd.Location = New System.Drawing.Point(648, 456)
+        Me.cmbEnd.Location = New System.Drawing.Point(648, 400)
         Me.cmbEnd.Name = "cmbEnd"
         Me.cmbEnd.Size = New System.Drawing.Size(59, 20)
         Me.cmbEnd.TabIndex = 43
@@ -647,7 +647,7 @@ Partial Class 食札
         Me.DataGridView3.AllowUserToResizeColumns = False
         Me.DataGridView3.AllowUserToResizeRows = False
         Me.DataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView3.Location = New System.Drawing.Point(247, 534)
+        Me.DataGridView3.Location = New System.Drawing.Point(247, 461)
         Me.DataGridView3.MultiSelect = False
         Me.DataGridView3.Name = "DataGridView3"
         Me.DataGridView3.RowTemplate.Height = 21
@@ -691,7 +691,7 @@ Partial Class 食札
         Me.DataGridView4.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
         Me.DataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView4.ColumnHeadersVisible = False
-        Me.DataGridView4.Location = New System.Drawing.Point(826, 128)
+        Me.DataGridView4.Location = New System.Drawing.Point(826, 104)
         Me.DataGridView4.MultiSelect = False
         Me.DataGridView4.Name = "DataGridView4"
         Me.DataGridView4.ReadOnly = True
@@ -704,7 +704,7 @@ Partial Class 食札
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(826, 108)
+        Me.Label14.Location = New System.Drawing.Point(826, 84)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(47, 12)
         Me.Label14.TabIndex = 49

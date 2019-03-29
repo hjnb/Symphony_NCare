@@ -29,12 +29,6 @@ Partial Class 計画書
         Me.btnClear = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.btnPrint = New System.Windows.Forms.Button()
-        Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
-        Me.LineShape5 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me.LineShape4 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me.LineShape3 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me.LineShape2 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.txtKei = New System.Windows.Forms.TextBox()
         Me.txtNin = New System.Windows.Forms.TextBox()
         Me.cmbAuthor = New System.Windows.Forms.ComboBox()
@@ -168,6 +162,11 @@ Partial Class 計画書
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -248,56 +247,6 @@ Partial Class 計画書
         Me.btnPrint.TabIndex = 6
         Me.btnPrint.Text = "印刷"
         Me.btnPrint.UseVisualStyleBackColor = True
-        '
-        'ShapeContainer1
-        '
-        Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
-        Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
-        Me.ShapeContainer1.Name = "ShapeContainer1"
-        Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.LineShape5, Me.LineShape4, Me.LineShape3, Me.LineShape2, Me.LineShape1})
-        Me.ShapeContainer1.Size = New System.Drawing.Size(1040, 692)
-        Me.ShapeContainer1.TabIndex = 7
-        Me.ShapeContainer1.TabStop = False
-        '
-        'LineShape5
-        '
-        Me.LineShape5.Name = "LineShape5"
-        Me.LineShape5.X1 = 141
-        Me.LineShape5.X2 = 166
-        Me.LineShape5.Y1 = 36
-        Me.LineShape5.Y2 = 36
-        '
-        'LineShape4
-        '
-        Me.LineShape4.Name = "LineShape4"
-        Me.LineShape4.X1 = 23
-        Me.LineShape4.X2 = 35
-        Me.LineShape4.Y1 = 36
-        Me.LineShape4.Y2 = 36
-        '
-        'LineShape3
-        '
-        Me.LineShape3.Name = "LineShape3"
-        Me.LineShape3.X1 = 23
-        Me.LineShape3.X2 = 166
-        Me.LineShape3.Y1 = 335
-        Me.LineShape3.Y2 = 335
-        '
-        'LineShape2
-        '
-        Me.LineShape2.Name = "LineShape2"
-        Me.LineShape2.X1 = 23
-        Me.LineShape2.X2 = 23
-        Me.LineShape2.Y1 = 36
-        Me.LineShape2.Y2 = 334
-        '
-        'LineShape1
-        '
-        Me.LineShape1.Name = "LineShape1"
-        Me.LineShape1.X1 = 166
-        Me.LineShape1.X2 = 166
-        Me.LineShape1.Y1 = 36
-        Me.LineShape1.Y2 = 335
         '
         'txtKei
         '
@@ -1506,11 +1455,61 @@ Partial Class 計画書
         Me.Label14.TabIndex = 45
         Me.Label14.Text = "特記事項"
         '
+        'Label21
+        '
+        Me.Label21.BackColor = System.Drawing.Color.Black
+        Me.Label21.ForeColor = System.Drawing.Color.Black
+        Me.Label21.Location = New System.Drawing.Point(23, 336)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(145, 1)
+        Me.Label21.TabIndex = 47
+        '
+        'Label20
+        '
+        Me.Label20.BackColor = System.Drawing.Color.Black
+        Me.Label20.ForeColor = System.Drawing.Color.Black
+        Me.Label20.Location = New System.Drawing.Point(23, 36)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(12, 1)
+        Me.Label20.TabIndex = 48
+        '
+        'Label22
+        '
+        Me.Label22.BackColor = System.Drawing.Color.Black
+        Me.Label22.ForeColor = System.Drawing.Color.Black
+        Me.Label22.Location = New System.Drawing.Point(140, 35)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(28, 1)
+        Me.Label22.TabIndex = 49
+        '
+        'Label23
+        '
+        Me.Label23.BackColor = System.Drawing.Color.Black
+        Me.Label23.ForeColor = System.Drawing.Color.Black
+        Me.Label23.Location = New System.Drawing.Point(23, 36)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(1, 300)
+        Me.Label23.TabIndex = 50
+        '
+        'Label24
+        '
+        Me.Label24.BackColor = System.Drawing.Color.Black
+        Me.Label24.ForeColor = System.Drawing.Color.Black
+        Me.Label24.Location = New System.Drawing.Point(167, 36)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(1, 300)
+        Me.Label24.TabIndex = 51
+        '
         '計画書
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1040, 692)
+        Me.Controls.Add(Me.Label24)
+        Me.Controls.Add(Me.Label23)
+        Me.Controls.Add(Me.Label22)
+        Me.Controls.Add(Me.Label20)
+        Me.Controls.Add(Me.Label21)
         Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.Label12)
@@ -1556,7 +1555,6 @@ Partial Class 計画書
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.lblName)
         Me.Controls.Add(Me.txtKaitxt)
-        Me.Controls.Add(Me.ShapeContainer1)
         Me.Name = "計画書"
         Me.Text = "計画書"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1573,12 +1571,6 @@ Partial Class 計画書
     Friend WithEvents btnClear As System.Windows.Forms.Button
     Friend WithEvents btnDelete As System.Windows.Forms.Button
     Friend WithEvents btnPrint As System.Windows.Forms.Button
-    Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
-    Friend WithEvents LineShape5 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape4 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape3 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape2 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape1 As Microsoft.VisualBasic.PowerPacks.LineShape
     Friend WithEvents txtKei As System.Windows.Forms.TextBox
     Friend WithEvents txtNin As System.Windows.Forms.TextBox
     Friend WithEvents cmbAuthor As System.Windows.Forms.ComboBox
@@ -1712,4 +1704,9 @@ Partial Class 計画書
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents Label15 As System.Windows.Forms.Label
+    Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents Label20 As System.Windows.Forms.Label
+    Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents Label23 As System.Windows.Forms.Label
+    Friend WithEvents Label24 As System.Windows.Forms.Label
 End Class
