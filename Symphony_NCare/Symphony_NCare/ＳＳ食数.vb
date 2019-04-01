@@ -142,7 +142,7 @@ Public Class ＳＳ食数
         WeekColor()
 
         DataGridView1(0, 0).Selected = False
-        DataGridView2(0, 0).Selected = False
+        'DataGridView2(0, 0).Selected = False
 
     End Sub
 
