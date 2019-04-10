@@ -22,11 +22,6 @@ Partial Class 食札印刷
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
-        Me.LineShape4 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me.LineShape3 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me.LineShape2 = New Microsoft.VisualBasic.PowerPacks.LineShape()
-        Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.rbnKojinn = New System.Windows.Forms.RadioButton()
         Me.chkHukusuu = New System.Windows.Forms.CheckBox()
         Me.rbnAll = New System.Windows.Forms.RadioButton()
@@ -36,57 +31,19 @@ Partial Class 食札印刷
         Me.btnKyannseru = New System.Windows.Forms.Button()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'ShapeContainer1
-        '
-        Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
-        Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
-        Me.ShapeContainer1.Name = "ShapeContainer1"
-        Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.LineShape4, Me.LineShape3, Me.LineShape2, Me.LineShape1})
-        Me.ShapeContainer1.Size = New System.Drawing.Size(465, 141)
-        Me.ShapeContainer1.TabIndex = 0
-        Me.ShapeContainer1.TabStop = False
-        '
-        'LineShape4
-        '
-        Me.LineShape4.Name = "LineShape4"
-        Me.LineShape4.X1 = 433
-        Me.LineShape4.X2 = 433
-        Me.LineShape4.Y1 = 32
-        Me.LineShape4.Y2 = 72
-        '
-        'LineShape3
-        '
-        Me.LineShape3.Name = "LineShape3"
-        Me.LineShape3.X1 = 34
-        Me.LineShape3.X2 = 34
-        Me.LineShape3.Y1 = 32
-        Me.LineShape3.Y2 = 72
-        '
-        'LineShape2
-        '
-        Me.LineShape2.Name = "LineShape2"
-        Me.LineShape2.X1 = 34
-        Me.LineShape2.X2 = 432
-        Me.LineShape2.Y1 = 72
-        Me.LineShape2.Y2 = 72
-        '
-        'LineShape1
-        '
-        Me.LineShape1.Name = "LineShape1"
-        Me.LineShape1.X1 = 34
-        Me.LineShape1.X2 = 433
-        Me.LineShape1.Y1 = 32
-        Me.LineShape1.Y2 = 32
         '
         'rbnKojinn
         '
         Me.rbnKojinn.AutoSize = True
         Me.rbnKojinn.Checked = True
-        Me.rbnKojinn.Location = New System.Drawing.Point(46, 45)
+        Me.rbnKojinn.Location = New System.Drawing.Point(50, 45)
         Me.rbnKojinn.Name = "rbnKojinn"
         Me.rbnKojinn.Size = New System.Drawing.Size(47, 16)
         Me.rbnKojinn.TabIndex = 1
@@ -97,7 +54,7 @@ Partial Class 食札印刷
         'chkHukusuu
         '
         Me.chkHukusuu.AutoSize = True
-        Me.chkHukusuu.Location = New System.Drawing.Point(99, 45)
+        Me.chkHukusuu.Location = New System.Drawing.Point(103, 45)
         Me.chkHukusuu.Name = "chkHukusuu"
         Me.chkHukusuu.Size = New System.Drawing.Size(56, 16)
         Me.chkHukusuu.TabIndex = 2
@@ -107,7 +64,7 @@ Partial Class 食札印刷
         'rbnAll
         '
         Me.rbnAll.AutoSize = True
-        Me.rbnAll.Location = New System.Drawing.Point(176, 45)
+        Me.rbnAll.Location = New System.Drawing.Point(180, 45)
         Me.rbnAll.Name = "rbnAll"
         Me.rbnAll.Size = New System.Drawing.Size(59, 16)
         Me.rbnAll.TabIndex = 3
@@ -118,7 +75,7 @@ Partial Class 食札印刷
         'rbnItirann
         '
         Me.rbnItirann.AutoSize = True
-        Me.rbnItirann.Location = New System.Drawing.Point(256, 45)
+        Me.rbnItirann.Location = New System.Drawing.Point(260, 45)
         Me.rbnItirann.Name = "rbnItirann"
         Me.rbnItirann.Size = New System.Drawing.Size(59, 16)
         Me.rbnItirann.TabIndex = 4
@@ -129,7 +86,7 @@ Partial Class 食札印刷
         'rbnTokki
         '
         Me.rbnTokki.AutoSize = True
-        Me.rbnTokki.Location = New System.Drawing.Point(342, 45)
+        Me.rbnTokki.Location = New System.Drawing.Point(346, 45)
         Me.rbnTokki.Name = "rbnTokki"
         Me.rbnTokki.Size = New System.Drawing.Size(71, 16)
         Me.rbnTokki.TabIndex = 5
@@ -173,11 +130,51 @@ Partial Class 食札印刷
         Me.DataGridView2.Size = New System.Drawing.Size(10, 10)
         Me.DataGridView2.TabIndex = 9
         '
+        'Label23
+        '
+        Me.Label23.BackColor = System.Drawing.Color.Black
+        Me.Label23.ForeColor = System.Drawing.Color.Black
+        Me.Label23.Location = New System.Drawing.Point(34, 32)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(1, 41)
+        Me.Label23.TabIndex = 128
+        '
+        'Label21
+        '
+        Me.Label21.BackColor = System.Drawing.Color.Black
+        Me.Label21.ForeColor = System.Drawing.Color.Black
+        Me.Label21.Location = New System.Drawing.Point(35, 32)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(398, 1)
+        Me.Label21.TabIndex = 127
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.Black
+        Me.Label1.ForeColor = System.Drawing.Color.Black
+        Me.Label1.Location = New System.Drawing.Point(432, 33)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(1, 41)
+        Me.Label1.TabIndex = 130
+        '
+        'Label2
+        '
+        Me.Label2.BackColor = System.Drawing.Color.Black
+        Me.Label2.ForeColor = System.Drawing.Color.Black
+        Me.Label2.Location = New System.Drawing.Point(34, 73)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(398, 1)
+        Me.Label2.TabIndex = 129
+        '
         '食札印刷
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(465, 141)
+        Me.ClientSize = New System.Drawing.Size(465, 143)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.Label23)
+        Me.Controls.Add(Me.Label21)
         Me.Controls.Add(Me.btnJikkou)
         Me.Controls.Add(Me.DataGridView2)
         Me.Controls.Add(Me.DataGridView1)
@@ -187,7 +184,6 @@ Partial Class 食札印刷
         Me.Controls.Add(Me.rbnAll)
         Me.Controls.Add(Me.chkHukusuu)
         Me.Controls.Add(Me.rbnKojinn)
-        Me.Controls.Add(Me.ShapeContainer1)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "食札印刷"
@@ -198,11 +194,6 @@ Partial Class 食札印刷
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
-    Friend WithEvents LineShape4 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape3 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape2 As Microsoft.VisualBasic.PowerPacks.LineShape
-    Friend WithEvents LineShape1 As Microsoft.VisualBasic.PowerPacks.LineShape
     Friend WithEvents rbnKojinn As System.Windows.Forms.RadioButton
     Friend WithEvents chkHukusuu As System.Windows.Forms.CheckBox
     Friend WithEvents rbnAll As System.Windows.Forms.RadioButton
@@ -212,4 +203,8 @@ Partial Class 食札印刷
     Friend WithEvents btnKyannseru As System.Windows.Forms.Button
     Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
     Friend WithEvents DataGridView2 As System.Windows.Forms.DataGridView
+    Friend WithEvents Label23 As System.Windows.Forms.Label
+    Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents Label2 As System.Windows.Forms.Label
 End Class
