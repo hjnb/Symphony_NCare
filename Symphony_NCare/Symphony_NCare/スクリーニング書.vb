@@ -25,7 +25,7 @@ Public Class スクリーニング書
     'コンボボックス用配列
     Private tantoArray() As String = {"澤田　美佳"} '記入者
     Private kaiArray() As String = {"１", "２", "３", "４", "５"} '介護度
-    Private columnNumArray() As String = {"Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ"}
+    Private columnNumArray() As String = {"Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "全て"}
 
     '行ヘッダーテキスト
     Private weightChangeRowHeaderText() As String = {"過去の体重", "体重差", "体重減少率", "測定日"}
@@ -1016,6 +1016,8 @@ Public Class スクリーニング書
             targetColumnIndex = 4
         ElseIf selectedNumText = "Ⅳ" Then
             targetColumnIndex = 5
+        ElseIf selectedNumText = "全て" Then
+            targetColumnIndex = -1
         Else
             targetColumnIndex = 0
         End If
@@ -1023,6 +1025,28 @@ Public Class スクリーニング書
         If targetColumnIndex = 0 Then
             '全てクリア
             clearScreening()
+        ElseIf targetColumnIndex = -1 Then
+            '4列全ての内容クリア
+            J1YmdBox.clearText()
+            J2YmdBox.clearText()
+            J3YmdBox.clearText()
+            J4YmdBox.clearText()
+            For Each row As DataGridViewRow In dgvScreeningUp.Rows
+                row.Cells(2).Value = ""
+                row.Cells(3).Value = ""
+                row.Cells(4).Value = ""
+                row.Cells(5).Value = ""
+            Next
+            K1YmdBox.clearText()
+            K2YmdBox.clearText()
+            K3YmdBox.clearText()
+            K4YmdBox.clearText()
+            For Each row As DataGridViewRow In dgvScreeningDown.Rows
+                row.Cells(2).Value = ""
+                row.Cells(3).Value = ""
+                row.Cells(4).Value = ""
+                row.Cells(5).Value = ""
+            Next
         Else
             '対象の列のみクリア
             DirectCast(JPanel.Controls("J" & (targetColumnIndex - 1) & "YmdBox"), ymdBox.ymdBox).clearText()

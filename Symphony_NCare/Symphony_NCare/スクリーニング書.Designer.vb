@@ -236,15 +236,15 @@ Partial Class スクリーニング書
         'clearComboBox
         '
         Me.clearComboBox.FormattingEnabled = True
-        Me.clearComboBox.Location = New System.Drawing.Point(90, 155)
+        Me.clearComboBox.Location = New System.Drawing.Point(89, 155)
         Me.clearComboBox.Name = "clearComboBox"
-        Me.clearComboBox.Size = New System.Drawing.Size(36, 21)
+        Me.clearComboBox.Size = New System.Drawing.Size(45, 21)
         Me.clearComboBox.TabIndex = 1
         '
         'btnPrint
         '
         Me.btnPrint.ForeColor = System.Drawing.Color.Black
-        Me.btnPrint.Location = New System.Drawing.Point(17, 214)
+        Me.btnPrint.Location = New System.Drawing.Point(14, 214)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(68, 31)
         Me.btnPrint.TabIndex = 4
@@ -254,7 +254,7 @@ Partial Class スクリーニング書
         'btnDelete
         '
         Me.btnDelete.ForeColor = System.Drawing.Color.Black
-        Me.btnDelete.Location = New System.Drawing.Point(17, 182)
+        Me.btnDelete.Location = New System.Drawing.Point(14, 182)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(68, 31)
         Me.btnDelete.TabIndex = 3
@@ -264,7 +264,7 @@ Partial Class スクリーニング書
         'btnClear
         '
         Me.btnClear.ForeColor = System.Drawing.Color.Black
-        Me.btnClear.Location = New System.Drawing.Point(17, 150)
+        Me.btnClear.Location = New System.Drawing.Point(14, 150)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(68, 31)
         Me.btnClear.TabIndex = 2
@@ -274,7 +274,7 @@ Partial Class スクリーニング書
         'btnRegist
         '
         Me.btnRegist.ForeColor = System.Drawing.Color.Black
-        Me.btnRegist.Location = New System.Drawing.Point(17, 118)
+        Me.btnRegist.Location = New System.Drawing.Point(14, 118)
         Me.btnRegist.Name = "btnRegist"
         Me.btnRegist.Size = New System.Drawing.Size(68, 31)
         Me.btnRegist.TabIndex = 1
@@ -285,7 +285,7 @@ Partial Class スクリーニング書
         '
         Me.historyListBox.BackColor = System.Drawing.SystemColors.Control
         Me.historyListBox.FormattingEnabled = True
-        Me.historyListBox.Location = New System.Drawing.Point(17, 27)
+        Me.historyListBox.Location = New System.Drawing.Point(14, 27)
         Me.historyListBox.Name = "historyListBox"
         Me.historyListBox.Size = New System.Drawing.Size(102, 82)
         Me.historyListBox.TabIndex = 0
