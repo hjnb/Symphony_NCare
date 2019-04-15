@@ -2072,30 +2072,24 @@ Public Class スクリーニング書
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub btnDelete_Click(sender As System.Object, e As System.EventArgs) Handles btnDelete.Click
-        '日付
-        Dim ymd As String = createYmdBox.getADStr()
-
-        '対象日付のデータが存在しているかチェック
-        Dim cn As New ADODB.Connection()
-        cn.Open(topform.DB_NCare)
-        Dim sql As String = "select * from Dat0 where Nam='" & selectedResidentName & "' And Ymd='" & ymd & "'"
-        Dim rs As New ADODB.Recordset
-        rs.Open(sql, cn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
-        If rs.RecordCount <= 0 Then
-            MsgBox("登録されていません。", MsgBoxStyle.Exclamation)
-            rs.Close()
-            cn.Close()
+        '日付が選択されているか
+        If IsNothing(historyListBox.SelectedItem) Then
+            MsgBox("削除対象の日付を選択して下さい。", MsgBoxStyle.Exclamation)
             Return
         End If
 
+        '選択日付
+        Dim ymd As String = Util.convWarekiStrToADStr(historyListBox.Text)
+
         '削除
+        Dim cn As New ADODB.Connection()
+        cn.Open(topform.DB_NCare)
         Dim result As DialogResult = MessageBox.Show("削除してよろしいですか？", "削除", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = Windows.Forms.DialogResult.Yes Then
             Dim cmd As New ADODB.Command()
             cmd.ActiveConnection = cn
             cmd.CommandText = "delete from Dat0 where Nam='" & selectedResidentName & "' and Ymd='" & ymd & "'"
             cmd.Execute()
-            rs.Close()
             cn.Close()
             clearScreening()
             loadHistoryList()
