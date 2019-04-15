@@ -2954,8 +2954,6 @@ line22:
             Next
 
 
-
-
             objExcel.Calculation = Excel.XlCalculation.xlCalculationAutomatic
             objExcel.ScreenUpdating = True
 
@@ -2981,7 +2979,7 @@ line22:
             objWorkBook = Nothing
             objExcel = Nothing
 
-        ElseIf rbnTokki.Checked = True Then
+        ElseIf rbnTokki.Checked = True Then         '特記事項
             If CType(Me.Owner, 食札).lblName.Text = "" Then
                 MsgBox("印刷対象者を選択してください。")
                 Return
@@ -2995,7 +2993,89 @@ line22:
             SQLCm.CommandText = "select * from Dat15 WHERE Nam = '" & CType(Me.Owner, 食札).lblName.Text & "' AND Gyo < 11 ORDER BY Ymd, Gyo"
 
             Adapter.Fill(Table)
-            DataGridView2.DataSource = Table
+
+            If Table.Rows.Count = 0 Then
+                MsgBox("印刷対象データがありません")
+                Return
+            End If
+
+            Dim table2 As New DataTable
+            table2.Columns.Add("Nam", Type.GetType("System.String"))
+            table2.Columns.Add("Kana", Type.GetType("System.String"))
+            table2.Columns.Add("Ymd", Type.GetType("System.String"))
+            table2.Columns.Add("Gyo", Type.GetType("System.String"))
+            table2.Columns.Add("Kin", Type.GetType("System.String"))
+            table2.Columns.Add("Asa", Type.GetType("System.String"))
+            table2.Columns.Add("Kei1", Type.GetType("System.String"))
+            table2.Columns.Add("Kei2", Type.GetType("System.String"))
+            table2.Columns.Add("Kei3", Type.GetType("System.String"))
+            table2.Columns.Add("Ck", Type.GetType("System.String"))
+            table2.Columns.Add("YmdE", Type.GetType("System.String"))
+            table2.Columns.Add("Strt", Type.GetType("System.String"))
+            table2.Columns.Add("End", Type.GetType("System.String"))
+            table2.Columns.Add("Tokki", Type.GetType("System.String"))
+
+            If Util.checkDBNullValue(Table.Rows(0).Item(13)) <> "" AndAlso Util.checkDBNullValue(Table.Rows(0).Item(13)) <> " " AndAlso Util.checkDBNullValue(Table.Rows(0).Item(13)) <> "　" Then
+                Dim rowcopy As DataRow = table2.NewRow
+                rowcopy(0) = Table.Rows(0).Item(0)
+                rowcopy(1) = Table.Rows(0).Item(1)
+                rowcopy(2) = Table.Rows(0).Item(2)
+                rowcopy(3) = Table.Rows(0).Item(3)
+                rowcopy(4) = Table.Rows(0).Item(4)
+                rowcopy(5) = Table.Rows(0).Item(5)
+                rowcopy(6) = Table.Rows(0).Item(6)
+                rowcopy(7) = Table.Rows(0).Item(7)
+                rowcopy(8) = Table.Rows(0).Item(8)
+                rowcopy(9) = Table.Rows(0).Item(9)
+                rowcopy(10) = Table.Rows(0).Item(10)
+                rowcopy(11) = Table.Rows(0).Item(11)
+                rowcopy(12) = Table.Rows(0).Item(12)
+                rowcopy(13) = Table.Rows(0).Item(13)
+                table2.Rows.Add(rowcopy)
+            End If
+
+            For i As Integer = 1 To Table.Rows.Count - 1
+                Dim row As DataRow = table2.NewRow
+                If Table.Rows(i).Item(2).ToString <> Table.Rows(i - 1).Item(2).ToString Then
+                    'If Util.checkDBNullValue(Table.Rows(i - 1).Item(13)) <> "" AndAlso Util.checkDBNullValue(Table.Rows(i - 1).Item(13)) <> " " AndAlso Util.checkDBNullValue(Table.Rows(i - 1).Item(13)) <> "　" Then
+                    row(0) = ""
+                    row(1) = ""
+                    row(2) = Table.Rows(i - 1).Item(2)
+                    row(3) = 0
+                    row(4) = ""
+                    row(5) = ""
+                    row(6) = ""
+                    row(7) = ""
+                    row(8) = ""
+                    row(9) = ""
+                    row(10) = ""
+                    row(11) = ""
+                    row(12) = ""
+                    row(13) = ""
+                    table2.Rows.Add(row)
+                    'End If
+                End If
+                If Util.checkDBNullValue(Table.Rows(i).Item(13)) <> "" AndAlso Util.checkDBNullValue(Table.Rows(i).Item(13)) <> " " AndAlso Util.checkDBNullValue(Table.Rows(i).Item(13)) <> "　" Then
+                    Dim rowcopy2 As DataRow = table2.NewRow
+                    rowcopy2(0) = Table.Rows(i).Item(0)
+                    rowcopy2(1) = Table.Rows(i).Item(1)
+                    rowcopy2(2) = Table.Rows(i).Item(2)
+                    rowcopy2(3) = Table.Rows(i).Item(3)
+                    rowcopy2(4) = Table.Rows(i).Item(4)
+                    rowcopy2(5) = Table.Rows(i).Item(5)
+                    rowcopy2(6) = Table.Rows(i).Item(6)
+                    rowcopy2(7) = Table.Rows(i).Item(7)
+                    rowcopy2(8) = Table.Rows(i).Item(8)
+                    rowcopy2(9) = Table.Rows(i).Item(9)
+                    rowcopy2(10) = Table.Rows(i).Item(10)
+                    rowcopy2(11) = Table.Rows(i).Item(11)
+                    rowcopy2(12) = Table.Rows(i).Item(12)
+                    rowcopy2(13) = Table.Rows(i).Item(13)
+                    table2.Rows.Add(rowcopy2)
+                End If
+            Next
+
+            DataGridView2.DataSource = table2
             Dim objExcel As Object
             Dim objWorkBooks As Object
             Dim objWorkBook As Object
@@ -3012,16 +3092,12 @@ line22:
             objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
             objExcel.ScreenUpdating = False
 
-            If DataGridView2.Rows.Count = 0 Then
-                MsgBox("印刷対象データがありません")
-                Return
-            End If
-            '必要データのみ残す
+            '必要データのみ残す()
             For i As Integer = 0 To DataGridView2.Rows.Count - 1
                 If i = DataGridView2.Rows.Count Then
                     Exit For
                 End If
-                If DataGridView2(13, i).Value = "" OrElse DataGridView2(13, i).Value = " " OrElse DataGridView2(13, i).Value = "　" Then
+                If Util.checkDBNullValue(DataGridView2(2, i).FormattedValue) <> "" AndAlso Util.checkDBNullValue(DataGridView2(3, i).Value) = "0" Then
                     DataGridView2.Rows.RemoveAt(i)
                     i = 0
                 End If
@@ -3031,7 +3107,7 @@ line22:
                 DataGridView2.Rows.RemoveAt(0)
             End If
 
-            oSheet.Range("F2").Value = DataGridView2(0, 0).Value
+            oSheet.Range("F2").Value = Util.checkDBNullValue(DataGridView2(0, 0).Value)
 
             Dim DGV2rowcount As Integer = DataGridView2.Rows.Count
 
@@ -3043,7 +3119,7 @@ line22:
                         If col = 0 Then
                             cellleft(row, col) = DataGridView2(2, row).FormattedValue
                         ElseIf col = 2 Then
-                            cellleft(row, col) = DataGridView2(13, row).Value
+                            cellleft(row, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
                         End If
                     Next
                 Next
@@ -3056,7 +3132,7 @@ line22:
                         If col = 0 Then
                             cellleft(row, col) = DataGridView2(2, row).FormattedValue
                         ElseIf col = 2 Then
-                            cellleft(row, col) = DataGridView2(13, row).Value
+                            cellleft(row, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
                         End If
 
                     Next
@@ -3067,7 +3143,7 @@ line22:
                         If col = 0 Then
                             cellright(row - 58, col) = DataGridView2(2, row).FormattedValue
                         ElseIf col = 2 Then
-                            cellright(row - 58, col) = DataGridView2(13, row).Value
+                            cellright(row - 58, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
                         End If
                     Next
                 Next
