@@ -22,6 +22,7 @@ Partial Class 計画書
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.lblName = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.YmdBox1 = New ymdBox.ymdBox()
@@ -69,78 +70,6 @@ Partial Class 計画書
         Me.txtTxte3 = New System.Windows.Forms.TextBox()
         Me.txtTxte2 = New System.Windows.Forms.TextBox()
         Me.cmbTxte1 = New System.Windows.Forms.ComboBox()
-        Me.txtTxtd18 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd17 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd16 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd15 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd14 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd13 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd12 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd11 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd10 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd9 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd8 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd7 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd6 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd5 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd4 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd3 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd2 = New System.Windows.Forms.TextBox()
-        Me.txtTxtd1 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc18 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc17 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc16 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc15 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc14 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc13 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc12 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc11 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc10 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc9 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc8 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc7 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc6 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc5 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc4 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc3 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc2 = New System.Windows.Forms.TextBox()
-        Me.txtTxtc1 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb18 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb17 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb16 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb15 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb14 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb13 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb12 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb11 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb10 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb9 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb8 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb7 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb6 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb5 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb4 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb3 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb2 = New System.Windows.Forms.TextBox()
-        Me.txtTxtb1 = New System.Windows.Forms.TextBox()
-        Me.txtTxta18 = New System.Windows.Forms.TextBox()
-        Me.txtTxta17 = New System.Windows.Forms.TextBox()
-        Me.txtTxta16 = New System.Windows.Forms.TextBox()
-        Me.txtTxta15 = New System.Windows.Forms.TextBox()
-        Me.txtTxta14 = New System.Windows.Forms.TextBox()
-        Me.txtTxta13 = New System.Windows.Forms.TextBox()
-        Me.txtTxta12 = New System.Windows.Forms.TextBox()
-        Me.txtTxta11 = New System.Windows.Forms.TextBox()
-        Me.txtTxta10 = New System.Windows.Forms.TextBox()
-        Me.txtTxta9 = New System.Windows.Forms.TextBox()
-        Me.txtTxta8 = New System.Windows.Forms.TextBox()
-        Me.txtTxta7 = New System.Windows.Forms.TextBox()
-        Me.txtTxta6 = New System.Windows.Forms.TextBox()
-        Me.txtTxta5 = New System.Windows.Forms.TextBox()
-        Me.txtTxta4 = New System.Windows.Forms.TextBox()
-        Me.txtTxta3 = New System.Windows.Forms.TextBox()
-        Me.txtTxta2 = New System.Windows.Forms.TextBox()
-        Me.txtTxta1 = New System.Windows.Forms.TextBox()
         Me.TextBox98 = New System.Windows.Forms.TextBox()
         Me.TextBox99 = New System.Windows.Forms.TextBox()
         Me.TextBox100 = New System.Windows.Forms.TextBox()
@@ -167,8 +96,10 @@ Partial Class 計画書
         Me.Label22 = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.Label24 = New System.Windows.Forms.Label()
+        Me.DataGridView2 = New Symphony_NCare.計画書Class()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblName
@@ -206,7 +137,7 @@ Partial Class 計画書
         Me.YmdBox1.EraLabelText = "H31"
         Me.YmdBox1.EraText = ""
         Me.YmdBox1.Location = New System.Drawing.Point(39, 143)
-        Me.YmdBox1.MonthLabelText = "03"
+        Me.YmdBox1.MonthLabelText = "04"
         Me.YmdBox1.MonthText = ""
         Me.YmdBox1.Name = "YmdBox1"
         Me.YmdBox1.Size = New System.Drawing.Size(110, 34)
@@ -279,7 +210,7 @@ Partial Class 計画書
         Me.ymdboxNyuymd.EraLabelText = "H31"
         Me.ymdboxNyuymd.EraText = ""
         Me.ymdboxNyuymd.Location = New System.Drawing.Point(273, 81)
-        Me.ymdboxNyuymd.MonthLabelText = "03"
+        Me.ymdboxNyuymd.MonthLabelText = "04"
         Me.ymdboxNyuymd.MonthText = ""
         Me.ymdboxNyuymd.Name = "ymdboxNyuymd"
         Me.ymdboxNyuymd.Size = New System.Drawing.Size(86, 20)
@@ -292,7 +223,7 @@ Partial Class 計画書
         Me.ymdboxFstymd.EraLabelText = "H31"
         Me.ymdboxFstymd.EraText = ""
         Me.ymdboxFstymd.Location = New System.Drawing.Point(273, 108)
-        Me.ymdboxFstymd.MonthLabelText = "03"
+        Me.ymdboxFstymd.MonthLabelText = "04"
         Me.ymdboxFstymd.MonthText = ""
         Me.ymdboxFstymd.Name = "ymdboxFstymd"
         Me.ymdboxFstymd.Size = New System.Drawing.Size(86, 20)
@@ -410,100 +341,29 @@ Partial Class 計画書
         Me.Panel1.Controls.Add(Me.txtTxte3)
         Me.Panel1.Controls.Add(Me.txtTxte2)
         Me.Panel1.Controls.Add(Me.cmbTxte1)
-        Me.Panel1.Controls.Add(Me.txtTxtd18)
-        Me.Panel1.Controls.Add(Me.txtTxtd17)
-        Me.Panel1.Controls.Add(Me.txtTxtd16)
-        Me.Panel1.Controls.Add(Me.txtTxtd15)
-        Me.Panel1.Controls.Add(Me.txtTxtd14)
-        Me.Panel1.Controls.Add(Me.txtTxtd13)
-        Me.Panel1.Controls.Add(Me.txtTxtd12)
-        Me.Panel1.Controls.Add(Me.txtTxtd11)
-        Me.Panel1.Controls.Add(Me.txtTxtd10)
-        Me.Panel1.Controls.Add(Me.txtTxtd9)
-        Me.Panel1.Controls.Add(Me.txtTxtd8)
-        Me.Panel1.Controls.Add(Me.txtTxtd7)
-        Me.Panel1.Controls.Add(Me.txtTxtd6)
-        Me.Panel1.Controls.Add(Me.txtTxtd5)
-        Me.Panel1.Controls.Add(Me.txtTxtd4)
-        Me.Panel1.Controls.Add(Me.txtTxtd3)
-        Me.Panel1.Controls.Add(Me.txtTxtd2)
-        Me.Panel1.Controls.Add(Me.txtTxtd1)
-        Me.Panel1.Controls.Add(Me.txtTxtc18)
-        Me.Panel1.Controls.Add(Me.txtTxtc17)
-        Me.Panel1.Controls.Add(Me.txtTxtc16)
-        Me.Panel1.Controls.Add(Me.txtTxtc15)
-        Me.Panel1.Controls.Add(Me.txtTxtc14)
-        Me.Panel1.Controls.Add(Me.txtTxtc13)
-        Me.Panel1.Controls.Add(Me.txtTxtc12)
-        Me.Panel1.Controls.Add(Me.txtTxtc11)
-        Me.Panel1.Controls.Add(Me.txtTxtc10)
-        Me.Panel1.Controls.Add(Me.txtTxtc9)
-        Me.Panel1.Controls.Add(Me.txtTxtc8)
-        Me.Panel1.Controls.Add(Me.txtTxtc7)
-        Me.Panel1.Controls.Add(Me.txtTxtc6)
-        Me.Panel1.Controls.Add(Me.txtTxtc5)
-        Me.Panel1.Controls.Add(Me.txtTxtc4)
-        Me.Panel1.Controls.Add(Me.txtTxtc3)
-        Me.Panel1.Controls.Add(Me.txtTxtc2)
-        Me.Panel1.Controls.Add(Me.txtTxtc1)
-        Me.Panel1.Controls.Add(Me.txtTxtb18)
-        Me.Panel1.Controls.Add(Me.txtTxtb17)
-        Me.Panel1.Controls.Add(Me.txtTxtb16)
-        Me.Panel1.Controls.Add(Me.txtTxtb15)
-        Me.Panel1.Controls.Add(Me.txtTxtb14)
-        Me.Panel1.Controls.Add(Me.txtTxtb13)
-        Me.Panel1.Controls.Add(Me.txtTxtb12)
-        Me.Panel1.Controls.Add(Me.txtTxtb11)
-        Me.Panel1.Controls.Add(Me.txtTxtb10)
-        Me.Panel1.Controls.Add(Me.txtTxtb9)
-        Me.Panel1.Controls.Add(Me.txtTxtb8)
-        Me.Panel1.Controls.Add(Me.txtTxtb7)
-        Me.Panel1.Controls.Add(Me.txtTxtb6)
-        Me.Panel1.Controls.Add(Me.txtTxtb5)
-        Me.Panel1.Controls.Add(Me.txtTxtb4)
-        Me.Panel1.Controls.Add(Me.txtTxtb3)
-        Me.Panel1.Controls.Add(Me.txtTxtb2)
-        Me.Panel1.Controls.Add(Me.txtTxtb1)
-        Me.Panel1.Controls.Add(Me.txtTxta18)
-        Me.Panel1.Controls.Add(Me.txtTxta17)
-        Me.Panel1.Controls.Add(Me.txtTxta16)
-        Me.Panel1.Controls.Add(Me.txtTxta15)
-        Me.Panel1.Controls.Add(Me.txtTxta14)
-        Me.Panel1.Controls.Add(Me.txtTxta13)
-        Me.Panel1.Controls.Add(Me.txtTxta12)
-        Me.Panel1.Controls.Add(Me.txtTxta11)
-        Me.Panel1.Controls.Add(Me.txtTxta10)
-        Me.Panel1.Controls.Add(Me.txtTxta9)
-        Me.Panel1.Controls.Add(Me.txtTxta8)
-        Me.Panel1.Controls.Add(Me.txtTxta7)
-        Me.Panel1.Controls.Add(Me.txtTxta6)
-        Me.Panel1.Controls.Add(Me.txtTxta5)
-        Me.Panel1.Controls.Add(Me.txtTxta4)
-        Me.Panel1.Controls.Add(Me.txtTxta3)
-        Me.Panel1.Controls.Add(Me.txtTxta2)
-        Me.Panel1.Controls.Add(Me.txtTxta1)
+        Me.Panel1.Controls.Add(Me.DataGridView2)
         Me.Panel1.Location = New System.Drawing.Point(24, 463)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(974, 111)
+        Me.Panel1.Size = New System.Drawing.Size(973, 111)
         Me.Panel1.TabIndex = 24
         '
         'Label19
         '
         Me.Label19.BackColor = System.Drawing.Color.Blue
         Me.Label19.ForeColor = System.Drawing.Color.Blue
-        Me.Label19.Location = New System.Drawing.Point(-3, 271)
+        Me.Label19.Location = New System.Drawing.Point(0, 271)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(956, 1)
-        Me.Label19.TabIndex = 47
+        Me.Label19.TabIndex = 93
         '
         'Label18
         '
         Me.Label18.BackColor = System.Drawing.Color.Blue
         Me.Label18.ForeColor = System.Drawing.Color.Blue
-        Me.Label18.Location = New System.Drawing.Point(-1, 217)
+        Me.Label18.Location = New System.Drawing.Point(0, 217)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(956, 1)
-        Me.Label18.TabIndex = 47
+        Me.Label18.TabIndex = 92
         '
         'Label17
         '
@@ -683,582 +543,6 @@ Partial Class 計画書
         Me.cmbTxte1.Name = "cmbTxte1"
         Me.cmbTxte1.Size = New System.Drawing.Size(65, 20)
         Me.cmbTxte1.TabIndex = 72
-        '
-        'txtTxtd18
-        '
-        Me.txtTxtd18.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd18.Location = New System.Drawing.Point(827, 307)
-        Me.txtTxtd18.Name = "txtTxtd18"
-        Me.txtTxtd18.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd18.TabIndex = 71
-        '
-        'txtTxtd17
-        '
-        Me.txtTxtd17.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd17.Location = New System.Drawing.Point(827, 289)
-        Me.txtTxtd17.Name = "txtTxtd17"
-        Me.txtTxtd17.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd17.TabIndex = 70
-        '
-        'txtTxtd16
-        '
-        Me.txtTxtd16.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd16.Location = New System.Drawing.Point(827, 271)
-        Me.txtTxtd16.Name = "txtTxtd16"
-        Me.txtTxtd16.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd16.TabIndex = 69
-        '
-        'txtTxtd15
-        '
-        Me.txtTxtd15.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd15.Location = New System.Drawing.Point(827, 253)
-        Me.txtTxtd15.Name = "txtTxtd15"
-        Me.txtTxtd15.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd15.TabIndex = 68
-        '
-        'txtTxtd14
-        '
-        Me.txtTxtd14.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd14.Location = New System.Drawing.Point(827, 235)
-        Me.txtTxtd14.Name = "txtTxtd14"
-        Me.txtTxtd14.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd14.TabIndex = 67
-        '
-        'txtTxtd13
-        '
-        Me.txtTxtd13.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd13.Location = New System.Drawing.Point(827, 217)
-        Me.txtTxtd13.Name = "txtTxtd13"
-        Me.txtTxtd13.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd13.TabIndex = 66
-        '
-        'txtTxtd12
-        '
-        Me.txtTxtd12.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd12.Location = New System.Drawing.Point(827, 199)
-        Me.txtTxtd12.Name = "txtTxtd12"
-        Me.txtTxtd12.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd12.TabIndex = 65
-        '
-        'txtTxtd11
-        '
-        Me.txtTxtd11.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd11.Location = New System.Drawing.Point(827, 181)
-        Me.txtTxtd11.Name = "txtTxtd11"
-        Me.txtTxtd11.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd11.TabIndex = 64
-        '
-        'txtTxtd10
-        '
-        Me.txtTxtd10.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd10.Location = New System.Drawing.Point(827, 163)
-        Me.txtTxtd10.Name = "txtTxtd10"
-        Me.txtTxtd10.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd10.TabIndex = 63
-        '
-        'txtTxtd9
-        '
-        Me.txtTxtd9.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd9.Location = New System.Drawing.Point(827, 145)
-        Me.txtTxtd9.Name = "txtTxtd9"
-        Me.txtTxtd9.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd9.TabIndex = 62
-        '
-        'txtTxtd8
-        '
-        Me.txtTxtd8.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd8.Location = New System.Drawing.Point(827, 127)
-        Me.txtTxtd8.Name = "txtTxtd8"
-        Me.txtTxtd8.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd8.TabIndex = 61
-        '
-        'txtTxtd7
-        '
-        Me.txtTxtd7.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd7.Location = New System.Drawing.Point(827, 109)
-        Me.txtTxtd7.Name = "txtTxtd7"
-        Me.txtTxtd7.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd7.TabIndex = 60
-        '
-        'txtTxtd6
-        '
-        Me.txtTxtd6.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd6.Location = New System.Drawing.Point(827, 91)
-        Me.txtTxtd6.Name = "txtTxtd6"
-        Me.txtTxtd6.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd6.TabIndex = 59
-        '
-        'txtTxtd5
-        '
-        Me.txtTxtd5.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd5.Location = New System.Drawing.Point(827, 73)
-        Me.txtTxtd5.Name = "txtTxtd5"
-        Me.txtTxtd5.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd5.TabIndex = 58
-        '
-        'txtTxtd4
-        '
-        Me.txtTxtd4.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd4.Location = New System.Drawing.Point(827, 55)
-        Me.txtTxtd4.Name = "txtTxtd4"
-        Me.txtTxtd4.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd4.TabIndex = 57
-        '
-        'txtTxtd3
-        '
-        Me.txtTxtd3.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd3.Location = New System.Drawing.Point(827, 37)
-        Me.txtTxtd3.Name = "txtTxtd3"
-        Me.txtTxtd3.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd3.TabIndex = 56
-        '
-        'txtTxtd2
-        '
-        Me.txtTxtd2.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd2.Location = New System.Drawing.Point(827, 19)
-        Me.txtTxtd2.Name = "txtTxtd2"
-        Me.txtTxtd2.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd2.TabIndex = 55
-        '
-        'txtTxtd1
-        '
-        Me.txtTxtd1.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtd1.Location = New System.Drawing.Point(827, 1)
-        Me.txtTxtd1.Name = "txtTxtd1"
-        Me.txtTxtd1.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtd1.TabIndex = 54
-        '
-        'txtTxtc18
-        '
-        Me.txtTxtc18.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc18.Location = New System.Drawing.Point(763, 307)
-        Me.txtTxtc18.Name = "txtTxtc18"
-        Me.txtTxtc18.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc18.TabIndex = 53
-        '
-        'txtTxtc17
-        '
-        Me.txtTxtc17.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc17.Location = New System.Drawing.Point(763, 289)
-        Me.txtTxtc17.Name = "txtTxtc17"
-        Me.txtTxtc17.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc17.TabIndex = 52
-        '
-        'txtTxtc16
-        '
-        Me.txtTxtc16.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc16.Location = New System.Drawing.Point(763, 271)
-        Me.txtTxtc16.Name = "txtTxtc16"
-        Me.txtTxtc16.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc16.TabIndex = 51
-        '
-        'txtTxtc15
-        '
-        Me.txtTxtc15.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc15.Location = New System.Drawing.Point(763, 253)
-        Me.txtTxtc15.Name = "txtTxtc15"
-        Me.txtTxtc15.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc15.TabIndex = 50
-        '
-        'txtTxtc14
-        '
-        Me.txtTxtc14.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc14.Location = New System.Drawing.Point(763, 235)
-        Me.txtTxtc14.Name = "txtTxtc14"
-        Me.txtTxtc14.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc14.TabIndex = 49
-        '
-        'txtTxtc13
-        '
-        Me.txtTxtc13.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc13.Location = New System.Drawing.Point(763, 217)
-        Me.txtTxtc13.Name = "txtTxtc13"
-        Me.txtTxtc13.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc13.TabIndex = 48
-        '
-        'txtTxtc12
-        '
-        Me.txtTxtc12.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc12.Location = New System.Drawing.Point(763, 199)
-        Me.txtTxtc12.Name = "txtTxtc12"
-        Me.txtTxtc12.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc12.TabIndex = 47
-        '
-        'txtTxtc11
-        '
-        Me.txtTxtc11.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc11.Location = New System.Drawing.Point(763, 181)
-        Me.txtTxtc11.Name = "txtTxtc11"
-        Me.txtTxtc11.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc11.TabIndex = 46
-        '
-        'txtTxtc10
-        '
-        Me.txtTxtc10.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc10.Location = New System.Drawing.Point(763, 163)
-        Me.txtTxtc10.Name = "txtTxtc10"
-        Me.txtTxtc10.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc10.TabIndex = 45
-        '
-        'txtTxtc9
-        '
-        Me.txtTxtc9.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc9.Location = New System.Drawing.Point(763, 145)
-        Me.txtTxtc9.Name = "txtTxtc9"
-        Me.txtTxtc9.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc9.TabIndex = 44
-        '
-        'txtTxtc8
-        '
-        Me.txtTxtc8.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc8.Location = New System.Drawing.Point(763, 127)
-        Me.txtTxtc8.Name = "txtTxtc8"
-        Me.txtTxtc8.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc8.TabIndex = 43
-        '
-        'txtTxtc7
-        '
-        Me.txtTxtc7.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc7.Location = New System.Drawing.Point(763, 109)
-        Me.txtTxtc7.Name = "txtTxtc7"
-        Me.txtTxtc7.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc7.TabIndex = 42
-        '
-        'txtTxtc6
-        '
-        Me.txtTxtc6.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc6.Location = New System.Drawing.Point(763, 91)
-        Me.txtTxtc6.Name = "txtTxtc6"
-        Me.txtTxtc6.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc6.TabIndex = 41
-        '
-        'txtTxtc5
-        '
-        Me.txtTxtc5.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc5.Location = New System.Drawing.Point(763, 73)
-        Me.txtTxtc5.Name = "txtTxtc5"
-        Me.txtTxtc5.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc5.TabIndex = 40
-        '
-        'txtTxtc4
-        '
-        Me.txtTxtc4.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc4.Location = New System.Drawing.Point(763, 55)
-        Me.txtTxtc4.Name = "txtTxtc4"
-        Me.txtTxtc4.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc4.TabIndex = 39
-        '
-        'txtTxtc3
-        '
-        Me.txtTxtc3.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc3.Location = New System.Drawing.Point(763, 37)
-        Me.txtTxtc3.Name = "txtTxtc3"
-        Me.txtTxtc3.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc3.TabIndex = 38
-        '
-        'txtTxtc2
-        '
-        Me.txtTxtc2.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc2.Location = New System.Drawing.Point(763, 19)
-        Me.txtTxtc2.Name = "txtTxtc2"
-        Me.txtTxtc2.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc2.TabIndex = 37
-        '
-        'txtTxtc1
-        '
-        Me.txtTxtc1.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtc1.Location = New System.Drawing.Point(763, 1)
-        Me.txtTxtc1.Name = "txtTxtc1"
-        Me.txtTxtc1.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxtc1.TabIndex = 36
-        '
-        'txtTxtb18
-        '
-        Me.txtTxtb18.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb18.Location = New System.Drawing.Point(242, 307)
-        Me.txtTxtb18.Name = "txtTxtb18"
-        Me.txtTxtb18.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb18.TabIndex = 35
-        '
-        'txtTxtb17
-        '
-        Me.txtTxtb17.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb17.Location = New System.Drawing.Point(242, 289)
-        Me.txtTxtb17.Name = "txtTxtb17"
-        Me.txtTxtb17.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb17.TabIndex = 34
-        '
-        'txtTxtb16
-        '
-        Me.txtTxtb16.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb16.Location = New System.Drawing.Point(242, 271)
-        Me.txtTxtb16.Name = "txtTxtb16"
-        Me.txtTxtb16.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb16.TabIndex = 33
-        '
-        'txtTxtb15
-        '
-        Me.txtTxtb15.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb15.Location = New System.Drawing.Point(242, 253)
-        Me.txtTxtb15.Name = "txtTxtb15"
-        Me.txtTxtb15.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb15.TabIndex = 32
-        '
-        'txtTxtb14
-        '
-        Me.txtTxtb14.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb14.Location = New System.Drawing.Point(242, 235)
-        Me.txtTxtb14.Name = "txtTxtb14"
-        Me.txtTxtb14.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb14.TabIndex = 31
-        '
-        'txtTxtb13
-        '
-        Me.txtTxtb13.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb13.Location = New System.Drawing.Point(242, 217)
-        Me.txtTxtb13.Name = "txtTxtb13"
-        Me.txtTxtb13.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb13.TabIndex = 30
-        '
-        'txtTxtb12
-        '
-        Me.txtTxtb12.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb12.Location = New System.Drawing.Point(242, 199)
-        Me.txtTxtb12.Name = "txtTxtb12"
-        Me.txtTxtb12.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb12.TabIndex = 29
-        '
-        'txtTxtb11
-        '
-        Me.txtTxtb11.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb11.Location = New System.Drawing.Point(242, 181)
-        Me.txtTxtb11.Name = "txtTxtb11"
-        Me.txtTxtb11.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb11.TabIndex = 28
-        '
-        'txtTxtb10
-        '
-        Me.txtTxtb10.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb10.Location = New System.Drawing.Point(242, 163)
-        Me.txtTxtb10.Name = "txtTxtb10"
-        Me.txtTxtb10.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb10.TabIndex = 27
-        '
-        'txtTxtb9
-        '
-        Me.txtTxtb9.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb9.Location = New System.Drawing.Point(242, 145)
-        Me.txtTxtb9.Name = "txtTxtb9"
-        Me.txtTxtb9.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb9.TabIndex = 26
-        '
-        'txtTxtb8
-        '
-        Me.txtTxtb8.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb8.Location = New System.Drawing.Point(242, 127)
-        Me.txtTxtb8.Name = "txtTxtb8"
-        Me.txtTxtb8.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb8.TabIndex = 25
-        '
-        'txtTxtb7
-        '
-        Me.txtTxtb7.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb7.Location = New System.Drawing.Point(242, 109)
-        Me.txtTxtb7.Name = "txtTxtb7"
-        Me.txtTxtb7.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb7.TabIndex = 24
-        '
-        'txtTxtb6
-        '
-        Me.txtTxtb6.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb6.Location = New System.Drawing.Point(242, 91)
-        Me.txtTxtb6.Name = "txtTxtb6"
-        Me.txtTxtb6.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb6.TabIndex = 23
-        '
-        'txtTxtb5
-        '
-        Me.txtTxtb5.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb5.Location = New System.Drawing.Point(242, 73)
-        Me.txtTxtb5.Name = "txtTxtb5"
-        Me.txtTxtb5.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb5.TabIndex = 22
-        '
-        'txtTxtb4
-        '
-        Me.txtTxtb4.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb4.Location = New System.Drawing.Point(242, 55)
-        Me.txtTxtb4.Name = "txtTxtb4"
-        Me.txtTxtb4.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb4.TabIndex = 21
-        '
-        'txtTxtb3
-        '
-        Me.txtTxtb3.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb3.Location = New System.Drawing.Point(242, 37)
-        Me.txtTxtb3.Name = "txtTxtb3"
-        Me.txtTxtb3.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb3.TabIndex = 20
-        '
-        'txtTxtb2
-        '
-        Me.txtTxtb2.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb2.Location = New System.Drawing.Point(242, 19)
-        Me.txtTxtb2.Name = "txtTxtb2"
-        Me.txtTxtb2.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb2.TabIndex = 19
-        '
-        'txtTxtb1
-        '
-        Me.txtTxtb1.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxtb1.Location = New System.Drawing.Point(242, 1)
-        Me.txtTxtb1.Name = "txtTxtb1"
-        Me.txtTxtb1.Size = New System.Drawing.Size(522, 19)
-        Me.txtTxtb1.TabIndex = 18
-        '
-        'txtTxta18
-        '
-        Me.txtTxta18.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta18.Location = New System.Drawing.Point(0, 307)
-        Me.txtTxta18.Name = "txtTxta18"
-        Me.txtTxta18.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta18.TabIndex = 17
-        '
-        'txtTxta17
-        '
-        Me.txtTxta17.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta17.Location = New System.Drawing.Point(0, 289)
-        Me.txtTxta17.Name = "txtTxta17"
-        Me.txtTxta17.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta17.TabIndex = 16
-        '
-        'txtTxta16
-        '
-        Me.txtTxta16.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta16.Location = New System.Drawing.Point(0, 271)
-        Me.txtTxta16.Name = "txtTxta16"
-        Me.txtTxta16.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta16.TabIndex = 15
-        '
-        'txtTxta15
-        '
-        Me.txtTxta15.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta15.Location = New System.Drawing.Point(0, 253)
-        Me.txtTxta15.Name = "txtTxta15"
-        Me.txtTxta15.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta15.TabIndex = 14
-        '
-        'txtTxta14
-        '
-        Me.txtTxta14.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta14.Location = New System.Drawing.Point(0, 235)
-        Me.txtTxta14.Name = "txtTxta14"
-        Me.txtTxta14.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta14.TabIndex = 13
-        '
-        'txtTxta13
-        '
-        Me.txtTxta13.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta13.Location = New System.Drawing.Point(0, 217)
-        Me.txtTxta13.Name = "txtTxta13"
-        Me.txtTxta13.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta13.TabIndex = 12
-        '
-        'txtTxta12
-        '
-        Me.txtTxta12.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta12.Location = New System.Drawing.Point(0, 199)
-        Me.txtTxta12.Name = "txtTxta12"
-        Me.txtTxta12.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta12.TabIndex = 11
-        '
-        'txtTxta11
-        '
-        Me.txtTxta11.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta11.Location = New System.Drawing.Point(0, 181)
-        Me.txtTxta11.Name = "txtTxta11"
-        Me.txtTxta11.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta11.TabIndex = 10
-        '
-        'txtTxta10
-        '
-        Me.txtTxta10.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta10.Location = New System.Drawing.Point(0, 163)
-        Me.txtTxta10.Name = "txtTxta10"
-        Me.txtTxta10.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta10.TabIndex = 9
-        '
-        'txtTxta9
-        '
-        Me.txtTxta9.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta9.Location = New System.Drawing.Point(0, 145)
-        Me.txtTxta9.Name = "txtTxta9"
-        Me.txtTxta9.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta9.TabIndex = 8
-        '
-        'txtTxta8
-        '
-        Me.txtTxta8.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta8.Location = New System.Drawing.Point(0, 127)
-        Me.txtTxta8.Name = "txtTxta8"
-        Me.txtTxta8.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta8.TabIndex = 7
-        '
-        'txtTxta7
-        '
-        Me.txtTxta7.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta7.Location = New System.Drawing.Point(0, 109)
-        Me.txtTxta7.Name = "txtTxta7"
-        Me.txtTxta7.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta7.TabIndex = 6
-        '
-        'txtTxta6
-        '
-        Me.txtTxta6.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta6.Location = New System.Drawing.Point(0, 91)
-        Me.txtTxta6.Name = "txtTxta6"
-        Me.txtTxta6.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta6.TabIndex = 5
-        '
-        'txtTxta5
-        '
-        Me.txtTxta5.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta5.Location = New System.Drawing.Point(0, 73)
-        Me.txtTxta5.Name = "txtTxta5"
-        Me.txtTxta5.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta5.TabIndex = 4
-        '
-        'txtTxta4
-        '
-        Me.txtTxta4.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta4.Location = New System.Drawing.Point(0, 55)
-        Me.txtTxta4.Name = "txtTxta4"
-        Me.txtTxta4.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta4.TabIndex = 3
-        '
-        'txtTxta3
-        '
-        Me.txtTxta3.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta3.Location = New System.Drawing.Point(0, 37)
-        Me.txtTxta3.Name = "txtTxta3"
-        Me.txtTxta3.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta3.TabIndex = 2
-        '
-        'txtTxta2
-        '
-        Me.txtTxta2.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta2.Location = New System.Drawing.Point(0, 19)
-        Me.txtTxta2.Name = "txtTxta2"
-        Me.txtTxta2.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta2.TabIndex = 1
-        '
-        'txtTxta1
-        '
-        Me.txtTxta1.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxta1.Location = New System.Drawing.Point(0, 1)
-        Me.txtTxta1.Name = "txtTxta1"
-        Me.txtTxta1.Size = New System.Drawing.Size(243, 19)
-        Me.txtTxta1.TabIndex = 0
         '
         'TextBox98
         '
@@ -1500,11 +784,34 @@ Partial Class 計画書
         Me.Label24.Size = New System.Drawing.Size(1, 300)
         Me.Label24.TabIndex = 51
         '
+        'DataGridView2
+        '
+        Me.DataGridView2.AllowUserToAddRows = False
+        Me.DataGridView2.AllowUserToDeleteRows = False
+        Me.DataGridView2.AllowUserToResizeColumns = False
+        Me.DataGridView2.AllowUserToResizeRows = False
+        Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView2.ColumnHeadersVisible = False
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView2.DefaultCellStyle = DataGridViewCellStyle1
+        Me.DataGridView2.Location = New System.Drawing.Point(0, 0)
+        Me.DataGridView2.Name = "DataGridView2"
+        Me.DataGridView2.RowHeadersVisible = False
+        Me.DataGridView2.RowTemplate.Height = 21
+        Me.DataGridView2.Size = New System.Drawing.Size(893, 327)
+        Me.DataGridView2.TabIndex = 94
+        '
         '計画書
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1040, 692)
+        Me.ClientSize = New System.Drawing.Size(1520, 994)
         Me.Controls.Add(Me.Label24)
         Me.Controls.Add(Me.Label23)
         Me.Controls.Add(Me.Label22)
@@ -1560,6 +867,7 @@ Partial Class 計画書
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1606,78 +914,6 @@ Partial Class 計画書
     Friend WithEvents txtTxte3 As System.Windows.Forms.TextBox
     Friend WithEvents txtTxte2 As System.Windows.Forms.TextBox
     Friend WithEvents cmbTxte1 As System.Windows.Forms.ComboBox
-    Friend WithEvents txtTxtd18 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd17 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd16 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd15 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd14 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd13 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd12 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd11 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd10 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd9 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd8 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd7 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd6 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd5 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd4 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd3 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtd1 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc18 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc17 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc16 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc15 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc14 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc13 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc12 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc11 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc10 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc9 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc8 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc7 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc6 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc5 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc4 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc3 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtc1 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb18 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb17 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb16 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb15 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb14 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb13 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb12 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb11 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb10 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb9 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb8 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb7 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb6 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb5 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb4 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb3 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxtb1 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta18 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta17 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta16 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta15 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta14 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta13 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta12 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta11 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta10 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta9 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta8 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta7 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta6 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta5 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta4 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta3 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxta1 As System.Windows.Forms.TextBox
     Friend WithEvents TextBox98 As System.Windows.Forms.TextBox
     Friend WithEvents TextBox99 As System.Windows.Forms.TextBox
     Friend WithEvents TextBox100 As System.Windows.Forms.TextBox
@@ -1699,8 +935,6 @@ Partial Class 計画書
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents Label14 As System.Windows.Forms.Label
-    Friend WithEvents Label19 As System.Windows.Forms.Label
-    Friend WithEvents Label18 As System.Windows.Forms.Label
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents Label15 As System.Windows.Forms.Label
@@ -1709,4 +943,7 @@ Partial Class 計画書
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents Label24 As System.Windows.Forms.Label
+    Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents Label18 As System.Windows.Forms.Label
+    Friend WithEvents DataGridView2 As Symphony_NCare.計画書Class
 End Class

@@ -190,6 +190,9 @@
     <Compile Include="計画書.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="計画書Class.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="身長体重.Designer.vb">
       <DependentUpon>身長体重.vb</DependentUpon>
     </Compile>

@@ -46,7 +46,7 @@ Partial Class ＳＳ食数
         Me.YmdBox1.EraLabelText = "H31"
         Me.YmdBox1.EraText = ""
         Me.YmdBox1.Location = New System.Drawing.Point(178, 37)
-        Me.YmdBox1.MonthLabelText = "02"
+        Me.YmdBox1.MonthLabelText = "04"
         Me.YmdBox1.MonthText = ""
         Me.YmdBox1.Name = "YmdBox1"
         Me.YmdBox1.Size = New System.Drawing.Size(85, 34)
@@ -101,7 +101,7 @@ Partial Class ＳＳ食数
         '
         'btnAll
         '
-        Me.btnAll.Location = New System.Drawing.Point(913, 249)
+        Me.btnAll.Location = New System.Drawing.Point(1000, 247)
         Me.btnAll.Name = "btnAll"
         Me.btnAll.Size = New System.Drawing.Size(75, 23)
         Me.btnAll.TabIndex = 9
@@ -160,14 +160,14 @@ Partial Class ＳＳ食数
         Me.DataGridView3.Location = New System.Drawing.Point(178, 127)
         Me.DataGridView3.Name = "DataGridView3"
         Me.DataGridView3.RowTemplate.Height = 21
-        Me.DataGridView3.Size = New System.Drawing.Size(818, 114)
+        Me.DataGridView3.Size = New System.Drawing.Size(963, 114)
         Me.DataGridView3.TabIndex = 12
         '
         'ＳＳ食数
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1045, 812)
+        Me.ClientSize = New System.Drawing.Size(1188, 812)
         Me.Controls.Add(Me.DataGridView4)
         Me.Controls.Add(Me.DataGridView3)
         Me.Controls.Add(Me.DataGridView1)

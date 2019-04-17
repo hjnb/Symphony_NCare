@@ -3037,7 +3037,6 @@ line22:
             For i As Integer = 1 To Table.Rows.Count - 1
                 Dim row As DataRow = table2.NewRow
                 If Table.Rows(i).Item(2).ToString <> Table.Rows(i - 1).Item(2).ToString Then
-                    'If Util.checkDBNullValue(Table.Rows(i - 1).Item(13)) <> "" AndAlso Util.checkDBNullValue(Table.Rows(i - 1).Item(13)) <> " " AndAlso Util.checkDBNullValue(Table.Rows(i - 1).Item(13)) <> "　" Then
                     row(0) = ""
                     row(1) = ""
                     row(2) = Table.Rows(i - 1).Item(2)
@@ -3053,7 +3052,6 @@ line22:
                     row(12) = ""
                     row(13) = ""
                     table2.Rows.Add(row)
-                    'End If
                 End If
                 If Util.checkDBNullValue(Table.Rows(i).Item(13)) <> "" AndAlso Util.checkDBNullValue(Table.Rows(i).Item(13)) <> " " AndAlso Util.checkDBNullValue(Table.Rows(i).Item(13)) <> "　" Then
                     Dim rowcopy2 As DataRow = table2.NewRow
@@ -3076,12 +3074,32 @@ line22:
             Next
 
             DataGridView2.DataSource = table2
+
+            '必要データのみ残す()
+            For i As Integer = 0 To DataGridView2.Rows.Count - 1    'RemoveAtで行数を減らすため、毎回新しくDataGridView2.rows.countを数える
+                If i = DataGridView2.Rows.Count Then
+                    Exit For
+                End If
+                If Util.checkDBNullValue(DataGridView2(2, i).FormattedValue) <> "" AndAlso Util.checkDBNullValue(DataGridView2(3, i).Value) = "0" Then
+                    DataGridView2.Rows.RemoveAt(i)
+                    i = 0
+                End If
+            Next
+
+            If DataGridView2.Rows.Count = 0 Then
+                MsgBox("印刷対象データがありません")
+                Return
+            End If
+
+            If Util.checkDBNullValue(DataGridView2(2, 0).FormattedValue) <> "" AndAlso Util.checkDBNullValue(DataGridView2(3, 0).Value) = "0" Then
+                DataGridView2.Rows.RemoveAt(0)
+            End If
+
             Dim objExcel As Object
             Dim objWorkBooks As Object
             Dim objWorkBook As Object
             Dim oSheets As Object
             Dim oSheet As Object
-            Dim day As DateTime = DateTime.Today
 
             objExcel = CreateObject("Excel.Application")
             objWorkBooks = objExcel.Workbooks
@@ -3092,28 +3110,13 @@ line22:
             objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
             objExcel.ScreenUpdating = False
 
-            '必要データのみ残す()
-            For i As Integer = 0 To DataGridView2.Rows.Count - 1
-                If i = DataGridView2.Rows.Count Then
-                    Exit For
-                End If
-                If Util.checkDBNullValue(DataGridView2(2, i).FormattedValue) <> "" AndAlso Util.checkDBNullValue(DataGridView2(3, i).Value) = "0" Then
-                    DataGridView2.Rows.RemoveAt(i)
-                    i = 0
-                End If
-            Next
-
-            If DataGridView2(3, 0).Value = 2 Then
-                DataGridView2.Rows.RemoveAt(0)
-            End If
-
             oSheet.Range("F2").Value = Util.checkDBNullValue(DataGridView2(0, 0).Value)
+            oSheet.Range("J63").Value = "1"
 
             Dim DGV2rowcount As Integer = DataGridView2.Rows.Count
-
             Dim cellleft(57, 2) As String
             Dim cellright(57, 2) As String
-            If DGV2rowcount \ 58 = 0 Then
+            If DGV2rowcount \ 58 = 0 Then       '1枚目左列のみ
                 For row As Integer = 0 To DGV2rowcount - 1
                     For col As Integer = 0 To 2
                         If col = 0 Then
@@ -3123,10 +3126,9 @@ line22:
                         End If
                     Next
                 Next
-
                 oSheet.Range("C5", "E62").Value = cellleft
 
-            ElseIf DGV2rowcount \ 58 = 1 Then
+            ElseIf DGV2rowcount \ 58 = 1 Then       '1枚目左列右列
                 For row As Integer = 0 To 57
                     For col As Integer = 0 To 2
                         If col = 0 Then
@@ -3134,7 +3136,6 @@ line22:
                         ElseIf col = 2 Then
                             cellleft(row, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
                         End If
-
                     Next
                 Next
                 oSheet.Range("C5", "E62").Value = cellleft
@@ -3148,6 +3149,271 @@ line22:
                     Next
                 Next
                 oSheet.Range("H5", "J62").Value = cellright
+
+            ElseIf DGV2rowcount \ 58 = 2 Then       '1枚目左列右列　2枚目左列のみ
+                '2枚目作成コピペ
+                Dim xlRange As Excel.Range = oSheet.Cells.Range("A1:K63")
+                xlRange.Copy()
+                Dim xlPasteRange As Excel.Range = oSheet.Range("A64") 'ペースト先
+                oSheet.rows("1:63").copy(xlPasteRange)
+
+                For row As Integer = 0 To 57
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellleft(row, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellleft(row, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+                    Next
+                Next
+                oSheet.Range("C5", "E62").Value = cellleft
+                For row As Integer = 58 To 115
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellright(row - 58, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellright(row - 58, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+                    Next
+                Next
+                oSheet.Range("H5", "J62").Value = cellright
+                'cellleftを初期化
+                For r As Integer = 0 To 57
+                    For c As Integer = 0 To 2
+                        cellleft(r, c) = ""
+                    Next
+                Next
+                oSheet.Range("J126").Value = "2"
+                For row As Integer = 116 To DGV2rowcount - 1
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellleft(row - 116, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellleft(row - 116, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+
+                    Next
+                Next
+                oSheet.Range("C68", "E125").Value = cellleft
+
+            ElseIf DGV2rowcount \ 58 = 3 Then       '1枚目左列右列　2枚目左列右列
+                '2枚目作成コピペ
+                Dim xlRange As Excel.Range = oSheet.Cells.Range("A1:K63")
+                xlRange.Copy()
+                Dim xlPasteRange As Excel.Range = oSheet.Range("A64") 'ペースト先
+                oSheet.rows("1:63").copy(xlPasteRange)
+
+                For row As Integer = 0 To 57
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellleft(row, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellleft(row, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+                    Next
+                Next
+                oSheet.Range("C5", "E62").Value = cellleft
+                For row As Integer = 58 To 115
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellright(row - 58, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellright(row - 58, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+                    Next
+                Next
+                oSheet.Range("H5", "J62").Value = cellright
+                'cellleft, cellrightを初期化
+                For r As Integer = 0 To 57
+                    For c As Integer = 0 To 2
+                        cellleft(r, c) = ""
+                        cellright(r, c) = ""
+                    Next
+                Next
+                oSheet.Range("J126").Value = "2"
+                For row As Integer = 116 To 173
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellleft(row - 116, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellleft(row - 116, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+
+                    Next
+                Next
+                oSheet.Range("C68", "E125").Value = cellleft
+                For row As Integer = 174 To DGV2rowcount - 1
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellright(row - 174, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellright(row - 174, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+                    Next
+                Next
+                oSheet.Range("H68", "J125").Value = cellright
+            ElseIf DGV2rowcount \ 58 = 4 Then       '1枚目左列右列　2枚目左列右列　3枚目左列
+                '2,3枚目作成コピペ
+                Dim xlRange As Excel.Range = oSheet.Cells.Range("A1:K63")
+                xlRange.Copy()
+                Dim xlPasteRange As Excel.Range = oSheet.Range("A64") 'ペースト先
+                Dim xlPasteRange2 As Excel.Range = oSheet.Range("A127") 'ペースト先
+                oSheet.rows("1:63").copy(xlPasteRange)
+                oSheet.rows("1:63").copy(xlPasteRange2)
+
+                For row As Integer = 0 To 57
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellleft(row, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellleft(row, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+                    Next
+                Next
+                oSheet.Range("C5", "E62").Value = cellleft
+                For row As Integer = 58 To 115
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellright(row - 58, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellright(row - 58, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+                    Next
+                Next
+                oSheet.Range("H5", "J62").Value = cellright
+                'cellleft, cellrightを初期化
+                For r As Integer = 0 To 57
+                    For c As Integer = 0 To 2
+                        cellleft(r, c) = ""
+                        cellright(r, c) = ""
+                    Next
+                Next
+                oSheet.Range("J126").Value = "2"
+                For row As Integer = 116 To 173
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellleft(row - 116, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellleft(row - 116, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+                    Next
+                Next
+                oSheet.Range("C68", "E125").Value = cellleft
+                For row As Integer = 174 To 231
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellright(row - 174, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellright(row - 174, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+                    Next
+                Next
+                oSheet.Range("H68", "J125").Value = cellright
+                'cellleft, cellrightを初期化
+                For r As Integer = 0 To 57
+                    For c As Integer = 0 To 2
+                        cellleft(r, c) = ""
+                        cellright(r, c) = ""
+                    Next
+                Next
+                oSheet.Range("J189").Value = "3"
+                For row As Integer = 232 To DGV2rowcount - 1
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellleft(row - 232, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellleft(row - 232, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+
+                    Next
+                Next
+                oSheet.Range("C131", "E188").Value = cellleft
+            ElseIf DGV2rowcount \ 58 = 5 Then       '1枚目左列右列　2枚目左列右列　3枚目左列右列
+                '2,3枚目作成コピペ
+                Dim xlRange As Excel.Range = oSheet.Cells.Range("A1:K63")
+                xlRange.Copy()
+                Dim xlPasteRange As Excel.Range = oSheet.Range("A64") 'ペースト先
+                Dim xlPasteRange2 As Excel.Range = oSheet.Range("A127") 'ペースト先
+                oSheet.rows("1:63").copy(xlPasteRange)
+                oSheet.rows("1:63").copy(xlPasteRange2)
+
+                For row As Integer = 0 To 57
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellleft(row, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellleft(row, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+                    Next
+                Next
+                oSheet.Range("C5", "E62").Value = cellleft
+                For row As Integer = 58 To 115
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellright(row - 58, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellright(row - 58, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+                    Next
+                Next
+                oSheet.Range("H5", "J62").Value = cellright
+                'cellleft, cellrightを初期化
+                For r As Integer = 0 To 57
+                    For c As Integer = 0 To 2
+                        cellleft(r, c) = ""
+                        cellright(r, c) = ""
+                    Next
+                Next
+                oSheet.Range("J126").Value = "2"
+                For row As Integer = 116 To 173
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellleft(row - 116, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellleft(row - 116, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+                    Next
+                Next
+                oSheet.Range("C68", "E125").Value = cellleft
+                For row As Integer = 174 To 231
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellright(row - 174, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellright(row - 174, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+                    Next
+                Next
+                oSheet.Range("H68", "J125").Value = cellright
+                'cellleft, cellrightを初期化
+                For r As Integer = 0 To 57
+                    For c As Integer = 0 To 2
+                        cellleft(r, c) = ""
+                        cellright(r, c) = ""
+                    Next
+                Next
+                oSheet.Range("J189").Value = "3"
+                For row As Integer = 232 To 289
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellleft(row - 232, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellleft(row - 232, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+
+                    Next
+                Next
+                oSheet.Range("C131", "E188").Value = cellleft
+                For row As Integer = 290 To DGV2rowcount - 1
+                    For col As Integer = 0 To 2
+                        If col = 0 Then
+                            cellright(row - 290, col) = DataGridView2(2, row).FormattedValue
+                        ElseIf col = 2 Then
+                            cellright(row - 290, col) = Util.checkDBNullValue(DataGridView2(13, row).Value)
+                        End If
+                    Next
+                Next
+                oSheet.Range("H131", "J188").Value = cellright
             End If
 
             objExcel.Calculation = Excel.XlCalculation.xlCalculationAutomatic

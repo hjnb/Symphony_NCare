@@ -125,9 +125,9 @@ Partial Class 食札印刷
         '
         Me.DataGridView2.AllowUserToAddRows = False
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView2.Location = New System.Drawing.Point(260, 145)
+        Me.DataGridView2.Location = New System.Drawing.Point(138, 95)
         Me.DataGridView2.Name = "DataGridView2"
-        Me.DataGridView2.Size = New System.Drawing.Size(716, 484)
+        Me.DataGridView2.Size = New System.Drawing.Size(10, 10)
         Me.DataGridView2.TabIndex = 9
         '
         'Label23
@@ -170,7 +170,8 @@ Partial Class 食札印刷
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1221, 656)
+        Me.ClientSize = New System.Drawing.Size(465, 143)
+        Me.Controls.Add(Me.btnJikkou)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label23)
@@ -183,7 +184,6 @@ Partial Class 食札印刷
         Me.Controls.Add(Me.rbnAll)
         Me.Controls.Add(Me.chkHukusuu)
         Me.Controls.Add(Me.rbnKojinn)
-        Me.Controls.Add(Me.btnJikkou)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "食札印刷"

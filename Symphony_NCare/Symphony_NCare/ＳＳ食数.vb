@@ -80,6 +80,7 @@ Public Class ＳＳ食数
             .ColumnHeadersVisible = False
             .RowHeadersVisible = False
             .DefaultCellStyle.SelectionForeColor = Color.Black
+            .ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText
         End With
 
         DGV3Table = New DataTable()
@@ -94,10 +95,10 @@ Public Class ＳＳ食数
         '空を表示
         DataGridView3.DataSource = DGV3Table
         'データグリッドビューの各セルの設定
-        DataGridView3.Columns(0).Width = 40
+        DataGridView3.Columns(0).Width = 30
         For i As Integer = 1 To 31
             With DataGridView3.Columns(i)
-                .Width = 25
+                .Width = 30
                 .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
             End With
         Next
@@ -142,7 +143,6 @@ Public Class ＳＳ食数
         WeekColor()
 
         DataGridView1(0, 0).Selected = False
-        'DataGridView2(0, 0).Selected = False
 
     End Sub
 

@@ -5,6 +5,7 @@ Imports Microsoft.Office.Core
 
 Public Class 計画書
     Private Nam, birth, jyuusyo As String
+    Private DGV2Table As DataTable
 
     Public Sub New(frmnam As String, frmbirth As String, frmJyuusyo As String)
         InitializeComponent()
@@ -42,11 +43,65 @@ Public Class 計画書
         DataGridView1.Columns(1).Width = 70
 
         YmdBox1.setADStr(Today.ToString("yyyy/MM/dd"))
+
+        With DataGridView2
+            .RowTemplate.Height = 18
+            .AllowUserToAddRows = False '行追加禁止
+            .AllowUserToResizeColumns = False '列の幅をユーザーが変更できないようにする
+            .AllowUserToResizeRows = False '行の高さをユーザーが変更できないようにする
+            .AllowUserToDeleteRows = False
+            .RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing
+            .ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+            .ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            .ColumnHeadersVisible = False
+            .RowHeadersVisible = False
+            .DefaultCellStyle.SelectionForeColor = Color.Black
+            .ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText
+        End With
+
+        DGV2Table = New DataTable()
+        Util.EnableDoubleBuffering(DataGridView2)
+
+        'DataGridView2列作成
+        For col As Integer = 0 To 3
+            DGV2Table.Columns.Add("a" & col, Type.GetType("System.String"))
+        Next
+
+        'DataGridView2行作成
+        For row As Integer = 1 To 18
+            DGV2Table.Rows.Add(DGV2Table.NewRow())
+        Next
+
+        'DataGridView2空を表示
+        DataGridView2.DataSource = DGV2Table
+
+        'DataGridView2列の設定
+        DataGridView2.Columns(0).Width = 241
+        DataGridView2.Columns(1).Width = 521
+        DataGridView2.Columns(2).Width = 64
+        DataGridView2.Columns(3).Width = 64
+
+        DataGridView2(0, 0).Selected = False
     End Sub
 
     Private Sub DataGridView1_CellFormatting(sender As Object, e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles DataGridView1.CellFormatting
         If e.ColumnIndex = 1 Then
             e.Value = Util.convADStrToWarekiStr(e.Value)
+        End If
+    End Sub
+
+    Private Sub DataGridView2_CellPainting(sender As Object, e As System.Windows.Forms.DataGridViewCellPaintingEventArgs) Handles DataGridView2.CellPainting
+        '選択したセルに枠を付ける
+        If e.ColumnIndex >= 0 AndAlso e.RowIndex >= 0 AndAlso (e.PaintParts And DataGridViewPaintParts.Background) = DataGridViewPaintParts.Background Then
+            e.Graphics.FillRectangle(New SolidBrush(e.CellStyle.BackColor), e.CellBounds)
+
+            If (e.PaintParts And DataGridViewPaintParts.SelectionBackground) = DataGridViewPaintParts.SelectionBackground AndAlso (e.State And DataGridViewElementStates.Selected) = DataGridViewElementStates.Selected Then
+                e.Graphics.DrawRectangle(New Pen(Color.Black, 2I), e.CellBounds.X + 1I, e.CellBounds.Y + 1I, e.CellBounds.Width - 3I, e.CellBounds.Height - 3I)
+            End If
+
+            Dim pParts As DataGridViewPaintParts = e.PaintParts And Not DataGridViewPaintParts.Background
+            e.Paint(e.ClipBounds, pParts)
+            e.Handled = True
         End If
     End Sub
 
@@ -78,10 +133,15 @@ Public Class 計画書
         txtTyo1.Text = Util.checkDBNullValue(DataGridView1("Tyo1", selectedrow).Value)
         txtTyo2.Text = Util.checkDBNullValue(DataGridView1("Tyo2", selectedrow).Value)
         For i As Integer = 1 To 18
-            Panel1.Controls("txtTxta" & i).Text = Util.checkDBNullValue(DataGridView1("Txta" & i, selectedrow).Value)
-            Panel1.Controls("txtTxtb" & i).Text = Util.checkDBNullValue(DataGridView1("Txtb" & i, selectedrow).Value)
-            Panel1.Controls("txtTxtc" & i).Text = Util.checkDBNullValue(DataGridView1("Txtc" & i, selectedrow).Value)
-            Panel1.Controls("txtTxtd" & i).Text = Util.checkDBNullValue(DataGridView1("Txtd" & i, selectedrow).Value)
+            DataGridView2(0, i - 1).Value = Util.checkDBNullValue(DataGridView1("Txta" & i, selectedrow).Value)
+            DataGridView2(1, i - 1).Value = Util.checkDBNullValue(DataGridView1("Txtb" & i, selectedrow).Value)
+            DataGridView2(2, i - 1).Value = Util.checkDBNullValue(DataGridView1("Txtc" & i, selectedrow).Value)
+            DataGridView2(3, i - 1).Value = Util.checkDBNullValue(DataGridView1("Txtd" & i, selectedrow).Value)
+
+            'Panel1.Controls("txtTxta" & i).Text = Util.checkDBNullValue(DataGridView1("Txta" & i, selectedrow).Value)
+            'Panel1.Controls("txtTxtb" & i).Text = Util.checkDBNullValue(DataGridView1("Txtb" & i, selectedrow).Value)
+            'Panel1.Controls("txtTxtc" & i).Text = Util.checkDBNullValue(DataGridView1("Txtc" & i, selectedrow).Value)
+            'Panel1.Controls("txtTxtd" & i).Text = Util.checkDBNullValue(DataGridView1("Txtd" & i, selectedrow).Value)
             If i = 1 OrElse i = 4 OrElse i = 7 OrElse i = 10 OrElse i = 13 OrElse i = 16 Then
                 Panel1.Controls("cmbTxte" & i).Text = Util.checkDBNullValue(DataGridView1("Txte" & i, selectedrow).Value)
             Else
@@ -111,10 +171,14 @@ Public Class 計画書
         txtTyo1.Text = ""
         txtTyo2.Text = ""
         For i As Integer = 1 To 18
-            Panel1.Controls("txtTxta" & i).Text = ""
-            Panel1.Controls("txtTxtb" & i).Text = ""
-            Panel1.Controls("txtTxtc" & i).Text = ""
-            Panel1.Controls("txtTxtd" & i).Text = ""
+            DataGridView2(0, i).Value = ""
+            DataGridView2(1, i).Value = ""
+            DataGridView2(2, i).Value = ""
+            DataGridView2(3, i).Value = ""
+            'Panel1.Controls("txtTxta" & i).Text = ""
+            'Panel1.Controls("txtTxtb" & i).Text = ""
+            'Panel1.Controls("txtTxtc" & i).Text = ""
+            'Panel1.Controls("txtTxtd" & i).Text = ""
             If i = 1 OrElse i = 4 OrElse i = 7 OrElse i = 10 OrElse i = 13 OrElse i = 16 Then
                 Panel1.Controls("cmbTxte" & i).Text = ""
             Else
@@ -199,95 +263,95 @@ Public Class 計画書
         kad3 = txtKad3.Text
         tyo1 = txtTyo1.Text
         tyo2 = txtTyo2.Text
-        txta1 = txtTxta1.Text
-        txtb1 = txtTxtb1.Text
-        txtc1 = txtTxtc1.Text
-        txtd1 = txtTxtd1.Text
+        txta1 = DataGridView2(0, 0).Value
+        txtb1 = DataGridView2(1, 0).Value
+        txtc1 = DataGridView2(2, 0).Value
+        txtd1 = DataGridView2(3, 0).Value
         txte1 = cmbTxte1.Text
-        txta2 = txtTxta2.Text
-        txtb2 = txtTxtb2.Text
-        txtc2 = txtTxtc2.Text
-        txtd2 = txtTxtd2.Text
+        txta2 = DataGridView2(0, 1).Value
+        txtb2 = DataGridView2(1, 1).Value
+        txtc2 = DataGridView2(2, 1).Value
+        txtd2 = DataGridView2(3, 1).Value
         txte2 = txtTxte2.Text
-        txta3 = txtTxta3.Text
-        txtb3 = txtTxtb3.Text
-        txtc3 = txtTxtc3.Text
-        txtd3 = txtTxtd3.Text
+        txta3 = DataGridView2(0, 2).Value
+        txtb3 = DataGridView2(1, 2).Value
+        txtc3 = DataGridView2(2, 2).Value
+        txtd3 = DataGridView2(3, 2).Value
         txte3 = txtTxte3.Text
-        txta4 = txtTxta4.Text
-        txtb4 = txtTxtb4.Text
-        txtc4 = txtTxtc4.Text
-        txtd4 = txtTxtd4.Text
+        txta4 = DataGridView2(0, 3).Value
+        txtb4 = DataGridView2(1, 3).Value
+        txtc4 = DataGridView2(2, 3).Value
+        txtd4 = DataGridView2(3, 3).Value
         txte4 = cmbTxte4.Text
-        txta5 = txtTxta5.Text
-        txtb5 = txtTxtb5.Text
-        txtc5 = txtTxtc5.Text
-        txtd5 = txtTxtd5.Text
+        txta5 = DataGridView2(0, 4).Value
+        txtb5 = DataGridView2(1, 4).Value
+        txtc5 = DataGridView2(2, 4).Value
+        txtd5 = DataGridView2(3, 4).Value
         txte5 = txtTxte5.Text
-        txta6 = txtTxta6.Text
-        txtb6 = txtTxtb6.Text
-        txtc6 = txtTxtc6.Text
-        txtd6 = txtTxtd6.Text
+        txta6 = DataGridView2(0, 5).Value
+        txtb6 = DataGridView2(1, 5).Value
+        txtc6 = DataGridView2(2, 5).Value
+        txtd6 = DataGridView2(3, 5).Value
         txte6 = txtTxte6.Text
-        txta7 = txtTxta7.Text
-        txtb7 = txtTxtb7.Text
-        txtc7 = txtTxtc7.Text
-        txtd7 = txtTxtd7.Text
+        txta7 = DataGridView2(0, 6).Value
+        txtb7 = DataGridView2(1, 6).Value
+        txtc7 = DataGridView2(2, 6).Value
+        txtd7 = DataGridView2(3, 6).Value
         txte7 = cmbTxte7.Text
-        txta8 = txtTxta8.Text
-        txtb8 = txtTxtb8.Text
-        txtc8 = txtTxtc8.Text
-        txtd8 = txtTxtd8.Text
+        txta8 = DataGridView2(0, 7).Value
+        txtb8 = DataGridView2(1, 7).Value
+        txtc8 = DataGridView2(2, 7).Value
+        txtd8 = DataGridView2(3, 7).Value
         txte8 = txtTxte8.Text
-        txta9 = txtTxta9.Text
-        txtb9 = txtTxtb9.Text
-        txtc9 = txtTxtc9.Text
-        txtd9 = txtTxtd9.Text
+        txta9 = DataGridView2(0, 8).Value
+        txtb9 = DataGridView2(1, 8).Value
+        txtc9 = DataGridView2(2, 8).Value
+        txtd9 = DataGridView2(3, 8).Value
         txte9 = txtTxte9.Text
-        txta10 = txtTxta10.Text
-        txtb10 = txtTxtb10.Text
-        txtc10 = txtTxtc10.Text
-        txtd10 = txtTxtd10.Text
+        txta10 = DataGridView2(0, 9).Value
+        txtb10 = DataGridView2(1, 9).Value
+        txtc10 = DataGridView2(2, 9).Value
+        txtd10 = DataGridView2(3, 9).Value
         txte10 = cmbTxte10.Text
-        txta11 = txtTxta11.Text
-        txtb11 = txtTxtb11.Text
-        txtc11 = txtTxtc11.Text
-        txtd11 = txtTxtd11.Text
+        txta11 = DataGridView2(0, 10).Value
+        txtb11 = DataGridView2(1, 10).Value
+        txtc11 = DataGridView2(2, 10).Value
+        txtd11 = DataGridView2(3, 10).Value
         txte11 = txtTxte11.Text
-        txta12 = txtTxta12.Text
-        txtb12 = txtTxtb12.Text
-        txtc12 = txtTxtc12.Text
-        txtd12 = txtTxtd12.Text
+        txta12 = DataGridView2(0, 11).Value
+        txtb12 = DataGridView2(1, 11).Value
+        txtc12 = DataGridView2(2, 11).Value
+        txtd12 = DataGridView2(3, 11).Value
         txte12 = txtTxte12.Text
-        txta13 = txtTxta13.Text
-        txtb13 = txtTxtb13.Text
-        txtc13 = txtTxtc13.Text
-        txtd13 = txtTxtd13.Text
+        txta13 = DataGridView2(0, 12).Value
+        txtb13 = DataGridView2(1, 12).Value
+        txtc13 = DataGridView2(2, 12).Value
+        txtd13 = DataGridView2(3, 12).Value
         txte13 = cmbTxte13.Text
-        txta14 = txtTxta14.Text
-        txtb14 = txtTxtb14.Text
-        txtc14 = txtTxtc14.Text
-        txtd14 = txtTxtd14.Text
+        txta14 = DataGridView2(0, 13).Value
+        txtb14 = DataGridView2(1, 13).Value
+        txtc14 = DataGridView2(2, 13).Value
+        txtd14 = DataGridView2(3, 13).Value
         txte14 = txtTxte14.Text
-        txta15 = txtTxta15.Text
-        txtb15 = txtTxtb15.Text
-        txtc15 = txtTxtc15.Text
-        txtd15 = txtTxtd15.Text
+        txta15 = DataGridView2(0, 14).Value
+        txtb15 = DataGridView2(1, 14).Value
+        txtc15 = DataGridView2(2, 14).Value
+        txtd15 = DataGridView2(3, 14).Value
         txte15 = txtTxte15.Text
-        txta16 = txtTxta16.Text
-        txtb16 = txtTxtb16.Text
-        txtc16 = txtTxtc16.Text
-        txtd16 = txtTxtd16.Text
+        txta16 = DataGridView2(0, 15).Value
+        txtb16 = DataGridView2(1, 15).Value
+        txtc16 = DataGridView2(2, 15).Value
+        txtd16 = DataGridView2(3, 15).Value
         txte16 = cmbTxte16.Text
-        txta17 = txtTxta17.Text
-        txtb17 = txtTxtb17.Text
-        txtc17 = txtTxtc17.Text
-        txtd17 = txtTxtd17.Text
+        txta17 = DataGridView2(0, 16).Value
+        txtb17 = DataGridView2(1, 16).Value
+        txtc17 = DataGridView2(2, 16).Value
+        txtd17 = DataGridView2(3, 16).Value
         txte17 = txtTxte17.Text
-        txta18 = txtTxta18.Text
-        txtb18 = txtTxtb18.Text
-        txtc18 = txtTxtc18.Text
-        txtd18 = txtTxtd18.Text
+        txta18 = DataGridView2(0, 17).Value
+        txtb18 = DataGridView2(1, 17).Value
+        txtc18 = DataGridView2(2, 17).Value
+        txtd18 = DataGridView2(3, 17).Value
         txte18 = txtTxte18.Text
         tok1 = txtTok1.Text
         tok2 = txtTok2.Text
@@ -377,95 +441,95 @@ Public Class 計画書
         kad3 = txtKad3.Text
         tyo1 = txtTyo1.Text
         tyo2 = txtTyo2.Text
-        txta1 = txtTxta1.Text
-        txtb1 = txtTxtb1.Text
-        txtc1 = txtTxtc1.Text
-        txtd1 = txtTxtd1.Text
+        txta1 = DataGridView2(0, 0).Value
+        txtb1 = DataGridView2(1, 0).Value
+        txtc1 = DataGridView2(2, 0).Value
+        txtd1 = DataGridView2(3, 0).Value
         txte1 = cmbTxte1.Text
-        txta2 = txtTxta2.Text
-        txtb2 = txtTxtb2.Text
-        txtc2 = txtTxtc2.Text
-        txtd2 = txtTxtd2.Text
+        txta2 = DataGridView2(0, 1).Value
+        txtb2 = DataGridView2(1, 1).Value
+        txtc2 = DataGridView2(2, 1).Value
+        txtd2 = DataGridView2(3, 1).Value
         txte2 = txtTxte2.Text
-        txta3 = txtTxta3.Text
-        txtb3 = txtTxtb3.Text
-        txtc3 = txtTxtc3.Text
-        txtd3 = txtTxtd3.Text
+        txta3 = DataGridView2(0, 2).Value
+        txtb3 = DataGridView2(1, 2).Value
+        txtc3 = DataGridView2(2, 2).Value
+        txtd3 = DataGridView2(3, 2).Value
         txte3 = txtTxte3.Text
-        txta4 = txtTxta4.Text
-        txtb4 = txtTxtb4.Text
-        txtc4 = txtTxtc4.Text
-        txtd4 = txtTxtd4.Text
+        txta4 = DataGridView2(0, 3).Value
+        txtb4 = DataGridView2(1, 3).Value
+        txtc4 = DataGridView2(2, 3).Value
+        txtd4 = DataGridView2(3, 3).Value
         txte4 = cmbTxte4.Text
-        txta5 = txtTxta5.Text
-        txtb5 = txtTxtb5.Text
-        txtc5 = txtTxtc5.Text
-        txtd5 = txtTxtd5.Text
+        txta5 = DataGridView2(0, 4).Value
+        txtb5 = DataGridView2(1, 4).Value
+        txtc5 = DataGridView2(2, 4).Value
+        txtd5 = DataGridView2(3, 4).Value
         txte5 = txtTxte5.Text
-        txta6 = txtTxta6.Text
-        txtb6 = txtTxtb6.Text
-        txtc6 = txtTxtc6.Text
-        txtd6 = txtTxtd6.Text
+        txta6 = DataGridView2(0, 5).Value
+        txtb6 = DataGridView2(1, 5).Value
+        txtc6 = DataGridView2(2, 5).Value
+        txtd6 = DataGridView2(3, 5).Value
         txte6 = txtTxte6.Text
-        txta7 = txtTxta7.Text
-        txtb7 = txtTxtb7.Text
-        txtc7 = txtTxtc7.Text
-        txtd7 = txtTxtd7.Text
+        txta7 = DataGridView2(0, 6).Value
+        txtb7 = DataGridView2(1, 6).Value
+        txtc7 = DataGridView2(2, 6).Value
+        txtd7 = DataGridView2(3, 6).Value
         txte7 = cmbTxte7.Text
-        txta8 = txtTxta8.Text
-        txtb8 = txtTxtb8.Text
-        txtc8 = txtTxtc8.Text
-        txtd8 = txtTxtd8.Text
+        txta8 = DataGridView2(0, 7).Value
+        txtb8 = DataGridView2(1, 7).Value
+        txtc8 = DataGridView2(2, 7).Value
+        txtd8 = DataGridView2(3, 7).Value
         txte8 = txtTxte8.Text
-        txta9 = txtTxta9.Text
-        txtb9 = txtTxtb9.Text
-        txtc9 = txtTxtc9.Text
-        txtd9 = txtTxtd9.Text
+        txta9 = DataGridView2(0, 8).Value
+        txtb9 = DataGridView2(1, 8).Value
+        txtc9 = DataGridView2(2, 8).Value
+        txtd9 = DataGridView2(3, 8).Value
         txte9 = txtTxte9.Text
-        txta10 = txtTxta10.Text
-        txtb10 = txtTxtb10.Text
-        txtc10 = txtTxtc10.Text
-        txtd10 = txtTxtd10.Text
+        txta10 = DataGridView2(0, 9).Value
+        txtb10 = DataGridView2(1, 9).Value
+        txtc10 = DataGridView2(2, 9).Value
+        txtd10 = DataGridView2(3, 9).Value
         txte10 = cmbTxte10.Text
-        txta11 = txtTxta11.Text
-        txtb11 = txtTxtb11.Text
-        txtc11 = txtTxtc11.Text
-        txtd11 = txtTxtd11.Text
+        txta11 = DataGridView2(0, 10).Value
+        txtb11 = DataGridView2(1, 10).Value
+        txtc11 = DataGridView2(2, 10).Value
+        txtd11 = DataGridView2(3, 10).Value
         txte11 = txtTxte11.Text
-        txta12 = txtTxta12.Text
-        txtb12 = txtTxtb12.Text
-        txtc12 = txtTxtc12.Text
-        txtd12 = txtTxtd12.Text
+        txta12 = DataGridView2(0, 11).Value
+        txtb12 = DataGridView2(1, 11).Value
+        txtc12 = DataGridView2(2, 11).Value
+        txtd12 = DataGridView2(3, 11).Value
         txte12 = txtTxte12.Text
-        txta13 = txtTxta13.Text
-        txtb13 = txtTxtb13.Text
-        txtc13 = txtTxtc13.Text
-        txtd13 = txtTxtd13.Text
+        txta13 = DataGridView2(0, 12).Value
+        txtb13 = DataGridView2(1, 12).Value
+        txtc13 = DataGridView2(2, 12).Value
+        txtd13 = DataGridView2(3, 12).Value
         txte13 = cmbTxte13.Text
-        txta14 = txtTxta14.Text
-        txtb14 = txtTxtb14.Text
-        txtc14 = txtTxtc14.Text
-        txtd14 = txtTxtd14.Text
+        txta14 = DataGridView2(0, 13).Value
+        txtb14 = DataGridView2(1, 13).Value
+        txtc14 = DataGridView2(2, 13).Value
+        txtd14 = DataGridView2(3, 13).Value
         txte14 = txtTxte14.Text
-        txta15 = txtTxta15.Text
-        txtb15 = txtTxtb15.Text
-        txtc15 = txtTxtc15.Text
-        txtd15 = txtTxtd15.Text
+        txta15 = DataGridView2(0, 14).Value
+        txtb15 = DataGridView2(1, 14).Value
+        txtc15 = DataGridView2(2, 14).Value
+        txtd15 = DataGridView2(3, 14).Value
         txte15 = txtTxte15.Text
-        txta16 = txtTxta16.Text
-        txtb16 = txtTxtb16.Text
-        txtc16 = txtTxtc16.Text
-        txtd16 = txtTxtd16.Text
+        txta16 = DataGridView2(0, 15).Value
+        txtb16 = DataGridView2(1, 15).Value
+        txtc16 = DataGridView2(2, 15).Value
+        txtd16 = DataGridView2(3, 15).Value
         txte16 = cmbTxte16.Text
-        txta17 = txtTxta17.Text
-        txtb17 = txtTxtb17.Text
-        txtc17 = txtTxtc17.Text
-        txtd17 = txtTxtd17.Text
+        txta17 = DataGridView2(0, 16).Value
+        txtb17 = DataGridView2(1, 16).Value
+        txtc17 = DataGridView2(2, 16).Value
+        txtd17 = DataGridView2(3, 16).Value
         txte17 = txtTxte17.Text
-        txta18 = txtTxta18.Text
-        txtb18 = txtTxtb18.Text
-        txtc18 = txtTxtc18.Text
-        txtd18 = txtTxtd18.Text
+        txta18 = DataGridView2(0, 17).Value
+        txtb18 = DataGridView2(1, 17).Value
+        txtc18 = DataGridView2(2, 17).Value
+        txtd18 = DataGridView2(3, 17).Value
         txte18 = txtTxte18.Text
         tok1 = txtTok1.Text
         tok2 = txtTok2.Text
@@ -665,4 +729,6 @@ Public Class 計画書
 
         YmdBox1.setADStr(Today.ToString("yyyy/MM/dd"))
     End Sub
+
+   
 End Class
