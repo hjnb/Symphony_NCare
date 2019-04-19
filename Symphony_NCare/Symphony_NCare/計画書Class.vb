@@ -2,6 +2,7 @@
 Imports System.Windows.Forms
 Public Class 計画書Class
     Inherits DataGridView
+
     Public Overrides Function GetClipboardContent() As DataObject
         '元のDataObjectを取得する
         Dim oldData As DataObject = MyBase.GetClipboardContent()

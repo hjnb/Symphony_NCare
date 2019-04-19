@@ -46,30 +46,6 @@ Partial Class 計画書
         Me.txtKad3 = New System.Windows.Forms.TextBox()
         Me.txtTyo1 = New System.Windows.Forms.TextBox()
         Me.txtTyo2 = New System.Windows.Forms.TextBox()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Label19 = New System.Windows.Forms.Label()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.txtTxte18 = New System.Windows.Forms.TextBox()
-        Me.txtTxte17 = New System.Windows.Forms.TextBox()
-        Me.cmbTxte16 = New System.Windows.Forms.ComboBox()
-        Me.txtTxte15 = New System.Windows.Forms.TextBox()
-        Me.txtTxte14 = New System.Windows.Forms.TextBox()
-        Me.cmbTxte13 = New System.Windows.Forms.ComboBox()
-        Me.txtTxte12 = New System.Windows.Forms.TextBox()
-        Me.txtTxte11 = New System.Windows.Forms.TextBox()
-        Me.cmbTxte10 = New System.Windows.Forms.ComboBox()
-        Me.txtTxte9 = New System.Windows.Forms.TextBox()
-        Me.txtTxte8 = New System.Windows.Forms.TextBox()
-        Me.cmbTxte7 = New System.Windows.Forms.ComboBox()
-        Me.txtTxte6 = New System.Windows.Forms.TextBox()
-        Me.txtTxte5 = New System.Windows.Forms.TextBox()
-        Me.cmbTxte4 = New System.Windows.Forms.ComboBox()
-        Me.txtTxte3 = New System.Windows.Forms.TextBox()
-        Me.txtTxte2 = New System.Windows.Forms.TextBox()
-        Me.cmbTxte1 = New System.Windows.Forms.ComboBox()
         Me.TextBox98 = New System.Windows.Forms.TextBox()
         Me.TextBox99 = New System.Windows.Forms.TextBox()
         Me.TextBox100 = New System.Windows.Forms.TextBox()
@@ -98,7 +74,6 @@ Partial Class 計画書
         Me.Label24 = New System.Windows.Forms.Label()
         Me.DataGridView2 = New Symphony_NCare.計画書Class()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -315,235 +290,6 @@ Partial Class 計画書
         Me.txtTyo2.Size = New System.Drawing.Size(775, 19)
         Me.txtTyo2.TabIndex = 23
         '
-        'Panel1
-        '
-        Me.Panel1.AutoScroll = True
-        Me.Panel1.Controls.Add(Me.Label19)
-        Me.Panel1.Controls.Add(Me.Label18)
-        Me.Panel1.Controls.Add(Me.Label17)
-        Me.Panel1.Controls.Add(Me.Label16)
-        Me.Panel1.Controls.Add(Me.Label15)
-        Me.Panel1.Controls.Add(Me.txtTxte18)
-        Me.Panel1.Controls.Add(Me.txtTxte17)
-        Me.Panel1.Controls.Add(Me.cmbTxte16)
-        Me.Panel1.Controls.Add(Me.txtTxte15)
-        Me.Panel1.Controls.Add(Me.txtTxte14)
-        Me.Panel1.Controls.Add(Me.cmbTxte13)
-        Me.Panel1.Controls.Add(Me.txtTxte12)
-        Me.Panel1.Controls.Add(Me.txtTxte11)
-        Me.Panel1.Controls.Add(Me.cmbTxte10)
-        Me.Panel1.Controls.Add(Me.txtTxte9)
-        Me.Panel1.Controls.Add(Me.txtTxte8)
-        Me.Panel1.Controls.Add(Me.cmbTxte7)
-        Me.Panel1.Controls.Add(Me.txtTxte6)
-        Me.Panel1.Controls.Add(Me.txtTxte5)
-        Me.Panel1.Controls.Add(Me.cmbTxte4)
-        Me.Panel1.Controls.Add(Me.txtTxte3)
-        Me.Panel1.Controls.Add(Me.txtTxte2)
-        Me.Panel1.Controls.Add(Me.cmbTxte1)
-        Me.Panel1.Controls.Add(Me.DataGridView2)
-        Me.Panel1.Location = New System.Drawing.Point(24, 463)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(973, 111)
-        Me.Panel1.TabIndex = 24
-        '
-        'Label19
-        '
-        Me.Label19.BackColor = System.Drawing.Color.Blue
-        Me.Label19.ForeColor = System.Drawing.Color.Blue
-        Me.Label19.Location = New System.Drawing.Point(0, 271)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(956, 1)
-        Me.Label19.TabIndex = 93
-        '
-        'Label18
-        '
-        Me.Label18.BackColor = System.Drawing.Color.Blue
-        Me.Label18.ForeColor = System.Drawing.Color.Blue
-        Me.Label18.Location = New System.Drawing.Point(0, 217)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(956, 1)
-        Me.Label18.TabIndex = 92
-        '
-        'Label17
-        '
-        Me.Label17.BackColor = System.Drawing.Color.Blue
-        Me.Label17.ForeColor = System.Drawing.Color.Blue
-        Me.Label17.Location = New System.Drawing.Point(-2, 163)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(956, 1)
-        Me.Label17.TabIndex = 90
-        '
-        'Label16
-        '
-        Me.Label16.BackColor = System.Drawing.Color.Blue
-        Me.Label16.ForeColor = System.Drawing.Color.Blue
-        Me.Label16.Location = New System.Drawing.Point(0, 109)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(956, 1)
-        Me.Label16.TabIndex = 47
-        '
-        'Label15
-        '
-        Me.Label15.BackColor = System.Drawing.Color.Blue
-        Me.Label15.ForeColor = System.Drawing.Color.Blue
-        Me.Label15.Location = New System.Drawing.Point(0, 55)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(956, 1)
-        Me.Label15.TabIndex = 46
-        '
-        'txtTxte18
-        '
-        Me.txtTxte18.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxte18.Location = New System.Drawing.Point(891, 307)
-        Me.txtTxte18.Name = "txtTxte18"
-        Me.txtTxte18.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxte18.TabIndex = 89
-        '
-        'txtTxte17
-        '
-        Me.txtTxte17.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxte17.Location = New System.Drawing.Point(891, 289)
-        Me.txtTxte17.Name = "txtTxte17"
-        Me.txtTxte17.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxte17.TabIndex = 88
-        '
-        'cmbTxte16
-        '
-        Me.cmbTxte16.FormattingEnabled = True
-        Me.cmbTxte16.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.cmbTxte16.Items.AddRange(New Object() {"３ヶ月"})
-        Me.cmbTxte16.Location = New System.Drawing.Point(891, 271)
-        Me.cmbTxte16.Name = "cmbTxte16"
-        Me.cmbTxte16.Size = New System.Drawing.Size(65, 20)
-        Me.cmbTxte16.TabIndex = 87
-        '
-        'txtTxte15
-        '
-        Me.txtTxte15.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxte15.Location = New System.Drawing.Point(891, 253)
-        Me.txtTxte15.Name = "txtTxte15"
-        Me.txtTxte15.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxte15.TabIndex = 86
-        '
-        'txtTxte14
-        '
-        Me.txtTxte14.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxte14.Location = New System.Drawing.Point(891, 235)
-        Me.txtTxte14.Name = "txtTxte14"
-        Me.txtTxte14.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxte14.TabIndex = 85
-        '
-        'cmbTxte13
-        '
-        Me.cmbTxte13.FormattingEnabled = True
-        Me.cmbTxte13.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.cmbTxte13.Items.AddRange(New Object() {"３ヶ月"})
-        Me.cmbTxte13.Location = New System.Drawing.Point(891, 217)
-        Me.cmbTxte13.Name = "cmbTxte13"
-        Me.cmbTxte13.Size = New System.Drawing.Size(65, 20)
-        Me.cmbTxte13.TabIndex = 84
-        '
-        'txtTxte12
-        '
-        Me.txtTxte12.Location = New System.Drawing.Point(891, 199)
-        Me.txtTxte12.Name = "txtTxte12"
-        Me.txtTxte12.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxte12.TabIndex = 83
-        '
-        'txtTxte11
-        '
-        Me.txtTxte11.Location = New System.Drawing.Point(891, 181)
-        Me.txtTxte11.Name = "txtTxte11"
-        Me.txtTxte11.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxte11.TabIndex = 82
-        '
-        'cmbTxte10
-        '
-        Me.cmbTxte10.FormattingEnabled = True
-        Me.cmbTxte10.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.cmbTxte10.Items.AddRange(New Object() {"３ヶ月"})
-        Me.cmbTxte10.Location = New System.Drawing.Point(891, 163)
-        Me.cmbTxte10.Name = "cmbTxte10"
-        Me.cmbTxte10.Size = New System.Drawing.Size(65, 20)
-        Me.cmbTxte10.TabIndex = 81
-        '
-        'txtTxte9
-        '
-        Me.txtTxte9.Location = New System.Drawing.Point(891, 145)
-        Me.txtTxte9.Name = "txtTxte9"
-        Me.txtTxte9.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxte9.TabIndex = 80
-        '
-        'txtTxte8
-        '
-        Me.txtTxte8.Location = New System.Drawing.Point(891, 127)
-        Me.txtTxte8.Name = "txtTxte8"
-        Me.txtTxte8.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxte8.TabIndex = 79
-        '
-        'cmbTxte7
-        '
-        Me.cmbTxte7.FormattingEnabled = True
-        Me.cmbTxte7.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.cmbTxte7.Items.AddRange(New Object() {"３ヶ月"})
-        Me.cmbTxte7.Location = New System.Drawing.Point(891, 109)
-        Me.cmbTxte7.Name = "cmbTxte7"
-        Me.cmbTxte7.Size = New System.Drawing.Size(65, 20)
-        Me.cmbTxte7.TabIndex = 78
-        '
-        'txtTxte6
-        '
-        Me.txtTxte6.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxte6.Location = New System.Drawing.Point(891, 91)
-        Me.txtTxte6.Name = "txtTxte6"
-        Me.txtTxte6.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxte6.TabIndex = 77
-        '
-        'txtTxte5
-        '
-        Me.txtTxte5.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxte5.Location = New System.Drawing.Point(891, 73)
-        Me.txtTxte5.Name = "txtTxte5"
-        Me.txtTxte5.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxte5.TabIndex = 76
-        '
-        'cmbTxte4
-        '
-        Me.cmbTxte4.FormattingEnabled = True
-        Me.cmbTxte4.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.cmbTxte4.Items.AddRange(New Object() {"３ヶ月"})
-        Me.cmbTxte4.Location = New System.Drawing.Point(891, 55)
-        Me.cmbTxte4.Name = "cmbTxte4"
-        Me.cmbTxte4.Size = New System.Drawing.Size(65, 20)
-        Me.cmbTxte4.TabIndex = 75
-        '
-        'txtTxte3
-        '
-        Me.txtTxte3.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxte3.Location = New System.Drawing.Point(891, 37)
-        Me.txtTxte3.Name = "txtTxte3"
-        Me.txtTxte3.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxte3.TabIndex = 74
-        '
-        'txtTxte2
-        '
-        Me.txtTxte2.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.txtTxte2.Location = New System.Drawing.Point(891, 19)
-        Me.txtTxte2.Name = "txtTxte2"
-        Me.txtTxte2.Size = New System.Drawing.Size(65, 19)
-        Me.txtTxte2.TabIndex = 73
-        '
-        'cmbTxte1
-        '
-        Me.cmbTxte1.FormattingEnabled = True
-        Me.cmbTxte1.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.cmbTxte1.Items.AddRange(New Object() {"３ヶ月"})
-        Me.cmbTxte1.Location = New System.Drawing.Point(891, 1)
-        Me.cmbTxte1.Name = "cmbTxte1"
-        Me.cmbTxte1.Size = New System.Drawing.Size(65, 20)
-        Me.cmbTxte1.TabIndex = 72
-        '
         'TextBox98
         '
         Me.TextBox98.BackColor = System.Drawing.SystemColors.Control
@@ -572,14 +318,14 @@ Partial Class 計画書
         Me.TextBox100.Location = New System.Drawing.Point(787, 446)
         Me.TextBox100.Name = "TextBox100"
         Me.TextBox100.ReadOnly = True
-        Me.TextBox100.Size = New System.Drawing.Size(65, 19)
+        Me.TextBox100.Size = New System.Drawing.Size(69, 19)
         Me.TextBox100.TabIndex = 27
         Me.TextBox100.Text = "担当者"
         Me.TextBox100.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TextBox101
         '
-        Me.TextBox101.Location = New System.Drawing.Point(851, 446)
+        Me.TextBox101.Location = New System.Drawing.Point(855, 446)
         Me.TextBox101.Name = "TextBox101"
         Me.TextBox101.ReadOnly = True
         Me.TextBox101.Size = New System.Drawing.Size(65, 19)
@@ -589,7 +335,7 @@ Partial Class 計画書
         '
         'TextBox102
         '
-        Me.TextBox102.Location = New System.Drawing.Point(915, 446)
+        Me.TextBox102.Location = New System.Drawing.Point(919, 446)
         Me.TextBox102.Name = "TextBox102"
         Me.TextBox102.ReadOnly = True
         Me.TextBox102.Size = New System.Drawing.Size(65, 19)
@@ -800,23 +546,25 @@ Partial Class 計画書
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DataGridView2.DefaultCellStyle = DataGridViewCellStyle1
-        Me.DataGridView2.Location = New System.Drawing.Point(0, 0)
+        Me.DataGridView2.Location = New System.Drawing.Point(24, 464)
         Me.DataGridView2.Name = "DataGridView2"
         Me.DataGridView2.RowHeadersVisible = False
         Me.DataGridView2.RowTemplate.Height = 21
-        Me.DataGridView2.Size = New System.Drawing.Size(893, 327)
+        Me.DataGridView2.Size = New System.Drawing.Size(978, 111)
         Me.DataGridView2.TabIndex = 94
         '
         '計画書
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(1520, 994)
         Me.Controls.Add(Me.Label24)
         Me.Controls.Add(Me.Label23)
         Me.Controls.Add(Me.Label22)
         Me.Controls.Add(Me.Label20)
         Me.Controls.Add(Me.Label21)
+        Me.Controls.Add(Me.DataGridView2)
         Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.Label12)
@@ -838,7 +586,6 @@ Partial Class 計画書
         Me.Controls.Add(Me.TextBox100)
         Me.Controls.Add(Me.TextBox99)
         Me.Controls.Add(Me.TextBox98)
-        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.txtTyo2)
         Me.Controls.Add(Me.txtTyo1)
         Me.Controls.Add(Me.txtKad3)
@@ -865,8 +612,6 @@ Partial Class 計画書
         Me.Name = "計画書"
         Me.Text = "計画書"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -895,25 +640,6 @@ Partial Class 計画書
     Friend WithEvents txtKad3 As System.Windows.Forms.TextBox
     Friend WithEvents txtTyo1 As System.Windows.Forms.TextBox
     Friend WithEvents txtTyo2 As System.Windows.Forms.TextBox
-    Friend WithEvents Panel1 As System.Windows.Forms.Panel
-    Friend WithEvents txtTxte18 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxte17 As System.Windows.Forms.TextBox
-    Friend WithEvents cmbTxte16 As System.Windows.Forms.ComboBox
-    Friend WithEvents txtTxte15 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxte14 As System.Windows.Forms.TextBox
-    Friend WithEvents cmbTxte13 As System.Windows.Forms.ComboBox
-    Friend WithEvents txtTxte12 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxte11 As System.Windows.Forms.TextBox
-    Friend WithEvents cmbTxte10 As System.Windows.Forms.ComboBox
-    Friend WithEvents txtTxte9 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxte8 As System.Windows.Forms.TextBox
-    Friend WithEvents cmbTxte7 As System.Windows.Forms.ComboBox
-    Friend WithEvents txtTxte6 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxte5 As System.Windows.Forms.TextBox
-    Friend WithEvents cmbTxte4 As System.Windows.Forms.ComboBox
-    Friend WithEvents txtTxte3 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTxte2 As System.Windows.Forms.TextBox
-    Friend WithEvents cmbTxte1 As System.Windows.Forms.ComboBox
     Friend WithEvents TextBox98 As System.Windows.Forms.TextBox
     Friend WithEvents TextBox99 As System.Windows.Forms.TextBox
     Friend WithEvents TextBox100 As System.Windows.Forms.TextBox
@@ -935,15 +661,10 @@ Partial Class 計画書
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents Label14 As System.Windows.Forms.Label
-    Friend WithEvents Label17 As System.Windows.Forms.Label
-    Friend WithEvents Label16 As System.Windows.Forms.Label
-    Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents Label24 As System.Windows.Forms.Label
-    Friend WithEvents Label19 As System.Windows.Forms.Label
-    Friend WithEvents Label18 As System.Windows.Forms.Label
     Friend WithEvents DataGridView2 As Symphony_NCare.計画書Class
 End Class
