@@ -306,6 +306,7 @@ Partial Class topform
         Me.DataGridView1.Location = New System.Drawing.Point(100, 63)
         Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.Size = New System.Drawing.Size(140, 212)
         Me.DataGridView1.TabIndex = 24

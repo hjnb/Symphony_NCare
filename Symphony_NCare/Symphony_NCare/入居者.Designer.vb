@@ -168,6 +168,7 @@ Partial Class 入居者
         Me.DataGridView1.Location = New System.Drawing.Point(34, 273)
         Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersWidth = 25
         Me.DataGridView1.RowTemplate.Height = 21
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -204,7 +205,7 @@ Partial Class 入居者
         Me.ymdboxBirth.EraLabelText = "H31"
         Me.ymdboxBirth.EraText = ""
         Me.ymdboxBirth.Location = New System.Drawing.Point(111, 102)
-        Me.ymdboxBirth.MonthLabelText = "01"
+        Me.ymdboxBirth.MonthLabelText = "04"
         Me.ymdboxBirth.MonthText = ""
         Me.ymdboxBirth.Name = "ymdboxBirth"
         Me.ymdboxBirth.Size = New System.Drawing.Size(101, 29)
@@ -226,7 +227,7 @@ Partial Class 入居者
         Me.ymdboxYmd.EraLabelText = "H31"
         Me.ymdboxYmd.EraText = ""
         Me.ymdboxYmd.Location = New System.Drawing.Point(111, 159)
-        Me.ymdboxYmd.MonthLabelText = "01"
+        Me.ymdboxYmd.MonthLabelText = "04"
         Me.ymdboxYmd.MonthText = ""
         Me.ymdboxYmd.Name = "ymdboxYmd"
         Me.ymdboxYmd.Size = New System.Drawing.Size(86, 20)
