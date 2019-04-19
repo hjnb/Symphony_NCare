@@ -215,10 +215,10 @@ Public Class ＳＳ食数
         '空を表示
         DataGridView3.DataSource = DGV3Table
         'データグリッドビューの各セルの設定
-        DataGridView3.Columns(0).Width = 40
+        DataGridView3.Columns(0).Width = 30
         For i As Integer = 1 To 31
             With DataGridView3.Columns(i)
-                .Width = 25
+                .Width = 30
                 .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
             End With
         Next
