@@ -230,9 +230,9 @@ Public Class 身長体重
             Dim Str As String = Controls("lblDGV" & i & "PSC").Text.Remove(mojisuu - 1, 1)
             Dim personcount As Integer = Val(Str)
             For row As Integer = 0 To personcount - 1
-                nam = DGVType(1, row).Value
+                nam = Util.checkDBNullValue(DGVType(1, row).Value)
                 ym = YmdBox1.getADYmStr()
-                weight = DGVType(2, row).Value
+                weight = Util.checkDBNullValue(DGVType(2, row).Value)
                 SQL = "INSERT INTO Dat9 VALUES ('" & nam & "', '" & ym & "', '" & weight & "')"
                 cnn.Execute(SQL)
             Next
