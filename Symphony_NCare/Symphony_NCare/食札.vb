@@ -733,7 +733,7 @@ Public Class 食札
                 End If
             End If
             If i <= 10 Then
-                tokki = DataGridView3(0, i - 1).Value
+                tokki = Util.checkDBNullValue(DataGridView3(0, i - 1).Value)
             End If
 
             Dim SQL As String = ""
