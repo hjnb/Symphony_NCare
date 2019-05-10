@@ -605,7 +605,7 @@ Public Class ＳＳ食数
             Dim xlPasteRange As Excel.Range = oSheet.Range("A65") 'ペースト先
             oSheet.rows("1:64").copy(xlPasteRange)
             oSheet.Range("B66").Value = YmdBox1.getWarekiKanji() & " " & Strings.Mid(Util.convADStrToWarekiStr(YmdBox1.getADStr()), 2, 2) & " 年 " & Strings.Mid(YmdBox1.getADStr(), 6, 2) & " 月 "
-        ElseIf DGV2RowCount > 20 Then
+        ElseIf DGV2RowCount > 20 AndAlso DGV2RowCount <= 30 Then
             '3枚
             Dim xlPasteRange As Excel.Range = oSheet.Range("A65") 'ペースト先
             oSheet.rows("1:64").copy(xlPasteRange)
@@ -613,6 +613,31 @@ Public Class ＳＳ食数
             oSheet.rows("1:64").copy(xlPasteRange2)
             oSheet.Range("B66").Value = YmdBox1.getWarekiKanji() & " " & Strings.Mid(Util.convADStrToWarekiStr(YmdBox1.getADStr()), 2, 2) & " 年 " & Strings.Mid(YmdBox1.getADStr(), 6, 2) & " 月 "
             oSheet.Range("B130").Value = YmdBox1.getWarekiKanji() & " " & Strings.Mid(Util.convADStrToWarekiStr(YmdBox1.getADStr()), 2, 2) & " 年 " & Strings.Mid(YmdBox1.getADStr(), 6, 2) & " 月 "
+        ElseIf DGV2RowCount > 30 AndAlso DGV2RowCount <= 40 Then
+            '4枚
+            Dim xlPasteRange As Excel.Range = oSheet.Range("A65") 'ペースト先
+            oSheet.rows("1:64").copy(xlPasteRange)
+            Dim xlPasteRange2 As Excel.Range = oSheet.Range("A129") 'ペースト先
+            oSheet.rows("1:64").copy(xlPasteRange2)
+            Dim xlPasteRange3 As Excel.Range = oSheet.Range("A193") 'ペースト先
+            oSheet.rows("1:64").copy(xlPasteRange3)
+            oSheet.Range("B66").Value = YmdBox1.getWarekiKanji() & " " & Strings.Mid(Util.convADStrToWarekiStr(YmdBox1.getADStr()), 2, 2) & " 年 " & Strings.Mid(YmdBox1.getADStr(), 6, 2) & " 月 "
+            oSheet.Range("B130").Value = YmdBox1.getWarekiKanji() & " " & Strings.Mid(Util.convADStrToWarekiStr(YmdBox1.getADStr()), 2, 2) & " 年 " & Strings.Mid(YmdBox1.getADStr(), 6, 2) & " 月 "
+            oSheet.Range("B194").Value = YmdBox1.getWarekiKanji() & " " & Strings.Mid(Util.convADStrToWarekiStr(YmdBox1.getADStr()), 2, 2) & " 年 " & Strings.Mid(YmdBox1.getADStr(), 6, 2) & " 月 "
+        ElseIf DGV2RowCount > 40 Then
+            '5枚
+            Dim xlPasteRange As Excel.Range = oSheet.Range("A65") 'ペースト先
+            oSheet.rows("1:64").copy(xlPasteRange)
+            Dim xlPasteRange2 As Excel.Range = oSheet.Range("A129") 'ペースト先
+            oSheet.rows("1:64").copy(xlPasteRange2)
+            Dim xlPasteRange3 As Excel.Range = oSheet.Range("A193") 'ペースト先
+            oSheet.rows("1:64").copy(xlPasteRange3)
+            Dim xlPasteRange4 As Excel.Range = oSheet.Range("A257") 'ペースト先
+            oSheet.rows("1:64").copy(xlPasteRange4)
+            oSheet.Range("B66").Value = YmdBox1.getWarekiKanji() & " " & Strings.Mid(Util.convADStrToWarekiStr(YmdBox1.getADStr()), 2, 2) & " 年 " & Strings.Mid(YmdBox1.getADStr(), 6, 2) & " 月 "
+            oSheet.Range("B130").Value = YmdBox1.getWarekiKanji() & " " & Strings.Mid(Util.convADStrToWarekiStr(YmdBox1.getADStr()), 2, 2) & " 年 " & Strings.Mid(YmdBox1.getADStr(), 6, 2) & " 月 "
+            oSheet.Range("B194").Value = YmdBox1.getWarekiKanji() & " " & Strings.Mid(Util.convADStrToWarekiStr(YmdBox1.getADStr()), 2, 2) & " 年 " & Strings.Mid(YmdBox1.getADStr(), 6, 2) & " 月 "
+            oSheet.Range("B258").Value = YmdBox1.getWarekiKanji() & " " & Strings.Mid(Util.convADStrToWarekiStr(YmdBox1.getADStr()), 2, 2) & " 年 " & Strings.Mid(YmdBox1.getADStr(), 6, 2) & " 月 "
         End If
 
         For NameNumber As Integer = 0 To DGV2RowCount - 1
@@ -667,8 +692,8 @@ Public Class ＳＳ食数
                 Next
                 oSheet.Range("C" & NameNumber * 6 + 9, "AG" & NameNumber * 6 + 12).Value = cell
 
-            ElseIf NameNumber >= 20 Then
-                oSheet.Range("B" & NameNumber * 6 + 10).Value = nam
+            ElseIf NameNumber >= 20 AndAlso NameNumber < 30 Then
+                oSheet.Range("B" & NameNumber * 6 + 12).Value = nam
                 For row As Integer = 0 To 3
                     For col As Integer = 1 To Getumatu
                         If row = 0 Then
@@ -689,6 +714,52 @@ Public Class ＳＳ食数
                     Next
                 Next
                 oSheet.Range("C" & NameNumber * 6 + 13, "AG" & NameNumber * 6 + 16).Value = cell
+
+            ElseIf NameNumber >= 30 AndAlso NameNumber < 40 Then
+                oSheet.Range("B" & NameNumber * 6 + 16).Value = nam
+                For row As Integer = 0 To 3
+                    For col As Integer = 1 To Getumatu
+                        If row = 0 Then
+                            cell(row, col - 1) = col
+                        Else
+                            For i As Integer = 0 To DataGridView4.Rows.Count - 1
+                                If DataGridView4(3, i).Value = col Then
+                                    Value = DataGridView4(row + 3, i).Value
+                                    If Value = "1" Then
+                                        Value = "■"
+                                    Else
+                                        Value = ""
+                                    End If
+                                    cell(row, col - 1) = Value
+                                End If
+                            Next
+                        End If
+                    Next
+                Next
+                oSheet.Range("C" & NameNumber * 6 + 17, "AG" & NameNumber * 6 + 20).Value = cell
+
+            ElseIf NameNumber >= 40 Then
+                oSheet.Range("B" & NameNumber * 6 + 20).Value = nam
+                For row As Integer = 0 To 3
+                    For col As Integer = 1 To Getumatu
+                        If row = 0 Then
+                            cell(row, col - 1) = col
+                        Else
+                            For i As Integer = 0 To DataGridView4.Rows.Count - 1
+                                If DataGridView4(3, i).Value = col Then
+                                    Value = DataGridView4(row + 3, i).Value
+                                    If Value = "1" Then
+                                        Value = "■"
+                                    Else
+                                        Value = ""
+                                    End If
+                                    cell(row, col - 1) = Value
+                                End If
+                            Next
+                        End If
+                    Next
+                Next
+                oSheet.Range("C" & NameNumber * 6 + 21, "AG" & NameNumber * 6 + 24).Value = cell
             End If
 
         Next
