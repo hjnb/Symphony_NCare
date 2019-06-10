@@ -576,14 +576,15 @@ Partial Class 食札
         '
         Me.YmdBoxStart.boxType = 2
         Me.YmdBoxStart.DateText = ""
-        Me.YmdBoxStart.EraLabelText = "H31"
+        Me.YmdBoxStart.EraLabelText = "R01"
         Me.YmdBoxStart.EraText = ""
         Me.YmdBoxStart.Location = New System.Drawing.Point(245, 393)
-        Me.YmdBoxStart.MonthLabelText = "03"
+        Me.YmdBoxStart.MonthLabelText = "06"
         Me.YmdBoxStart.MonthText = ""
         Me.YmdBoxStart.Name = "YmdBoxStart"
         Me.YmdBoxStart.Size = New System.Drawing.Size(110, 34)
         Me.YmdBoxStart.TabIndex = 38
+        Me.YmdBoxStart.textReadOnly = False
         '
         'cmbStrt
         '
@@ -609,14 +610,15 @@ Partial Class 食札
         '
         Me.YmdBoxEND.boxType = 2
         Me.YmdBoxEND.DateText = ""
-        Me.YmdBoxEND.EraLabelText = "H31"
+        Me.YmdBoxEND.EraLabelText = "R01"
         Me.YmdBoxEND.EraText = ""
         Me.YmdBoxEND.Location = New System.Drawing.Point(523, 393)
-        Me.YmdBoxEND.MonthLabelText = "03"
+        Me.YmdBoxEND.MonthLabelText = "06"
         Me.YmdBoxEND.MonthText = ""
         Me.YmdBoxEND.Name = "YmdBoxEND"
         Me.YmdBoxEND.Size = New System.Drawing.Size(110, 34)
         Me.YmdBoxEND.TabIndex = 41
+        Me.YmdBoxEND.textReadOnly = False
         Me.YmdBoxEND.Visible = False
         '
         'chkCng

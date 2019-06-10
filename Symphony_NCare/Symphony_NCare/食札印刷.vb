@@ -55,35 +55,43 @@ Public Class 食札印刷
                 Dim D6 As String = ""
                 Dim D7 As String = ""
                 For i As Integer = 0 To CType(Me.Owner, 食札).DataGridView6.Rows.Count - 1
-                    If i < 4 Then
-                        If CType(Me.Owner, 食札).DataGridView6(4, i).Value <> "" Then
-                            If D5 = "" Then
-                                D5 = CType(Me.Owner, 食札).DataGridView6(4, i).Value
-                            Else
-                                D5 = D5 & "/" & CType(Me.Owner, 食札).DataGridView6(4, i).Value
-                            End If
-                        End If
-                    ElseIf i < 8 Then
-                        If CType(Me.Owner, 食札).DataGridView6(4, i).Value <> "" Then
-                            If D6 = "" Then
-                                D6 = CType(Me.Owner, 食札).DataGridView6(4, i).Value
-                            Else
-                                D6 = D6 & "/" & CType(Me.Owner, 食札).DataGridView6(4, i).Value
-                            End If
-                        End If
-                    Else
-                        If CType(Me.Owner, 食札).DataGridView6(4, i).Value <> "" Then
-                            If D7 = "" Then
-                                D7 = CType(Me.Owner, 食札).DataGridView6(4, i).Value
-                            Else
-                                D7 = D7 & "/" & CType(Me.Owner, 食札).DataGridView6(4, i).Value
-                            End If
+                    If CType(Me.Owner, 食札).DataGridView6(4, i).Value <> "" Then
+                        If D5 = "" Then
+                            D5 = CType(Me.Owner, 食札).DataGridView6(4, i).Value
+                        Else
+                            D5 = D5 & "/" & CType(Me.Owner, 食札).DataGridView6(4, i).Value
                         End If
                     End If
+
+                        '    If i < 3 Then
+                        '        If CType(Me.Owner, 食札).DataGridView6(4, i).Value <> "" Then
+                        '            If D5 = "" Then
+                        '                D5 = CType(Me.Owner, 食札).DataGridView6(4, i).Value
+                        '            Else
+                        '                D5 = D5 & "/" & CType(Me.Owner, 食札).DataGridView6(4, i).Value
+                        '            End If
+                        '        End If
+                        '    ElseIf i < 6 Then
+                        '        If CType(Me.Owner, 食札).DataGridView6(4, i).Value <> "" Then
+                        '            If D6 = "" Then
+                        '                D6 = CType(Me.Owner, 食札).DataGridView6(4, i).Value
+                        '            Else
+                        '                D6 = D6 & "/" & CType(Me.Owner, 食札).DataGridView6(4, i).Value
+                        '            End If
+                        '        End If
+                        '    Else
+                        '        If CType(Me.Owner, 食札).DataGridView6(4, i).Value <> "" Then
+                        '            If D7 = "" Then
+                        '                D7 = CType(Me.Owner, 食札).DataGridView6(4, i).Value
+                        '            Else
+                        '                D7 = D7 & "/" & CType(Me.Owner, 食札).DataGridView6(4, i).Value
+                        '            End If
+                        '        End If
+                        '    End If
                 Next
                 oSheet.Range("D5").Value = D5
-                oSheet.Range("D6").Value = D6
-                oSheet.Range("D7").Value = D7
+                'oSheet.Range("D6").Value = D6
+                'oSheet.Range("D7").Value = D7
                 Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                 Dim asaPicture As Excel.Picture
                 Dim asapath As String = ""
@@ -226,36 +234,44 @@ Public Class 食札印刷
                 Dim D3 As String = ""
                 Dim D4 As String = ""
                 Dim D5 As String = ""
+
                 For i As Integer = 0 To CType(Me.Owner, 食札).DataGridView6.Rows.Count - 1
-                    If i < 4 Then
-                        If CType(Me.Owner, 食札).DataGridView6(4, i).Value <> "" Then
-                            If D3 = "" Then
-                                D3 = CType(Me.Owner, 食札).DataGridView6(4, i).Value
-                            Else
-                                D3 = D3 & "/" & CType(Me.Owner, 食札).DataGridView6(4, i).Value
-                            End If
-                        End If
-                    ElseIf i < 8 Then
-                        If CType(Me.Owner, 食札).DataGridView6(4, i).Value <> "" Then
-                            If D4 = "" Then
-                                D4 = CType(Me.Owner, 食札).DataGridView6(4, i).Value
-                            Else
-                                D4 = D4 & "/" & CType(Me.Owner, 食札).DataGridView6(4, i).Value
-                            End If
-                        End If
-                    Else
-                        If CType(Me.Owner, 食札).DataGridView6(4, i).Value <> "" Then
-                            If D5 = "" Then
-                                D5 = CType(Me.Owner, 食札).DataGridView6(4, i).Value
-                            Else
-                                D5 = D5 & "/" & CType(Me.Owner, 食札).DataGridView6(4, i).Value
-                            End If
+                    If CType(Me.Owner, 食札).DataGridView6(4, i).Value <> "" Then
+                        If D3 = "" Then
+                            D3 = CType(Me.Owner, 食札).DataGridView6(4, i).Value
+                        Else
+                            D3 = D3 & "/" & CType(Me.Owner, 食札).DataGridView6(4, i).Value
                         End If
                     End If
+                    'If i < 3 Then
+                    '    If CType(Me.Owner, 食札).DataGridView6(4, i).Value <> "" Then
+                    '        If D3 = "" Then
+                    '            D3 = CType(Me.Owner, 食札).DataGridView6(4, i).Value
+                    '        Else
+                    '            D3 = D3 & "/" & CType(Me.Owner, 食札).DataGridView6(4, i).Value
+                    '        End If
+                    '    End If
+                    'ElseIf i < 6 Then
+                    '    If CType(Me.Owner, 食札).DataGridView6(4, i).Value <> "" Then
+                    '        If D4 = "" Then
+                    '            D4 = CType(Me.Owner, 食札).DataGridView6(4, i).Value
+                    '        Else
+                    '            D4 = D4 & "/" & CType(Me.Owner, 食札).DataGridView6(4, i).Value
+                    '        End If
+                    '    End If
+                    'Else
+                    '    If CType(Me.Owner, 食札).DataGridView6(4, i).Value <> "" Then
+                    '        If D5 = "" Then
+                    '            D5 = CType(Me.Owner, 食札).DataGridView6(4, i).Value
+                    '        Else
+                    '            D5 = D5 & "/" & CType(Me.Owner, 食札).DataGridView6(4, i).Value
+                    '        End If
+                    '    End If
+                    'End If
                 Next
                 oSheet.Range("D3").Value = D3
-                oSheet.Range("D4").Value = D4
-                oSheet.Range("D5").Value = D5
+                'oSheet.Range("D4").Value = D4
+                'oSheet.Range("D5").Value = D5
                 Dim asaPictures As Excel.Pictures = DirectCast(oSheet.Pictures, Excel.Pictures)
                 Dim asaPicture As Excel.Picture
                 Dim asapath As String = ""

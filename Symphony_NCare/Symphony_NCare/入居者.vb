@@ -4,7 +4,7 @@ Imports Microsoft.Office.Interop
 Imports Microsoft.Office.Core
 
 Public Class 入居者
-
+    Dim lastUnit As String = ""
     Private Sub 入居者_Disposed(sender As Object, e As System.EventArgs) Handles Me.Disposed
         Dim Cn As New OleDbConnection(topform.DB_NCare)
         Dim SQLCm As OleDbCommand = Cn.CreateCommand
@@ -92,6 +92,7 @@ Public Class 入居者
         ElseIf DataGridView1(0, SelectedRow).Value = "雪" Then
             rbnYuki.Checked = True
         End If
+        lastUnit = DataGridView1(0, SelectedRow).Value
         txtKana.Text = Util.checkDBNullValue(DataGridView1(1, SelectedRow).Value)
         txtNam.Text = Util.checkDBNullValue(DataGridView1(2, SelectedRow).Value)
         txtSex.Text = Util.checkDBNullValue(DataGridView1(3, SelectedRow).Value)
@@ -154,30 +155,41 @@ Public Class 入居者
         Dim cnn As New ADODB.Connection
         cnn.Open(topform.DB_NCare)
 
-        Dim unit, kana, nam, sex, birth, jyu, hyo, ymd As String
+        Dim unit, kana, nam, sex, birth, jyu, hyo, ymd, syu As String
 
         If rbnMori.Checked = True Then
             unit = "森"
+            syu = "2"
         ElseIf rbnHosi.Checked = True Then
             unit = "星"
+            syu = "1"
         ElseIf rbnSora.Checked = True Then
             unit = "空"
+            syu = "3"
         ElseIf rbnHana.Checked = True Then
             unit = "花"
+            syu = "4"
         ElseIf rbnTuki.Checked = True Then
             unit = "月"
+            syu = "5"
         ElseIf rbnUmi.Checked = True Then
             unit = "海"
+            syu = "6"
         ElseIf rbnNiji.Checked = True Then
             unit = "虹"
+            syu = "7"
         ElseIf rbnHikari.Checked = True Then
             unit = "光"
+            syu = "8"
         ElseIf rbnOka.Checked = True Then
             unit = "丘"
+            syu = "9"
         ElseIf rbnKaze.Checked = True Then
             unit = "風"
+            syu = "A"
         ElseIf rbnYuki.Checked = True Then
             unit = "雪"
+            syu = "B"
         Else
             MsgBox("ユニットを選択してください")
             Return
@@ -237,6 +249,12 @@ Public Class 入居者
         cnn.Execute(SQL)
 
         SQL = "INSERT INTO UsrM VALUES ('" & nam & "', '" & kana & "', '" & birth & "', '" & sex & "', '" & jyu & "', '" & ymd & "', '" & unit & "', '" & hyo & "')"
+        cnn.Execute(SQL)
+
+        SQL = "DELETE FROM Dat15Unt WHERE Nam = '" & txtNam.Text & "' AND Kana = '" & txtKana.Text & "' AND Unit = '" & lastUnit & "'"
+        cnn.Execute(SQL)
+
+        SQL = "INSERT INTO Dat15Unt VALUES ('" & nam & "', '" & kana & "', '" & unit & "', '" & syu & "')"
         cnn.Execute(SQL)
 
         cnn.Close()
@@ -438,6 +456,7 @@ Public Class 入居者
     End Sub
 
     Private Sub Clear()
+        lastUnit = ""
         txtNam.Text = ""
         txtKana.Text = ""
         txtSex.Text = ""

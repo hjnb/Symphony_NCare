@@ -2402,9 +2402,9 @@ Public Class スクリーニング書
             If System.Text.RegularExpressions.Regex.IsMatch(intake, "^\d+$") OrElse System.Text.RegularExpressions.Regex.IsMatch(intake, "^\d+(\.\d+)?$") Then
                 Dim intakeNum As Double = intake
                 If 75 >= intake Then
-                    intakeKanji = "低"
-                ElseIf 76 <= intakeNum AndAlso intakeNum <= 100 Then
                     intakeKanji = "中"
+                ElseIf 76 <= intakeNum AndAlso intakeNum <= 100 Then
+                    intakeKanji = "低"
                 End If
             Else
                 intake = ""
