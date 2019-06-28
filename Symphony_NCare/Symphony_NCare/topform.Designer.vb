@@ -322,12 +322,10 @@ Partial Class topform
         'rbnPreview
         '
         Me.rbnPreview.AutoSize = True
-        Me.rbnPreview.Checked = True
         Me.rbnPreview.Location = New System.Drawing.Point(741, 306)
         Me.rbnPreview.Name = "rbnPreview"
         Me.rbnPreview.Size = New System.Drawing.Size(63, 16)
         Me.rbnPreview.TabIndex = 26
-        Me.rbnPreview.TabStop = True
         Me.rbnPreview.Text = "ﾌﾟﾚﾋﾞｭｰ"
         Me.rbnPreview.UseVisualStyleBackColor = True
         '

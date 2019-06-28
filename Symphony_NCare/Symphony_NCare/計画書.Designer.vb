@@ -103,21 +103,22 @@ Partial Class 計画書
         Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowTemplate.Height = 21
-        Me.DataGridView1.Size = New System.Drawing.Size(90, 80)
+        Me.DataGridView1.Size = New System.Drawing.Size(90, 75)
         Me.DataGridView1.TabIndex = 1
         '
         'YmdBox1
         '
         Me.YmdBox1.boxType = 2
         Me.YmdBox1.DateText = ""
-        Me.YmdBox1.EraLabelText = "H31"
+        Me.YmdBox1.EraLabelText = "R01"
         Me.YmdBox1.EraText = ""
         Me.YmdBox1.Location = New System.Drawing.Point(39, 143)
-        Me.YmdBox1.MonthLabelText = "04"
+        Me.YmdBox1.MonthLabelText = "06"
         Me.YmdBox1.MonthText = ""
         Me.YmdBox1.Name = "YmdBox1"
         Me.YmdBox1.Size = New System.Drawing.Size(110, 34)
         Me.YmdBox1.TabIndex = 2
+        Me.YmdBox1.textReadOnly = False
         '
         'btnAdd
         '
@@ -183,27 +184,29 @@ Partial Class 計画書
         '
         Me.ymdboxNyuymd.boxType = 0
         Me.ymdboxNyuymd.DateText = ""
-        Me.ymdboxNyuymd.EraLabelText = "H31"
+        Me.ymdboxNyuymd.EraLabelText = "R01"
         Me.ymdboxNyuymd.EraText = ""
         Me.ymdboxNyuymd.Location = New System.Drawing.Point(273, 81)
-        Me.ymdboxNyuymd.MonthLabelText = "04"
+        Me.ymdboxNyuymd.MonthLabelText = "06"
         Me.ymdboxNyuymd.MonthText = ""
         Me.ymdboxNyuymd.Name = "ymdboxNyuymd"
         Me.ymdboxNyuymd.Size = New System.Drawing.Size(86, 20)
         Me.ymdboxNyuymd.TabIndex = 11
+        Me.ymdboxNyuymd.textReadOnly = False
         '
         'ymdboxFstymd
         '
         Me.ymdboxFstymd.boxType = 0
         Me.ymdboxFstymd.DateText = ""
-        Me.ymdboxFstymd.EraLabelText = "H31"
+        Me.ymdboxFstymd.EraLabelText = "R01"
         Me.ymdboxFstymd.EraText = ""
         Me.ymdboxFstymd.Location = New System.Drawing.Point(273, 108)
-        Me.ymdboxFstymd.MonthLabelText = "04"
+        Me.ymdboxFstymd.MonthLabelText = "06"
         Me.ymdboxFstymd.MonthText = ""
         Me.ymdboxFstymd.Name = "ymdboxFstymd"
         Me.ymdboxFstymd.Size = New System.Drawing.Size(86, 20)
         Me.ymdboxFstymd.TabIndex = 12
+        Me.ymdboxFstymd.textReadOnly = False
         '
         'txtTanto
         '

@@ -31,7 +31,6 @@ Partial Class カンファレンス
         Me.lblName = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.lblKaisuu = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -90,6 +89,7 @@ Partial Class カンファレンス
         Me.Label21 = New System.Windows.Forms.Label()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.Label22 = New System.Windows.Forms.Label()
+        Me.txtKaisuu = New System.Windows.Forms.TextBox()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -126,7 +126,7 @@ Partial Class カンファレンス
         Me.btnAdd.Location = New System.Drawing.Point(71, 199)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(66, 32)
-        Me.btnAdd.TabIndex = 123
+        Me.btnAdd.TabIndex = 10
         Me.btnAdd.Text = "登録"
         Me.btnAdd.UseVisualStyleBackColor = True
         '
@@ -134,14 +134,15 @@ Partial Class カンファレンス
         '
         Me.YmdBox1.boxType = 2
         Me.YmdBox1.DateText = ""
-        Me.YmdBox1.EraLabelText = "H31"
+        Me.YmdBox1.EraLabelText = "R01"
         Me.YmdBox1.EraText = ""
         Me.YmdBox1.Location = New System.Drawing.Point(48, 159)
-        Me.YmdBox1.MonthLabelText = "04"
+        Me.YmdBox1.MonthLabelText = "06"
         Me.YmdBox1.MonthText = ""
         Me.YmdBox1.Name = "YmdBox1"
         Me.YmdBox1.Size = New System.Drawing.Size(110, 34)
         Me.YmdBox1.TabIndex = 9
+        Me.YmdBox1.textReadOnly = False
         '
         'DataGridView1
         '
@@ -158,7 +159,7 @@ Partial Class カンファレンス
         Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowTemplate.Height = 21
-        Me.DataGridView1.Size = New System.Drawing.Size(90, 80)
+        Me.DataGridView1.Size = New System.Drawing.Size(90, 75)
         Me.DataGridView1.TabIndex = 8
         '
         'lblName
@@ -189,15 +190,6 @@ Partial Class カンファレンス
         Me.Label2.Size = New System.Drawing.Size(53, 12)
         Me.Label2.TabIndex = 15
         Me.Label2.Text = "開催回数"
-        '
-        'lblKaisuu
-        '
-        Me.lblKaisuu.AutoSize = True
-        Me.lblKaisuu.Location = New System.Drawing.Point(273, 81)
-        Me.lblKaisuu.Name = "lblKaisuu"
-        Me.lblKaisuu.Size = New System.Drawing.Size(11, 12)
-        Me.lblKaisuu.TabIndex = 16
-        Me.lblKaisuu.Text = "0"
         '
         'Label3
         '
@@ -680,11 +672,21 @@ Partial Class カンファレンス
         Me.Label22.Size = New System.Drawing.Size(28, 1)
         Me.Label22.TabIndex = 127
         '
+        'txtKaisuu
+        '
+        Me.txtKaisuu.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtKaisuu.Location = New System.Drawing.Point(268, 77)
+        Me.txtKaisuu.Name = "txtKaisuu"
+        Me.txtKaisuu.Size = New System.Drawing.Size(21, 19)
+        Me.txtKaisuu.TabIndex = 102
+        Me.txtKaisuu.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'カンファレンス
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1496, 778)
+        Me.Controls.Add(Me.txtKaisuu)
         Me.Controls.Add(Me.Label24)
         Me.Controls.Add(Me.Label22)
         Me.Controls.Add(Me.Label23)
@@ -743,7 +745,6 @@ Partial Class カンファレンス
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.lblKaisuu)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.btnPrint)
@@ -770,7 +771,6 @@ Partial Class カンファレンス
     Friend WithEvents lblName As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents lblKaisuu As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
@@ -829,4 +829,5 @@ Partial Class カンファレンス
     Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents Label24 As System.Windows.Forms.Label
     Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents txtKaisuu As System.Windows.Forms.TextBox
 End Class

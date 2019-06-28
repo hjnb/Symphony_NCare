@@ -16,32 +16,16 @@ Public Class カンファレンス
 
         KeyPreview = True
 
+        YmdBox1.setADStr(Today.ToString("yyyy/MM/dd"))
+
+        TimeBox1.HourText = "00"
+        TimeBox1.MinuteText = "00"
+
         Util.EnableDoubleBuffering(DataGridView1)
 
         DataGridView1.RowTemplate.Height = 15
 
-        Dim Cn As New OleDbConnection(topform.DB_NCare)
-        Dim SQLCm As OleDbCommand = Cn.CreateCommand
-        Dim Adapter As New OleDbDataAdapter(SQLCm)
-        Dim Table As New DataTable
-        SQLCm.CommandText = "select * from Dat5 WHERE Nam = '" & lblName.Text & "' order by Ymd DESC"
-        Adapter.Fill(Table)
-        DataGridView1.DataSource = Table
-
-        For i As Integer = 0 To 41
-            If i <> 2 Then
-                DataGridView1.Columns(i).Visible = False
-            End If
-        Next
-        DataGridView1.Columns(2).Width = 70
-
-        YmdBox1.setADStr(Today.ToString("yyyy/MM/dd"))
-
-        Dim DGV1rowcount As Integer = DataGridView1.Rows.Count
-        lblKaisuu.Text = DGV1rowcount + 1
-
-        TimeBox1.HourText = "00"
-        TimeBox1.MinuteText = "00"
+        FormUpdate()
 
     End Sub
 
@@ -54,7 +38,6 @@ Public Class カンファレンス
     End Sub
 
     Private Sub FormUpdate()
-        btnClear.PerformClick()
 
         Dim Cn As New OleDbConnection(topform.DB_NCare)
         Dim SQLCm As OleDbCommand = Cn.CreateCommand
@@ -71,8 +54,8 @@ Public Class カンファレンス
         Next
         DataGridView1.Columns(2).Width = 70
 
-        Dim DGV1rowcount As Integer = DataGridView1.Rows.Count
-        lblKaisuu.Text = DGV1rowcount + 1
+        btnClear.PerformClick()
+
     End Sub
 
     Private Sub DataGridView1_CellFormatting(sender As Object, e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles DataGridView1.CellFormatting
@@ -102,7 +85,12 @@ Public Class カンファレンス
     Private Sub btnClear_Click(sender As System.Object, e As System.EventArgs) Handles btnClear.Click
         cmbSakuseisya.Text = ""
         Dim DGV1rowcount As Integer = DataGridView1.Rows.Count
-        lblKaisuu.Text = DGV1rowcount + 1
+        If DGV1rowcount = 0 Then
+            txtKaisuu.Text = "1"
+        Else
+            txtKaisuu.Text = Val(DataGridView1(1, 0).Value) + 1
+        End If
+
         TimeBox1.HourText = "00"
         TimeBox1.MinuteText = "00"
         For i As Integer = 1 To 8
@@ -120,7 +108,7 @@ Public Class カンファレンス
 
     Private Sub DataGridView1_CellMouseClick(sender As Object, e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles DataGridView1.CellMouseClick
         Dim selectedrow As Integer = DataGridView1.CurrentRow.Index
-        lblKaisuu.Text = Util.checkDBNullValue(DataGridView1(1, selectedrow).Value)
+        txtKaisuu.Text = Util.checkDBNullValue(DataGridView1(1, selectedrow).Value)
         YmdBox1.setADStr(Util.checkDBNullValue(DataGridView1(2, selectedrow).Value))
         Dim time() As String = (Util.checkDBNullValue(DataGridView1(3, selectedrow).Value)).ToString.Split(":")
         If time(0).Length = 1 Then
@@ -169,29 +157,8 @@ Public Class カンファレンス
 
     End Sub
 
-    Private Sub txtSyozokuName1_Enter(sender As Object, e As System.EventArgs) Handles txtSyozoku1.Enter, txtName1.Enter
-        lblPosition.Text = "1"
-    End Sub
-    Private Sub txtSyozokuName2_Enter(sender As Object, e As System.EventArgs) Handles txtSyozoku2.Enter, txtName2.Enter
-        lblPosition.Text = "2"
-    End Sub
-    Private Sub txtSyozokuName3_Enter(sender As Object, e As System.EventArgs) Handles txtSyozoku3.Enter, txtName3.Enter
-        lblPosition.Text = "3"
-    End Sub
-    Private Sub txtSyozokuName4_Enter(sender As Object, e As System.EventArgs) Handles txtSyozoku4.Enter, txtName4.Enter
-        lblPosition.Text = "4"
-    End Sub
-    Private Sub txtSyozokuName5_Enter(sender As Object, e As System.EventArgs) Handles txtSyozoku5.Enter, txtName5.Enter
-        lblPosition.Text = "5"
-    End Sub
-    Private Sub txtSyozokuName6_Enter(sender As Object, e As System.EventArgs) Handles txtSyozoku6.Enter, txtName6.Enter
-        lblPosition.Text = "6"
-    End Sub
-    Private Sub txtSyozokuName7_Enter(sender As Object, e As System.EventArgs) Handles txtSyozoku7.Enter, txtName7.Enter
-        lblPosition.Text = "7"
-    End Sub
-    Private Sub txtSyozokuName8_Enter(sender As Object, e As System.EventArgs) Handles txtSyozoku8.Enter, txtName8.Enter
-        lblPosition.Text = "8"
+    Private Sub GetPosition_Enter(sender As Object, e As System.EventArgs) Handles txtSyozoku1.Enter, txtName1.Enter, txtSyozoku2.Enter, txtName2.Enter, txtSyozoku3.Enter, txtName3.Enter, txtSyozoku4.Enter, txtName4.Enter, txtSyozoku5.Enter, txtName5.Enter, txtSyozoku6.Enter, txtName6.Enter, txtSyozoku7.Enter, txtName7.Enter, txtSyozoku8.Enter, txtName8.Enter
+        lblPosition.Text = Strings.Right(sender.name.ToString, 1)
     End Sub
 
     Private Sub lstName_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lstName.SelectedIndexChanged
@@ -216,7 +183,7 @@ Public Class カンファレンス
     Private Sub Kousin()
         Dim nam, kai, ymd, bgnt, endt, tanto, mbrs1, mbrn1, mbrs2, mbrn2, mbrs3, mbrn3, mbrs4, mbrn4, mbrs5, mbrn5, mbrs6, mbrn6, mbrs7, mbrn7, mbrs8, mbrn8, kou1, kou2, kou3, kou4, kou5, nai1, nai2, nai3, nai4, nai5, ket1, ket2, ket3, ket4, ket5, kad1, kad2, kad3, kad4, kad5 As String
         nam = lblName.Text
-        kai = Val(lblKaisuu.Text)
+        kai = Val(txtKaisuu.Text)
         ymd = YmdBox1.getADStr()
         bgnt = TimeBox1.HourText & ":" & TimeBox1.MinuteText & ":00"
         endt = "17:00:00"
@@ -286,7 +253,7 @@ Public Class カンファレンス
     Private Sub Tuika()
         Dim nam, kai, ymd, bgnt, endt, tanto, mbrs1, mbrn1, mbrs2, mbrn2, mbrs3, mbrn3, mbrs4, mbrn4, mbrs5, mbrn5, mbrs6, mbrn6, mbrs7, mbrn7, mbrs8, mbrn8, kou1, kou2, kou3, kou4, kou5, nai1, nai2, nai3, nai4, nai5, ket1, ket2, ket3, ket4, ket5, kad1, kad2, kad3, kad4, kad5 As String
         nam = lblName.Text
-        kai = Val(lblKaisuu.Text)
+        kai = Val(txtKaisuu.Text)
         ymd = YmdBox1.getADStr()
         bgnt = TimeBox1.HourText & ":" & TimeBox1.MinuteText & ":00"
         endt = "17:00:00"

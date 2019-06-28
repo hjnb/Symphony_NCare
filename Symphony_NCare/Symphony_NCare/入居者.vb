@@ -92,7 +92,7 @@ Public Class 入居者
         ElseIf DataGridView1(0, SelectedRow).Value = "雪" Then
             rbnYuki.Checked = True
         End If
-        lastUnit = DataGridView1(0, SelectedRow).Value
+        'lastUnit = DataGridView1(0, SelectedRow).Value
         txtKana.Text = Util.checkDBNullValue(DataGridView1(1, SelectedRow).Value)
         txtNam.Text = Util.checkDBNullValue(DataGridView1(2, SelectedRow).Value)
         txtSex.Text = Util.checkDBNullValue(DataGridView1(3, SelectedRow).Value)
@@ -139,6 +139,7 @@ Public Class 入居者
         Dim DGV1Rowcount As Integer = DataGridView1.Rows.Count
         For i As Integer = 0 To DGV1Rowcount - 1
             If txtNam.Text = DataGridView1(2, i).Value AndAlso ymdboxBirth.getWarekiStr() = DataGridView1(4, i).Value Then
+                lastUnit = DataGridView1(0, i).Value
                 If MsgBox("変更登録してよろしいですか？", MsgBoxStyle.YesNo + vbExclamation, "登録確認") = MsgBoxResult.Yes Then
                     Hennkou()
                 End If
@@ -435,14 +436,18 @@ Public Class 入居者
         Dim DGV1Rowcount As Integer = DataGridView1.Rows.Count
         For i As Integer = 0 To DGV1Rowcount - 1
             If txtNam.Text = DataGridView1(2, i).Value AndAlso ymdboxBirth.getWarekiStr() = DataGridView1(4, i).Value Then
+                lastUnit = DataGridView1(0, i).Value
                 If MsgBox("削除してよろしいですか？", MsgBoxStyle.YesNo + vbExclamation, "削除確認") = MsgBoxResult.Yes Then
                     Dim cnn As New ADODB.Connection
                     cnn.Open(topform.DB_NCare)
 
                     Dim SQL As String = ""
                     SQL = "DELETE FROM UsrM WHERE Nam = '" & txtNam.Text & "' AND Birth = '" & ymdboxBirth.getADStr() & "'"
-
                     cnn.Execute(SQL)
+
+                    SQL = "DELETE FROM Dat15Unt WHERE Nam = '" & txtNam.Text & "' AND Kana = '" & txtKana.Text & "' AND Unit = '" & lastUnit & "'"
+                    cnn.Execute(SQL)
+
                     cnn.Close()
 
                     FormUpdate()

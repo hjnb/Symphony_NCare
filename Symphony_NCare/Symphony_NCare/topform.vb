@@ -82,6 +82,29 @@ Public Class topform
         PictureBox1.ImageLocation = imageFilePath
 
         DataGridView1(0, 0).Selected = False
+
+        initPrintState()
+    End Sub
+
+    Private Sub initPrintState()
+        Dim state As String = Util.getIniString("System", "Printer", iniFilePath)
+        If state = "Y" Then
+            rbnPrintout.Checked = True
+        Else
+            rbnPreview.Checked = True
+        End If
+    End Sub
+
+    Private Sub rbtnPreview_CheckedChanged(sender As Object, e As System.EventArgs) Handles rbnPreview.CheckedChanged
+        If rbnPreview.Checked = True Then
+            Util.putIniString("System", "Printer", "N", iniFilePath)
+        End If
+    End Sub
+
+    Private Sub rbtnPrint_CheckedChanged(sender As Object, e As System.EventArgs) Handles rbnPrintout.CheckedChanged
+        If rbnPrintout.Checked = True Then
+            Util.putIniString("System", "Printer", "Y", iniFilePath)
+        End If
     End Sub
 
     Private Sub btnSukuri_Click(sender As System.Object, e As System.EventArgs) Handles btnSukuri.Click

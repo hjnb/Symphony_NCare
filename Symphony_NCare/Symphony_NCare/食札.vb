@@ -338,9 +338,16 @@ Public Class 食札
             Return
         End If
 
+        Dim Cn As New OleDbConnection(topform.DB_NCare)
+        Dim SQLCm5 As OleDbCommand = Cn.CreateCommand
+        Dim Adapter5 As New OleDbDataAdapter(SQLCm5)
+        Dim Table5 As New DataTable
+        SQLCm5.CommandText = "select * from Dat15Prnt"
+        Adapter5.Fill(Table5)
+        DataGridView5.DataSource = Table5
+
         Dat15unit()
 
-        Dim Cn As New OleDbConnection(topform.DB_NCare)
         Dim SQLCm7 As OleDbCommand = Cn.CreateCommand
         Dim Adapter7 As New OleDbDataAdapter(SQLCm7)
         Dim Table7 As New DataTable
@@ -441,6 +448,8 @@ Public Class 食札
                 End If
             Next
         End If
+
+        
     End Sub
 
     Private Sub Dat15unit()
@@ -640,6 +649,11 @@ Public Class 食札
     End Sub
 
     Private Sub btnTouroku_Click(sender As System.Object, e As System.EventArgs) Handles btnTouroku.Click
+        If lblName.Text = "" Then
+            MsgBox("利用者を選択して下さい")
+            Return
+        End If
+
         For i As Integer = 0 To DataGridView4.Rows.Count - 1
             If YmdBoxStart.getADStr() = DataGridView4(0, i).Value Then
                 Hennkou()
@@ -769,6 +783,11 @@ Public Class 食札
     End Sub
 
     Private Sub btnSakujo_Click(sender As System.Object, e As System.EventArgs) Handles btnSakujo.Click
+        If lblName.Text = "" Then
+            MsgBox("利用者を選択して下さい")
+            Return
+        End If
+
         Dim selectedRow As Integer = If(IsNothing(DataGridView4.CurrentRow), -1, DataGridView4.CurrentRow.Index)
         If selectedRow = -1 Then
             MsgBox("削除対象の行が選択されていません。")
@@ -807,4 +826,5 @@ Public Class 食札
         End If
     End Sub
 
+    
 End Class
