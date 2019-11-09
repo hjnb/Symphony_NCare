@@ -116,7 +116,7 @@ Partial Class 食札印刷
         '
         Me.DataGridView1.AllowUserToAddRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(176, 105)
+        Me.DataGridView1.Location = New System.Drawing.Point(178, 105)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.Size = New System.Drawing.Size(10, 10)
         Me.DataGridView1.TabIndex = 8
@@ -170,7 +170,7 @@ Partial Class 食札印刷
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(465, 143)
+        Me.ClientSize = New System.Drawing.Size(468, 136)
         Me.Controls.Add(Me.btnJikkou)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Label2)

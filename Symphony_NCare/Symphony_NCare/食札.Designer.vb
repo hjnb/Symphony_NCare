@@ -579,7 +579,7 @@ Partial Class 食札
         Me.YmdBoxStart.EraLabelText = "R01"
         Me.YmdBoxStart.EraText = ""
         Me.YmdBoxStart.Location = New System.Drawing.Point(245, 393)
-        Me.YmdBoxStart.MonthLabelText = "06"
+        Me.YmdBoxStart.MonthLabelText = "11"
         Me.YmdBoxStart.MonthText = ""
         Me.YmdBoxStart.Name = "YmdBoxStart"
         Me.YmdBoxStart.Size = New System.Drawing.Size(110, 34)
@@ -613,7 +613,7 @@ Partial Class 食札
         Me.YmdBoxEND.EraLabelText = "R01"
         Me.YmdBoxEND.EraText = ""
         Me.YmdBoxEND.Location = New System.Drawing.Point(523, 393)
-        Me.YmdBoxEND.MonthLabelText = "06"
+        Me.YmdBoxEND.MonthLabelText = "11"
         Me.YmdBoxEND.MonthText = ""
         Me.YmdBoxEND.Name = "YmdBoxEND"
         Me.YmdBoxEND.Size = New System.Drawing.Size(110, 34)
@@ -649,6 +649,7 @@ Partial Class 食札
         Me.DataGridView3.AllowUserToResizeColumns = False
         Me.DataGridView3.AllowUserToResizeRows = False
         Me.DataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView3.ImeMode = System.Windows.Forms.ImeMode.Hiragana
         Me.DataGridView3.Location = New System.Drawing.Point(247, 461)
         Me.DataGridView3.MultiSelect = False
         Me.DataGridView3.Name = "DataGridView3"

@@ -78,14 +78,15 @@ Partial Class 職員食印刷
         '
         Me.YmdBox1.boxType = 5
         Me.YmdBox1.DateText = ""
-        Me.YmdBox1.EraLabelText = "H31"
+        Me.YmdBox1.EraLabelText = "R01"
         Me.YmdBox1.EraText = ""
         Me.YmdBox1.Location = New System.Drawing.Point(59, 70)
-        Me.YmdBox1.MonthLabelText = "03"
+        Me.YmdBox1.MonthLabelText = "11"
         Me.YmdBox1.MonthText = ""
         Me.YmdBox1.Name = "YmdBox1"
         Me.YmdBox1.Size = New System.Drawing.Size(95, 40)
         Me.YmdBox1.TabIndex = 3
+        Me.YmdBox1.textReadOnly = False
         Me.YmdBox1.Visible = False
         '
         'Label1
@@ -193,7 +194,7 @@ Partial Class 職員食印刷
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(376, 214)
+        Me.ClientSize = New System.Drawing.Size(368, 219)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.DataGridView5)
         Me.Controls.Add(Me.DataGridView2)

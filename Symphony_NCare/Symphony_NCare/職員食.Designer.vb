@@ -22,7 +22,7 @@ Partial Class 職員食
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnTouroku = New System.Windows.Forms.Button()
         Me.btnSakujo = New System.Windows.Forms.Button()
@@ -52,6 +52,7 @@ Partial Class 職員食
         Me.Label13 = New System.Windows.Forms.Label()
         Me.DataGridView5 = New System.Windows.Forms.DataGridView()
         Me.DataGridView1 = New Symphony_NCare.職員食Class()
+        Me.btnGyoSakujo = New System.Windows.Forms.Button()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -323,8 +324,8 @@ Partial Class 職員食
         '
         'DataGridView1
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.DataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.DataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Location = New System.Drawing.Point(42, 116)
         Me.DataGridView1.Name = "DataGridView1"
@@ -332,11 +333,21 @@ Partial Class 職員食
         Me.DataGridView1.Size = New System.Drawing.Size(795, 543)
         Me.DataGridView1.TabIndex = 426
         '
+        'btnGyoSakujo
+        '
+        Me.btnGyoSakujo.Location = New System.Drawing.Point(899, 600)
+        Me.btnGyoSakujo.Name = "btnGyoSakujo"
+        Me.btnGyoSakujo.Size = New System.Drawing.Size(80, 29)
+        Me.btnGyoSakujo.TabIndex = 427
+        Me.btnGyoSakujo.Text = "行削除"
+        Me.btnGyoSakujo.UseVisualStyleBackColor = True
+        '
         '職員食
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1181, 784)
+        Me.Controls.Add(Me.btnGyoSakujo)
         Me.Controls.Add(Me.btnTouroku)
         Me.Controls.Add(Me.DataGridView5)
         Me.Controls.Add(Me.Label13)
@@ -406,4 +417,5 @@ Partial Class 職員食
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents DataGridView5 As System.Windows.Forms.DataGridView
     Friend WithEvents DataGridView1 As Symphony_NCare.職員食Class
+    Friend WithEvents btnGyoSakujo As System.Windows.Forms.Button
 End Class

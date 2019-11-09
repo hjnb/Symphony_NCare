@@ -201,9 +201,9 @@ Public Class 食札
         Dim text As String = CType(sender, DataGridViewTextBoxEditingControl).Text
         Dim lengthByte As Integer = Encoding.GetEncoding("Shift_JIS").GetByteCount(text)
 
-        If lengthByte >= 46 Then '設定されているバイト数以上の時
-            If e.KeyChar = ChrW(Keys.Back) Then
-                'Backspaceは入力可能
+        If lengthByte >= 38 Then '設定されているバイト数以上の時
+            If e.KeyChar = ChrW(Keys.Back) OrElse AscW(e.KeyChar) = 24 OrElse AscW(e.KeyChar) = 3 Then
+                'Backspace、Ctrl + x、Ctrl + c は入力可能
                 e.Handled = False
             Else
                 '入力できなくする

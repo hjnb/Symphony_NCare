@@ -152,6 +152,16 @@ Public Class 職員
     Private Sub btnAdd_Click(sender As System.Object, e As System.EventArgs) Handles btnAdd.Click
         Dim DGV1Rowcount As Integer = DataGridView1.Rows.Count
         For i As Integer = 0 To DGV1Rowcount - 1
+            If txtNam.Text = DataGridView1(5, i).Value OrElse txtKana.Text = DataGridView1(6, i).Value Then
+                If MsgBox("種別：" & DataGridView1(1, i).Value & "　職名：" & DataGridView1(4, i).Value & "　で" & vbCr & "名前：" & txtNam.Text & "　もしくは、ｶﾅ：" & txtKana.Text & " が同じ人が登録されています。" & vbCr & "登録してよろしいですか？", MsgBoxStyle.YesNo + vbExclamation, "登録確認") = MsgBoxResult.Yes Then
+                    Exit For
+                Else
+                    Return
+                End If
+            End If
+        Next
+
+        For i As Integer = 0 To DGV1Rowcount - 1
             If cmbSyu.Text = DataGridView1(1, i).Value AndAlso cmbYak.Text = DataGridView1(4, i).Value AndAlso txtNam.Text = DataGridView1(5, i).Value Then
                 Hennkou()
                 Exit Sub
@@ -239,7 +249,7 @@ Public Class 職員
         Dim SQL As String = ""
         If MsgBox("変更登録してよろしいですか？", MsgBoxStyle.YesNo + vbExclamation, "登録確認") = MsgBoxResult.Yes Then
             cnn.Open(topform.DB_NCare)
-            SQL = "DELETE FROM EtcM WHERE Nam = '" & txtNam.Text & "' AND Syu = '" & cmbSyu.Text & "' AND Yak = '" & cmbYak.Text & "'"
+            SQL = "DELETE FROM EtcM WHERE Nam = '" & txtNam.Text & "' AND Kana = '" & txtKana.Text & "' AND Syu = '" & cmbSyu.Text & "' AND Yak = '" & cmbYak.Text & "'"
             cnn.Execute(SQL)
 
             SQL = "INSERT INTO EtcM VALUES (" & syun & ", '" & syu & "', '" & syur & "', " & yakn & ", '" & yak & "', '" & nam & "', '" & kana & "', " & dsp & ")"
@@ -351,7 +361,7 @@ Public Class 職員
                     cnn.Open(topform.DB_NCare)
 
                     Dim SQL As String = ""
-                    SQL = "DELETE FROM EtcM WHERE Nam = '" & txtNam.Text & "' AND Syu = '" & cmbSyu.Text & "' AND Yak = '" & cmbYak.Text & "'"
+                    SQL = "DELETE FROM EtcM WHERE Nam = '" & txtNam.Text & "' AND Kana = '" & txtKana.Text & "' AND Syu = '" & cmbSyu.Text & "' AND Yak = '" & cmbYak.Text & "'"
 
                     cnn.Execute(SQL)
                     cnn.Close()

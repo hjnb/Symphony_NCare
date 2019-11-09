@@ -234,6 +234,8 @@ Public Class 職員食
         Next
 
         DataGridView3(0, 0).Selected = False
+
+        DataIndication()
     End Sub
 
     Private Sub DataGridView2_CellFormatting(sender As Object, e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles DataGridView2.CellFormatting
@@ -728,5 +730,24 @@ Public Class 職員食
         End If
     End Sub
 
-    
+    Private Sub btnGyoSakujo_Click(sender As System.Object, e As System.EventArgs) Handles btnGyoSakujo.Click
+        Dim slctrow As Integer = DataGridView1.CurrentRow.Index
+        DataGridView1.Rows.RemoveAt(slctrow)
+
+        DGV1Table.Rows.Add(DGV1Table.NewRow())
+
+        DataGridView1.DataSource = DGV1Table
+
+        'DataGridView1の行の設定
+        For r As Integer = 0 To 59
+            DataGridView1.Rows(r).Height = 18
+        Next
+
+        'セル内文字設定
+        For num As Integer = 1 To 60
+            DataGridView1(0, num - 1).Value = num
+        Next
+
+    End Sub
+
 End Class
