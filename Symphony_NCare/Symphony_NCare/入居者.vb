@@ -157,6 +157,7 @@ Public Class 入居者
         cnn.Open(topform.DB_NCare)
 
         Dim unit, kana, nam, sex, birth, jyu, hyo, ymd, syu As String
+        Dim slctrow As Integer = DataGridView1.CurrentRow.Index
 
         If rbnMori.Checked = True Then
             unit = "森"
@@ -200,14 +201,14 @@ Public Class 入居者
             MsgBox("ふりがなを入力してください")
             Return
         Else
-            kana = txtKana.Text
+            kana = DataGridView1("ふりがな", slctrow).Value
         End If
 
         If txtNam.Text = "" Then
             MsgBox("氏名を入力してください")
             Return
         Else
-            nam = txtNam.Text
+            nam = DataGridView1("利用者氏名", slctrow).Value
         End If
 
         If txtSex.Text = "1" OrElse txtSex.Text = "2" Then
@@ -246,16 +247,19 @@ Public Class 入居者
         End If
 
         Dim SQL As String = ""
-        SQL = "DELETE FROM UsrM WHERE Nam = '" & txtNam.Text & "' AND Birth = '" & ymdboxBirth.getADStr() & "'"
+        SQL = "DELETE FROM UsrM WHERE Nam = '" & nam & "' AND Birth = '" & ymdboxBirth.getADStr() & "'"
         cnn.Execute(SQL)
 
-        SQL = "INSERT INTO UsrM VALUES ('" & nam & "', '" & kana & "', '" & birth & "', '" & sex & "', '" & jyu & "', '" & ymd & "', '" & unit & "', '" & hyo & "')"
+        SQL = "INSERT INTO UsrM VALUES ('" & txtNam.Text & "', '" & txtKana.Text & "', '" & birth & "', '" & sex & "', '" & jyu & "', '" & ymd & "', '" & unit & "', '" & hyo & "')"
         cnn.Execute(SQL)
 
-        SQL = "DELETE FROM Dat15Unt WHERE Nam = '" & txtNam.Text & "' AND Kana = '" & txtKana.Text & "' AND Unit = '" & lastUnit & "'"
+        SQL = "DELETE FROM Dat15Unt WHERE Nam = '" & nam & "' AND Kana = '" & kana & "' AND Unit = '" & lastUnit & "'"
         cnn.Execute(SQL)
 
-        SQL = "INSERT INTO Dat15Unt VALUES ('" & nam & "', '" & kana & "', '" & unit & "', '" & syu & "')"
+        SQL = "INSERT INTO Dat15Unt VALUES ('" & txtNam.Text & "', '" & txtKana.Text & "', '" & unit & "', '" & syu & "')"
+        cnn.Execute(SQL)
+
+        SQL = "DELETE FROM Dat15Prnt WHERE Nam = '" & nam & "' AND Kana = '" & kana & "'"
         cnn.Execute(SQL)
 
         cnn.Close()
@@ -446,6 +450,9 @@ Public Class 入居者
                     cnn.Execute(SQL)
 
                     SQL = "DELETE FROM Dat15Unt WHERE Nam = '" & txtNam.Text & "' AND Kana = '" & txtKana.Text & "' AND Unit = '" & lastUnit & "'"
+                    cnn.Execute(SQL)
+
+                    SQL = "DELETE FROM Dat15Prnt WHERE Nam = '" & txtNam.Text & "' AND Kana = '" & txtKana.Text & "'"
                     cnn.Execute(SQL)
 
                     cnn.Close()
