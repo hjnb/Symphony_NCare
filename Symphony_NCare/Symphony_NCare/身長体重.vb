@@ -134,7 +134,19 @@ Public Class 身長体重
         End If
     End Sub
 
+    Private Sub DGVClear()
+        For i As Integer = 1 To 10
+            For c As Integer = 2 To 3
+                For r As Integer = 0 To 14
+                    CType(Controls("DataGridView" & i), DataGridView)(c, r).Value = ""
+                Next
+            Next
+        Next
+    End Sub
+
     Private Sub YmdBox1_YmdTextChange(sender As Object, e As System.EventArgs) Handles YmdBox1.YmdTextChange
+        DGVClear()
+
         Dim cnn As New ADODB.Connection
         Dim rs As New ADODB.Recordset
         cnn.Open(topform.DB_NCare)
@@ -147,7 +159,7 @@ Public Class 身長体重
             Dim mojisuu As Integer = Controls("lblDGV" & i & "PSC").Text.Length
             Dim Str As String = Controls("lblDGV" & i & "PSC").Text.Remove(mojisuu - 1, 1)
             Dim personcount As Integer = Val(Str)
-            If rs.RecordCount > 1 Then
+            If rs.RecordCount >= 1 Then
                 While Not rs.EOF
                     For row As Integer = 0 To personcount - 1
                         If Util.checkDBNullValue(DGVType(1, row).Value) = rs.Fields("Nam").Value Then
@@ -175,7 +187,7 @@ Public Class 身長体重
             Dim mojisuu As Integer = Controls("lblDGV" & i & "PSC").Text.Length
             Dim Str As String = Controls("lblDGV" & i & "PSC").Text.Remove(mojisuu - 1, 1)
             Dim personcount As Integer = Val(Str)
-            If rs.RecordCount > 1 Then
+            If rs.RecordCount >= 1 Then
                 While Not rs.EOF
                     For row As Integer = 0 To personcount - 1
                         If Util.checkDBNullValue(DGVType(1, row).Value) = rs.Fields("Nam").Value Then
@@ -204,7 +216,7 @@ Public Class 身長体重
         Dim sqlWeight As String = "select * from Dat9 WHERE Ym = '" & YmdBox1.getADYmStr() & "'"
         rs.Open(sqlWeight, cnn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
 
-        If rs.RecordCount > 1 Then  'その月にデータがあれば更新
+        If rs.RecordCount >= 1 Then  'その月にデータがあれば更新
             Dim Weightsql As String = "DELETE FROM Dat9 WHERE Ym = '" & YmdBox1.getADYmStr() & "'"
             cnn.Execute(Weightsql)
             WeightTuika()
